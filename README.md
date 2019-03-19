@@ -4,8 +4,13 @@ Realizzazione di un sistema per la configurazione di computer assemblati. L’ut
 Altre caratteristiche:
 
 • interfaccia per la gestione dell’archivio delle componenti;
+
 • calcolo del costo finale;
+
 • base di dati;
+
 • configurazione automatica con ottimizzazione dei costi, delle prestazioni, etc. (opzionale);
+
 • interfaccia per la definizione dei vincoli (opzionale);
+
 • applicazione web (opzionale).
