@@ -25,10 +25,11 @@ public class Login extends JFrame {
         background.add(labelPanel, BorderLayout.WEST);
         background.add(formPanel, BorderLayout.CENTER);
         c.add(background);
+
         setVisible(true);
-        setSize(250, 200);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(250, 125);
     }
 }
