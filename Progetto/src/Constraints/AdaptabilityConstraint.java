@@ -1,4 +1,4 @@
 package Constraints;
 
-public class AdaptabilityConstraint {
+public class AdaptabilityConstraint extends AbstractConstraint {
 }
