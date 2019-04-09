@@ -1,3 +1,5 @@
+package Progetto.src.Interface;
+
 import javax.swing.*;
 import java.awt.*;
 
