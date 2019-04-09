@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Login extends JFrame {
+public class Login extends JFrame { //danese
     public Login() {
         super("Login");
         Container c = getContentPane();
