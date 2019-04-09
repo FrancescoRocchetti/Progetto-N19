@@ -62,7 +62,45 @@ public class Resource {
             return this;
         }
 
+        public Builder withNPcie(int nPcie) {
+            this.nPcie= nPcie;
+            return this;
+        }
 
+        public Builder withnBit(int nBit) {
+            this.nBit= nBit;
+            return this;
+        }
+
+        public Builder withNSATA(int nSATA) {
+            this.nSATA= nSATA;
+            return this;
+        }
+
+        public Builder withokCPU(boolean okCPU) {
+            this.okCPU= okCPU;
+            return this;
+        }
+
+        public Builder withokMOBO(boolean okMOBO) {
+            this.okMOBO= okMOBO;
+            return this;
+        }
+
+        public Builder withokRAM(boolean okRAM) {
+            this.okRAM= okRAM;
+            return this;
+        }
+
+        public Builder withokStorage(boolean okStorage) {
+            this.okStorage= okStorage;
+            return this;
+        }
+
+        public Builder withokGPU(boolean okGPU) {
+            this.okGPU=okGPU;
+            return this;
+        }
 
         public Resource build() {
             Resource risorsa = new Resource();
@@ -70,6 +108,15 @@ public class Resource {
             risorsa.power = this.power;
             risorsa.typeSocket = this.typeSocket;
             risorsa.amountRAM=this.amountRAM;
+            risorsa.nPci = this.nPci;
+            risorsa.nPcie = this.nPcie;
+            risorsa.nSATA = this.nSATA;
+            risorsa.nBit = this.nBit;
+            risorsa.okCPU = this.okCPU;
+            risorsa.okMOBO = this.okMOBO;
+            risorsa.okRAM = this.okRAM;
+            risorsa.okStorage = this.okStorage;
+            risorsa.okGPU = this.okGPU;
             return risorsa;
         }
     }
