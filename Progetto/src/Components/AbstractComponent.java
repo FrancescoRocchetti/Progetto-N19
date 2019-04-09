@@ -3,7 +3,7 @@ package Components;
 public abstract class AbstractComponent implements Comparable {
 
     protected String ID;
-    protected double price;
+    protected int price;
     protected int performance;
     protected String brand;
     protected String name;

@@ -5,6 +5,12 @@ public class Resource {
     private int RAMmodules;
     private int power;
 
+    /**
+     * Bisogna inizializzare tutti gli attributi a 0/NULL/Valore standard.
+     * Ciò perchè quando aggiungo o tolgo una componente (ad esempio la CPU)
+     * non tolgo ne aggiungo alcuni attributi di una risorsa (ad esempio banchi di RAM).
+     */
+
     public static class Builder {
         private int RAMmodules;
         private int power;
@@ -34,6 +40,6 @@ public class Resource {
         }
     }
 
-    private Resource() {
+    private Resource() { //costruttore di default reso privato
     }
 }
