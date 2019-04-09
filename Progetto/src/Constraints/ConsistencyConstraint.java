@@ -1,4 +1,4 @@
 package Constraints;
 
-public class ConsistencyConstraint {
+public class ConsistencyConstraint extends AbstractConstraint {
 }

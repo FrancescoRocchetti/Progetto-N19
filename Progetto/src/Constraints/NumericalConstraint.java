@@ -1,4 +1,6 @@
 package Constraints;
 
-public class NumericalConstraint {
+public class NumericalConstraint extends AbstractConstraint {
+
+
 }
