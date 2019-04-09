@@ -1,4 +1,4 @@
-package Progetto.src.Components;
+package Components;
 
 public abstract class AbstractComponent implements Comparable {
 

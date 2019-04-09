@@ -1,4 +1,4 @@
-package Progetto.src.Interface;
+package Interface;
 
 import javax.swing.*;
 import java.awt.*;
