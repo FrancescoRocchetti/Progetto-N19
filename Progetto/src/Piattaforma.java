@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Piattaforma extends JFrame {
+    //mettere tutto a privato
     Container c;
     Toolkit kit;
     Dimension dim;
