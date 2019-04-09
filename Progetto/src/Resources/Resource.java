@@ -1,5 +1,6 @@
 package Resources;
 
+//LA CLASSE E' ANCORA INCOMPLETA
 public class Resource {
     private String typeSocket;
     private int RAMmodules;
