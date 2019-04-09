@@ -23,7 +23,7 @@ public class Resource {
      */
 
     public static class Builder {
-        private int RAMmodules;
+        private int modulesRam;
         private int power;
         private String typeSocket;
         private int amountRAM;
@@ -42,21 +42,34 @@ public class Resource {
             return this;
         }
 
-        public Builder withBanchi(int RAMmodules) {
-            this.RAMmodules = RAMmodules;
+        public Builder withModules(int modulesRam) {
+            this.modulesRam = modulesRam;
             return this;
         }
 
-        public Builder withPotenza(int power) {
+        public Builder withPower(int power) {
             this.power = power;
             return this;
         }
-        
+
+        public Builder withAmountRAM(int amountRAM) {
+            this.amountRAM= amountRAM;
+            return this;
+        }
+
+        public Builder withNPci(int nPci) {
+            this.nPci= nPci;
+            return this;
+        }
+
+
+
         public Resource build() {
             Resource risorsa = new Resource();
-            risorsa.modulesRAM = this.RAMmodules;
+            risorsa.modulesRAM = this.modulesRam;
             risorsa.power = this.power;
             risorsa.typeSocket = this.typeSocket;
+            risorsa.amountRAM=this.amountRAM;
             return risorsa;
         }
     }
