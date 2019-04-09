@@ -1,4 +1,4 @@
-import Progetto.src.Interface.Piattaforma;
+import Interface.Piattaforma;
 
 public class test {
     public static void main(String[] args) {
