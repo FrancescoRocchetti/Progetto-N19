@@ -1,7 +1,7 @@
 package InterfacingDB;
 import java.io.*;
 
-public class Reading {
+public class Reading throws IOException {
   private BufferedReader buffer;
   public Reading(){
     buffer = new BufferedReader(new FileReader("prova.csv"));
