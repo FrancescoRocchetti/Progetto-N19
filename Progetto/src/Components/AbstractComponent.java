@@ -13,6 +13,10 @@ public abstract class AbstractComponent implements Comparable {
     protected String description;
 
     public AbstractComponent() {
+        /**
+            Questo costruttore di defoult serve solo per le classi non ancora ultimate (altrimenti il programma non compila)
+            rimuvovere quando ogni classe in Components ha un suo costruttore
+        */
     }
 
     public AbstractComponent(String[] input) {
