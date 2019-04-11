@@ -130,17 +130,20 @@ public class Piattaforma extends JFrame {
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
 
-    private ArrayList<String> readFileComponents(String fileName) throws IOException {
+    private ArrayList<String> readFileComponents(String fileName) {
         ArrayList<String> dati = new ArrayList<>();
         String s;
         File file = new File(fileName);
         if(file.exists()) {
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            while((s = br.readLine()) != null) {
-                dati.add(s);
+            try {
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                while((s = br.readLine()) != null)
+                    dati.add(s);
+                br.close();
+            } catch (IOException e) {
+                // doSomething
             }
-            br.close();
         }
         return dati;
     }
