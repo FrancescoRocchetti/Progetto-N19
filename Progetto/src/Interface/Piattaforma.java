@@ -2,41 +2,39 @@ package Interface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
-    Container c;
-    Toolkit kit;
-    Dimension dim;
-    JTabbedPane components;
-    JMenuBar menuBar;
-    JMenu file;
-    JMenu help;
-    JMenuItem newConfig;
-    JMenuItem guide;
-    JPanel bckg;
-    JScrollPane mobo;
-    JPanel cpu;
-    JPanel ram;
-    JPanel storage;
-    JPanel videoCard;
-    JPanel powerSupply;
+    private Container c;
+    private Toolkit kit;
+    private Dimension dim;
+    private JTabbedPane components;
+    private JMenuBar menuBar;
+    private JMenu file;
+    private JMenu help;
+    private JMenuItem newConfig;
+    private JMenuItem guide;
+    private JPanel bckg;
+    private JScrollPane mobo;
+    private JPanel cpu;
+    private JPanel ram;
+    private JPanel storage;
+    private JPanel videoCard;
+    private JPanel powerSupply;
 
-    JPanel infoBox;
-    JPanel listItem;
-    JTextArea items;
-    JScrollPane scroll;
-    JTextField price;
-    JLabel total;
-    JPanel totPanel;
-    JPanel imgPane;
+    private JPanel infoBox;
+    private JPanel listItem;
+    private JTextArea items;
+    private JScrollPane scroll;
+    private JTextField price;
+    private JLabel total;
+    private JPanel totPanel;
+    private JPanel imgPane;
 
-    JRadioButton mobo1;
-    JRadioButton mobo2;
-    ButtonGroup mobos;
-    JList list;
-
-    int x_disp;
-    int y_disp;
+    private JRadioButton mobo1;
+    private JRadioButton mobo2;
+    private ButtonGroup mobos;
 
     public Piattaforma() {
         super("Configuratore di PC");
@@ -57,7 +55,6 @@ public class Piattaforma extends JFrame {
         listItem = new JPanel(new BorderLayout());
         items = new JTextArea();
         scroll = new JScrollPane(items, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        //scroll.add(items);
         totPanel = new JPanel(new GridLayout(1, 2));
         total = new JLabel("Totale:");
         price = new JTextField();
@@ -131,5 +128,20 @@ public class Piattaforma extends JFrame {
         setSize(1000,500);
         setResizable(false);
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+    }
+
+    private ArrayList<String> readFileComponents(String fileName) throws IOException {
+        ArrayList<String> dati = new ArrayList<>();
+        String s;
+        File file = new File(fileName);
+        if(file.exists()) {
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            while((s = br.readLine()) != null) {
+                dati.add(s);
+            }
+            br.close();
+        }
+        return dati;
     }
 }
