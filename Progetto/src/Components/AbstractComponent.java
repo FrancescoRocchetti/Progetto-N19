@@ -4,7 +4,7 @@ import Resources.Resource;
 
 public abstract class AbstractComponent implements Comparable {
 
-    protected String ID;
+    String ID;
     protected int price;
     protected int performance;
     protected String name;

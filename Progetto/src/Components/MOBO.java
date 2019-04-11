@@ -5,4 +5,6 @@ public class MOBO extends AbstractComponent {
     public int compareTo(Object o) {
         return 0;
     }*/
+    public MOBO() {
+    }
 }

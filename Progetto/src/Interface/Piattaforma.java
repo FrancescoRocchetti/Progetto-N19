@@ -17,6 +17,7 @@ public class Piattaforma extends JFrame {
     private JMenuItem guide;
     private JPanel bckg;
     private JScrollPane mobo;
+    private JPanel moboPanel;
     private JPanel cpu;
     private JPanel ram;
     private JPanel storage;
@@ -32,9 +33,11 @@ public class Piattaforma extends JFrame {
     private JPanel totPanel;
     private JPanel imgPane;
 
-    private JRadioButton mobo1;
-    private JRadioButton mobo2;
-    private ButtonGroup mobos;
+    private ArrayList<JRadioButton> comp;
+    private ArrayList<String> letture;
+    private String[] elementoCorrente;
+
+    private int nMobo = 0;
 
     public Piattaforma() {
         super("Configuratore di PC");
@@ -45,7 +48,8 @@ public class Piattaforma extends JFrame {
         c = getContentPane();
         components = new JTabbedPane();
         bckg = new JPanel(new BorderLayout());
-        mobo = new JScrollPane(new JPanel(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        moboPanel = new JPanel();
+        mobo = new JScrollPane(moboPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         cpu = new JPanel();
         ram = new JPanel();
         storage = new JPanel();
@@ -75,15 +79,27 @@ public class Piattaforma extends JFrame {
         newConfig = new JMenuItem("New configuration");
         guide = new JMenuItem("Guide");
 
-        mobo1 = new JRadioButton();
-        mobo1.setText("Mobo 1");
-        mobo2 = new JRadioButton();
-        mobo2.setText("Mobo 2");
-        mobos = new ButtonGroup();
-        mobos.add(mobo1);
-        mobos.add(mobo2);
-        mobo.add(mobo1);
-        mobo.add(mobo2);
+        comp = new ArrayList<>(); // ArrayList di JRadioButton
+        letture = new ArrayList<>(); // ArrayList di String
+        letture = readFileComponents("Progetto/src/InterfacingDB/prova.txt");
+        // test funzionamento lettura: OK
+        for(String s : letture) {
+            System.out.println(s);
+        }
+        // fine test
+        ButtonGroup bg = new ButtonGroup();
+        elementoCorrente = new String[6];
+        for(int i = 0; i < letture.size(); i++) {
+            elementoCorrente = letture.get(i).split(";");
+            if(elementoCorrente[1].equalsIgnoreCase("mobo")) {
+                JRadioButton motherBoard = new JRadioButton(elementoCorrente[2] + " " + elementoCorrente[3] + " " + elementoCorrente[4]);
+                comp.add(nMobo, motherBoard);
+                bg.add(comp.get(nMobo));
+                moboPanel.add(comp.get(nMobo));
+                nMobo++;
+            }
+        }
+        moboPanel.setLayout(new GridLayout(nMobo, 1));
 
         // Aggiunta componenti
         file.add(newConfig);
@@ -121,6 +137,7 @@ public class Piattaforma extends JFrame {
 
         this.setJMenuBar(menuBar);
         c.add(bckg);
+
 
         // Opzioni frame
         setVisible(true);
