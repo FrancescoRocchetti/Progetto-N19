@@ -6,8 +6,8 @@ public class Reading{
   public Reading() throws IOException {
     buffer = new BufferedReader(new FileReader("prova.csv"));
   }
-  
-  public String[] read(){
+
+  public String[] read() throws IOException {
     String line = buffer.readLine();
     if(line!=null){
       return line.split(";");
