@@ -8,7 +8,7 @@ public class Reading{
   }
   
   public String[] read(){
-    String line = buffer.ReadLine();
+    String line = buffer.readLine();
     if(line!=null){
       return line.split(";");
     } else {
