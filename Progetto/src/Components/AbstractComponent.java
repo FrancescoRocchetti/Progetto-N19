@@ -7,14 +7,42 @@ public abstract class AbstractComponent implements Comparable {
     protected String ID;
     protected int price;
     protected int performance;
-    protected String brand; // togliere
     protected String name;
     protected int quantity;
     protected Resource resource;
+    protected String description;
 
+    public AbstractComponent() {
+    }
+
+    public AbstractComponent(String[] input) {
+        this.price=Integer.parseInt(input[4]);
+        this.performance=Integer.parseInt(input[3]);
+        this.quantity=Integer.parseInt(input[5]);
+        this.ID=input[0];
+    }
+
+
+    public int getPerformance() {
+        return performance;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
 
     public int getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        AbstractComponent c = (AbstractComponent) o;
+        return this.performance - c.getPerformance();
     }
 
     @Override
@@ -23,7 +51,6 @@ public abstract class AbstractComponent implements Comparable {
                 "ID='" + ID + '\'' +
                 ", price=" + price +
                 ", performance=" + performance +
-                ", brand='" + brand + '\'' +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 '}';

@@ -123,4 +123,56 @@ public class Resource {
 
     private Resource() { //costruttore di default reso privato
     }
+
+    public String getTypeSocket() {
+        return typeSocket;
+    }
+
+    public int getModulesRAM() {
+        return modulesRAM;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public int getAmountRAM() {
+        return amountRAM;
+    }
+
+    public int getnPci() {
+        return nPci;
+    }
+
+    public int getnPcie() {
+        return nPcie;
+    }
+
+    public int getnSATA() {
+        return nSATA;
+    }
+
+    public int getnBit() {
+        return nBit;
+    }
+
+    public boolean isOkCPU() {
+        return okCPU;
+    }
+
+    public boolean isOkMOBO() {
+        return okMOBO;
+    }
+
+    public boolean isOkRAM() {
+        return okRAM;
+    }
+
+    public boolean isOkStorage() {
+        return okStorage;
+    }
+
+    public boolean isOkGPU() {
+        return okGPU;
+    }
 }

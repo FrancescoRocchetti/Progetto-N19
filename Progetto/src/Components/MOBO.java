@@ -1,8 +1,8 @@
 package Components;
 
 public class MOBO extends AbstractComponent {
-    @Override
+    /*@Override
     public int compareTo(Object o) {
         return 0;
-    }
+    }*/
 }

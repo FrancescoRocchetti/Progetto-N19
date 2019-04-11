@@ -1,8 +1,7 @@
 import Interface.Piattaforma;
 
-public class test {
+public class Manager {
     public static void main(String[] args) {
-        //Manager m = new Manager();
         Piattaforma p = new Piattaforma();
     }
 }
