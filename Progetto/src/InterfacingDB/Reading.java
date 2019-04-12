@@ -1,4 +1,6 @@
 package InterfacingDB;
+import com.sun.jdi.TypeComponent;
+
 import java.io.*;
 
 /*
@@ -22,6 +24,18 @@ public class Reading{
     String line = buffer.readLine();
     if(line!=null)
       return line.split(";");
+    buffer.close();
+    return null;
+  }
+
+  public String[] read(TypeComponent comp) throws IOException {
+    String line = buffer.readLine();
+    while (line != null) {
+      if (line.split(";")[1].equals(comp.name()))
+        return line.split(";");
+      line = buffer.readLine();
+    }
+    buffer.close();
     return null;
   }
 }
