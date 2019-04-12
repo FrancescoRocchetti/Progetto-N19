@@ -13,8 +13,10 @@ public class Piattaforma extends JFrame {
     private JMenuBar menuBar;
     private JMenu file;
     private JMenu help;
+    private JMenu login;
     private JMenuItem newConfig;
     private JMenuItem guide;
+    private JMenuItem logAdmin;
     private JPanel bckg;
     private JScrollPane mobo;
     private JPanel moboPanel;
@@ -79,8 +81,10 @@ public class Piattaforma extends JFrame {
         imgPane.add(new JLabel("Foto componente scelto"));
         menuBar = new JMenuBar();
         file = new JMenu("File");
+        login = new JMenu("Login");
         help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
+        logAdmin = new JMenuItem("Admin privileges");
         guide = new JMenuItem("Guide");
 
         comp = new ArrayList<>(); // ArrayList di JRadioButton
@@ -107,8 +111,10 @@ public class Piattaforma extends JFrame {
 
         // Aggiunta componenti
         file.add(newConfig);
+        login.add(logAdmin);
         help.add(guide);
         menuBar.add(file);
+        menuBar.add(login);
         menuBar.add(help);
 
         components.addTab("Scheda madre", mobo);
