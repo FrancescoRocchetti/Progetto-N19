@@ -1,11 +1,16 @@
 package Interface;
 
+import InterfacingDB.PCParts;
+import InterfacingDB.Reading;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
+
+    private ButtonGroup bg;
     private Container c;
     private Toolkit kit;
     private Dimension dim;
@@ -87,7 +92,7 @@ public class Piattaforma extends JFrame {
         logAdmin = new JMenuItem("Admin privileges");
         guide = new JMenuItem("Guide");
 
-        comp = new ArrayList<>(); // ArrayList di JRadioButton
+        /*Versione di quel brutto gay di Teo
         letture = new ArrayList<>(); // ArrayList di String
         letture = readFileComponents("Progetto/src/InterfacingDB/prova.txt");
         // test funzionamento lettura: OK
@@ -95,7 +100,7 @@ public class Piattaforma extends JFrame {
             System.out.println(s);
         }
         // fine test
-        ButtonGroup bg = new ButtonGroup();
+
         elementoCorrente = new String[6];
         for (String componente : letture) {
             elementoCorrente = componente.split(";");
@@ -106,7 +111,15 @@ public class Piattaforma extends JFrame {
                 moboPanel.add(comp.get(nMobo));
                 nMobo++;
             }
+        }*/
+        //La mia bella e prosperosa
+        try {
+            nMobo = obtainParts(PCParts.MOBO, moboPanel);
+        } catch (IOException e) {
+            System.err.println("Errore nella lettura");
         }
+
+
         moboPanel.setLayout(new GridLayout(nMobo, 1, 0, 0));
 
         // Aggiunta componenti
@@ -172,5 +185,21 @@ public class Piattaforma extends JFrame {
             }
         }
         return dati;
+    }
+
+    private int obtainParts(PCParts components, JPanel panel) throws IOException {
+        int i = 0;
+        String[] arr;
+        Reading dati = new Reading();
+        comp = new ArrayList<>(); // ArrayList di JRadioButton
+        bg = new ButtonGroup();
+        while((arr = dati.read(components)) != null){
+            JRadioButton motherBoard = new JRadioButton(arr[2] + " " + arr[3] + " " + arr[4]);
+            comp.add(i, motherBoard);
+            bg.add(comp.get(i));
+            panel.add(comp.get(i));
+            i++;
+        }
+        return i;
     }
 }
