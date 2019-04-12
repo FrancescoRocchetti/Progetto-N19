@@ -50,6 +50,8 @@ public class Piattaforma extends JFrame {
         bckg = new JPanel(new BorderLayout());
         moboPanel = new JPanel();
         mobo = new JScrollPane(moboPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        mobo.getVerticalScrollBar().setUnitIncrement(10);
+        mobo.getHorizontalScrollBar().setUnitIncrement(10);
         cpu = new JPanel();
         ram = new JPanel();
         storage = new JPanel();
@@ -59,6 +61,8 @@ public class Piattaforma extends JFrame {
         listItem = new JPanel(new BorderLayout());
         items = new JTextArea();
         scroll = new JScrollPane(items, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.getVerticalScrollBar().setUnitIncrement(10);
+        scroll.getHorizontalScrollBar().setUnitIncrement(10);
         totPanel = new JPanel(new GridLayout(1, 2));
         total = new JLabel("Totale:");
         price = new JTextField();
@@ -89,9 +93,9 @@ public class Piattaforma extends JFrame {
         // fine test
         ButtonGroup bg = new ButtonGroup();
         elementoCorrente = new String[6];
-        for(int i = 0; i < letture.size(); i++) {
-            elementoCorrente = letture.get(i).split(";");
-            if(elementoCorrente[1].equalsIgnoreCase("mobo")) {
+        for (String aLetture : letture) {
+            elementoCorrente = aLetture.split(";");
+            if (elementoCorrente[1].equalsIgnoreCase("mobo")) {
                 JRadioButton motherBoard = new JRadioButton(elementoCorrente[2] + " " + elementoCorrente[3] + " " + elementoCorrente[4]);
                 comp.add(nMobo, motherBoard);
                 bg.add(comp.get(nMobo));
@@ -99,7 +103,7 @@ public class Piattaforma extends JFrame {
                 nMobo++;
             }
         }
-        moboPanel.setLayout(new GridLayout(nMobo, 1));
+        moboPanel.setLayout(new GridLayout(nMobo, 1, 0, 0));
 
         // Aggiunta componenti
         file.add(newConfig);
