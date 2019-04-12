@@ -11,19 +11,22 @@ public abstract class AbstractComponent implements Comparable {
     protected int quantity;
     protected Resource resource;
     protected String description;
+    protected String[] caratteristiche;
 
     public AbstractComponent() {
         /**
-            Questo costruttore di defoult serve solo per le classi non ancora ultimate (altrimenti il programma non compila)
+            Questo costruttore di default serve solo per le classi non ancora ultimate (altrimenti il programma non compila)
             rimuvovere quando ogni classe in Components ha un suo costruttore
         */
     }
 
     public AbstractComponent(String[] input) {
         this.price=Integer.parseInt(input[4]);
-        this.performance=Integer.parseInt(input[3]);
-        this.quantity=Integer.parseInt(input[5]);
+        this.performance=Integer.parseInt(input[5]);
+        this.quantity=Integer.parseInt(input[3]);
         this.ID=input[0];
+        this.caratteristiche = input[2].split("_");
+        this.name = caratteristiche[0];
     }
 
 

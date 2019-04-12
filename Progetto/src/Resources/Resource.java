@@ -10,6 +10,7 @@ public class Resource {
     private int nPcie;
     private int nSATA;
     private int nBit;
+    private String typeRAM;
     private boolean okCPU; //attributi ok valutano se ci sono i pezzi fondamentali
     private boolean okMOBO;
     private boolean okRAM;
@@ -31,11 +32,17 @@ public class Resource {
         private int nPcie;
         private int nSATA;
         private int nBit;
+        private String typeRAM;
         private boolean okCPU;
         private boolean okMOBO;
         private boolean okRAM;
         private boolean okStorage;
         private boolean okGPU;
+
+        public Builder withTypeRAM(String typeRAM){
+            this.typeRAM = typeRAM;
+            return this;
+        }
 
         public Builder withSocket(String typeSocket) {
             this.typeSocket = typeSocket;
@@ -112,6 +119,7 @@ public class Resource {
             risorsa.nPcie = this.nPcie;
             risorsa.nSATA = this.nSATA;
             risorsa.nBit = this.nBit;
+            risorsa.typeRAM = this.typeRAM;
             risorsa.okCPU = this.okCPU;
             risorsa.okMOBO = this.okMOBO;
             risorsa.okRAM = this.okRAM;
@@ -154,6 +162,10 @@ public class Resource {
 
     public int getnBit() {
         return nBit;
+    }
+
+    public String getTypeRAM() {
+        return typeRAM;
     }
 
     public boolean isOkCPU() {
