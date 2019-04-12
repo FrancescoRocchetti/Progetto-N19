@@ -97,8 +97,8 @@ public class Piattaforma extends JFrame {
         // fine test
         ButtonGroup bg = new ButtonGroup();
         elementoCorrente = new String[6];
-        for (String aLetture : letture) {
-            elementoCorrente = aLetture.split(";");
+        for (String componente : letture) {
+            elementoCorrente = componente.split(";");
             if (elementoCorrente[1].equalsIgnoreCase("mobo")) {
                 JRadioButton motherBoard = new JRadioButton(elementoCorrente[2] + " " + elementoCorrente[3] + " " + elementoCorrente[4]);
                 comp.add(nMobo, motherBoard);
@@ -147,7 +147,6 @@ public class Piattaforma extends JFrame {
 
         this.setJMenuBar(menuBar);
         c.add(bckg);
-
 
         // Opzioni frame
         setVisible(true);
