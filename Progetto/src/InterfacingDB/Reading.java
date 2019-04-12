@@ -1,6 +1,4 @@
 package InterfacingDB;
-import com.sun.jdi.TypeComponent;
-
 import java.io.*;
 
 /*
@@ -11,32 +9,40 @@ import java.io.*;
 
 public class Reading{
   private BufferedReader buffer;
+  private FileInputStream fin;
 
   public Reading() throws IOException {
-    buffer = new BufferedReader(new FileReader("prova.csv"));
+    fin = new FileInputStream("Progetto/src/InterfacingDB/prova.csv");
+    buffer = new BufferedReader(new InputStreamReader(fin));
   }
 
   public Reading(String str) throws IOException {
-    buffer = new BufferedReader(new FileReader(str));
+    fin = new FileInputStream(str);
+    buffer = new BufferedReader(new InputStreamReader(fin));
   }
 
   public String[] read() throws IOException {
     String line = buffer.readLine();
     if(line!=null)
       return line.split(";");
-    buffer.close();
+    returnTop();
     return null;
   }
 
-  public String[] read(TypeComponent comp) throws IOException {
+  public String[] read(PCParts comp) throws IOException {
     String line = buffer.readLine();
     while (line != null) {
       if (line.split(";")[1].equals(comp.name()))
         return line.split(";");
       line = buffer.readLine();
     }
-    buffer.close();
+    returnTop();
     return null;
+  }
+
+  private void returnTop() throws IOException {
+    fin.getChannel().position(0);
+    buffer = new BufferedReader(new InputStreamReader(fin));
   }
 }
 
