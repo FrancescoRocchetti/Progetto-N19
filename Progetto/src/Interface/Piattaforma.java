@@ -40,7 +40,6 @@ public class Piattaforma extends JFrame {
     private JPanel totPanel;
     private JPanel imgPane;
 
-    private ArrayList<JRadioButton> comp;
     private ArrayList<String> letture;
     private String[] elementoCorrente;
 
@@ -191,13 +190,11 @@ public class Piattaforma extends JFrame {
         int i = 0;
         String[] arr;
         Reading dati = new Reading();
-        comp = new ArrayList<>(); // ArrayList di JRadioButton
         bg = new ButtonGroup();
         while((arr = dati.read(components)) != null){
-            JRadioButton motherBoard = new JRadioButton(arr[2] + " " + arr[3] + " " + arr[4]);
-            comp.add(i, motherBoard);
-            bg.add(comp.get(i));
-            panel.add(comp.get(i));
+            JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " " + arr[4]);
+            bg.add(comp);
+            panel.add(comp);
             i++;
         }
         return i;
