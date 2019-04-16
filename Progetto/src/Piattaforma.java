@@ -78,7 +78,7 @@ public class Piattaforma extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(500,500);
+        setSize(700,500);
         setResizable(false);
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
