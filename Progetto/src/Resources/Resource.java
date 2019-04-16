@@ -3,6 +3,8 @@ package Resources;
 //LA CLASSE E' ANCORA INCOMPLETA
 public class Resource {
     private String typeSocket;
+    private String dimensionCase;
+    private String dimensionMOBO;
     private int modulesRAM;
     private int power;
     private int amountRAM;
@@ -10,12 +12,15 @@ public class Resource {
     private int nPcie;
     private int nSATA;
     private int nBit;
+    private int nSlot325;
     private String typeRAM;
     private boolean okCPU; //attributi ok valutano se ci sono i pezzi fondamentali
     private boolean okMOBO;
     private boolean okRAM;
     private boolean okStorage;
     private boolean okGPU; //controlla che GPU sia integrata, se non la è se c'è GPU dedicata
+    private boolean okCase;
+    private boolean okCooler;
 
     /**
      * Bisogna inizializzare tutti gli attributi a 0/NULL/Valore standard.
@@ -27,20 +32,40 @@ public class Resource {
         private int modulesRam;
         private int power;
         private String typeSocket;
+        private String dimensionCase;
+        private String dimensionMOBO;
         private int amountRAM;
         private int nPci;
         private int nPcie;
         private int nSATA;
         private int nBit;
+        private int nSlot325;
         private String typeRAM;
         private boolean okCPU;
         private boolean okMOBO;
         private boolean okRAM;
         private boolean okStorage;
         private boolean okGPU;
+        private boolean okCase;
+        private boolean okCooler;
 
         public Builder withTypeRAM(String typeRAM){
             this.typeRAM = typeRAM;
+            return this;
+        }
+
+        public Builder withDimensionCase(String dimensionCase) {
+            this.dimensionCase = dimensionCase;
+            return this;
+        }
+
+        public Builder withDimensionMOBO(String dimensionMOBO) {
+            this.dimensionMOBO = dimensionMOBO;
+            return this;
+        }
+
+        public Builder withNSlot (int nSlot325) {
+            this.nSlot325 = nSlot325;
             return this;
         }
 
@@ -109,6 +134,16 @@ public class Resource {
             return this;
         }
 
+        public Builder withokCase (boolean okCase) {
+            this.okCase = okCase;
+            return this;
+        }
+
+        public Builder withokCooler(boolean okCooler) {
+            this.okCooler = okCooler;
+            return this;
+        }
+
         public Resource build() {
             Resource risorsa = new Resource();
             risorsa.modulesRAM = this.modulesRam;
@@ -120,11 +155,16 @@ public class Resource {
             risorsa.nSATA = this.nSATA;
             risorsa.nBit = this.nBit;
             risorsa.typeRAM = this.typeRAM;
+            risorsa.dimensionCase = this.dimensionCase;
+            risorsa.dimensionMOBO = this.dimensionMOBO;
+            risorsa.nSlot325 = this.nSlot325;
             risorsa.okCPU = this.okCPU;
             risorsa.okMOBO = this.okMOBO;
             risorsa.okRAM = this.okRAM;
             risorsa.okStorage = this.okStorage;
             risorsa.okGPU = this.okGPU;
+            risorsa.okCase = this.okCase;
+            risorsa.okCooler = this.okCooler;
             return risorsa;
         }
     }
@@ -164,6 +204,12 @@ public class Resource {
         return nBit;
     }
 
+    public int getnSlot325() { return nSlot325;}
+
+    public String getDimensionCase() { return dimensionCase;}
+
+    public String getDimensionMOBO() { return dimensionMOBO;}
+
     public String getTypeRAM() {
         return typeRAM;
     }
@@ -187,4 +233,8 @@ public class Resource {
     public boolean isOkGPU() {
         return okGPU;
     }
+
+    public boolean isOkCase() { return okCase; }
+
+    public boolean isOkCooler() {return okCooler;}
 }

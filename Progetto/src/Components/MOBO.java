@@ -7,11 +7,11 @@ public class MOBO extends AbstractComponent {
     public MOBO(String[] input) {
         super(input);
         resource = new Resource.Builder()
-                .withNSATA(3)//manca numero di sata
+                .withNSATA(Integer.parseInt(caratteristiche[7]))
                 .withSocket(caratteristiche[1])
                 .withModules(Integer.parseInt(caratteristiche[2]))
                 .withTypeRAM(caratteristiche[3])
-                .withPower(0)//manca potenza per la mobo
+                .withPower(Integer.parseInt(caratteristiche[8]))
                 .withNPci(Integer.parseInt(caratteristiche[5]))
                 .withNPcie(Integer.parseInt(caratteristiche[4]))
                 .withokMOBO(true)

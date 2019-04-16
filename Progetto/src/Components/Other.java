@@ -6,6 +6,8 @@ public class Other extends AbstractComponent {
         super(input);
     }
 
+
+
     /*@Override
     public int compareTo(Object o) {
         return 0;
