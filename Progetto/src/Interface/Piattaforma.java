@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -27,6 +29,8 @@ public class Piattaforma extends JFrame {
     private JMenuItem guide;
     private JMenuItem logAdmin;
     private JPanel bckg;
+    private GestoreScelte gs;
+    private double tot;
 
     private JPanel[] panels;
     private JScrollPane[] scrollPanes;
@@ -39,12 +43,6 @@ public class Piattaforma extends JFrame {
     private JLabel total;
     private JPanel totPanel;
     private JPanel imgPane;
-
-    private ArrayList<String> letture;
-    private String[] elementoCorrente;
-
-    private int nMobo = 0;
-    private int nCPU = 0;
 
     public Piattaforma() {
         super("Configuratore di PC");
@@ -90,6 +88,7 @@ public class Piattaforma extends JFrame {
         help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
         logAdmin = new JMenuItem("Admin privileges");
+        loginListener();
         guide = new JMenuItem("Guide");
         gs = new GestoreScelte();
 
@@ -224,6 +223,16 @@ public class Piattaforma extends JFrame {
         });
     }
 
-    private GestoreScelte gs;
-    private double tot;
+    private void loginListener() {
+        logAdmin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Login l = new Login();
+                Piattaforma.super.setVisible(false);
+                l.setLocationRelativeTo(null);
+            }
+        });
+    }
+
+
 }

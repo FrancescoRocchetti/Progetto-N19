@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Login extends JFrame { //danese
     public Login() {
-        super("Progetto.src.Interface.Login");
+        super("Login");
         Container c = getContentPane();
         JPanel background = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));

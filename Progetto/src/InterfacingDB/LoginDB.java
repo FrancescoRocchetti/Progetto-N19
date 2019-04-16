@@ -1,4 +1,4 @@
 package InterfacingDB;
 
-public class Login {
+public class LoginDB {
 }
