@@ -11,9 +11,13 @@ public class LoginDB {
         buffer = new BufferedReader(new FileReader("Progetto/src/InterfacingDB/prova.csv"));
     }
 
-    public void login(String user, String password){
-        
-
+    public boolean login(String user, String password) throws IOException {
+        String str;
+        while ((str = buffer.readLine())!=null){
+            if(str.split(";")[0].equals(user) && str.split(";")[1].equals(password))
+                return true;
+        }
+        return false;
     }
 
 
