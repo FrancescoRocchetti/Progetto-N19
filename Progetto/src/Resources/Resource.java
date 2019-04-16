@@ -20,6 +20,7 @@ public class Resource {
     private boolean okStorage;
     private boolean okGPU; //controlla che GPU sia integrata, se non la è se c'è GPU dedicata
     private boolean okCase;
+    private boolean okCooler;
 
     /**
      * Bisogna inizializzare tutti gli attributi a 0/NULL/Valore standard.
@@ -46,6 +47,7 @@ public class Resource {
         private boolean okStorage;
         private boolean okGPU;
         private boolean okCase;
+        private boolean okCooler;
 
         public Builder withTypeRAM(String typeRAM){
             this.typeRAM = typeRAM;
@@ -137,6 +139,11 @@ public class Resource {
             return this;
         }
 
+        public Builder withokCooler(boolean okCooler) {
+            this.okCooler = okCooler;
+            return this;
+        }
+
         public Resource build() {
             Resource risorsa = new Resource();
             risorsa.modulesRAM = this.modulesRam;
@@ -150,13 +157,14 @@ public class Resource {
             risorsa.typeRAM = this.typeRAM;
             risorsa.dimensionCase = this.dimensionCase;
             risorsa.dimensionMOBO = this.dimensionMOBO;
+            risorsa.nSlot325 = this.nSlot325;
             risorsa.okCPU = this.okCPU;
             risorsa.okMOBO = this.okMOBO;
             risorsa.okRAM = this.okRAM;
             risorsa.okStorage = this.okStorage;
             risorsa.okGPU = this.okGPU;
             risorsa.okCase = this.okCase;
-            risorsa.nSlot325 = this.nSlot325;
+            risorsa.okCooler = this.okCooler;
             return risorsa;
         }
     }
@@ -227,4 +235,6 @@ public class Resource {
     }
 
     public boolean isOkCase() { return okCase; }
+
+    public boolean isOkCooler() {return okCooler;}
 }
