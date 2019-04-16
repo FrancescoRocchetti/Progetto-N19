@@ -227,7 +227,7 @@ public class Piattaforma extends JFrame {
         logAdmin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Login l = new Login();
+                Login l = new Login(Piattaforma.this);
                 Piattaforma.super.setVisible(false);
                 l.setLocationRelativeTo(null);
             }
