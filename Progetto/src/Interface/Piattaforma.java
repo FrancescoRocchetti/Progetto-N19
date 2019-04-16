@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
 
+    private static final int CATEGORIES = 9;
+
     private ButtonGroup bg;
     private Container c;
     private Toolkit kit;
@@ -23,13 +25,9 @@ public class Piattaforma extends JFrame {
     private JMenuItem guide;
     private JMenuItem logAdmin;
     private JPanel bckg;
-    private JScrollPane mobo;
-    private JPanel moboPanel;
-    private JPanel cpu;
-    private JPanel ram;
-    private JPanel storage;
-    private JPanel videoCard;
-    private JPanel powerSupply;
+
+    private JPanel[] panels;
+    private JScrollPane[] scrollPanes;
 
     private JPanel infoBox;
     private JPanel listItem;
@@ -44,6 +42,7 @@ public class Piattaforma extends JFrame {
     private String[] elementoCorrente;
 
     private int nMobo = 0;
+    private int nCPU = 0;
 
     public Piattaforma() {
         super("Configuratore di PC");
@@ -54,15 +53,14 @@ public class Piattaforma extends JFrame {
         c = getContentPane();
         components = new JTabbedPane();
         bckg = new JPanel(new BorderLayout());
-        moboPanel = new JPanel();
-        mobo = new JScrollPane(moboPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        mobo.getVerticalScrollBar().setUnitIncrement(10);
-        mobo.getHorizontalScrollBar().setUnitIncrement(10);
-        cpu = new JPanel();
-        ram = new JPanel();
-        storage = new JPanel();
-        videoCard = new JPanel();
-        powerSupply = new JPanel();
+        panels = new JPanel[CATEGORIES];
+        scrollPanes = new JScrollPane[CATEGORIES];
+        for(int i = 0; i < CATEGORIES; i++) {
+            panels[i] = new JPanel();
+            scrollPanes[i] = new JScrollPane(panels[i], JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollPanes[i].getHorizontalScrollBar().setUnitIncrement(10);
+            scrollPanes[i].getVerticalScrollBar().setUnitIncrement(10);
+        }
         infoBox = new JPanel(new GridLayout(2,1));
         listItem = new JPanel(new BorderLayout());
         items = new JTextArea();
@@ -113,13 +111,18 @@ public class Piattaforma extends JFrame {
         }*/
         //La mia bella e prosperosa
         try {
-            nMobo = obtainParts(PCParts.MOBO, moboPanel);
+            obtainParts(PCParts.MOBO, panels[0]);
+            obtainParts(PCParts.CPU, panels[1]);
+            obtainParts(PCParts.RAM, panels[2]);
+            obtainParts(PCParts.STORAGE, panels[3]);
+            obtainParts(PCParts.GPU, panels[4]);
+            obtainParts(PCParts.PSU, panels[5]);
         } catch (IOException e) {
             System.err.println("Errore nella lettura");
         }
 
 
-        moboPanel.setLayout(new GridLayout(nMobo, 1, 0, 0));
+        //moboPanel.setLayout(new GridLayout(nMobo, 1, 0, 0));
 
         // Aggiunta componenti
         file.add(newConfig);
@@ -129,23 +132,25 @@ public class Piattaforma extends JFrame {
         menuBar.add(login);
         menuBar.add(help);
 
-        components.addTab("Scheda madre", mobo);
-        components.addTab("CPU", cpu);
-        components.addTab("RAM", ram);
-        components.addTab("Storage", storage);
-        components.addTab("Video card", videoCard);
-        components.addTab("Power Supply", powerSupply);
+        components.addTab("Scheda madre", scrollPanes[0]);
+        components.addTab("CPU", scrollPanes[1]);
+        components.addTab("RAM", scrollPanes[2]);
+        components.addTab("Storage", scrollPanes[3]);
+        components.addTab("Video card", scrollPanes[4]);
+        components.addTab("Power Supply", scrollPanes[5]);
 
-        components.setEnabledAt(1, false);
+        /*
+        components.setEnabledAt(1, true);
         components.setBackgroundAt(1, Color.GRAY);
-        components.setEnabledAt(2, false);
+        components.setEnabledAt(2, true);
         components.setBackgroundAt(2, Color.GRAY);
-        components.setEnabledAt(3, false);
+        components.setEnabledAt(3, true);
         components.setBackgroundAt(3, Color.GRAY);
-        components.setEnabledAt(4, false);
+        components.setEnabledAt(4, true);
         components.setBackgroundAt(4, Color.GRAY);
-        components.setEnabledAt(5, false);
+        components.setEnabledAt(5, true);
         components.setBackgroundAt(5, Color.GRAY);
+        */
 
         totPanel.add(total);
         totPanel.add(price);
@@ -168,6 +173,7 @@ public class Piattaforma extends JFrame {
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
 
+    /*
     private ArrayList<String> readFileComponents(String fileName) {
         ArrayList<String> dati = new ArrayList<>();
         String s;
@@ -185,8 +191,9 @@ public class Piattaforma extends JFrame {
         }
         return dati;
     }
+    */
 
-    private int obtainParts(PCParts components, JPanel panel) throws IOException {
+    private void obtainParts(PCParts components, JPanel panel) throws IOException {
         int i = 0;
         String[] arr;
         Reading dati = new Reading();
@@ -197,6 +204,6 @@ public class Piattaforma extends JFrame {
             panel.add(comp);
             i++;
         }
-        return i;
+        panel.setLayout(new GridLayout(i, 1, 0, 0));
     }
 }
