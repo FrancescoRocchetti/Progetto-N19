@@ -1,9 +1,11 @@
+package Interface;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Login extends JFrame {
+public class Login extends JFrame { //danese
     public Login() {
-        super("Login");
+        super("Progetto.src.Interface.Login");
         Container c = getContentPane();
         JPanel background = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
