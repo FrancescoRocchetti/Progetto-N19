@@ -13,13 +13,6 @@ public class Case extends AbstractComponent {
                 .withNSlot(Integer.parseInt(caratteristiche[3]))
                 .build();
     }
-
-
-
-
-
-
-
     /*@Override
     public int compareTo(Object o) {
         return 0;
