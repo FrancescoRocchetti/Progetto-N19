@@ -2,9 +2,11 @@ package Interface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class Login extends JFrame { //danese
-    public Login() {
+    public Login(Piattaforma p) {
         super("Login");
         Container c = getContentPane();
         JPanel background = new JPanel(new BorderLayout());
@@ -28,10 +30,46 @@ public class Login extends JFrame { //danese
         background.add(formPanel, BorderLayout.CENTER);
         c.add(background);
 
-        setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent windowEvent) {
+                p.setVisible(true);
+            }
+
+            @Override
+            public void windowIconified(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent windowEvent) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent windowEvent) {
+
+            }
+        });
         setSize(250, 125);
+        setVisible(true);
     }
 }
