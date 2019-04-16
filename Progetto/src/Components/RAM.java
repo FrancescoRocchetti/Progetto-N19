@@ -7,9 +7,9 @@ public class RAM extends AbstractComponent {
     public RAM(String[] input) {
         super(input);
         resource = new Resource.Builder()
-                .withAmountRAM(Integer.parseInt(caratteristiche[2]))
-                .withPower(0-Integer.parseInt("0"))//manca il wattaggio delle RAM
-                .withModules(0)//manca il numero di moduli per confezione di RAM
+                .withAmountRAM(Integer.parseInt(caratteristiche[3]))
+                .withPower(0-Integer.parseInt(caratteristiche[1]))
+                .withModules(Integer.parseInt(caratteristiche[5]))
                 .build();
     }
 
