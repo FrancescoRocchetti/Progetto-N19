@@ -17,8 +17,6 @@ public class LoginDB {
             if(str.split(";")[0].equals(user) && str.split(";")[1].equals(password)) {
                 System.out.println("Login OK");
                 return true;
-            } else {
-                System.err.println("Credenziali errate");
             }
         }
         return false;

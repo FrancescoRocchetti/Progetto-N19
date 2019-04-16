@@ -86,7 +86,11 @@ public class Login extends JFrame { //danese
                     logInDB = new LoginDB();
                     System.out.println(username.getText());
                     System.out.println(password.getPassword());
-                    logInDB.login(username.getText(), String.valueOf(password.getPassword()));
+                    if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
+                        //codice per la modifica del DB
+                    } else {
+                        System.err.println("Accesso non riuscito");
+                    }
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
