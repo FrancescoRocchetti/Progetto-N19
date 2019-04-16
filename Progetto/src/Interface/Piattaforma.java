@@ -24,7 +24,7 @@ public class Piattaforma extends JFrame {
     private JMenuBar menuBar;
     private JMenu file;
     private JMenu help;
-    private JMenu login;
+    private JMenu updateDB;
     private JMenuItem newConfig;
     private JMenuItem guide;
     private JMenuItem logAdmin;
@@ -84,10 +84,10 @@ public class Piattaforma extends JFrame {
         imgPane.add(new JLabel("Foto componente scelto"));
         menuBar = new JMenuBar();
         file = new JMenu("File");
-        login = new JMenu("Login");
+        updateDB = new JMenu("Update DB");
         help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
-        logAdmin = new JMenuItem("Admin privileges");
+        logAdmin = new JMenuItem("Login");
         loginListener();
         guide = new JMenuItem("Guide");
         gs = new GestoreScelte();
@@ -105,10 +105,10 @@ public class Piattaforma extends JFrame {
 
         // Aggiunta componenti
         file.add(newConfig);
-        login.add(logAdmin);
+        updateDB.add(logAdmin);
         help.add(guide);
         menuBar.add(file);
-        menuBar.add(login);
+        menuBar.add(updateDB);
         menuBar.add(help);
 
         components.addTab("Scheda madre", scrollPanes[0]);

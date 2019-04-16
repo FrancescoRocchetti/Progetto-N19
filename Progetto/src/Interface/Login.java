@@ -1,9 +1,14 @@
 package Interface;
 
+import InterfacingDB.LoginDB;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 public class Login extends JFrame { //danese
     public Login(Piattaforma p) {
@@ -70,6 +75,30 @@ public class Login extends JFrame { //danese
             @Override
             public void windowDeactivated(WindowEvent windowEvent) {
 
+            }
+        });
+
+        accedi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginDB logInDB;
+                try {
+                    logInDB = new LoginDB();
+                    System.out.println(username.getText());
+                    System.out.println(password.getPassword());
+                    logInDB.login(username.getText(), String.valueOf(password.getPassword()));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        annulla.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
+                if(reply == JOptionPane.YES_OPTION)
+                    System.exit(1);
             }
         });
     }
