@@ -9,6 +9,7 @@ public class Storage extends AbstractComponent {
         resource = new Resource.Builder()
                 .withokStorage(true)
                 .withNSATA(-1)
+                .withNSlot(-1)
                 .build();
     }
 

@@ -146,6 +146,11 @@ public class Resource {
 
         public Resource build() {
             Resource risorsa = new Resource();
+            risorsa.okCase= false;
+            risorsa.okCooler = false;
+            risorsa.okCPU = false;
+            risorsa.okGPU = false;
+            risorsa.okRAM = false;
             risorsa.modulesRAM = this.modulesRam;
             risorsa.power = this.power;
             risorsa.typeSocket = this.typeSocket;
