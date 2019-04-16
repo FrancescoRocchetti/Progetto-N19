@@ -13,6 +13,7 @@ public abstract class AbstractComponent implements Comparable {
     protected String description;
     protected String[] caratteristiche;
 
+    @Deprecated
     public AbstractComponent() {
         /**
             Questo costruttore di default serve solo per le classi non ancora ultimate (altrimenti il programma non compila)
