@@ -5,6 +5,8 @@ import InterfacingDB.Reading;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -71,10 +73,11 @@ public class Piattaforma extends JFrame {
         total = new JLabel("Totale:");
         price = new JTextField();
         price.setEditable(false);
+        price.setHorizontalAlignment(SwingConstants.RIGHT);
         listItem.setPreferredSize(new Dimension(300, getHeight() / 2));
         listItem.setBorder(BorderFactory.createLineBorder(Color.black));
         listItem.setBackground(Color.lightGray);
-        items.setText("Qui lista componenti");
+        //items.setText("Qui lista componenti");
         items.setEditable(false);
         imgPane = new JPanel();
         imgPane.setPreferredSize(new Dimension(300, getHeight() / 2));
@@ -88,6 +91,7 @@ public class Piattaforma extends JFrame {
         newConfig = new JMenuItem("New configuration");
         logAdmin = new JMenuItem("Admin privileges");
         guide = new JMenuItem("Guide");
+        gs = new GestoreScelte();
 
         /*Versione di quel brutto gay di Teo
         letture = new ArrayList<>(); // ArrayList di String
@@ -199,11 +203,27 @@ public class Piattaforma extends JFrame {
         Reading dati = new Reading();
         bg = new ButtonGroup();
         while((arr = dati.read(components)) != null){
-            JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " " + arr[4]);
+            JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " :" + arr[4]);
+            newActionListener(comp);
             bg.add(comp);
             panel.add(comp);
             i++;
         }
         panel.setLayout(new GridLayout(i, 1, 0, 0));
     }
+
+    private void newActionListener(JRadioButton comp) {
+        comp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                gs.addForDisplay(comp);
+                gs.displayOnPanel(items);
+                tot += Double.parseDouble(comp.getText().split(" :")[1]);
+                price.setText(String.valueOf(tot) + " €");
+            }
+        });
+    }
+
+    private GestoreScelte gs;
+    private double tot;
 }
