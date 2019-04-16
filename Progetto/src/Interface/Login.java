@@ -33,6 +33,9 @@ public class Login extends JFrame { //danese
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(250, 125);
+        setVisible(true);
+
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent windowEvent) {
@@ -69,7 +72,5 @@ public class Login extends JFrame { //danese
 
             }
         });
-        setSize(250, 125);
-        setVisible(true);
     }
 }

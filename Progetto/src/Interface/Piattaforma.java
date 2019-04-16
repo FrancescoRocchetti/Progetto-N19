@@ -92,27 +92,6 @@ public class Piattaforma extends JFrame {
         guide = new JMenuItem("Guide");
         gs = new GestoreScelte();
 
-        /*Versione di quel brutto gay di Teo
-        letture = new ArrayList<>(); // ArrayList di String
-        letture = readFileComponents("Progetto/src/InterfacingDB/prova.txt");
-        // test funzionamento lettura: OK
-        for(String s : letture) {
-            System.out.println(s);
-        }
-        // fine test
-
-        elementoCorrente = new String[6];
-        for (String componente : letture) {
-            elementoCorrente = componente.split(";");
-            if (elementoCorrente[1].equalsIgnoreCase("mobo")) {
-                JRadioButton motherBoard = new JRadioButton(elementoCorrente[2] + " " + elementoCorrente[3] + " " + elementoCorrente[4]);
-                comp.add(nMobo, motherBoard);
-                bg.add(comp.get(nMobo));
-                moboPanel.add(comp.get(nMobo));
-                nMobo++;
-            }
-        }*/
-        //La mia bella e prosperosa
         try {
             obtainParts(PCParts.MOBO, panels[0]);
             obtainParts(PCParts.CPU, panels[1]);
@@ -123,9 +102,6 @@ public class Piattaforma extends JFrame {
         } catch (IOException e) {
             System.err.println("Errore nella lettura");
         }
-
-
-        //moboPanel.setLayout(new GridLayout(nMobo, 1, 0, 0));
 
         // Aggiunta componenti
         file.add(newConfig);
@@ -175,26 +151,6 @@ public class Piattaforma extends JFrame {
         setResizable(false);
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
-
-    /*
-    private ArrayList<String> readFileComponents(String fileName) {
-        ArrayList<String> dati = new ArrayList<>();
-        String s;
-        File file = new File(fileName);
-        if(file.exists()) {
-            try {
-                FileReader fr = new FileReader(file);
-                BufferedReader br = new BufferedReader(fr);
-                while((s = br.readLine()) != null)
-                    dati.add(s);
-                br.close();
-            } catch (IOException e) {
-                // doSomething
-            }
-        }
-        return dati;
-    }
-    */
 
     private void obtainParts(PCParts components, JPanel panel) throws IOException {
         int i = 0;
