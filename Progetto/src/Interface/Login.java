@@ -35,12 +35,6 @@ public class Login extends JFrame { //danese
         background.add(formPanel, BorderLayout.CENTER);
         c.add(background);
 
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(250, 125);
-        setVisible(true);
-
         this.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent windowEvent) {
@@ -88,6 +82,9 @@ public class Login extends JFrame { //danese
                     System.out.println(password.getPassword());
                     if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
                         //codice per la modifica del DB
+                        GestioneComponenti gest = new GestioneComponenti(p,Login.this);
+                        Login.super.setVisible(false);
+
                     } else {
                         System.err.println("Accesso non riuscito");
                     }
@@ -105,5 +102,11 @@ public class Login extends JFrame { //danese
                     System.exit(1);
             }
         });
+
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(250, 125);
+        setVisible(true);
     }
 }

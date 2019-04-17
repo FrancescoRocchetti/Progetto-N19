@@ -26,6 +26,7 @@ public class Piattaforma extends JFrame {
     private JMenu help;
     private JMenu updateDB;
     private JMenuItem newConfig;
+    private JMenuItem exit;
     private JMenuItem guide;
     private JMenuItem logAdmin;
     private JPanel bckg;
@@ -55,13 +56,13 @@ public class Piattaforma extends JFrame {
         bckg = new JPanel(new BorderLayout());
         panels = new JPanel[CATEGORIES];
         scrollPanes = new JScrollPane[CATEGORIES];
-        for(int i = 0; i < CATEGORIES; i++) {
+        for (int i = 0; i < CATEGORIES; i++) {
             panels[i] = new JPanel();
             scrollPanes[i] = new JScrollPane(panels[i], JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollPanes[i].getHorizontalScrollBar().setUnitIncrement(10);
             scrollPanes[i].getVerticalScrollBar().setUnitIncrement(10);
         }
-        infoBox = new JPanel(new GridLayout(2,1));
+        infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
         items = new JTextArea();
         scroll = new JScrollPane(items, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -87,6 +88,7 @@ public class Piattaforma extends JFrame {
         updateDB = new JMenu("Update DB");
         help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
+        exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login");
         loginListener();
         guide = new JMenuItem("Guide");
@@ -103,8 +105,16 @@ public class Piattaforma extends JFrame {
             System.err.println("Errore nella lettura");
         }
 
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         // Aggiunta componenti
         file.add(newConfig);
+        file.add(exit);
         updateDB.add(logAdmin);
         help.add(guide);
         menuBar.add(file);
@@ -147,7 +157,7 @@ public class Piattaforma extends JFrame {
         // Opzioni frame
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(1000,500);
+        setSize(1000, 500);
         setResizable(false);
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
@@ -157,7 +167,7 @@ public class Piattaforma extends JFrame {
         String[] arr;
         Reading dati = new Reading();
         bg = new ButtonGroup();
-        while((arr = dati.read(components)) != null){
+        while ((arr = dati.read(components)) != null) {
             JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " :" + arr[4]);
             newActionListener(comp);
             bg.add(comp);
