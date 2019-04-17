@@ -99,7 +99,8 @@ public class Login extends JFrame { //danese
             public void actionPerformed(ActionEvent e) {
                 int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
                 if(reply == JOptionPane.YES_OPTION)
-                    System.exit(1);
+                    dispose();
+                    //System.exit(1);
             }
         });
 
