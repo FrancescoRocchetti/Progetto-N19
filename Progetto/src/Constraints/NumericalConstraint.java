@@ -2,12 +2,12 @@ package Constraints;
 
 public class NumericalConstraint extends AbstractConstraint {
 
-    private boolean checkPOWER(){
+    private static boolean checkPOWER(){
         return true;
     }
 
-    @Override
-    public boolean check() {
+    //@Override
+    public static boolean check() {
         return (checkPOWER());
     }
 }

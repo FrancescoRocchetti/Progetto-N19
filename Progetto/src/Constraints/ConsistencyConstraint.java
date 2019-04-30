@@ -2,32 +2,32 @@ package Constraints;
 
 public class ConsistencyConstraint extends AbstractConstraint {
 
-    private boolean checkCPU(){
+    private static boolean checkCPU(){
         return true;
     }
 
-    private boolean checkMOBO(){
+    private static boolean checkMOBO(){
         return true;
     }
 
-    private boolean checkRAM(){
+    private static boolean checkRAM(){
         return true;
     }
 
-    private boolean checkPSU(){
+    private static boolean checkPSU(){
         return true;
     }
 
-    private boolean checkGRAPHIC(){
+    private static boolean checkGRAPHIC(){
         return true;
     }
 
-    private boolean checkSTORAGE(){
+    private static boolean checkSTORAGE(){
         return true;
     }
 
-    @Override
-    public boolean check() {
+    //@Override
+    public static boolean check() {
         return (checkCPU() && checkMOBO() && checkRAM()
                 && checkGRAPHIC() && checkPSU() && checkSTORAGE());
     }

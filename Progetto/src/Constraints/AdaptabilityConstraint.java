@@ -2,40 +2,40 @@ package Constraints;
 
 public class AdaptabilityConstraint extends AbstractConstraint {
 
-    private boolean checkMOBOCPU(){
+    private static boolean checkMOBOCPU(){
         return true;
     }
 
-    private boolean checkMOBORAM(){
+    private static boolean checkMOBORAM(){
         return true;
     }
 
-    private boolean checkMOBOGPU(){
+    private static boolean checkMOBOGPU(){
         return true;
     }
 
-    private boolean checkMOBOSTORAGE(){
+    private static boolean checkMOBOSTORAGE(){
         return true;
     }
 
-    private boolean checkCPURAM(){
+    private static boolean checkCPURAM(){
         return true;
     }
 
-    private boolean checkCPUOS(){
+    private static boolean checkCPUOS(){
         return true;
     }
 
-    private boolean checkMOBOCASE(){
+    private static boolean checkMOBOCASE(){
         return true;
     }
 
-    private boolean checkCASESSTORAGE(){
+    private static boolean checkCASESSTORAGE(){
         return true;
     }
 
-    @Override
-    public boolean check() {
+    //@Override
+    public static boolean check() {
         return (checkMOBOCPU() && checkMOBORAM() && checkMOBOGPU() && checkMOBOSTORAGE() &&
                 checkCPURAM() && checkCPUOS() && checkMOBOCASE() && checkCASESSTORAGE());
     }
