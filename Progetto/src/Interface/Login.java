@@ -1,6 +1,6 @@
 package Interface;
 
-import InterfacingDB.LoginDB;
+import InterfacingDB.DeprecatedClasses.LoginDB;
 
 import javax.swing.*;
 import java.awt.*;

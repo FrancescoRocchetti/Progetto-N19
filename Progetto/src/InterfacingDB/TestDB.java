@@ -1,8 +1,10 @@
 package InterfacingDB;
+
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class TestDB {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         Reading r = new Reading();
         String[] str;
 

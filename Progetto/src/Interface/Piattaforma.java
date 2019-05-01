@@ -1,16 +1,13 @@
 package Interface;
 
 import InterfacingDB.PCParts;
-import InterfacingDB.Reading;
+import InterfacingDB.DeprecatedClasses.Reading;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.*;
-import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
 

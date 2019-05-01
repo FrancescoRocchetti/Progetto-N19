@@ -1,48 +1,52 @@
 package InterfacingDB;
-import java.io.*;
 
-/*
- *    E' una versione "primordiale" per leggere l'inventario da un semplice file CSV.
- *    Più tardi verrà fatta una versione più bella per leggere l'inventario da una tabella
- *    hostata su un server SQL.
- */
+import java.sql.*;
 
-public class Reading{
-  private BufferedReader buffer;
-  private FileInputStream fin;
+public class Reading {
+    private static final int ELEMENTS = 5;
+    private Connection conn;
+    private Statement stmt;
+    private ResultSet rs;
+    private boolean done;
 
-  public Reading() throws IOException {
-    fin = new FileInputStream("Progetto/src/InterfacingDB/prova.csv");
-    buffer = new BufferedReader(new InputStreamReader(fin));
-  }
-
-  public Reading(String str) throws IOException {
-    fin = new FileInputStream(str);
-    buffer = new BufferedReader(new InputStreamReader(fin));
-  }
-
-  public String[] read() throws IOException {
-    String line = buffer.readLine();
-    if(line!=null)
-      return line.split(";");
-    returnTop();
-    return null;
-  }
-
-  public String[] read(PCParts comp) throws IOException {
-    String line = buffer.readLine();
-    while (line != null) {
-      if (line.split(";")[1].equals(comp.name()))
-        return line.split(";");
-      line = buffer.readLine();
+    public Reading() throws SQLException {
+        done = true;
+        String url = "jdbc:mysql://localhost:3306/progetto-n19?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String user = "root";
+        String password = "root";
+        conn = DriverManager.getConnection(url,user,password);
+        stmt = conn.createStatement();
     }
-    returnTop();
-    return null;
-  }
 
-  private void returnTop() throws IOException {
-    fin.getChannel().position(0);
-    buffer = new BufferedReader(new InputStreamReader(fin));
-  }
+    public String[] read() throws SQLException {
+        isDone(null);
+        String str[] = new String[ELEMENTS];
+        if (rs.next()) {
+            for(int i = 1; i<ELEMENTS+1 ;i++)
+                str[i-1] = rs.getString(i);
+            return str;
+        }
+        done = true;
+        return null;
+    }
+
+    public String[] read(PCParts comp) throws SQLException {
+        isDone(comp);
+        String str[] = new String[ELEMENTS];
+        while(rs.next()){
+            for(int i = 1; i<ELEMENTS+1 ;i++)
+                str[i-1] = rs.getString(i);
+            return str;
+        }
+        done = true;
+        return null;
+    }
+
+    private void isDone(PCParts comp) throws SQLException {
+        if (done){
+            if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
+            else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
+            done = false;
+        }
+    }
 }
-
