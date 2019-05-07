@@ -35,43 +35,6 @@ public class Login extends JFrame { //danese
         background.add(formPanel, BorderLayout.CENTER);
         c.add(background);
 
-        this.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent windowEvent) {
-                p.setVisible(true);
-            }
-
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowIconified(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent windowEvent) {
-
-            }
-        });
-
         ActionListener accesso = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
