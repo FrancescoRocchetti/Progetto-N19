@@ -29,43 +29,18 @@ public class GestioneComponenti extends JFrame {
         background.add(logout, BorderLayout.SOUTH);
         c.add(background);
 
-        this.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) { }
-
-            @Override
-            public void windowClosing(WindowEvent e) { }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-                p.setVisible(true);
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) { }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) { }
-
-            @Override
-            public void windowActivated(WindowEvent e) { }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) { }
-        });
-
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 dispose();
-                p.setEnabled(true);
+                login.setVisible(true);
             }
         });
 
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        //setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 

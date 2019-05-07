@@ -43,13 +43,12 @@ public class Login extends JFrame { //danese
 
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-
+                p.setVisible(true);
             }
 
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                //p.setVisible(true);
-                p.setEnabled(true);
+
             }
 
             @Override
@@ -102,9 +101,10 @@ public class Login extends JFrame { //danese
             @Override
             public void actionPerformed(ActionEvent e) {
                 int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
-                if(reply == JOptionPane.YES_OPTION)
+                if(reply == JOptionPane.YES_OPTION) {
                     dispose();
-                    //System.exit(1);
+                    p.setVisible(true);
+                }
             }
         });
 
