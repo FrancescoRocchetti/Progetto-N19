@@ -1,6 +1,6 @@
 package Constraints;
 
-public class AdaptabilityConstraint extends AbstractConstraint {
+public class AdaptabilityConstraint implements AbstractConstraint {
 
     private static boolean checkMOBOCPU(){
         return true;

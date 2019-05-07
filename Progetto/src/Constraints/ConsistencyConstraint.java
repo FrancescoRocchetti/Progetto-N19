@@ -1,6 +1,6 @@
 package Constraints;
 
-public class ConsistencyConstraint extends AbstractConstraint {
+public class ConsistencyConstraint implements AbstractConstraint {
 
     private static boolean checkCPU(){
         return true;

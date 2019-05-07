@@ -1,6 +1,6 @@
 package Constraints;
 
-public class NumericalConstraint extends AbstractConstraint {
+public class NumericalConstraint implements AbstractConstraint {
 
     private static boolean checkPOWER(){
         return true;

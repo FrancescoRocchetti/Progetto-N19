@@ -1,10 +1,9 @@
 package Constraints;
 
-public abstract class AbstractConstraint {
+public interface AbstractConstraint {
 
-    /*
-    public boolean check(){
+    static boolean check(){
         return true;
     }
-    */
+
 }
