@@ -30,13 +30,13 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         return true;
     }
 
-    private static boolean checkCASESSTORAGE(){
+    private static boolean checkCASESTORAGE(){
         return true;
     }
 
     //@Override
     public static boolean check() {
         return (checkMOBOCPU() && checkMOBORAM() && checkMOBOGPU() && checkMOBOSTORAGE() &&
-                checkCPURAM() && checkCPUOS() && checkMOBOCASE() && checkCASESSTORAGE());
+                checkCPURAM() && checkCPUOS() && checkMOBOCASE() && checkCASESTORAGE());
     }
 }
