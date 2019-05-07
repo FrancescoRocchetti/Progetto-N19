@@ -48,7 +48,8 @@ public class Login extends JFrame { //danese
 
             @Override
             public void windowClosed(WindowEvent windowEvent) {
-                p.setVisible(true);
+                //p.setVisible(true);
+                p.setEnabled(true);
             }
 
             @Override
@@ -72,7 +73,7 @@ public class Login extends JFrame { //danese
             }
         });
 
-        accedi.addActionListener(new ActionListener() {
+        ActionListener accesso = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LoginDB logInDB;
@@ -92,7 +93,10 @@ public class Login extends JFrame { //danese
                     e1.printStackTrace();
                 }
             }
-        });
+        };
+
+        accedi.addActionListener(accesso);
+        password.addActionListener(accesso);
 
         annulla.addActionListener(new ActionListener() {
             @Override
@@ -110,4 +114,6 @@ public class Login extends JFrame { //danese
         setSize(250, 125);
         setVisible(true);
     }
+
+
 }
