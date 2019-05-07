@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
-public class Login extends JFrame { //danese
+public class Login extends JFrame {
     public Login(Piattaforma p) {
         super("Login");
         Container c = getContentPane();
