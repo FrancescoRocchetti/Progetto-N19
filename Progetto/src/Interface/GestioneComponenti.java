@@ -19,8 +19,6 @@ public class GestioneComponenti extends JFrame {
         background = new JPanel(new BorderLayout());
         logout = new JButton("Logout");
         label = new JLabel("Choose the component to update...");
-        /*logout.setBackground(Color.BLACK);
-        logout.setForeground(Color.WHITE);*/
         c = getContentPane();
         buttonsPanel = new JPanel(new GridLayout(5,2));
         addButtonsToPanel(buttonsPanel);
