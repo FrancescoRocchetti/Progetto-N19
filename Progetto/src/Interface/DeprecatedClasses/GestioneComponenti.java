@@ -1,4 +1,7 @@
-package Interface;
+package Interface.DeprecatedClasses;
+
+import Interface.Login;
+import Interface.Piattaforma;
 
 import javax.swing.*;
 import java.awt.*;

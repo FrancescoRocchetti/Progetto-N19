@@ -41,7 +41,8 @@ public class Piattaforma extends JFrame {
     private JTextField price;
     private JLabel total;
     private JPanel totPanel;
-    private JPanel imgPane;
+    private JPanel checkPane;
+    private JTextArea checkMessage;
 
     public Piattaforma() {
         super("Configuratore di PC");
@@ -77,11 +78,15 @@ public class Piattaforma extends JFrame {
         listItem.setBackground(Color.lightGray);
         //items.setText("Qui lista componenti");
         items.setEditable(false);
-        imgPane = new JPanel();
-        imgPane.setPreferredSize(new Dimension(300, getHeight() / 2));
-        imgPane.setBorder(BorderFactory.createLineBorder(Color.black));
-        imgPane.setBackground(Color.lightGray);
-        imgPane.add(new JLabel("Foto componente scelto"));
+        checkPane = new JPanel();
+        checkMessage = new JTextArea();
+        checkMessage.setEditable(false);
+        checkPane.setPreferredSize(new Dimension(300, getHeight() / 2));
+        checkPane.setBorder(BorderFactory.createLineBorder(Color.black));
+        checkPane.setBackground(Color.LIGHT_GRAY);
+        checkMessage.setBackground(Color.LIGHT_GRAY);
+        checkMessage.setText("CJCJCAHFK");
+        checkPane.add(checkMessage);
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Update DB");
@@ -133,7 +138,7 @@ public class Piattaforma extends JFrame {
         listItem.add(totPanel, BorderLayout.SOUTH);
         listItem.add(scroll, BorderLayout.CENTER);
         infoBox.add(listItem);
-        infoBox.add(imgPane);
+        infoBox.add(checkPane);
 
         bckg.add(infoBox, BorderLayout.EAST);
         bckg.add(components, BorderLayout.CENTER);
@@ -143,7 +148,7 @@ public class Piattaforma extends JFrame {
 
         // Opzioni frame
         setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 500);
         setResizable(false);
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
