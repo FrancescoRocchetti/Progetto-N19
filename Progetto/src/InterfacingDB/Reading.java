@@ -41,6 +41,5 @@ public class Reading {
     private void querySQL(PCParts comp) throws SQLException {
         if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
         else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
-
     }
 }
