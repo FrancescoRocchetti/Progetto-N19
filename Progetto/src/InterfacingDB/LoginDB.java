@@ -9,26 +9,20 @@ public class LoginDB {
     private ResultSet rs;
 
     public LoginDB() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/progetto-n19?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String user = "root";
-        String password = "root";
+        String url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String user = "sql7290902";
+        String password = "9Eb92Yn9qF";
         conn = DriverManager.getConnection(url,user,password);
         stmt = conn.createStatement();
-        rs = stmt.executeQuery("SELECT * from CREDENZIALI");
     }
 
     public boolean login(String user, String password) throws SQLException {
+        rs = stmt.executeQuery("SELECT * from UTENTI");
         while (rs.next()){
             if(rs.getString(1).equals(user) && rs.getString(2).equals(password)) {
-                rs.close();
-                stmt.close();
-                conn.close();
                 return true;
             }
         }
-        rs.close();
-        stmt.close();
-        conn.close();
         return false;
     }
 }
