@@ -11,6 +11,7 @@ public abstract class AbstractComponent implements Comparable {
     protected int quantity;
     protected Resource resource;
     protected String description;
+    protected String type;
     protected String[] caratteristiche;
 
     @Deprecated
@@ -26,6 +27,7 @@ public abstract class AbstractComponent implements Comparable {
         this.performance=Integer.parseInt(input[5]);
         this.quantity=Integer.parseInt(input[3]);
         this.ID=input[0];
+        this.type=input[1];
         this.caratteristiche = input[2].split("_");
         this.name = caratteristiche[0];
     }
@@ -51,6 +53,10 @@ public abstract class AbstractComponent implements Comparable {
     public int compareTo(Object o) {
         AbstractComponent c = (AbstractComponent) o;
         return this.performance - c.getPerformance();
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override
