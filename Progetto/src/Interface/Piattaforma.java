@@ -68,6 +68,7 @@ public class Piattaforma extends JFrame {
         totPanel = new JPanel(new GridLayout(1, 2));
         total = new JLabel("Totale:");
         price = new JTextField();
+        price.setText("0 €");
         price.setEditable(false);
         price.setHorizontalAlignment(SwingConstants.RIGHT);
         listItem.setPreferredSize(new Dimension(300, getHeight() / 2));
@@ -85,6 +86,7 @@ public class Piattaforma extends JFrame {
         updateDB = new JMenu("Update DB");
         help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
+        newConfigListener();
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login");
         loginListener();
@@ -124,19 +126,6 @@ public class Piattaforma extends JFrame {
         components.addTab("Storage", scrollPanes[3]);
         components.addTab("Video card", scrollPanes[4]);
         components.addTab("Power Supply", scrollPanes[5]);
-
-        /*
-        components.setEnabledAt(1, true);
-        components.setBackgroundAt(1, Color.GRAY);
-        components.setEnabledAt(2, true);
-        components.setBackgroundAt(2, Color.GRAY);
-        components.setEnabledAt(3, true);
-        components.setBackgroundAt(3, Color.GRAY);
-        components.setEnabledAt(4, true);
-        components.setBackgroundAt(4, Color.GRAY);
-        components.setEnabledAt(5, true);
-        components.setBackgroundAt(5, Color.GRAY);
-        */
 
         totPanel.add(total);
         totPanel.add(price);
@@ -193,6 +182,18 @@ public class Piattaforma extends JFrame {
                 Login l = new Login(Piattaforma.this);
                 Piattaforma.super.setVisible(false);
                 l.setLocationRelativeTo(null);
+            }
+        });
+    }
+
+    private void newConfigListener() {
+        newConfig.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tot = 0;
+                price.setText("0 €");
+                items.setText("");
+                gs.str.clear();
             }
         });
     }

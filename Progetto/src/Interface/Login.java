@@ -63,11 +63,13 @@ public class Login extends JFrame {
         annulla.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
+                /*int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
                 if(reply == JOptionPane.YES_OPTION) {
                     dispose();
                     p.setVisible(true);
-                }
+                }*/
+                dispose();
+                p.setVisible(true);
             }
         });
 
