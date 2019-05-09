@@ -5,6 +5,7 @@ import InterfacingDB.PCParts;
 
 import java.util.ArrayList;
 
+//classe che gestisce i componenti già scelti
 public class SelectedComponents {
     ArrayList<AbstractComponent> sc;
 
@@ -38,7 +39,7 @@ public class SelectedComponents {
     }
 
     public AbstractComponent getType(PCParts comp){
-
+    //TODO: far restituire arraylist?
         AbstractComponent temp = null;
 
         for(AbstractComponent ac: sc){
