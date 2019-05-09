@@ -7,10 +7,8 @@ public class Reading {
     private Connection conn;
     private Statement stmt;
     private ResultSet rs;
-    private boolean done;
 
     public Reading() throws SQLException {
-        done = true;
         String url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String user = "sql7290902";
         String password = "9Eb92Yn9qF";
@@ -19,34 +17,30 @@ public class Reading {
     }
 
     public String[] read() throws SQLException {
-        isDone(null);
+        querySQL(null);
         String str[] = new String[ELEMENTS];
         if (rs.next()) {
             for(int i = 1; i<ELEMENTS+1 ;i++)
                 str[i-1] = rs.getString(i);
             return str;
         }
-        done = true;
         return null;
     }
 
     public String[] read(PCParts comp) throws SQLException {
-        isDone(comp);
+        querySQL(comp);
         String str[] = new String[ELEMENTS];
         while(rs.next()){
             for(int i = 1; i<ELEMENTS+1 ;i++)
                 str[i-1] = rs.getString(i);
             return str;
         }
-        done = true;
         return null;
     }
 
-    private void isDone(PCParts comp) throws SQLException {
-        if (done){
-            if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
-            else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
-            done = false;
-        }
+    private void querySQL(PCParts comp) throws SQLException {
+        if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
+        else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
+
     }
 }
