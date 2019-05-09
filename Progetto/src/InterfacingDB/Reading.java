@@ -11,9 +11,9 @@ public class Reading {
 
     public Reading() throws SQLException {
         done = true;
-        String url = "jdbc:mysql://localhost:3306/progetto-n19?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String user = "root";
-        String password = "root";
+        String url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String user = "sql7290902";
+        String password = "9Eb92Yn9qF";
         conn = DriverManager.getConnection(url,user,password);
         stmt = conn.createStatement();
     }
