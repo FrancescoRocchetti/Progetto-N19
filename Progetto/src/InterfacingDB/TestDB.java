@@ -19,7 +19,7 @@ public class TestDB {
             }
             System.out.println("-----------------");
         }
-
+        /*
         list = r.read(null);
 
         System.out.println("-----------------");
@@ -30,6 +30,7 @@ public class TestDB {
             System.out.println("-----------------");
         }
 
-        //w.write(PCParts.CPU,"BEPIS",5,999,5);
+        w.write(PCParts.CPU,"BEPIS",5,999,5);
+        */
     }
 }

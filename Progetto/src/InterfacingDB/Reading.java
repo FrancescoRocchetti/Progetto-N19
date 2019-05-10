@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Reading {
-    private static final int ELEMENTS = 5;
+    private static final int ELEMENTS = 6;
     private Connection conn;
     private Statement stmt;
     private ResultSet rs;
@@ -25,7 +25,7 @@ public class Reading {
         String str[];
         while(rs.next()){
             str = new String[ELEMENTS];
-            for(int i = 1; i<ELEMENTS+1 ;i++)
+            for(int i = 1; i<ELEMENTS+1; i++)
                 str[i-1] = rs.getString(i);
             list.add(str);
         }
