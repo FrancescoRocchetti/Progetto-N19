@@ -7,7 +7,8 @@ import java.util.ArrayList;
 public class TestDB {
     public static void main(String[] args) throws IOException, SQLException {
         Reading r = new Reading();
-        Writing w = new Writing();
+        //Writing w = new Writing();
+        LoginDB l = new LoginDB();
         ArrayList<String[]> list;
 
         list = r.read(PCParts.CPU);
@@ -19,6 +20,8 @@ public class TestDB {
             }
             System.out.println("-----------------");
         }
+
+        System.out.print(l.login("user","password"));
         /*
         list = r.read(null);
 

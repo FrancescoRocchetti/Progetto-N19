@@ -7,7 +7,7 @@ public class Writing {
     private String user;
     private String password;
 
-    public Writing() throws SQLException {
+    public Writing(){
         url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         user = "sql7290902";
         password = "9Eb92Yn9qF";

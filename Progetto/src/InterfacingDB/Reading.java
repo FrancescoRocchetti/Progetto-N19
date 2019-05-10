@@ -13,7 +13,7 @@ public class Reading {
     private String password;
 
 
-    public Reading() throws SQLException {
+    public Reading(){
         url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         user = "sql7290902";
         password = "9Eb92Yn9qF";
