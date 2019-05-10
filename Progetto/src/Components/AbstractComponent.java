@@ -61,7 +61,7 @@ public abstract class AbstractComponent implements Comparable {
 
     @Override
     public String toString() {
-        return "AbstractComponent{" +
+        return "{" +
                 "ID='" + ID + '\'' +
                 ", price=" + price +
                 ", performance=" + performance +
