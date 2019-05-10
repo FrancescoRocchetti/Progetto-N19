@@ -2,26 +2,34 @@ package InterfacingDB;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TestDB {
     public static void main(String[] args) throws IOException, SQLException {
         Reading r = new Reading();
-        String[] str;
+        Writing w = new Writing();
+        ArrayList<String[]> list;
 
-        while((str = r.read()) != null){
-            for(String stringa : str){
-                System.out.println(stringa);
+        list = r.read(PCParts.CPU);
+
+        System.out.println("-----------------");
+        for(String[] arr1: list) {
+            for (String arr2 : arr1) {
+                System.out.println(arr2);
             }
             System.out.println("-----------------");
         }
-        System.out.println(str+"\n-----------------"); //Se è null, tutto ok, altrimenti c'è qualche problema
 
-        while((str = r.read(PCParts.CPU)) != null){
-            for(String stringa : str){
-                System.out.println(stringa);
+        list = r.read(null);
+
+        System.out.println("-----------------");
+        for(String[] arr1: list) {
+            for (String arr2 : arr1) {
+                System.out.println(arr2);
             }
             System.out.println("-----------------");
         }
-        System.out.println(str+"\n-----------------"); //Se è null, tutto ok, altrimenti c'è qualche problema
+
+        //w.write(PCParts.CPU,"BEPIS",5,999,5);
     }
 }
