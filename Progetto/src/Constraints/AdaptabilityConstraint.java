@@ -34,8 +34,19 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         return true;
     }
 
-    //@Override
+    //TODO: ?
+    //TODO: aggiungere una quarta classe di check per il numero massimo di componenti
+
+    //cpu-> (checkMOBOCPU)(checkCPURAM)(checkCPUOS)
+    //mobo-> (checkMOBOCPU)(checkMOBOGPU)(checkMOBOSTORAGE)(checkMOBOCASE)
+    //ram-> (checkMOBORAM)(checkCPURAM)
+    //gpu-> (checkMOBOGPU)--4
+    //storage-> (checkMOBOSTORAGE)--4
+    //case-> (checkMOBOCASE)(checkCASESTORAGE)--4
+    //os-> (checkCPUOS)
+
     public static boolean check() {
+        //questo va sostituito con uno switch case
         return (checkMOBOCPU() && checkMOBORAM() && checkMOBOGPU() && checkMOBOSTORAGE() &&
                 checkCPURAM() && checkCPUOS() && checkMOBOCASE() && checkCASESTORAGE());
     }
