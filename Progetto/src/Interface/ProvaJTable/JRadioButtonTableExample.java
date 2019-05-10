@@ -1,4 +1,4 @@
-package IntefacingGUI.ProvaJTable;
+package Interface.ProvaJTable;
 
 
 
