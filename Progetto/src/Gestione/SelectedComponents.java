@@ -38,6 +38,8 @@ public class SelectedComponents {
         sc.remove(indice);
     }
 
+    //TODO: creare un metodo che restituisca una lista di risorse?
+
     public AbstractComponent getType(PCParts comp){
     //TODO: far restituire arraylist?
         AbstractComponent temp = null;
