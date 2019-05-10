@@ -13,27 +13,14 @@ public class TestDB {
 
         list = r.read(PCParts.CPU);
 
-        System.out.println("-----------------");
         for(String[] arr1: list) {
             for (String arr2 : arr1) {
-                System.out.println(arr2);
+                System.out.print(arr2+"\t");
             }
-            System.out.println("-----------------");
+            System.out.println();
         }
 
         System.out.print(l.login("user","password"));
-        /*
-        list = r.read(null);
-
-        System.out.println("-----------------");
-        for(String[] arr1: list) {
-            for (String arr2 : arr1) {
-                System.out.println(arr2);
-            }
-            System.out.println("-----------------");
-        }
-
-        w.write(PCParts.CPU,"BEPIS",5,999,5);
-        */
+        //w.write(PCParts.CPU,"BEPIS",5,999,5);
     }
 }
