@@ -9,7 +9,7 @@ public class Case extends AbstractComponent {
 
         resource = new Resource.Builder()
                 .withokCase(true)
-                .withDimensionCase(caratteristiche[1])
+                .withDimensionCase(caratteristiche[1]) //manca una enum per comparare le dimensioni
                 .withNSlot(Integer.parseInt(caratteristiche[3]))
                 .build();
     }

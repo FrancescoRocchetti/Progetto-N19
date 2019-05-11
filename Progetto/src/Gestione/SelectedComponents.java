@@ -55,7 +55,7 @@ public class SelectedComponents {
         AbstractComponent temp = null;
 
         for(AbstractComponent ac : sc){
-            if(ac.getType()== comp.toString()){
+            if(ac.getType()== comp.toString().toLowerCase()){
                 temp = ac;
                 break;
             }

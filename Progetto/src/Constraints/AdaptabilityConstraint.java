@@ -11,14 +11,19 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     //questi sono i vincoli applicati ai componenti che arrivano dal DB
 
     private static boolean checkMOBOCPU(MOBO m, CPU c){
-        if(m==null || c==null || c.getResource().getTypeSocket() == m.getResource().getTypeSocket())
+        if(m==null || c==null
+                || c.getResource().getTypeSocket() == m.getResource().getTypeSocket())
             return true;
         else
             return false;
     }
 
-    private static boolean checkMOBORAM(){
-        return true;
+    private static boolean checkMOBORAM(MOBO m, RAM r){
+        if(m==null || r==null
+                || r.getResource().getTypeRAM() == m.getResource().getTypeRAM())
+            return true;
+        else
+            return false;
     }
 
     private static boolean checkMOBOGPU(){
@@ -29,16 +34,28 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         return true;
     }
 
-    private static boolean checkCPURAM(){
-        return true;
+    private static boolean checkCPURAM(CPU c, RAM r){
+        if(c==null || r==null
+                || r.getResource().getTypeRAM() == c.getResource().getTypeRAM())
+            return true;
+        else
+            return false;
     }
 
-    private static boolean checkCPUOS(){
-        return true;
+    private static boolean checkCPUOS(CPU c, OS o){
+        if(c==null || o==null
+                || o.getResource().getnBit() <= c.getResource().getnBit())
+            return true;
+        else
+            return false;
     }
 
-    private static boolean checkMOBOCASE(){
-        return true;
+    private static boolean checkMOBOCASE(MOBO m, Case c){
+        if(m==null || c==null
+                || m.getResource().getDimensionCase() == c.getResource().getDimensionCase())
+            return true;
+        else
+            return false;
     }
 
     private static boolean checkCASESTORAGE(){
@@ -64,28 +81,31 @@ public class AdaptabilityConstraint implements AbstractConstraint {
             switch (ac.getType()) {
                 case "cpu":
                     if (!(checkMOBOCPU((MOBO) sc.getType(PCParts.MOBO), (CPU) ac)
-                            && checkCPURAM() && checkCPUOS())) {
+                            && checkCPURAM((CPU) ac,(RAM) sc.getType(PCParts.RAM))
+                            && checkCPUOS((CPU) ac, (OS) sc.getType(PCParts.OS)))) {
                         al.remove(ac);
                     }
                     break;
                 case "mobo":
                     if (!(checkMOBOCPU((MOBO) ac, (CPU) sc.getType(PCParts.CPU))
-                            && checkMOBORAM() && checkMOBOCASE())){
+                            && checkMOBORAM((MOBO) ac, (RAM) sc.getType(PCParts.RAM))
+                            && checkMOBOCASE((MOBO) ac, (Case) sc.getType(PCParts.CASE)))){
                         al.remove(ac);
                     }
                     break;
                 case "ram":
-                    if (!(checkMOBORAM() && checkCPURAM())){
+                    if (!(checkMOBORAM((MOBO) sc.getType(PCParts.MOBO), (RAM) ac)
+                            && checkCPURAM((CPU) sc.getType(PCParts.CPU), (RAM) ac))){
                         al.remove(ac);
                     }
                     break;
                 case "case":
-                    if (!(checkMOBOCASE())){
+                    if (!(checkMOBOCASE((MOBO) sc.getType(PCParts.MOBO), (Case) ac))){
                         al.remove(ac);
                     }
                     break;
                 case "os":
-                    if (!(checkCPUOS())){
+                    if (!(checkCPUOS((CPU) sc.getType(PCParts.CPU), (OS) ac))){
                         al.remove(ac);
                     }
                     break;
@@ -93,7 +113,6 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         }
         return al;
     }
-
 
     /*
     public static boolean check() {
