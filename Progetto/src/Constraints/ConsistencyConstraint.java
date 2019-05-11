@@ -5,8 +5,8 @@ import InterfacingDB.PCParts;
 
 public class ConsistencyConstraint implements AbstractConstraint {
 
-    //si può fare in un altro modo
-
+    //si può fare in un altro modo (con le risorse)
+    //questi sono i vincoli richiamati quando si vuole ultimare una configurazione
     private static boolean checkCPU(SelectedComponents sc) {
         return !(sc.getType(PCParts.CPU) == null);
     }
@@ -32,8 +32,14 @@ public class ConsistencyConstraint implements AbstractConstraint {
         return !(sc.getType(PCParts.STORAGE) == null);
     }
 
-    public static boolean check (SelectedComponents sc) {
+    private static boolean checkCOOLER(SelectedComponents sc) {
+        return (sc.getType(PCParts.COOLER)!=null
+                || sc.getType(PCParts.CPU).getResource().isOkCooler());
+    }
+
+    public static boolean check(SelectedComponents sc) {
         return (checkCPU(sc) && checkMOBO(sc) && checkRAM(sc)
-                && checkGRAPHIC(sc) && checkPSU(sc) && checkSTORAGE(sc));
+                && checkGRAPHIC(sc) && checkPSU(sc)
+                && checkSTORAGE(sc) && checkCOOLER(sc));
     }
 }

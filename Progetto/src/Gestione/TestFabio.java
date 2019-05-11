@@ -11,7 +11,7 @@ public class TestFabio {
             Reading r = new Reading();
             ArrayList<String[]> s = r.read(PCParts.CPU);
 
-            /*
+            /**
             * in teoria mi dovrebbe restituire un array di stringhe
             * (una riga per componente e non una riga per caratteristica)
             * invece restituisce solo un componente diviso in più stringhe

@@ -27,7 +27,7 @@ public abstract class AbstractComponent implements Comparable {
         this.performance=Integer.parseInt(input[5]);
         this.quantity=Integer.parseInt(input[3]);
         this.ID=input[0];
-        this.type=input[1];
+        this.type=input[1].toLowerCase();
         this.caratteristiche = input[2].split("_");
         this.name = caratteristiche[0];
     }

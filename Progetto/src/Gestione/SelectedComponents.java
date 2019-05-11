@@ -2,6 +2,7 @@ package Gestione;
 
 import Components.*;
 import InterfacingDB.PCParts;
+import Resources.Resource;
 
 import java.util.ArrayList;
 
@@ -38,13 +39,22 @@ public class SelectedComponents {
         sc.remove(indice);
     }
 
-    //TODO: creare un metodo che restituisca una lista di risorse?
+    public ArrayList<Resource> getRes(){
+        ArrayList<Resource> temp = new ArrayList<>();
+        for(AbstractComponent ac : sc){
+            temp.add(ac.getResource());
+        }
+
+        return temp;
+    }
 
     public AbstractComponent getType(PCParts comp){
-    //TODO: far restituire arraylist?
+
+        //restituisco solo un componente (dovrebbe essere abbastanza)
+
         AbstractComponent temp = null;
 
-        for(AbstractComponent ac: sc){
+        for(AbstractComponent ac : sc){
             if(ac.getType()== comp.toString()){
                 temp = ac;
                 break;
