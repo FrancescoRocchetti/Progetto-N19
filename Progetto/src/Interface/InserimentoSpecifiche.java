@@ -26,6 +26,9 @@ public class InserimentoSpecifiche extends JFrame {
     private SpinnerNumberModel spinnerPriceModel;
     private JSpinner valutazione;
     private SpinnerNumberModel spinnerRankModel;
+    private JButton goBack;
+    private JButton confirm;
+    private JPanel btnPanel;
 
     private String componentsName[];
 
@@ -35,7 +38,7 @@ public class InserimentoSpecifiche extends JFrame {
     public InserimentoSpecifiche(Piattaforma p) {
         super("Aggiunta componente");
         c = getContentPane();
-        componentsName = new String[]{"Case", "Cooler CPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "Storage"};
+        componentsName = new String[]{"Case", "CoolerCPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "Storage"};
         background = new JPanel(new BorderLayout());
         title = new JLabel("Inserisci le informazioni richieste");
         title.setFont(new Font("Arial", Font.BOLD, 20));
@@ -49,6 +52,7 @@ public class InserimentoSpecifiche extends JFrame {
         description = new JLabel("Descrizione");
         howToDesc = new JLabel("(La descrizione varia con la componente)");
         howToDesc.setFont(new Font("Arial", Font.ITALIC, 10));
+        howToDesc.setForeground(Color.RED);
         descrizione = new JTextField();
         descrizione.setFont(new Font("Arial", Font.PLAIN, 10));
         descrizione.setText("Rispettare il formato di inserimento proposto sotto");
@@ -59,24 +63,16 @@ public class InserimentoSpecifiche extends JFrame {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
+            public void mousePressed(MouseEvent e) { }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) { }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) { }
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) { }
         });
         descPanel = new JPanel(new GridLayout(2,1));
         descPanel.add(descrizione);
@@ -90,6 +86,54 @@ public class InserimentoSpecifiche extends JFrame {
         ranking = new JLabel("Valutazione");
         spinnerRankModel = new SpinnerNumberModel(1, 1, 5, 1);
         valutazione = new JSpinner(spinnerRankModel);
+        goBack = new JButton("Annulla");
+        goBack.setForeground(Color.RED);
+        confirm = new JButton("Conferma");
+        confirm.setForeground(Color.GREEN);
+        btnPanel = new JPanel(new GridLayout(1,2));
+
+        componente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(componente.getSelectedItem() == "CPU"){
+                    howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
+                    howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
+                }
+                else if(componente.getSelectedItem() == "CoolerCPU")
+                    howToDesc.setText("NOME_LIQUIDO");
+                else if(componente.getSelectedItem() == "RAM")
+                    howToDesc.setText("NOME_WATT_TIPO_GB_FREQUENZA_NMODULI");
+                else if(componente.getSelectedItem() == "PSU")
+                    howToDesc.setText("NOME_WATT_DIMENSIONE_CERTIFICAZIONE");
+                else if(componente.getSelectedItem() == "GPU")
+                    howToDesc.setText("NOME_GB_TDP");
+                else if(componente.getSelectedItem() == "MOBO") {
+                    howToDesc.setText("NOME_CPUSOCKET_NBANCHI_RAMMODEL_NPCIE_NPCI_DIMENSIONE_NSATA_WATT");
+                    howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
+                }
+                else if(componente.getSelectedItem() == "Storage")
+                    howToDesc.setText("NOME_DIMENSIONE_GB");
+                else if(componente.getSelectedItem() == "Case")
+                    howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSOLT325");
+                else if(componente.getSelectedItem() == "OS")
+                    howToDesc.setText("NOME_BIT");
+            }
+        });
+
+        goBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                p.setVisible(true);
+            }
+        });
+
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // codice per la scrittura su DB
+            }
+        });
 
         data.add(component);
         data.add(componente);
@@ -102,20 +146,20 @@ public class InserimentoSpecifiche extends JFrame {
         data.add(ranking);
         data.add(valutazione);
 
+        btnPanel.add(goBack);
+        btnPanel.add(confirm);
+
         background.add(data, BorderLayout.CENTER);
+        background.add(btnPanel, BorderLayout.SOUTH);
 
         c.add(background);
 
         addWindowListener(new WindowListener() {
             @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
+            public void windowOpened(WindowEvent e) { }
 
             @Override
-            public void windowClosing(WindowEvent e) {
-
-            }
+            public void windowClosing(WindowEvent e) { }
 
             @Override
             public void windowClosed(WindowEvent e) {
@@ -124,24 +168,16 @@ public class InserimentoSpecifiche extends JFrame {
             }
 
             @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
+            public void windowIconified(WindowEvent e) { }
 
             @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
+            public void windowDeiconified(WindowEvent e) { }
 
             @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
+            public void windowActivated(WindowEvent e) { }
 
             @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
+            public void windowDeactivated(WindowEvent e) { }
         });
 
         setVisible(true);
