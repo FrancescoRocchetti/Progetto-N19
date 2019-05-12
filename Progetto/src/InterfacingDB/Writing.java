@@ -29,4 +29,29 @@ public class Writing {
 
         conn.close();
     }
+
+    public void update(int cod, int quantità) throws SQLException {
+        Connection conn = DriverManager.getConnection(url,user,password);
+        String query = "UPDATE INVENTARIO SET QUANTITA = ? WHERE CODICE = ?;";
+
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1,quantità);
+        preparedStmt.setInt(2,cod);
+
+        preparedStmt.executeUpdate();
+
+        conn.close();
+    }
+
+    public void remove(int cod) throws SQLException {
+        Connection conn = DriverManager.getConnection(url,user,password);
+        String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
+
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1,cod);
+
+        preparedStmt.execute();
+
+        conn.close();
+    }
 }
