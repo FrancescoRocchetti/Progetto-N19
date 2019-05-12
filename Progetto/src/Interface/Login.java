@@ -1,13 +1,14 @@
 package Interface;
 
 import Interface.DeprecatedClasses.GestioneComponenti;
-import InterfacingDB.DeprecatedClasses.LoginDB;
+import InterfacingDB.LoginDB;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Login extends JFrame {
     public Login(Piattaforma p) {
@@ -40,18 +41,18 @@ public class Login extends JFrame {
                 LoginDB logInDB;
                 try {
                     logInDB = new LoginDB();
-                    System.out.println(username.getText());
-                    System.out.println(password.getPassword());
                     if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
                         //codice per la modifica del DB
                         //GestioneComponenti gest = new GestioneComponenti(p,Login.this);
+                        System.out.println(username.getText());
+                        System.out.println(password.getPassword());
                         InserimentoSpecifiche ins = new InserimentoSpecifiche(p, username.getText());
                         Login.super.setVisible(false);
 
                     } else {
                         System.err.println("Accesso non riuscito");
                     }
-                } catch (IOException e1) {
+                } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
             }
