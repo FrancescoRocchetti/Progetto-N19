@@ -1,6 +1,7 @@
 package Constraints;
 
 import Gestione.SelectedComponents;
+import InterfacingDB.PCParts;
 import Resources.Resource;
 
 import java.util.ArrayList;
@@ -9,12 +10,16 @@ public class NumericalConstraint implements AbstractConstraint {
 
     //questi vincoli creano solo dei warning
     private static boolean checkPOWER(SelectedComponents sc){
-        int w=0;
-        ArrayList<Resource> ac = sc.getRes();
-        for(Resource r : ac){
-            w+=r.getPower();
+        if(sc.getType(PCParts.PSU) != null) {
+            int w = 0;
+            ArrayList<Resource> ac = sc.getRes();
+            for (Resource r : ac) {
+                w += r.getPower();
+            }
+            return (w >= 0);
         }
-        return (w>=0);
+        else
+            return true;
     }
 
     public static boolean check(SelectedComponents sc) {
