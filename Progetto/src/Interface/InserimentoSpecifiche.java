@@ -1,5 +1,7 @@
 package Interface;
 
+import InterfacingDB.LoginDB;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,6 +19,7 @@ public class InserimentoSpecifiche extends JFrame {
     private JLabel quantity;
     private JLabel price;
     private JLabel ranking;
+    private JLabel loggedAs;
 
     private JTextField descrizione;
     private JComboBox componente;
@@ -29,20 +32,26 @@ public class InserimentoSpecifiche extends JFrame {
     private JButton goBack;
     private JButton confirm;
     private JPanel btnPanel;
+    private JPanel northPanel;
 
     private String componentsName[];
 
     private final int QTA = 99;
 
 
-    public InserimentoSpecifiche(Piattaforma p) {
+    public InserimentoSpecifiche(Piattaforma p, String user) {
         super("Aggiunta componente");
         c = getContentPane();
         componentsName = new String[]{"Case", "CoolerCPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "Storage"};
         background = new JPanel(new BorderLayout());
         title = new JLabel("Inserisci le informazioni richieste");
         title.setFont(new Font("Arial", Font.BOLD, 20));
-        background.add(title, BorderLayout.NORTH);
+        loggedAs = new JLabel("Accesso effettuato come: " + user);
+        loggedAs.setFont(new Font("Arial", Font.BOLD, 14));
+        loggedAs.setForeground(Color.GRAY);
+        northPanel = new JPanel(new GridLayout(2,1));
+        northPanel.add(title);
+        northPanel.add(loggedAs);
         data = new JPanel(new GridLayout(5,2));
         component = new JLabel("Componente");
         componente = new JComboBox();
@@ -149,6 +158,7 @@ public class InserimentoSpecifiche extends JFrame {
         btnPanel.add(goBack);
         btnPanel.add(confirm);
 
+        background.add(northPanel, BorderLayout.NORTH);
         background.add(data, BorderLayout.CENTER);
         background.add(btnPanel, BorderLayout.SOUTH);
 
@@ -187,7 +197,7 @@ public class InserimentoSpecifiche extends JFrame {
         setResizable(false);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         InserimentoSpecifiche ins = new InserimentoSpecifiche(null);
-    }
+    }*/
 }

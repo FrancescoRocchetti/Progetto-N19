@@ -45,7 +45,7 @@ public class Login extends JFrame {
                     if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
                         //codice per la modifica del DB
                         //GestioneComponenti gest = new GestioneComponenti(p,Login.this);
-                        InserimentoSpecifiche ins = new InserimentoSpecifiche(p);
+                        InserimentoSpecifiche ins = new InserimentoSpecifiche(p, username.getText());
                         Login.super.setVisible(false);
 
                     } else {
