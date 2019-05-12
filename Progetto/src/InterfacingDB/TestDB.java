@@ -11,7 +11,7 @@ public class TestDB {
         LoginDB l = new LoginDB();
         ArrayList<String[]> list;
 
-        list = r.read(PCParts.CPU);
+        list = r.read(null);
 
         for(String[] arr1: list) {
             for (String arr2 : arr1) {
@@ -21,6 +21,10 @@ public class TestDB {
         }
 
         System.out.print(l.login("user","password"));
-        //w.write(PCParts.CPU,"BEPIS",5,999,5);
+        /*
+        w.write(PCParts.CPU,"BEPIS",5,999,5);
+        w.update(24,15);
+        w.remove(24);
+        */
     }
 }
