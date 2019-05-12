@@ -1,10 +1,13 @@
 package Interface;
 
 import InterfacingDB.LoginDB;
+import InterfacingDB.PCParts;
+import InterfacingDB.Writing;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class InserimentoSpecifiche extends JFrame {
     private Container c;
@@ -37,12 +40,13 @@ public class InserimentoSpecifiche extends JFrame {
     private String componentsName[];
 
     private final int QTA = 99;
+    private final int PARTS = 9;
 
 
     public InserimentoSpecifiche(Piattaforma p, String user) {
         super("Aggiunta componente");
         c = getContentPane();
-        componentsName = new String[]{"Case", "CoolerCPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "Storage"};
+        componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS"};
         background = new JPanel(new BorderLayout());
         title = new JLabel("Inserisci le informazioni richieste");
         title.setFont(new Font("Arial", Font.BOLD, 20));
@@ -55,8 +59,8 @@ public class InserimentoSpecifiche extends JFrame {
         data = new JPanel(new GridLayout(5,2));
         component = new JLabel("Componente");
         componente = new JComboBox();
-        for(String s : componentsName)
-            componente.addItem(s);
+        for(int i = 0; i < PCParts.values().length - 1; i++) // length - 1 perchè non considero "ALTRO" per ora
+            componente.addItem(PCParts.valueOf(componentsName[i]));
         componente.setEditable(false);
         description = new JLabel("Descrizione");
         howToDesc = new JLabel("(La descrizione varia con la componente)");
@@ -65,24 +69,6 @@ public class InserimentoSpecifiche extends JFrame {
         descrizione = new JTextField();
         descrizione.setFont(new Font("Arial", Font.PLAIN, 10));
         descrizione.setText("Rispettare il formato di inserimento proposto sotto");
-        descrizione.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                descrizione.setText("");
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) { }
-
-            @Override
-            public void mouseReleased(MouseEvent e) { }
-
-            @Override
-            public void mouseEntered(MouseEvent e) { }
-
-            @Override
-            public void mouseExited(MouseEvent e) { }
-        });
         descPanel = new JPanel(new GridLayout(2,1));
         descPanel.add(descrizione);
         descPanel.add(howToDesc);
@@ -104,27 +90,27 @@ public class InserimentoSpecifiche extends JFrame {
         componente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(componente.getSelectedItem() == "CPU"){
+                if(componente.getSelectedItem() == PCParts.CPU){
                     howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
                     howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
                 }
-                else if(componente.getSelectedItem() == "CoolerCPU")
+                else if(componente.getSelectedItem() == PCParts.COOLER)
                     howToDesc.setText("NOME_LIQUIDO");
-                else if(componente.getSelectedItem() == "RAM")
+                else if(componente.getSelectedItem() == PCParts.RAM)
                     howToDesc.setText("NOME_WATT_TIPO_GB_FREQUENZA_NMODULI");
-                else if(componente.getSelectedItem() == "PSU")
+                else if(componente.getSelectedItem() == PCParts.PSU)
                     howToDesc.setText("NOME_WATT_DIMENSIONE_CERTIFICAZIONE");
-                else if(componente.getSelectedItem() == "GPU")
+                else if(componente.getSelectedItem() == PCParts.GPU)
                     howToDesc.setText("NOME_GB_TDP");
-                else if(componente.getSelectedItem() == "MOBO") {
+                else if(componente.getSelectedItem() == PCParts.MOBO) {
                     howToDesc.setText("NOME_CPUSOCKET_NBANCHI_RAMMODEL_NPCIE_NPCI_DIMENSIONE_NSATA_WATT");
                     howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
                 }
-                else if(componente.getSelectedItem() == "Storage")
+                else if(componente.getSelectedItem() == PCParts.STORAGE)
                     howToDesc.setText("NOME_DIMENSIONE_GB");
-                else if(componente.getSelectedItem() == "Case")
+                else if(componente.getSelectedItem() == PCParts.CASE)
                     howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSOLT325");
-                else if(componente.getSelectedItem() == "OS")
+                else if(componente.getSelectedItem() == PCParts.OS)
                     howToDesc.setText("NOME_BIT");
             }
         });
@@ -141,6 +127,28 @@ public class InserimentoSpecifiche extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // codice per la scrittura su DB
+                Writing writing = new Writing();
+                try {
+                    if(!descrizione.getText().isEmpty()) {
+                        writing.write((PCParts)componente.getSelectedItem(), descrizione.getText(), (int)quantita.getValue(), (int)prezzo.getValue(), (int)valutazione.getValue());
+                        Object[] options = {"YES", "NO"};
+                        int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
+                        if(inserimento == 0) {
+                            componente.setSelectedItem(PCParts.CASE);
+                            descrizione.setText("");
+                            quantita.setValue(1);
+                            prezzo.setValue(1);
+                            valutazione.setValue(1);
+                        } else {
+                            dispose();
+                            p.setVisible(true);
+                        }
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "La descrizione non può essere vuota", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
