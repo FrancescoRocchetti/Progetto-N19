@@ -1,7 +1,7 @@
 package Gestione;
 
 import Components.AbstractComponent;
-import Components.CPU;
+import Components.*;
 import InterfacingDB.PCParts;
 import InterfacingDB.Reading;
 
@@ -29,38 +29,21 @@ public class TestFabio {
             * Fabbio.
             * */
 
-            s = r.read(PCParts.CPU);
-            ArrayList<AbstractComponent> ar = new ArrayList<>();
+            s = r.read(PCParts.GPU);
+            SelectedComponents sc = new SelectedComponents();
 
             for(String[] c: s){
-                ar.add(new CPU(c));
+                sc.addCList(new GPU(c));
             }
+
+            ArrayList<AbstractComponent> ar = sc.getAR();
 
             for(AbstractComponent c : ar) {
                 System.out.println(c);
             }
-
-
-            /*s = r.read(PCParts.COOLER);
-            for(String[] arr1: s) {
-                for (String arr2 : arr1) {
-                    System.out.print(arr2+"\t");
-                }
-                System.out.println();
-            }
-
-            s = r.read(PCParts.GPU);
-            for(String[] arr1: s) {
-                for (String arr2 : arr1) {
-                    System.out.print(arr2+"\t");
-                }
-                System.out.println();*/
-
-
         }
         catch (Exception e){
-            System.err.println("ops");
+            e.printStackTrace();
         }
     }
-
 }
