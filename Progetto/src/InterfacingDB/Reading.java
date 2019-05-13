@@ -20,7 +20,9 @@ public class Reading {
     }
 
     public ArrayList<String[]> read(PCParts comp) throws SQLException {
-        connectToDB(comp);
+        connectToDB();
+        if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
+        else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
         ArrayList<String[]> list = new ArrayList<>();
         String str[];
         while(rs.next()){
@@ -33,10 +35,18 @@ public class Reading {
         return list;
     }
 
-    private void connectToDB(PCParts comp) throws SQLException {
+    public int getNumberOfRows() throws SQLException {
+        connectToDB();
+        int n;
+        rs = stmt.executeQuery("SELECT COUNT(*) AS total from INVENTARIO");
+        if(rs.next()) n = rs.getInt("total");
+        else n = -1;
+        conn.close();
+        return n;
+    }
+
+    private void connectToDB() throws SQLException {
         conn = DriverManager.getConnection(url,user,password);
         stmt = conn.createStatement();
-        if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
-        else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
     }
 }
