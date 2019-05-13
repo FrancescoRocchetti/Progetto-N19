@@ -119,6 +119,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         remove.addActionListener(e -> {
+            // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
             try {
                 String rmv = JOptionPane.showInputDialog(null, "Codice del prodotto da eliminare:", "Rimuovi prodotto", JOptionPane.QUESTION_MESSAGE);
@@ -129,6 +130,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         update.addActionListener(e -> {
+            // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
             try {
                 String up1 = JOptionPane.showInputDialog(null, "Codice del prodotto da aggiornare:", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
