@@ -7,6 +7,18 @@ public class ConsistencyConstraint implements AbstractConstraint {
 
     //si può fare in un altro modo (con le risorse)
     //questi sono i vincoli richiamati quando si vuole ultimare una configurazione
+
+    /*
+    MODO ALTERNATIVO
+
+    public static boolean checkRes(SelectedComponents sc){
+        Resource r = SommatoreRes.sum(sc.getRes);
+
+        return (r.isokcpu() && r.isokmobo() ...)
+    }
+
+    */
+
     private static boolean checkCPU(SelectedComponents sc) {
         return !(sc.getType(PCParts.CPU) == null);
     }
