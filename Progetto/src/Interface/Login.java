@@ -35,43 +35,31 @@ public class Login extends JFrame {
         background.add(formPanel, BorderLayout.CENTER);
         c.add(background);
 
-        ActionListener accesso = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LoginDB logInDB;
-                try {
-                    logInDB = new LoginDB();
-                    if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
-                        //codice per la modifica del DB
-                        //GestioneComponenti gest = new GestioneComponenti(p,Login.this);
-                        System.out.println(username.getText());
-                        System.out.println(password.getPassword());
-                        InserimentoSpecifiche ins = new InserimentoSpecifiche(p, username.getText());
-                        Login.super.setVisible(false);
-
-                    } else {
-                        System.err.println("Accesso non riuscito");
-                    }
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+        ActionListener accesso = e -> {
+            LoginDB logInDB;
+            try {
+                logInDB = new LoginDB();
+                if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
+                    //codice per la modifica del DB
+                    //GestioneComponenti gest = new GestioneComponenti(p,Login.this);
+                    System.out.println("Username: " + username.getText());
+                    System.out.println("Password: " + password.getPassword());
+                    InserimentoSpecifiche ins = new InserimentoSpecifiche(p, username.getText());
+                    Login.super.setVisible(false);
+                } else {
+                    System.err.println("Accesso non riuscito");
                 }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
         };
 
         accedi.addActionListener(accesso);
         password.addActionListener(accesso);
 
-        annulla.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
-                if(reply == JOptionPane.YES_OPTION) {
-                    dispose();
-                    p.setVisible(true);
-                }*/
-                dispose();
-                p.setVisible(true);
-            }
+        annulla.addActionListener(e -> {
+            dispose();
+            p.setVisible(true);
         });
 
         setResizable(false);

@@ -36,11 +36,12 @@ public class InserimentoSpecifiche extends JFrame {
     private JButton confirm;
     private JPanel btnPanel;
     private JPanel northPanel;
+    private JButton update;
+    private JButton remove;
 
     private String componentsName[];
 
     private final int QTA = 99;
-    private final int PARTS = 9;
 
 
     public InserimentoSpecifiche(Piattaforma p, String user) {
@@ -81,11 +82,13 @@ public class InserimentoSpecifiche extends JFrame {
         ranking = new JLabel("Valutazione");
         spinnerRankModel = new SpinnerNumberModel(1, 1, 5, 1);
         valutazione = new JSpinner(spinnerRankModel);
-        goBack = new JButton("Annulla");
+        goBack = new JButton("Logout");
         goBack.setForeground(Color.RED);
         confirm = new JButton("Conferma");
         confirm.setForeground(Color.GREEN);
-        btnPanel = new JPanel(new GridLayout(1,2));
+        update = new JButton("Update component...");
+        remove = new JButton("Remove component...");
+        btnPanel = new JPanel(new GridLayout(2,2));
 
         componente.addActionListener(new ActionListener() {
             @Override
@@ -115,40 +118,68 @@ public class InserimentoSpecifiche extends JFrame {
             }
         });
 
-        goBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                p.setVisible(true);
-            }
-        });
-
-        confirm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // codice per la scrittura su DB
-                Writing writing = new Writing();
+        remove.addActionListener(e -> {
+            // implementazione elementare, servono filtri di controllo
+            Writing writing = new Writing();
+            int rmCod;
                 try {
-                    if(!descrizione.getText().isEmpty()) {
-                        writing.write((PCParts)componente.getSelectedItem(), descrizione.getText(), (int)quantita.getValue(), (int)prezzo.getValue(), (int)valutazione.getValue());
-                        Object[] options = {"YES", "NO"};
-                        int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
-                        if(inserimento == 0) {
-                            componente.setSelectedItem(PCParts.CASE);
-                            descrizione.setText("");
-                            quantita.setValue(1);
-                            prezzo.setValue(1);
-                            valutazione.setValue(1);
-                        } else {
-                            dispose();
-                            p.setVisible(true);
-                        }
-                    }
-                    else
-                        JOptionPane.showMessageDialog(null, "La descrizione non può essere vuota", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                    String rmv = JOptionPane.showInputDialog(null, "Codice del prodotto da eliminare:", "Rimuovi prodotto", JOptionPane.QUESTION_MESSAGE);
+                    rmCod = Integer.parseInt(rmv);
+                    writing.remove(rmCod);
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
+        });
+
+        /*remove.addActionListener(e -> {
+            Writing w = new Writing();
+            try {
+                w.getRowsNumber();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });*/
+
+        update.addActionListener(e -> {
+            // implementazione elementare, servono filtri di controllo
+            Writing writing = new Writing();
+            try {
+                String cod = JOptionPane.showInputDialog(null, "Codice del prodotto da aggiornare:", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
+                String qty = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
+                writing.update(Integer.parseInt(cod), Integer.parseInt(qty));
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        goBack.addActionListener(e -> {
+            dispose();
+            p.setVisible(true);
+        });
+
+        confirm.addActionListener(e -> {
+            // codice per la scrittura su DB
+            Writing writing = new Writing();
+            try {
+                if(!descrizione.getText().isEmpty()) {
+                    writing.write((PCParts)componente.getSelectedItem(), descrizione.getText().toUpperCase(), (int)quantita.getValue(), (int)prezzo.getValue(), (int)valutazione.getValue());
+                    Object[] options = {"YES", "NO"};
+                    int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
+                    if(inserimento == 0) {
+                        componente.setSelectedItem(PCParts.CASE);
+                        descrizione.setText("");
+                        quantita.setValue(1);
+                        prezzo.setValue(1);
+                        valutazione.setValue(1);
+                    } else {
+                        dispose();
+                        p.setVisible(true);
+                    }
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "La descrizione non può essere vuota", "Attenzione", JOptionPane.WARNING_MESSAGE);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
         });
 
@@ -163,6 +194,8 @@ public class InserimentoSpecifiche extends JFrame {
         data.add(ranking);
         data.add(valutazione);
 
+        btnPanel.add(remove);
+        btnPanel.add(update);
         btnPanel.add(goBack);
         btnPanel.add(confirm);
 

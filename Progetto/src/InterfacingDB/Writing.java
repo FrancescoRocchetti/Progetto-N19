@@ -1,6 +1,8 @@
 package InterfacingDB;
 
+import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Writing {
     private String url;
@@ -31,7 +33,7 @@ public class Writing {
     }
 
     public void update(int cod, int quantità) throws SQLException {
-        Connection conn = DriverManager.getConnection(url,user,password);
+        Connection conn = DriverManager.getConnection(url, user, password);
         String query = "UPDATE INVENTARIO SET QUANTITA = ? WHERE CODICE = ?;";
 
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -44,7 +46,7 @@ public class Writing {
     }
 
     public void remove(int cod) throws SQLException {
-        Connection conn = DriverManager.getConnection(url,user,password);
+        Connection conn = DriverManager.getConnection(url, user, password);
         String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
 
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -53,5 +55,20 @@ public class Writing {
         preparedStmt.execute();
 
         conn.close();
+    }
+
+    public int getRowsNumber() throws SQLException {
+        Connection conn = DriverManager.getConnection(url, user, password);
+        ResultSet rs = null;
+        Statement stat = conn.createStatement();
+        int rows = 0;
+
+        rs = stat.executeQuery("SELECT COUNT (CODICE) FROM INVENTARIO;");
+        if(rs.next())
+            rows = rs.getInt("CODICE");
+
+        conn.close();
+        System.out.println(rows);
+        return rows;
     }
 }

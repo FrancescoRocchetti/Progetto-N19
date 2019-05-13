@@ -5,9 +5,6 @@ import InterfacingDB.DeprecatedClasses.Reading;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.*;
 
 public class Piattaforma extends JFrame {
@@ -76,7 +73,6 @@ public class Piattaforma extends JFrame {
         listItem.setPreferredSize(new Dimension(300, getHeight() / 2));
         listItem.setBorder(BorderFactory.createLineBorder(Color.black));
         listItem.setBackground(Color.lightGray);
-        //items.setText("Qui lista componenti");
         items.setEditable(false);
         checkPane = new JPanel();
         checkMessage = new JTextArea();
@@ -85,7 +81,7 @@ public class Piattaforma extends JFrame {
         checkPane.setBorder(BorderFactory.createLineBorder(Color.black));
         checkPane.setBackground(Color.LIGHT_GRAY);
         checkMessage.setBackground(Color.LIGHT_GRAY);
-        checkMessage.setText("CJCJCAHFK");
+        checkMessage.setText("Compatibilità delle componenti");
         checkPane.add(checkMessage);
         menuBar = new JMenuBar();
         file = new JMenu("File");
@@ -106,15 +102,15 @@ public class Piattaforma extends JFrame {
             obtainParts(PCParts.STORAGE, panels[3]);
             obtainParts(PCParts.GPU, panels[4]);
             obtainParts(PCParts.PSU, panels[5]);
+            obtainParts(PCParts.COOLER, panels[6]);
+            obtainParts(PCParts.OS, panels[7]);
+            obtainParts(PCParts.CASE, panels[8]);
         } catch (IOException e) {
             System.err.println("Errore nella lettura");
         }
 
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
+        exit.addActionListener(e -> {
+            System.exit(0);
         });
 
         // Aggiunta componenti
@@ -130,8 +126,11 @@ public class Piattaforma extends JFrame {
         components.addTab("CPU", scrollPanes[1]);
         components.addTab("RAM", scrollPanes[2]);
         components.addTab("Storage", scrollPanes[3]);
-        components.addTab("Video card", scrollPanes[4]);
+        components.addTab("Graphic card", scrollPanes[4]);
         components.addTab("Power Supply", scrollPanes[5]);
+        components.addTab("Cooler CPU", scrollPanes[6]);
+        components.addTab("Operating System", scrollPanes[7]);
+        components.addTab("Case", scrollPanes[8]);
 
         totPanel.add(total);
         totPanel.add(price);
@@ -161,48 +160,37 @@ public class Piattaforma extends JFrame {
         bg = new ButtonGroup();
         while ((arr = dati.read(components)) != null) {
             JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " :" + arr[4]);
-            newActionListener(comp);
+            radioButtonListener(comp);
             bg.add(comp);
             panel.add(comp);
             i++;
         }
-        panel.setLayout(new GridLayout(i, 1, 0, 0));
+        panel.setLayout(new GridLayout(i, 1));
     }
 
-    private void newActionListener(JRadioButton comp) {
-        comp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                gs.addForDisplay(comp);
-                gs.displayOnPanel(items);
-                tot += Double.parseDouble(comp.getText().split(" :")[1]);
-                price.setText(String.valueOf(tot) + " €");
-            }
+    private void radioButtonListener(JRadioButton comp) {
+        comp.addActionListener(e -> {
+            gs.addForDisplay(comp);
+            gs.displayOnPanel(items);
+            tot += Double.parseDouble(comp.getText().split(" :")[1]);
+            price.setText(String.valueOf(tot) + " €");
         });
     }
 
     private void loginListener() {
-        logAdmin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Login l = new Login(Piattaforma.this);
-                Piattaforma.super.setVisible(false);
-                l.setLocationRelativeTo(null);
-            }
+        logAdmin.addActionListener(e -> {
+            Login l = new Login(Piattaforma.this);
+            Piattaforma.super.setVisible(false);
+            l.setLocationRelativeTo(null);
         });
     }
 
     private void newConfigListener() {
-        newConfig.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tot = 0;
-                price.setText("0 €");
-                items.setText("");
-                gs.str.clear();
-            }
+        newConfig.addActionListener(e -> {
+            tot = 0;
+            price.setText("0 €");
+            items.setText("");
+            gs.str.clear();
         });
     }
-
-
 }
