@@ -2,7 +2,7 @@ package Gestione;
 
 import Components.*;
 import InterfacingDB.PCParts;
-import Resources.Resource;
+import Resources.*;
 
 import java.util.ArrayList;
 
@@ -48,6 +48,10 @@ public class SelectedComponents {
         return temp;
     }
 
+    public Resource getTotRes(){
+        return SommatoreRes.sum(this.getRes());
+    }
+
     public AbstractComponent getType(PCParts comp){
 
         //restituisco solo un componente (dovrebbe essere abbastanza)
@@ -55,7 +59,7 @@ public class SelectedComponents {
         AbstractComponent temp = null;
 
         for(AbstractComponent ac : sc){
-            if(ac.getType()== comp.toString().toLowerCase()){
+            if(ac.getType().equalsIgnoreCase(comp.toString())){
                 temp = ac;
                 break;
             }

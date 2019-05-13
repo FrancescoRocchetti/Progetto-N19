@@ -13,6 +13,8 @@ public class SommatoreRes {
                     .withokMOBO(temp.isOkMOBO() || r.isOkMOBO())
                     .withokCPU(temp.isOkCPU() || r.isOkMOBO())
                     .withokCase(temp.isOkCase() || r.isOkCase())
+                    .withokRAM(temp.isOkRAM() || r.isOkRAM())
+                    .withokGPU(temp.isOkGPU() || r.isOkGPU())
 
                     .withNSATA(temp.getnSATA() + r.getnSATA())
                     .withNSlot(temp.getnSlot325() + r.getnSlot325())
