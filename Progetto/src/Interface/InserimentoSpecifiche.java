@@ -121,21 +121,32 @@ public class InserimentoSpecifiche extends JFrame {
         remove.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
+            int rmCod;
+                try {
+                    String rmv = JOptionPane.showInputDialog(null, "Codice del prodotto da eliminare:", "Rimuovi prodotto", JOptionPane.QUESTION_MESSAGE);
+                    rmCod = Integer.parseInt(rmv);
+                    writing.remove(rmCod);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+        });
+
+        /*remove.addActionListener(e -> {
+            Writing w = new Writing();
             try {
-                String rmv = JOptionPane.showInputDialog(null, "Codice del prodotto da eliminare:", "Rimuovi prodotto", JOptionPane.QUESTION_MESSAGE);
-                writing.remove(Integer.parseInt(rmv));
+                w.getRowsNumber();
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
-        });
+        });*/
 
         update.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
             try {
-                String up1 = JOptionPane.showInputDialog(null, "Codice del prodotto da aggiornare:", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                String up2 = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                writing.update(Integer.parseInt(up1), Integer.parseInt(up2));
+                String cod = JOptionPane.showInputDialog(null, "Codice del prodotto da aggiornare:", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
+                String qty = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
+                writing.update(Integer.parseInt(cod), Integer.parseInt(qty));
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
