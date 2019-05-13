@@ -59,14 +59,16 @@ public class Writing {
 
     public int getRowsNumber() throws SQLException {
         Connection conn = DriverManager.getConnection(url, user, password);
-        String query = "SELECT COUNT (CODICE) FROM INVENTARIO;";
+        ResultSet rs = null;
+        Statement stat = conn.createStatement();
+        int rows = 0;
 
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.execute();
-        ResultSet rs = preparedStmt.executeQuery(query);
+        rs = stat.executeQuery("SELECT COUNT (CODICE) FROM INVENTARIO;");
+        if(rs.next())
+            rows = rs.getInt("CODICE");
 
         conn.close();
-        System.out.println(rs);
-        return Integer.parseInt(query);
+        System.out.println(rows);
+        return rows;
     }
 }

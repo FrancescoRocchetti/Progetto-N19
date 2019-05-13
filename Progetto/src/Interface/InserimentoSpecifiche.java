@@ -82,7 +82,7 @@ public class InserimentoSpecifiche extends JFrame {
         ranking = new JLabel("Valutazione");
         spinnerRankModel = new SpinnerNumberModel(1, 1, 5, 1);
         valutazione = new JSpinner(spinnerRankModel);
-        goBack = new JButton("Annulla");
+        goBack = new JButton("Logout");
         goBack.setForeground(Color.RED);
         confirm = new JButton("Conferma");
         confirm.setForeground(Color.GREEN);
@@ -162,7 +162,7 @@ public class InserimentoSpecifiche extends JFrame {
             Writing writing = new Writing();
             try {
                 if(!descrizione.getText().isEmpty()) {
-                    writing.write((PCParts)componente.getSelectedItem(), descrizione.getText(), (int)quantita.getValue(), (int)prezzo.getValue(), (int)valutazione.getValue());
+                    writing.write((PCParts)componente.getSelectedItem(), descrizione.getText().toUpperCase(), (int)quantita.getValue(), (int)prezzo.getValue(), (int)valutazione.getValue());
                     Object[] options = {"YES", "NO"};
                     int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
                     if(inserimento == 0) {
