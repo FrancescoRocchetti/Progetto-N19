@@ -2,12 +2,16 @@ package Interface;
 
 import InterfacingDB.LoginDB;
 import InterfacingDB.PCParts;
+import InterfacingDB.Reading;
 import InterfacingDB.Writing;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
 public class InserimentoSpecifiche extends JFrame {
     private Container c;
@@ -76,12 +80,15 @@ public class InserimentoSpecifiche extends JFrame {
         quantity = new JLabel("Quantità");
         spinnerModel = new SpinnerNumberModel(1, 1, QTA, 1);
         quantita = new JSpinner(spinnerModel);
+        setSpinnerNotWritable(quantita);
         price = new JLabel("Prezzo");
         spinnerPriceModel = new SpinnerNumberModel(1, 1, null, 1);
         prezzo = new JSpinner(spinnerPriceModel);
+        setSpinnerNotWritable(prezzo);
         ranking = new JLabel("Valutazione");
         spinnerRankModel = new SpinnerNumberModel(1, 1, 5, 1);
         valutazione = new JSpinner(spinnerRankModel);
+        setSpinnerNotWritable(valutazione);
         goBack = new JButton("Logout");
         goBack.setForeground(Color.RED);
         confirm = new JButton("Conferma");
@@ -121,24 +128,26 @@ public class InserimentoSpecifiche extends JFrame {
         remove.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
+            Reading reading = new Reading();
+            ArrayList<Integer> codici = new ArrayList<>();
             int rmCod;
                 try {
+                    codici = reading.getNumberOfRows();
                     String rmv = JOptionPane.showInputDialog(null, "Codice del prodotto da eliminare:", "Rimuovi prodotto", JOptionPane.QUESTION_MESSAGE);
-                    rmCod = Integer.parseInt(rmv);
-                    writing.remove(rmCod);
+                    if(rmv != null)
+                    {
+                        rmCod = Integer.parseInt(rmv);
+                        if(codici.contains(rmCod))
+                            writing.remove(rmCod);
+                        else {
+                            JOptionPane.showMessageDialog(null, "Articolo non presente", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                            remove.doClick();
+                        }
+                    }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
         });
-
-        /*remove.addActionListener(e -> {
-            Writing w = new Writing();
-            try {
-                w.getRowsNumber();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        });*/
 
         update.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
@@ -180,6 +189,8 @@ public class InserimentoSpecifiche extends JFrame {
                     JOptionPane.showMessageDialog(null, "La descrizione non può essere vuota", "Attenzione", JOptionPane.WARNING_MESSAGE);
             } catch (SQLException e1) {
                 e1.printStackTrace();
+            } catch (NumberFormatException n) {
+                JOptionPane.showMessageDialog(null, "Assicurati di inserire valori corretti", "Valore errato", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -238,7 +249,8 @@ public class InserimentoSpecifiche extends JFrame {
         setResizable(false);
     }
 
-    /*public static void main(String[] args) {
-        InserimentoSpecifiche ins = new InserimentoSpecifiche(null);
-    }*/
+    public void setSpinnerNotWritable(JSpinner spinner) {
+        JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
+        ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
+    }
 }

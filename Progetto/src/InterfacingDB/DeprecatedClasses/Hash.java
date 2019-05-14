@@ -1,4 +1,4 @@
-package InterfacingDB.DeprecatedClasses;
+/*package InterfacingDB.DeprecatedClasses;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -23,4 +23,4 @@ public class Hash {
             return null;
         }
     }
-}
+}*/

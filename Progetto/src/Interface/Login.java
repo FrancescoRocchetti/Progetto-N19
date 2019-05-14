@@ -42,8 +42,8 @@ public class Login extends JFrame {
                 if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
                     //codice per la modifica del DB
                     //GestioneComponenti gest = new GestioneComponenti(p,Login.this);
-                    System.out.println("Username: " + username.getText());
-                    System.out.println("Password: " + password.getPassword());
+                    //System.out.println("Username: " + username.getText());
+                    //System.out.println("Password: " + password.getPassword());
                     InserimentoSpecifiche ins = new InserimentoSpecifiche(p, username.getText());
                     Login.super.setVisible(false);
                 } else {

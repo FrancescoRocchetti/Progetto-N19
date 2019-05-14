@@ -35,14 +35,14 @@ public class Reading {
         return list;
     }
 
-    public int getNumberOfRows() throws SQLException {
+    public ArrayList<Integer> getNumberOfRows() throws SQLException {
+        ArrayList<Integer> cods = new ArrayList<>();
         connectToDB();
-        int n;
-        rs = stmt.executeQuery("SELECT COUNT(*) AS total from INVENTARIO");
-        if(rs.next()) n = rs.getInt("total");
-        else n = -1;
+        rs = stmt.executeQuery("SELECT CODICE AS cod from INVENTARIO");
+        while(rs.next())
+            cods.add(rs.getInt("cod"));
         conn.close();
-        return n;
+        return cods;
     }
 
     private void connectToDB() throws SQLException {
