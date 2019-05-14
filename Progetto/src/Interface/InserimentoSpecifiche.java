@@ -152,6 +152,7 @@ public class InserimentoSpecifiche extends JFrame {
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
+                    writing.forceClose();
                 }
         });
 
