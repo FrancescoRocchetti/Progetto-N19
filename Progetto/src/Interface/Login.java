@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
-public class Login extends JFrame { //danese
+public class Login extends JFrame {
     public Login(Piattaforma p) {
         super("Login");
         Container c = getContentPane();
@@ -35,44 +35,7 @@ public class Login extends JFrame { //danese
         background.add(formPanel, BorderLayout.CENTER);
         c.add(background);
 
-        this.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowClosed(WindowEvent windowEvent) {
-                p.setVisible(true);
-            }
-
-            @Override
-            public void windowIconified(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent windowEvent) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent windowEvent) {
-
-            }
-        });
-
-        accedi.addActionListener(new ActionListener() {
+        ActionListener accesso = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LoginDB logInDB;
@@ -92,15 +55,21 @@ public class Login extends JFrame { //danese
                     e1.printStackTrace();
                 }
             }
-        });
+        };
+
+        accedi.addActionListener(accesso);
+        password.addActionListener(accesso);
 
         annulla.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
-                if(reply == JOptionPane.YES_OPTION)
+                /*int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
+                if(reply == JOptionPane.YES_OPTION) {
                     dispose();
-                    //System.exit(1);
+                    p.setVisible(true);
+                }*/
+                dispose();
+                p.setVisible(true);
             }
         });
 
@@ -110,4 +79,6 @@ public class Login extends JFrame { //danese
         setSize(250, 125);
         setVisible(true);
     }
+
+
 }

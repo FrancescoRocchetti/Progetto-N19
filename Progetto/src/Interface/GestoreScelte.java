@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GestoreScelte {
-    private ArrayList<String> str;
+    protected ArrayList<String> str;
     public GestoreScelte() {
         str = new ArrayList<>();
     }
