@@ -24,28 +24,15 @@ public class Reading {
         if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
         else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
         ArrayList<String[]> list = new ArrayList<>();
-        returnString(list);
-        conn.close();
-        return list;
-    }
-
-    public ArrayList<String[]> read() throws SQLException {
-        connectToDB();
-        rs = stmt.executeQuery("SELECT CODICE, DESCRIZIONE, QUANTITA from INVENTARIO");
-        ArrayList<String[]> list = new ArrayList<>();
-        returnString(list);
-        conn.close();
-        return list;
-    }
-
-    private void returnString(ArrayList<String[]> list) throws SQLException {
-        String[] str;
+        String str[];
         while(rs.next()){
             str = new String[ELEMENTS];
             for(int i = 1; i<ELEMENTS+1; i++)
                 str[i-1] = rs.getString(i);
             list.add(str);
         }
+        conn.close();
+        return list;
     }
 
     public ArrayList<Integer> getNumberOfRows() throws SQLException {
