@@ -24,6 +24,7 @@ public class TestDB {
 
         System.out.println(l.login("user","password"));
         System.out.println(r.getNumberOfRows());
+        r.forceClose();
         /*
         w.write(PCParts.CPU,"BEPIS",5,999,5);
         w.update(24,15);
