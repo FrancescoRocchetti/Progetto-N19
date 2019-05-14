@@ -54,7 +54,7 @@ public class OtherConstraint {
         Resource after = sumResource(ac, sc);
         boolean temp = true;
 
-        if(before.isOkCPU() && p == "cpu"){
+        if(before.isOkCPU() && p.equals("cpu")){
             temp = false;
         }
         //TODO: mobo, psu, case

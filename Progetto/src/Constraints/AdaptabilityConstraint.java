@@ -11,19 +11,13 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     //questi sono i vincoli applicati ai componenti che arrivano dal DB
 
     private static boolean checkMOBOCPU(MOBO m, CPU c){
-        if(m==null || c==null
-                || c.getResource().getTypeSocket() == m.getResource().getTypeSocket())
-            return true;
-        else
-            return false;
+        return m == null || c == null
+                || c.getResource().getTypeSocket().equals(m.getResource().getTypeSocket());
     }
 
     private static boolean checkMOBORAM(MOBO m, RAM r){
-        if(m==null || r==null
-                || r.getResource().getTypeRAM() == m.getResource().getTypeRAM())
-            return true;
-        else
-            return false;
+        return m == null || r == null
+                || r.getResource().getTypeRAM().equals(m.getResource().getTypeRAM());
     }
 
     private static boolean checkMOBOGPU(){
@@ -35,27 +29,18 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     }
 
     private static boolean checkCPURAM(CPU c, RAM r){
-        if(c==null || r==null
-                || r.getResource().getTypeRAM() == c.getResource().getTypeRAM())
-            return true;
-        else
-            return false;
+        return c == null || r == null
+                || r.getResource().getTypeRAM().equals(c.getResource().getTypeRAM());
     }
 
     private static boolean checkCPUOS(CPU c, OS o){
-        if(c==null || o==null
-                || o.getResource().getnBit() <= c.getResource().getnBit())
-            return true;
-        else
-            return false;
+        return c == null || o == null
+                || o.getResource().getnBit() <= c.getResource().getnBit();
     }
 
     private static boolean checkMOBOCASE(MOBO m, Case c){
-        if(m==null || c==null
-                || m.getResource().getDimensionCase() == c.getResource().getDimensionCase())
-            return true;
-        else
-            return false;
+        return m == null || c == null
+                || m.getResource().getDimensionCase().equals(c.getResource().getDimensionCase());
     }
 
     private static boolean checkCASESTORAGE(){
