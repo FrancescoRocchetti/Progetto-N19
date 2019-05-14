@@ -129,7 +129,7 @@ public class InserimentoSpecifiche extends JFrame {
             // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
             Reading reading = new Reading();
-            ArrayList<Integer> codici = new ArrayList<>();
+            ArrayList<Integer> codici;
             int rmCod;
                 try {
                     codici = reading.getNumberOfRows();
@@ -152,10 +152,16 @@ public class InserimentoSpecifiche extends JFrame {
         update.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
+            Reading reading = new Reading();
+            ArrayList<Integer> codici;
             try {
                 String cod = JOptionPane.showInputDialog(null, "Codice del prodotto da aggiornare:", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                String qty = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                writing.update(Integer.parseInt(cod), Integer.parseInt(qty));
+                codici = reading.getNumberOfRows();
+                if(codici.contains(Integer.parseInt(cod))) {
+                    String qty = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
+                    writing.update(Integer.parseInt(cod), Integer.parseInt(qty));
+                } else
+                        JOptionPane.showMessageDialog(null, "Componente inesistente", "Errore", JOptionPane.ERROR_MESSAGE);
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 //classe che gestisce i componenti già scelti
 public class SelectedComponents {
-    ArrayList<AbstractComponent> sc;
+    private ArrayList<AbstractComponent> sc;
 
     public SelectedComponents(){
         sc = new ArrayList<>();
@@ -47,6 +47,15 @@ public class SelectedComponents {
 
         return temp;
     }
+
+    public int getTotPrice(){
+        int temp = 0;
+        for(AbstractComponent ac : sc){
+            temp+=ac.getPrice();
+        }
+        return temp;
+    }
+
 
     public Resource getTotRes(){
         return SommatoreRes.sum(this.getRes());

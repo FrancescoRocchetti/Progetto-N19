@@ -59,6 +59,11 @@ public abstract class AbstractComponent implements Comparable {
         return type;
     }
 
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "{" +
