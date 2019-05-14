@@ -18,10 +18,11 @@ public class MOBO extends AbstractComponent {
                 .build();
     }
 
+
+    //TODO: metodi delle risorse
+
     /*@Override
         public int compareTo(Object o) {
             return 0;
         }*/
-    public MOBO() {
-    }
 }

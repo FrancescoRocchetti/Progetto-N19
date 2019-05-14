@@ -68,7 +68,6 @@ public class OtherConstraint {
         return temp;
     }
 
-
     public static boolean check(AbstractComponent ac, SelectedComponents sc){
         return difCheck(ac, sc, ac.getType());
     }

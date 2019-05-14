@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class SommatoreRes {
 
+    //somma le risorse di una build in una risorsa unica
+
     private static Resource loop(ArrayList<Resource> ar){
         Resource temp = new Resource.Builder().build();
 
@@ -15,12 +17,15 @@ public class SommatoreRes {
                     .withokCase(temp.isOkCase() || r.isOkCase())
                     .withokRAM(temp.isOkRAM() || r.isOkRAM())
                     .withokGPU(temp.isOkGPU() || r.isOkGPU())
+                    .withokCooler(temp.isOkCooler() || r.isOkCooler())
+                    .withokStorage(temp.isOkStorage() || r.isOkStorage())
 
                     .withNSATA(temp.getnSATA() + r.getnSATA())
                     .withNSlot(temp.getnSlot325() + r.getnSlot325())
                     .withNPci(temp.getnPci() + r.getnPci())
                     .withNPcie(temp.getnPcie() + r.getnPcie())
                     .withModules(temp.getModulesRAM() + r.getModulesRAM())
+                    //TODO: controllare se mancano delle risorse
                     .build();
         }
 

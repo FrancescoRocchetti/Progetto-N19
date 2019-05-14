@@ -15,6 +15,9 @@ public class RAM extends AbstractComponent {
                 .build();
     }
 
+
+    //TODO: metodi delle risorse
+
     /*@Override
     public int compareTo(Object o) {
         return 0;
