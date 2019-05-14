@@ -1,4 +1,4 @@
-package InterfacingDB.DeprecatedClasses;
+/*package InterfacingDB.DeprecatedClasses;
 
 
 import InterfacingDB.DeprecatedClasses.Hash;
@@ -8,4 +8,4 @@ public class TestSha {
         String input = "password";
         System.out.println(Hash.getHash(input));
     }
-}
+}*/
