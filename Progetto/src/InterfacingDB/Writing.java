@@ -59,7 +59,7 @@ public class Writing {
     public void forceClose() {
         try {
             conn.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Già chiuso.");
         }
     }
