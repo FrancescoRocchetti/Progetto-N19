@@ -56,7 +56,11 @@ public class Writing {
         conn.close();
     }
 
-    public void forceClose() throws SQLException {
-        conn.close();
+    public void forceClose() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            System.err.println("Già chiuso.");
+        }
     }
 }
