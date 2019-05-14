@@ -2,12 +2,14 @@ package Interface;
 
 import InterfacingDB.LoginDB;
 import InterfacingDB.PCParts;
+import InterfacingDB.Reading;
 import InterfacingDB.Writing;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class InserimentoSpecifiche extends JFrame {
     private Container c;
@@ -121,24 +123,26 @@ public class InserimentoSpecifiche extends JFrame {
         remove.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
             Writing writing = new Writing();
+            Reading reading = new Reading();
+            ArrayList<Integer> codici = new ArrayList<>();
             int rmCod;
                 try {
+                    codici = reading.getNumberOfRows();
                     String rmv = JOptionPane.showInputDialog(null, "Codice del prodotto da eliminare:", "Rimuovi prodotto", JOptionPane.QUESTION_MESSAGE);
-                    rmCod = Integer.parseInt(rmv);
-                    writing.remove(rmCod);
+                    if(rmv != null)
+                    {
+                        rmCod = Integer.parseInt(rmv);
+                        if(codici.contains(rmCod))
+                            writing.remove(rmCod);
+                        else {
+                            JOptionPane.showMessageDialog(null, "Articolo non presente", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                            remove.doClick();
+                        }
+                    }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
         });
-
-        /*remove.addActionListener(e -> {
-            Writing w = new Writing();
-            try {
-                w.getRowsNumber();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        });*/
 
         update.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
