@@ -126,7 +126,7 @@ public class Piattaforma extends JFrame {
         components.addTab("CPU", scrollPanes[1]);
         components.addTab("RAM", scrollPanes[2]);
         components.addTab("Storage", scrollPanes[3]);
-        components.addTab("Graphic card", scrollPanes[4]);
+        components.addTab("GPU", scrollPanes[4]);
         components.addTab("Power Supply", scrollPanes[5]);
         components.addTab("Cooler CPU", scrollPanes[6]);
         components.addTab("Operating System", scrollPanes[7]);
