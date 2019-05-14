@@ -184,6 +184,8 @@ public class InserimentoSpecifiche extends JFrame {
                     JOptionPane.showMessageDialog(null, "La descrizione non può essere vuota", "Attenzione", JOptionPane.WARNING_MESSAGE);
             } catch (SQLException e1) {
                 e1.printStackTrace();
+            } catch (NumberFormatException n) {
+                JOptionPane.showMessageDialog(null, "Assicurati di inserire valori corretti", "Valore errato", JOptionPane.ERROR_MESSAGE);
             }
         });
 
