@@ -64,6 +64,22 @@ public abstract class AbstractComponent implements Comparable {
         return name;
     }
 
+    public String getSocket(){
+        return resource.getTypeSocket();
+    }
+
+    public String getTypeRAM(){
+        return resource.getTypeRAM();
+    }
+
+    public int getBit(){
+        return resource.getnBit();
+    }
+
+    public String getCaseDim(){
+        return resource.getDimensionCase();
+    }
+
     @Override
     public String toString() {
         return "{" +
