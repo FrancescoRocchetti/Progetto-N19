@@ -42,6 +42,9 @@ public class InserimentoSpecifiche extends JFrame {
     private JPanel northPanel;
     private JButton update;
     private JButton remove;
+    private JButton check;
+    private JPanel fourButtons;
+    private JPanel checkButton;
 
     private String componentsName[];
 
@@ -95,7 +98,10 @@ public class InserimentoSpecifiche extends JFrame {
         confirm.setForeground(Color.GREEN);
         update = new JButton("Update component...");
         remove = new JButton("Remove component...");
-        btnPanel = new JPanel(new GridLayout(2,2));
+        check = new JButton("Show components...");
+        btnPanel = new JPanel(new BorderLayout());
+        fourButtons = new JPanel(new GridLayout(2,2));
+        checkButton = new JPanel(new GridLayout(1,1));
 
         componente.addActionListener(new ActionListener() {
             @Override
@@ -156,12 +162,15 @@ public class InserimentoSpecifiche extends JFrame {
             ArrayList<Integer> codici;
             try {
                 String cod = JOptionPane.showInputDialog(null, "Codice del prodotto da aggiornare:", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                codici = reading.getNumberOfRows();
-                if(codici.contains(Integer.parseInt(cod))) {
-                    String qty = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                    writing.update(Integer.parseInt(cod), Integer.parseInt(qty));
-                } else
+                if(cod != null) {
+                    codici = reading.getNumberOfRows();
+                    if(codici.contains(Integer.parseInt(cod))) {
+                        String qty = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
+                        if(qty != null)
+                            writing.update(Integer.parseInt(cod), Integer.parseInt(qty));
+                    } else
                         JOptionPane.showMessageDialog(null, "Componente inesistente", "Errore", JOptionPane.ERROR_MESSAGE);
+                }
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
@@ -200,6 +209,11 @@ public class InserimentoSpecifiche extends JFrame {
             }
         });
 
+        check.addActionListener(e -> {
+            Reading reading = new Reading();
+            ArrayList<String> components;
+        });
+
         data.add(component);
         data.add(componente);
         data.add(description);
@@ -211,10 +225,14 @@ public class InserimentoSpecifiche extends JFrame {
         data.add(ranking);
         data.add(valutazione);
 
-        btnPanel.add(remove);
-        btnPanel.add(update);
-        btnPanel.add(goBack);
-        btnPanel.add(confirm);
+        fourButtons.add(remove);
+        fourButtons.add(update);
+        fourButtons.add(goBack);
+        fourButtons.add(confirm);
+        checkButton.add(check);
+
+        btnPanel.add(checkButton, BorderLayout.NORTH);
+        btnPanel.add(fourButtons, BorderLayout.CENTER);
 
         background.add(northPanel, BorderLayout.NORTH);
         background.add(data, BorderLayout.CENTER);
@@ -251,7 +269,7 @@ public class InserimentoSpecifiche extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(500, 250);
+        setSize(500, 320);
         setResizable(false);
     }
 
