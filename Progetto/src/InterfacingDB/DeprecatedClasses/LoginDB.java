@@ -8,7 +8,7 @@ public class LoginDB {
     private BufferedReader buffer;
 
     public LoginDB() throws IOException {
-        buffer = new BufferedReader(new FileReader("Progetto/src/InterfacingDB/credenziali.csv"));
+        buffer = new BufferedReader(new FileReader("Progetto/src/InterfacingDB/DeprecatedClasses/credenziali.csv"));
     }
 
     public boolean login(String user, String password) throws IOException {
