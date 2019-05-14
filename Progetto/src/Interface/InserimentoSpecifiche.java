@@ -98,7 +98,7 @@ public class InserimentoSpecifiche extends JFrame {
         confirm.setForeground(Color.GREEN);
         update = new JButton("Update component...");
         remove = new JButton("Remove component...");
-        check = new JButton("Show components...");
+        check = new JButton("Show stored components...");
         btnPanel = new JPanel(new BorderLayout());
         fourButtons = new JPanel(new GridLayout(2,2));
         checkButton = new JPanel(new GridLayout(1,1));
@@ -211,7 +211,16 @@ public class InserimentoSpecifiche extends JFrame {
 
         check.addActionListener(e -> {
             Reading reading = new Reading();
-            ArrayList<String> components;
+            ArrayList<String[]> components;
+            String s = "";
+            try {
+                components = reading.read(null);
+                for(String[] x : components)
+                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + "\n";
+                JOptionPane.showMessageDialog(null, s, "Componenti archiviati", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         });
 
         data.add(component);
