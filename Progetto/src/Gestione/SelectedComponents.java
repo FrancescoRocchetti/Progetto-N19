@@ -14,7 +14,7 @@ public class SelectedComponents {
         sc = new ArrayList<>();
     }
 
-    public AbstractComponent getC(int i){
+    public AbstractComponent getComponent(int i){
         return sc.get(i);
     }
 
