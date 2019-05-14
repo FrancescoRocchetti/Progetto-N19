@@ -2,22 +2,24 @@ package Constraints;
 
 import Gestione.SelectedComponents;
 import InterfacingDB.PCParts;
+import Resources.Resource;
+import Resources.SommatoreRes;
 
 public class ConsistencyConstraint implements AbstractConstraint {
 
     //si può fare in un altro modo (con le risorse)
     //questi sono i vincoli richiamati quando si vuole ultimare una configurazione
 
-    /*
-    MODO ALTERNATIVO
 
+    //MODO ALTERNATIVO
     public static boolean checkRes(SelectedComponents sc){
-        Resource r = SommatoreRes.sum(sc.getRes);
+        Resource r = SommatoreRes.sum(sc.getRes());
 
-        return (r.isokcpu() && r.isokmobo() ...)
+        return (r.isOkCPU() && r.isOkMOBO() && r.isOkRAM()
+                && r.isOkGPU() && r.isOkPSU() && r.isOkCase()
+                && r.isOkStorage() && r.isOkCooler() && NumericalConstraint.check(sc));
     }
 
-    */
 
     private static boolean checkCPU(SelectedComponents sc) {
         return !(sc.getType(PCParts.CPU) == null);
