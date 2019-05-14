@@ -49,4 +49,7 @@ public class Reading {
         conn = DriverManager.getConnection(url,user,password);
         stmt = conn.createStatement();
     }
+    public void forceClose() throws SQLException {
+        conn.close();
+    }
 }

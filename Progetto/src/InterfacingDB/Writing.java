@@ -6,6 +6,7 @@ public class Writing {
     private String url;
     private String user;
     private String password;
+    private Connection conn;
 
     public Writing(){
         url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -14,7 +15,7 @@ public class Writing {
     }
 
     public void write(PCParts part, String d, int q, int p, int r) throws SQLException {
-        Connection conn = DriverManager.getConnection(url,user,password);
+        conn = DriverManager.getConnection(url,user,password);
         String query = "INSERT INTO INVENTARIO (TIPO, DESCRIZIONE, QUANTITA, PREZZO, RANK)\n" +
                 "VALUES (?,?,?,?,?);";
 
@@ -31,7 +32,7 @@ public class Writing {
     }
 
     public void update(int cod, int quantità) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, user, password);
+        conn = DriverManager.getConnection(url, user, password);
         String query = "UPDATE INVENTARIO SET QUANTITA = ? WHERE CODICE = ?;";
 
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -44,7 +45,7 @@ public class Writing {
     }
 
     public void remove(int cod) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, user, password);
+        conn = DriverManager.getConnection(url, user, password);
         String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
 
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -52,6 +53,10 @@ public class Writing {
 
         preparedStmt.execute();
 
+        conn.close();
+    }
+
+    public void forceClose() throws SQLException {
         conn.close();
     }
 }
