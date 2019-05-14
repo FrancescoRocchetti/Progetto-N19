@@ -6,9 +6,11 @@ import InterfacingDB.Reading;
 import InterfacingDB.Writing;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class InserimentoSpecifiche extends JFrame {
@@ -78,12 +80,15 @@ public class InserimentoSpecifiche extends JFrame {
         quantity = new JLabel("Quantità");
         spinnerModel = new SpinnerNumberModel(1, 1, QTA, 1);
         quantita = new JSpinner(spinnerModel);
+        setSpinnerNotWritable(quantita);
         price = new JLabel("Prezzo");
         spinnerPriceModel = new SpinnerNumberModel(1, 1, null, 1);
         prezzo = new JSpinner(spinnerPriceModel);
+        setSpinnerNotWritable(prezzo);
         ranking = new JLabel("Valutazione");
         spinnerRankModel = new SpinnerNumberModel(1, 1, 5, 1);
         valutazione = new JSpinner(spinnerRankModel);
+        setSpinnerNotWritable(valutazione);
         goBack = new JButton("Logout");
         goBack.setForeground(Color.RED);
         confirm = new JButton("Conferma");
@@ -244,7 +249,8 @@ public class InserimentoSpecifiche extends JFrame {
         setResizable(false);
     }
 
-    /*public static void main(String[] args) {
-        InserimentoSpecifiche ins = new InserimentoSpecifiche(null);
-    }*/
+    public void setSpinnerNotWritable(JSpinner spinner) {
+        JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
+        ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
+    }
 }
