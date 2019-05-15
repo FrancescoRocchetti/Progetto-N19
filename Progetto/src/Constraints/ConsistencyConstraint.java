@@ -2,8 +2,7 @@ package Constraints;
 
 import Gestione.SelectedComponents;
 import InterfacingDB.PCParts;
-import Resources.Resource;
-import Resources.SommatoreRes;
+import Resources.*;
 
 public class ConsistencyConstraint implements AbstractConstraint {
 
