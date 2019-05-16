@@ -137,7 +137,7 @@ public class InserimentoSpecifiche extends JFrame {
 
         remove.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
-            Writing writing = new Writing();
+            /*Writing writing = new Writing();
             Reading reading = new Reading();
             ArrayList<Integer> codici;
             int rmCod;
@@ -157,7 +157,8 @@ public class InserimentoSpecifiche extends JFrame {
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                     writing.forceClose();
-                }
+                }*/
+            Components comp = new Components();
         });
 
         update.addActionListener(e -> {
@@ -221,7 +222,7 @@ public class InserimentoSpecifiche extends JFrame {
             try {
                 components = reading.read(null);
                 for(String[] x : components)
-                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + "\n";
+                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + "\n";
                 JOptionPane.showMessageDialog(null, s, "Componenti archiviati", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e1) {
                 e1.printStackTrace();
