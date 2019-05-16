@@ -3,6 +3,7 @@ package Gestione;
 import Components.AbstractComponent;
 import Components.*;
 import Constraints.AdaptabilityConstraint;
+import Constraints.ConsistencyConstraint;
 import InterfacingDB.PCParts;
 import InterfacingDB.Reading;
 import Resources.Resource;
@@ -52,19 +53,9 @@ public class TestFabio {
             for(String[] riga : s) {
                 am.add(new MOBO(riga));
             }
-/*
-            System.out.println("PRE CHECK");
-            for(AbstractComponent ac : am) {
-                System.out.println(ac);
-            }
-*/
+
             am = AdaptabilityConstraint.check(am, sc);
-/*
-            System.out.println("POST CHECK");
-            for(AbstractComponent ac : am){
-                System.out.println(ac);
-            }
-*/
+
             sc.addCList(am.get(0));
             am = new ArrayList<>();
             s = r.read(PCParts.RAM);
@@ -80,24 +71,8 @@ public class TestFabio {
             }
 
             System.out.println(sc.getTotRes());
+            System.out.println(ConsistencyConstraint.checkRes(sc));
 
-            /*
-            s = r.read(PCParts.GPU);
-            SelectedComponents sc = new SelectedComponents();
-            for(String[] c: s){
-                sc.addCList(new GPU(c));
-            }
-
-            ArrayList<AbstractComponent> ar = sc.getAR();
-            for(AbstractComponent c : ar) {
-                System.out.println(c);
-            }
-
-            ArrayList<Resource> res = sc.getRes();
-            for(Resource c : res) {
-                System.out.println(c);
-            }
-            */
         }
         catch (Exception e){
             e.printStackTrace();
