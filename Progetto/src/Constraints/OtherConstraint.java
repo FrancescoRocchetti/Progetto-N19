@@ -57,13 +57,24 @@ public class OtherConstraint {
         if(before.isOkCPU() && p.equals("cpu")){
             temp = false;
         }
-        //TODO: mobo, psu, case
+
+        if(before.isOkMOBO() && p.equals("mobo")){
+            temp = false;
+        }
+
+        if(before.isOkPSU() && p.equals("psu")){
+            temp = false;
+        }
+
+        if(before.isOkCase() && p.equals("case")){
+            temp = false;
+        }
 
         if(before.isOkMOBO() && (after.getnSATA() < 0)){
             //(checkMOBOSTORAGE)
             temp = false;
         }
-        //TODO: (checkMOBOGPU)(checkCASESTORAGE)
+        //TODO: (checkMOBOGPU)(checkCASESTORAGE) nram nstorage
 
         return temp;
     }

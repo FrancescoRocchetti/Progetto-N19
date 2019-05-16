@@ -12,12 +12,12 @@ public class AdaptabilityConstraint implements AbstractConstraint {
 
     private static boolean checkMOBOCPU(MOBO m, CPU c){
         return m == null || c == null
-                || c.getResource().getTypeSocket().equals(m.getResource().getTypeSocket());
+                || c.getSocket().equals(m.getSocket());
     }
 
     private static boolean checkMOBORAM(MOBO m, RAM r){
         return m == null || r == null
-                || r.getResource().getTypeRAM().equals(m.getResource().getTypeRAM());
+                || r.getTypeRAM().equals(m.getTypeRAM());
     }
 
     private static boolean checkMOBOGPU(){
@@ -30,17 +30,18 @@ public class AdaptabilityConstraint implements AbstractConstraint {
 
     private static boolean checkCPURAM(CPU c, RAM r){
         return c == null || r == null
-                || r.getResource().getTypeRAM().equals(c.getResource().getTypeRAM());
+                || r.getTypeRAM().equals(c.getTypeRAM());
     }
 
     private static boolean checkCPUOS(CPU c, OS o){
         return c == null || o == null
-                || o.getResource().getnBit() <= c.getResource().getnBit();
+                || o.getBit() <= c.getBit();
     }
 
     private static boolean checkMOBOCASE(MOBO m, Case c){
         return m == null || c == null
-                || m.getResource().getDimensionCase().equals(c.getResource().getDimensionCase());
+                || m.getCaseDim().equals(c.getCaseDim());
+                //pls fix
     }
 
     private static boolean checkCASESTORAGE(){

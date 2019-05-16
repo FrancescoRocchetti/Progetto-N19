@@ -9,6 +9,7 @@ public class LoginDB {
     private String url;
     private String user;
     private String password;
+    private Connection conn;
 
 
     public LoginDB(){
@@ -18,7 +19,7 @@ public class LoginDB {
     }
 
     public boolean login(String user, String password) throws SQLException {
-        Connection conn = DriverManager.getConnection(url,this.user,this.password);
+        conn = DriverManager.getConnection(url,this.user,this.password);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * from UTENTI");
         while (rs.next()){
@@ -46,6 +47,14 @@ public class LoginDB {
         } catch(Exception e) {
             System.err.println(e);
             return null;
+        }
+    }
+
+    public void forceClose() {
+        try {
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Già chiuso.");
         }
     }
 }
