@@ -45,6 +45,7 @@ public class InserimentoSpecifiche extends JFrame {
     private JButton check;
     private JPanel fourButtons;
     private JPanel checkButton;
+    private JLabel title1;
 
     private String componentsName[];
 
@@ -61,9 +62,12 @@ public class InserimentoSpecifiche extends JFrame {
         loggedAs = new JLabel("Accesso effettuato come: " + user);
         loggedAs.setFont(new Font("Arial", Font.BOLD, 14));
         loggedAs.setForeground(Color.GRAY);
-        northPanel = new JPanel(new GridLayout(2,1));
+        title1 = new JLabel("Aggiungi nuovo componente");
+        title1.setFont(new Font("Arial", Font.BOLD, 16));
+        northPanel = new JPanel(new GridLayout(3,1));
         northPanel.add(title);
         northPanel.add(loggedAs);
+        northPanel.add(title1);
         data = new JPanel(new GridLayout(5,2));
         component = new JLabel("Componente");
         componente = new JComboBox();
@@ -100,7 +104,7 @@ public class InserimentoSpecifiche extends JFrame {
         remove = new JButton("Remove component...");
         check = new JButton("Show stored components...");
         btnPanel = new JPanel(new BorderLayout());
-        fourButtons = new JPanel(new GridLayout(2,2));
+        fourButtons = new JPanel(new GridLayout(3,2));
         checkButton = new JPanel(new GridLayout(1,1));
 
         componente.addActionListener(new ActionListener() {
@@ -235,14 +239,17 @@ public class InserimentoSpecifiche extends JFrame {
         data.add(ranking);
         data.add(valutazione);
 
-        fourButtons.add(remove);
-        fourButtons.add(update);
         fourButtons.add(goBack);
         fourButtons.add(confirm);
+        fourButtons.add(new JLabel("Aggiornamento componenti"));
+        fourButtons.add(new JLabel());
+        fourButtons.add(remove);
+        fourButtons.add(update);
+
         checkButton.add(check);
 
-        btnPanel.add(checkButton, BorderLayout.NORTH);
-        btnPanel.add(fourButtons, BorderLayout.CENTER);
+        btnPanel.add(fourButtons, BorderLayout.NORTH);
+        btnPanel.add(checkButton, BorderLayout.SOUTH);
 
         background.add(northPanel, BorderLayout.NORTH);
         background.add(data, BorderLayout.CENTER);
@@ -279,12 +286,16 @@ public class InserimentoSpecifiche extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(500, 320);
+        setSize(600, 380);
         setResizable(false);
     }
 
     public void setSpinnerNotWritable(JSpinner spinner) {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
+    }
+
+    public static void main(String[] args) {
+        InserimentoSpecifiche ins = new InserimentoSpecifiche(null, "prova");
     }
 }
