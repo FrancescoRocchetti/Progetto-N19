@@ -107,9 +107,7 @@ public class InserimentoSpecifiche extends JFrame {
         fourButtons = new JPanel(new GridLayout(3,2));
         checkButton = new JPanel(new GridLayout(1,1));
 
-        componente.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        componente.addActionListener(e -> {
                 if(componente.getSelectedItem() == PCParts.CPU){
                     howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
                     howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
@@ -132,7 +130,6 @@ public class InserimentoSpecifiche extends JFrame {
                     howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSOLT325");
                 else if(componente.getSelectedItem() == PCParts.OS)
                     howToDesc.setText("NOME_BIT");
-            }
         });
 
         remove.addActionListener(e -> {
@@ -158,7 +155,11 @@ public class InserimentoSpecifiche extends JFrame {
                     e1.printStackTrace();
                     writing.forceClose();
                 }*/
-            Components comp = new Components();
+            try {
+                Components comp = new Components();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         });
 
         update.addActionListener(e -> {
