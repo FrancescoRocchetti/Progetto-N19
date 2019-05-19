@@ -133,28 +133,6 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         remove.addActionListener(e -> {
-            // implementazione elementare, servono filtri di controllo
-            /*Writing writing = new Writing();
-            Reading reading = new Reading();
-            ArrayList<Integer> codici;
-            int rmCod;
-                try {
-                    codici = reading.getNumberOfRows();
-                    String rmv = JOptionPane.showInputDialog(null, "Codice del prodotto da eliminare:", "Rimuovi prodotto", JOptionPane.QUESTION_MESSAGE);
-                    if(rmv != null)
-                    {
-                        rmCod = Integer.parseInt(rmv);
-                        if(codici.contains(rmCod))
-                            writing.remove(rmCod);
-                        else {
-                            JOptionPane.showMessageDialog(null, "Articolo non presente", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                            remove.doClick();
-                        }
-                    }
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                    writing.forceClose();
-                }*/
             try {
                 Components comp = new Components();
             } catch (SQLException e1) {

@@ -2,6 +2,7 @@ package Interface;
 
 import InterfacingDB.PCParts;
 import InterfacingDB.Reading;
+import InterfacingDB.Writing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +29,7 @@ public class Components extends JFrame {
     private ArrayList<String[]> componenti;
     private String s = "";
     private boolean found;
+    private int codToRmv;
 
     public Components() throws SQLException {
         super("Remove component");
@@ -51,23 +53,24 @@ public class Components extends JFrame {
         Reading reading = new Reading();
         componenti = reading.read(null);
 
-        for(JButton b : btnArray) {
-            btnPanel.add(b);
-            b.addActionListener(e -> {
-                comp.removeAllItems();
-                found = false;
-                for(String[] x : componenti) {
-                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + "\n";
-                    if(x[1].equals(b.getText().toUpperCase())) {
-                        found = true;
-                        comp.addItem(s);
-                    }
-                    s = "";
-                }
-                if(!found)
-                    JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
-            });
-        }
+        addItemToRmv(comp, componenti);
+
+        rmv.addActionListener(e -> {
+            Writing writing = new Writing();
+            String item;
+            String[] cod;
+            int rmCod;
+            item = (String) comp.getSelectedItem();
+            cod = item.split(" ");
+            rmCod = Integer.parseInt(String.valueOf(cod[0]));
+            try {
+                writing.remove(rmCod);
+                JOptionPane.showMessageDialog(null, item + " rimosso con successo", "Componente rimosso", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         choosePanel.add(comp, BorderLayout.CENTER);
         choosePanel.add(rmv, BorderLayout.SOUTH);
@@ -81,6 +84,26 @@ public class Components extends JFrame {
         setSize(300,300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    public void addItemToRmv(JComboBox c, ArrayList<String[]> str) {
+        for(JButton b : btnArray) {
+            btnPanel.add(b);
+            b.addActionListener(e -> {
+                c.removeAllItems();
+                found = false;
+                for(String[] x : str) {
+                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + "\n";
+                    if(x[1].equals(b.getText().toUpperCase())) {
+                        found = true;
+                        c.addItem(s);
+                    }
+                    s = "";
+                }
+                if(!found)
+                    JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
+            });
+        }
     }
 
     public static void main(String[] args) throws SQLException {
