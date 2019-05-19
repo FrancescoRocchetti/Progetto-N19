@@ -1,9 +1,12 @@
 package Interface;
 
 import InterfacingDB.PCParts;
+import InterfacingDB.Reading;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Components extends JFrame {
     private Container c;
@@ -22,8 +25,11 @@ public class Components extends JFrame {
     private JButton[] btnArray;
     private JComboBox comp;
     private JButton rmv;
+    private ArrayList<String[]> componenti;
+    private String s = "";
+    private boolean found;
 
-    public Components() {
+    public Components() throws SQLException {
         super("Remove component");
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
@@ -38,11 +44,31 @@ public class Components extends JFrame {
         psu = new JButton("PSU");
         ram = new JButton("RAM");
         storage = new JButton("Storage");
-        btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, os, psu, ram, storage};
+        btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os};
         comp = new JComboBox();
         rmv = new JButton("Remove");
-        for(JButton b : btnArray)
+        componenti = new ArrayList<>();
+        Reading reading = new Reading();
+        componenti = reading.read(null);
+
+        for(JButton b : btnArray) {
             btnPanel.add(b);
+            b.addActionListener(e -> {
+                comp.removeAllItems();
+                found = false;
+                for(String[] x : componenti) {
+                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + "\n";
+                    if(x[1].equals(b.getText().toUpperCase())) {
+                        found = true;
+                        comp.addItem(s);
+                    }
+                    s = "";
+                }
+                if(!found)
+                    JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
+            });
+        }
+
         choosePanel.add(comp, BorderLayout.CENTER);
         choosePanel.add(rmv, BorderLayout.SOUTH);
 
@@ -57,7 +83,7 @@ public class Components extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        Components c = new Components();
+    public static void main(String[] args) throws SQLException {
+        Components components = new Components();
     }
 }
