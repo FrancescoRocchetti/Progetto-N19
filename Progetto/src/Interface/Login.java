@@ -12,9 +12,6 @@ import java.sql.SQLException;
 
 
 public class Login extends JFrame {
-
-    /* PROBLEMA SE SI CLICCA LA X SULLA FINESTRA */
-
     protected Toolkit kit;
     protected Dimension dim;
 
