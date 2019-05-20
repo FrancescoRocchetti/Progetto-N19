@@ -12,6 +12,8 @@ public class GestoreScelte extends Piattaforma {
     private ArrayList<String> str;
     private PCParts[] cmp;
     private JPanel[] pnl;
+    private int row = 100;
+    private int nr = 0;
 
     public GestoreScelte() {
         super();
@@ -59,8 +61,11 @@ public class GestoreScelte extends Piattaforma {
                 radioButtonListener(comp);
                 bg.add(comp);
                 panel[i].add(comp);
+                nr++;
+                if(row <= nr)
+                    row++;
             }
-            panel[i].setLayout(new GridLayout(i, 1));
+            panel[i].setLayout(new GridLayout(row, 1));
         }
         /*int i = 0;
         String[] arr;
