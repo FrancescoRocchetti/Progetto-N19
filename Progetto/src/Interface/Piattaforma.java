@@ -9,37 +9,36 @@ import java.io.*;
 
 public class Piattaforma extends JFrame {
 
-    private static final int CATEGORIES = 9;
+    protected static final int CATEGORIES = 9;
 
-    private ButtonGroup bg;
-    private Container c;
-    private Toolkit kit;
-    private Dimension dim;
-    private JTabbedPane components;
-    private JMenuBar menuBar;
-    private JMenu file;
-    private JMenu help;
-    private JMenu updateDB;
-    private JMenuItem newConfig;
-    private JMenuItem exit;
-    private JMenuItem guide;
-    private JMenuItem logAdmin;
-    private JPanel bckg;
-    private GestoreScelte gs;
-    private double tot;
+    protected ButtonGroup bg;
+    protected Container c;
+    protected Toolkit kit;
+    protected Dimension dim;
+    protected JTabbedPane components;
+    protected JMenuBar menuBar;
+    protected JMenu file;
+    protected JMenu help;
+    protected JMenu updateDB;
+    protected JMenuItem newConfig;
+    protected JMenuItem exit;
+    protected JMenuItem guide;
+    protected JMenuItem logAdmin;
+    protected JPanel bckg;
+    protected double tot;
 
-    private JPanel[] panels;
-    private JScrollPane[] scrollPanes;
+    protected JPanel[] panels;
+    protected JScrollPane[] scrollPanes;
 
-    private JPanel infoBox;
-    private JPanel listItem;
-    private JTextArea items;
-    private JScrollPane scroll;
-    private JTextField price;
-    private JLabel total;
-    private JPanel totPanel;
-    private JPanel checkPane;
-    private JTextArea checkMessage;
+    protected JPanel infoBox;
+    protected JPanel listItem;
+    protected JTextArea items;
+    protected JScrollPane scroll;
+    protected JTextField price;
+    protected JLabel total;
+    protected JPanel totPanel;
+    protected JPanel checkPane;
+    protected JTextArea checkMessage;
 
     public Piattaforma() {
         super("Configuratore di PC");
@@ -88,30 +87,9 @@ public class Piattaforma extends JFrame {
         updateDB = new JMenu("Update DB");
         help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
-        newConfigListener();
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login");
-        loginListener();
         guide = new JMenuItem("Guide");
-        gs = new GestoreScelte();
-
-        try {
-            obtainParts(PCParts.MOBO, panels[0]);
-            obtainParts(PCParts.CPU, panels[1]);
-            obtainParts(PCParts.RAM, panels[2]);
-            obtainParts(PCParts.STORAGE, panels[3]);
-            obtainParts(PCParts.GPU, panels[4]);
-            obtainParts(PCParts.PSU, panels[5]);
-            obtainParts(PCParts.COOLER, panels[6]);
-            obtainParts(PCParts.OS, panels[7]);
-            obtainParts(PCParts.CASE, panels[8]);
-        } catch (IOException e) {
-            System.err.println("Errore nella lettura");
-        }
-
-        exit.addActionListener(e -> {
-            System.exit(0);
-        });
 
         // Aggiunta componenti
         file.add(newConfig);
@@ -142,7 +120,7 @@ public class Piattaforma extends JFrame {
         bckg.add(infoBox, BorderLayout.EAST);
         bckg.add(components, BorderLayout.CENTER);
 
-        this.setJMenuBar(menuBar);
+        setJMenuBar(menuBar);
         c.add(bckg);
 
         // Opzioni frame
@@ -150,47 +128,6 @@ public class Piattaforma extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 500);
         setResizable(false);
-        this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
-    }
-
-    private void obtainParts(PCParts components, JPanel panel) throws IOException {
-        int i = 0;
-        String[] arr;
-        Reading dati = new Reading();
-        bg = new ButtonGroup();
-        while ((arr = dati.read(components)) != null) {
-            JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " :" + arr[4]);
-            radioButtonListener(comp);
-            bg.add(comp);
-            panel.add(comp);
-            i++;
-        }
-        panel.setLayout(new GridLayout(i, 1));
-    }
-
-    private void radioButtonListener(JRadioButton comp) {
-        comp.addActionListener(e -> {
-            gs.addForDisplay(comp);
-            gs.displayOnPanel(items);
-            tot += Double.parseDouble(comp.getText().split(" :")[1]);
-            price.setText(String.valueOf(tot) + " €");
-        });
-    }
-
-    private void loginListener() {
-        logAdmin.addActionListener(e -> {
-            Login l = new Login(Piattaforma.this);
-            Piattaforma.super.setVisible(false);
-            l.setLocationRelativeTo(null);
-        });
-    }
-
-    private void newConfigListener() {
-        newConfig.addActionListener(e -> {
-            tot = 0;
-            price.setText("0 €");
-            items.setText("");
-            gs.str.clear();
-        });
+        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
 }
