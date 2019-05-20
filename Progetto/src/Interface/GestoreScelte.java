@@ -9,16 +9,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GestoreScelte extends Piattaforma {
-    protected ArrayList<String> str;
-    
+    private ArrayList<String> str;
+    private PCParts[] cmp;
+    private JPanel[] pnl;
+
     public GestoreScelte() {
         super();
         str = new ArrayList<>();
+        cmp = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE};
+        pnl = new JPanel[]{panels[0], panels[1], panels[2], panels[3], panels[4], panels[5], panels[6], panels[7], panels[8]};
         newConfigListener();
         loginListener();
         exitListener();
         try {
-            obtainParts(PCParts.MOBO, panels[0]);
+            obtainParts(cmp, pnl);
+            /*obtainParts(PCParts.MOBO, panels[0]);
             obtainParts(PCParts.CPU, panels[1]);
             obtainParts(PCParts.RAM, panels[2]);
             obtainParts(PCParts.STORAGE, panels[3]);
@@ -26,7 +31,7 @@ public class GestoreScelte extends Piattaforma {
             obtainParts(PCParts.PSU, panels[5]);
             obtainParts(PCParts.COOLER, panels[6]);
             obtainParts(PCParts.OS, panels[7]);
-            obtainParts(PCParts.CASE, panels[8]);
+            obtainParts(PCParts.CASE, panels[8]);*/
         } catch (IOException e) {
             System.err.println("Errore nella lettura");
         }
@@ -44,8 +49,20 @@ public class GestoreScelte extends Piattaforma {
         textArea.setText(s);
     }
 
-    private void obtainParts(PCParts components, JPanel panel) throws IOException {
-        int i = 0;
+    private void obtainParts(PCParts[] components, JPanel[] panel) throws IOException {
+        String[] arr;
+        Reading dati = new Reading();
+        bg = new ButtonGroup();
+        for(int i = 0; i < components.length; i++) {
+            while (((arr = dati.read(components[i])) != null)) {
+                JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " :" + arr[4]);
+                radioButtonListener(comp);
+                bg.add(comp);
+                panel[i].add(comp);
+            }
+            panel[i].setLayout(new GridLayout(i, 1));
+        }
+        /*int i = 0;
         String[] arr;
         Reading dati = new Reading();
         bg = new ButtonGroup();
@@ -55,8 +72,7 @@ public class GestoreScelte extends Piattaforma {
             bg.add(comp);
             panel.add(comp);
             i++;
-        }
-        panel.setLayout(new GridLayout(i, 1));
+        }*/
     }
 
     private void radioButtonListener(JRadioButton comp) {
