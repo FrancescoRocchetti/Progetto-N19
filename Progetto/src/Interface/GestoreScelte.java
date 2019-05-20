@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class GestoreScelte extends Piattaforma {
     protected ArrayList<String> str;
+    
     public GestoreScelte() {
         super();
         str = new ArrayList<>();
