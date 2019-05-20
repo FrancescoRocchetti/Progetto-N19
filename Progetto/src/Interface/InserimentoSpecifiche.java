@@ -18,6 +18,8 @@ public class InserimentoSpecifiche extends JFrame {
     private JPanel background;
     private JPanel data;
     private JPanel descPanel;
+    protected Toolkit kit;
+    protected Dimension dim;
 
     private JLabel title;
     private JLabel component;
@@ -51,9 +53,10 @@ public class InserimentoSpecifiche extends JFrame {
 
     private final int QTA = 99;
 
-
     public InserimentoSpecifiche(Piattaforma p, String user) {
         super("Aggiunta componente");
+        kit = Toolkit.getDefaultToolkit();
+        dim = kit.getScreenSize();
         c = getContentPane();
         componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS"};
         background = new JPanel(new BorderLayout());
@@ -264,10 +267,10 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         setVisible(true);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(600, 380);
         setResizable(false);
+        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
 
     public void setSpinnerNotWritable(JSpinner spinner) {
