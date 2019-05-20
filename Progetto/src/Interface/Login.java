@@ -10,10 +10,19 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 
+
 public class Login extends JFrame {
+
+    /* PROBLEMA SE SI CLICCA LA X SULLA FINESTRA */
+
+    protected Toolkit kit;
+    protected Dimension dim;
+
     public Login(Piattaforma p) {
         super("Login");
         Container c = getContentPane();
+        kit = Toolkit.getDefaultToolkit();
+        dim = kit.getScreenSize();
         JPanel background = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
         JPanel formPanel = new JPanel(new GridLayout(2, 1));
@@ -63,10 +72,10 @@ public class Login extends JFrame {
         });
 
         setResizable(false);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(250, 125);
         setVisible(true);
+        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
 
 
