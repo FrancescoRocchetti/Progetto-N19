@@ -77,6 +77,4 @@ public class Login extends JFrame {
         setVisible(true);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
-
-
 }
