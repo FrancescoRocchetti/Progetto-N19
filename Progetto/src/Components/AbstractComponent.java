@@ -4,7 +4,7 @@ import Resources.Resource;
 
 public abstract class AbstractComponent implements Comparable {
 
-    String ID;
+    protected int ID;
     protected int price;
     protected int performance;
     protected String name;
@@ -26,7 +26,7 @@ public abstract class AbstractComponent implements Comparable {
         this.price=Integer.parseInt(input[4]);
         this.performance=Integer.parseInt(input[5]);
         this.quantity=Integer.parseInt(input[3]);
-        this.ID=input[0];
+        this.ID=Integer.parseInt(input[0]);
         this.type=input[1].toLowerCase();
         this.caratteristiche = input[2].split("_");
         this.name = caratteristiche[0];
@@ -36,6 +36,8 @@ public abstract class AbstractComponent implements Comparable {
     public int getPerformance() {
         return performance;
     }
+
+    public int getID() { return ID; }
 
     public int getPrice() {
         return price;
