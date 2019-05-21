@@ -7,7 +7,6 @@ import Gestione.SelectedComponents;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -21,6 +20,7 @@ public class GestoreScelte extends Piattaforma {
 
     public GestoreScelte() {
         super();
+        scp = new SelectedComponents();
         str = new ArrayList<>();
         cmp = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE};
         pnl = new JPanel[]{panels[0], panels[1], panels[2], panels[3], panels[4], panels[5], panels[6], panels[7], panels[8]};
@@ -56,7 +56,7 @@ public class GestoreScelte extends Piattaforma {
         for(int z = 0; z < components.length; z++) {
             arr = dati.read(components[z]);
             for(AbstractComponent x : arr) {
-                comp = new CompRadio(x.getName(),x);
+                comp = new CompRadio(x.getType() + " " + x.getName() + " " + x.getPrice()+"€",x);
                 radioButtonListener(comp);
                 bg.add(comp);
                 panel[z].add(comp);
@@ -68,11 +68,12 @@ public class GestoreScelte extends Piattaforma {
         }
     }
 
-    private void radioButtonListener(JRadioButton comp) {
+    private void radioButtonListener(CompRadio comp) {
         comp.addActionListener(e -> {
             addForDisplay(comp);
             displayOnPanel(items);
-            tot += Double.parseDouble(comp.getText().split(" :")[1]);
+            scp.addCList(comp.getAbs());
+            tot = scp.getTotPrice();
             price.setText(String.valueOf(tot) + " €");
         });
     }
