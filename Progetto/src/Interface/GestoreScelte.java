@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 public class GestoreScelte extends Piattaforma {
     private ArrayList<String> str;
-    private PCParts[] cmp;
-    private JPanel[] pnl;
     private int row = 100;
     private int nr = 0;
     private SelectedComponents scp;
@@ -22,8 +20,8 @@ public class GestoreScelte extends Piattaforma {
         super();
         scp = new SelectedComponents();
         str = new ArrayList<>();
-        cmp = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE};
-        pnl = new JPanel[]{panels[0], panels[1], panels[2], panels[3], panels[4], panels[5], panels[6], panels[7], panels[8]};
+        PCParts[] cmp = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE};
+        JPanel[] pnl = new JPanel[]{panels[0], panels[1], panels[2], panels[3], panels[4], panels[5], panels[6], panels[7], panels[8]};
         newConfigListener();
         loginListener();
         exitListener();
@@ -40,15 +38,14 @@ public class GestoreScelte extends Piattaforma {
     }
 
     private void displayOnPanel(JTextArea textArea) {
-        String s = "";
-        for(int i = 0; i < str.size(); i++) {
-            s += str.get(i) + "\n";
+        StringBuilder s = new StringBuilder();
+        for (String aStr : str) {
+            s.append(aStr).append("\n");
         }
-        textArea.setText(s);
+        textArea.setText(s.toString());
     }
 
     private void obtainParts(PCParts[] components, JPanel[] panel) throws SQLException {
-        int i = 0;
         ArrayList<AbstractComponent> arr;
         Reading dati = new Reading();
         CompRadio comp;
@@ -96,8 +93,6 @@ public class GestoreScelte extends Piattaforma {
     }
 
     private void exitListener() {
-        exit.addActionListener(e -> {
-            System.exit(0);
-        });
+        exit.addActionListener(e -> System.exit(0));
     }
 }
