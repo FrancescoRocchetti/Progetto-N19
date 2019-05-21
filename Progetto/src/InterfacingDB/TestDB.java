@@ -1,5 +1,7 @@
 package InterfacingDB;
 
+import Components.AbstractComponent;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,23 +11,17 @@ public class TestDB {
         Reading r = new Reading();
         //Writing w = new Writing();
         LoginDB l = new LoginDB();
-        ArrayList<String[]> list;
+        ArrayList<AbstractComponent> list;
 
-        list = r.read(null);
+        list = r.read(PCParts.CPU);
 
-        for(String[] arr1: list) {
-            for (String arr2 : arr1) {
-                System.out.print(arr2+"\t");
-            }
-            System.out.println();
+        for(AbstractComponent arr1: list) {
+            System.out.println(arr1);
         }
-
-
 
         System.out.println(l.login("user","password"));
         System.out.println(r.getNumberOfRows());
-        r.forceClose();
-        /*
+        /*r.forceClose();
         w.write(PCParts.CPU,"BEPIS",5,999,5);
         w.update(24,15);
         w.remove(24);

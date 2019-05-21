@@ -1,5 +1,7 @@
 package InterfacingDB;
 
+import Components.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -19,17 +21,17 @@ public class Reading {
         password = "9Eb92Yn9qF";
     }
 
-    public ArrayList<String[]> read(PCParts comp) throws SQLException {
+    public ArrayList<AbstractComponent> read(PCParts comp) throws SQLException {
         connectToDB();
         if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
         else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='"+comp.name()+"'");
-        ArrayList<String[]> list = new ArrayList<>();
+        ArrayList<AbstractComponent> list = new ArrayList<>();
         String str[];
         while(rs.next()){
             str = new String[ELEMENTS];
             for(int i = 1; i<ELEMENTS+1; i++)
                 str[i-1] = rs.getString(i);
-            list.add(str);
+            list.add(getComponent(str));
         }
         conn.close();
         return list;
@@ -55,6 +57,22 @@ public class Reading {
             conn.close();
         } catch (Exception e) {
             System.err.println("Già chiuso.");
+        }
+    }
+
+    private AbstractComponent getComponent(String[] str){
+        switch(str[1].toUpperCase()){
+            case "CASE": return new Case(str);
+            case "COOLER": return new CoolerCPU(str);
+            case "CPU": return new CPU(str);
+            case "GPU": return new GPU(str);
+            case "MOBO": return new MOBO(str);
+            case "OS": return new OS(str);
+            case "PSU": return new PSU(str);
+            case "RAM": return new RAM(str);
+            case "STORAGE": return new Storage(str);
+            case "ALTRO": return new Other(str);
+            default: return null;
         }
     }
 }
