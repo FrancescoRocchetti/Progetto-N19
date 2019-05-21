@@ -1,11 +1,14 @@
 package Interface;
 
-import InterfacingDB.DeprecatedClasses.Reading;
+import InterfacingDB.Reading;
 import InterfacingDB.PCParts;
+import Components.AbstractComponent;
+import Gestione.SelectedComponents;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GestoreScelte extends Piattaforma {
@@ -14,6 +17,7 @@ public class GestoreScelte extends Piattaforma {
     private JPanel[] pnl;
     private int row = 100;
     private int nr = 0;
+    private SelectedComponents scp;
 
     public GestoreScelte() {
         super();
@@ -25,17 +29,9 @@ public class GestoreScelte extends Piattaforma {
         exitListener();
         try {
             obtainParts(cmp, pnl);
-            /*obtainParts(PCParts.MOBO, panels[0]);
-            obtainParts(PCParts.CPU, panels[1]);
-            obtainParts(PCParts.RAM, panels[2]);
-            obtainParts(PCParts.STORAGE, panels[3]);
-            obtainParts(PCParts.GPU, panels[4]);
-            obtainParts(PCParts.PSU, panels[5]);
-            obtainParts(PCParts.COOLER, panels[6]);
-            obtainParts(PCParts.OS, panels[7]);
-            obtainParts(PCParts.CASE, panels[8]);*/
-        } catch (IOException e) {
-            System.err.println("Errore nella lettura");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //System.err.println("Errore nella lettura");
         }
     }
 
@@ -51,33 +47,25 @@ public class GestoreScelte extends Piattaforma {
         textArea.setText(s);
     }
 
-    private void obtainParts(PCParts[] components, JPanel[] panel) throws IOException {
-        String[] arr;
+    private void obtainParts(PCParts[] components, JPanel[] panel) throws SQLException {
+        int i = 0;
+        ArrayList<AbstractComponent> arr;
         Reading dati = new Reading();
+        JRadioButton comp;
         bg = new ButtonGroup();
-        for(int i = 0; i < components.length; i++) {
-            while (((arr = dati.read(components[i])) != null)) {
-                JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " :" + arr[4]);
+        for(int z = 0; z < components.length; z++) {
+            arr = dati.read(components[z]);
+            for(AbstractComponent x : arr) {
+                comp = new JRadioButton(x.getName() + " " + x.getType() + ", :" + x.getPrice() + "€");
                 radioButtonListener(comp);
                 bg.add(comp);
-                panel[i].add(comp);
+                panel[z].add(comp);
                 nr++;
                 if(row <= nr)
                     row++;
             }
-            panel[i].setLayout(new GridLayout(row, 1));
+            panel[z].setLayout(new GridLayout(row, 1));
         }
-        /*int i = 0;
-        String[] arr;
-        Reading dati = new Reading();
-        bg = new ButtonGroup();
-        while ((arr = dati.read(components)) != null) {
-            JRadioButton comp = new JRadioButton(arr[2] + " " + arr[3] + " :" + arr[4]);
-            radioButtonListener(comp);
-            bg.add(comp);
-            panel.add(comp);
-            i++;
-        }*/
     }
 
     private void radioButtonListener(JRadioButton comp) {
