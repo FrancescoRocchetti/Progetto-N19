@@ -1,6 +1,6 @@
 package Interface;
 
-import InterfacingDB.LoginDB;
+import Components.AbstractComponent;
 import InterfacingDB.PCParts;
 import InterfacingDB.Reading;
 import InterfacingDB.Writing;
@@ -199,13 +199,13 @@ public class InserimentoSpecifiche extends JFrame {
 
         check.addActionListener(e -> {
             Reading reading = new Reading();
-            ArrayList<String[]> components;
+            ArrayList<AbstractComponent> components;
             String s = "";
             try {
                 components = reading.read(null);
-                for(String[] x : components)
-                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + "\n";
-                JOptionPane.showMessageDialog(null, s, "Componenti archiviati", JOptionPane.INFORMATION_MESSAGE);
+                /*for(String[] x : components)
+                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + "\n";*/
+                JOptionPane.showMessageDialog(null, components, "Componenti archiviati", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }

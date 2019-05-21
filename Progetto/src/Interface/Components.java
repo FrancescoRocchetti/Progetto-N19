@@ -1,6 +1,6 @@
 package Interface;
 
-import InterfacingDB.PCParts;
+import Components.AbstractComponent;
 import InterfacingDB.Reading;
 import InterfacingDB.Writing;
 
@@ -26,7 +26,7 @@ public class Components extends JFrame {
     private JButton[] btnArray;
     private JComboBox comp;
     private JButton rmv;
-    private ArrayList<String[]> componenti;
+    private ArrayList<AbstractComponent> componenti;
     private String s = "";
     private boolean found;
     private int codToRmv;
@@ -86,15 +86,16 @@ public class Components extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public void addItemToRmv(JComboBox c, ArrayList<String[]> str) {
+    public void addItemToRmv(JComboBox c, ArrayList<AbstractComponent> str) {
         for(JButton b : btnArray) {
             btnPanel.add(b);
             b.addActionListener(e -> {
                 c.removeAllItems();
                 found = false;
-                for(String[] x : str) {
-                    s += x[0] + " " + x[1] + " " + x[2] + " " + x[3] + " " + x[4] + "\n";
-                    if(x[1].equals(b.getText().toUpperCase())) {
+                for(AbstractComponent x : str) {
+                    s += x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
+                    if(x.getType().equals(b.getText().toUpperCase())) {
+                        System.out.println(s);
                         found = true;
                         c.addItem(s);
                     }
