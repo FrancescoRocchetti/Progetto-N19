@@ -51,12 +51,12 @@ public class GestoreScelte extends Piattaforma {
         int i = 0;
         ArrayList<AbstractComponent> arr;
         Reading dati = new Reading();
-        JRadioButton comp;
+        CompRadio comp;
         bg = new ButtonGroup();
         for(int z = 0; z < components.length; z++) {
             arr = dati.read(components[z]);
             for(AbstractComponent x : arr) {
-                comp = new JRadioButton(x.getName() + " " + x.getType() + ", :" + x.getPrice() + "€");
+                comp = new CompRadio(x.getName(),x);
                 radioButtonListener(comp);
                 bg.add(comp);
                 panel[z].add(comp);
