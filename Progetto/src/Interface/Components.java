@@ -31,7 +31,7 @@ public class Components extends JFrame {
     private ArrayList<AbstractComponent> componenti;
     private String s = "";
     private boolean found;
-    private int qtaToRmv;
+    private int qtaToRmv = 0;
 
     public Components() throws SQLException {
         super("Remove component");
@@ -52,8 +52,6 @@ public class Components extends JFrame {
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os};
         comp = new JComboBox();
         qta = new JComboBox();
-        for(int i = 1; i <= qtaToRmv; i++)
-            qta.addItem(i);
         rmv = new JButton("Remove");
         componenti = new ArrayList<>();
         Reading reading = new Reading();
@@ -79,14 +77,19 @@ public class Components extends JFrame {
         });
 
         comp.addActionListener(e -> {
-            String item = (String) comp.getSelectedItem();
-            String qString;
-            String[] q;
-            qString = new StringBuffer(item).reverse().toString();
-            q = qString.split(" ");
-            qString = new StringBuffer(q[0]).reverse().toString();
-            qtaToRmv = Integer.parseInt(qString);
-            System.out.println(qtaToRmv);
+            if(comp.getSelectedItem() != null) {
+                qta.removeAllItems();
+                String item = (String) comp.getSelectedItem();
+                String[] id;
+                id = item.split(" ");
+                try {
+                    qtaToRmv = reading.getQuantityByID(Integer.parseInt(id[0]));
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                for(int i = 1; i <= qtaToRmv; i++)
+                    qta.addItem(i);
+            }
         });
 
         comboBoxPanel.add(comp);
@@ -120,9 +123,8 @@ public class Components extends JFrame {
                 for(AbstractComponent x : str) {
                     s += x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
                     if(x.getType().equals(b.getText().toUpperCase())) {
-                        System.out.println(s);
-                        found = true;
                         c.addItem(s);
+                        found = true;
                     }
                     s = "";
                 }
