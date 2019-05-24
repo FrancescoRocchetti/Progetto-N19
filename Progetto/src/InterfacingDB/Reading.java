@@ -60,6 +60,17 @@ public class Reading {
         }
     }
 
+    public int getQuantityByID(int id) throws SQLException {
+        int quantity;
+        connectToDB();
+        rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + id + "'");
+        rs.next();
+        quantity = rs.getInt("q");
+        conn.close();
+
+        return quantity;
+    }
+
     private AbstractComponent getComponent(String[] str){
         switch(str[1].toUpperCase()){
             case "CASE": return new Case(str);

@@ -44,14 +44,15 @@ public class Writing {
         conn.close();
     }
 
-    public void remove(int cod) throws SQLException {
+    public void remove(int cod, int qta) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
         String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
 
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1,cod);
 
-        preparedStmt.execute();
+        for(int i = 0; i < qta; i++)
+            preparedStmt.execute();
 
         conn.close();
     }

@@ -56,7 +56,7 @@ public class Login extends JFrame {
                     System.err.println("Accesso non riuscito");
                 }
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         };
 

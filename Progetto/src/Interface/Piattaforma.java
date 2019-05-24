@@ -24,6 +24,7 @@ public class Piattaforma extends JFrame {
     protected JMenuItem exit;
     protected JMenuItem guide;
     protected JMenuItem logAdmin;
+    protected JMenuItem recharge;
     protected JPanel bckg;
     protected double tot;
 
@@ -84,17 +85,19 @@ public class Piattaforma extends JFrame {
         checkPane.add(checkMessage);
         menuBar = new JMenuBar();
         file = new JMenu("File");
-        updateDB = new JMenu("Update DB");
+        updateDB = new JMenu("Connection");
         help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login");
+        recharge = new JMenuItem("Try new connection");
         guide = new JMenuItem("Guide");
 
         // Aggiunta componenti
         file.add(newConfig);
         file.add(exit);
         updateDB.add(logAdmin);
+        updateDB.add(recharge);
         help.add(guide);
         menuBar.add(file);
         menuBar.add(updateDB);

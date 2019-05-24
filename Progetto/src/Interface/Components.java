@@ -14,6 +14,7 @@ public class Components extends JFrame {
     private JPanel bckg;
     private JPanel btnPanel;
     private JPanel choosePanel;
+    private JPanel comboBoxPanel;
     private JButton caseButton;
     private JButton cooler;
     private JButton cpu;
@@ -25,11 +26,12 @@ public class Components extends JFrame {
     private JButton storage;
     private JButton[] btnArray;
     private JComboBox comp;
+    private JComboBox qta;
     private JButton rmv;
     private ArrayList<AbstractComponent> componenti;
     private String s = "";
     private boolean found;
-    private int codToRmv;
+    private int qtaToRmv = 0;
 
     public Components() throws SQLException {
         super("Remove component");
@@ -37,6 +39,7 @@ public class Components extends JFrame {
         bckg = new JPanel(new BorderLayout());
         btnPanel = new JPanel(new GridLayout(3,3));
         choosePanel = new JPanel(new BorderLayout());
+        comboBoxPanel = new JPanel(new GridLayout(3,1));
         caseButton = new JButton("Case");
         cooler = new JButton("Cooler");
         cpu = new JButton("CPU");
@@ -48,6 +51,7 @@ public class Components extends JFrame {
         storage = new JButton("Storage");
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os};
         comp = new JComboBox();
+        qta = new JComboBox();
         rmv = new JButton("Remove");
         componenti = new ArrayList<>();
         Reading reading = new Reading();
@@ -64,7 +68,7 @@ public class Components extends JFrame {
             cod = item.split(" ");
             rmCod = Integer.parseInt(String.valueOf(cod[0]));
             try {
-                writing.remove(rmCod);
+                writing.remove(rmCod, qtaToRmv);
                 JOptionPane.showMessageDialog(null, item + " rimosso con successo", "Componente rimosso", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (SQLException e1) {
@@ -72,7 +76,27 @@ public class Components extends JFrame {
             }
         });
 
-        choosePanel.add(comp, BorderLayout.CENTER);
+        comp.addActionListener(e -> {
+            if(comp.getSelectedItem() != null) {
+                qta.removeAllItems();
+                String item = (String) comp.getSelectedItem();
+                String[] id;
+                id = item.split(" ");
+                try {
+                    qtaToRmv = reading.getQuantityByID(Integer.parseInt(id[0]));
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                for(int i = 1; i <= qtaToRmv; i++)
+                    qta.addItem(i);
+            }
+        });
+
+        comboBoxPanel.add(comp);
+        comboBoxPanel.add(new JLabel("Pieces to remove:"));
+        comboBoxPanel.add(qta);
+
+        choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
         choosePanel.add(rmv, BorderLayout.SOUTH);
 
         bckg.add(btnPanel, BorderLayout.CENTER);
@@ -86,6 +110,10 @@ public class Components extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
+    public static void main(String[] args) throws SQLException {
+        Components components = new Components();
+    }
+
     public void addItemToRmv(JComboBox c, ArrayList<AbstractComponent> str) {
         for(JButton b : btnArray) {
             btnPanel.add(b);
@@ -95,9 +123,8 @@ public class Components extends JFrame {
                 for(AbstractComponent x : str) {
                     s += x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
                     if(x.getType().equals(b.getText().toUpperCase())) {
-                        System.out.println(s);
-                        found = true;
                         c.addItem(s);
+                        found = true;
                     }
                     s = "";
                 }
@@ -105,9 +132,5 @@ public class Components extends JFrame {
                     JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
             });
         }
-    }
-
-    public static void main(String[] args) throws SQLException {
-        Components components = new Components();
     }
 }
