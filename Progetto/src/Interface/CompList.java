@@ -4,6 +4,7 @@ import Components.AbstractComponent;
 import InterfacingDB.Reading;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class CompList extends JFrame {
             String data[][] = getString();
             String column[] = {"ID", "TIPO", "NOME", "PREZZO"};
             JTable table = new JTable(data, column);
+            table.setDefaultEditor(Object.class, null);
             JScrollPane sp = new JScrollPane(table);
             JPanel panel = new JPanel();
             JButton btn = new JButton("Ok");

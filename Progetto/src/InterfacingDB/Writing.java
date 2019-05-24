@@ -44,15 +44,33 @@ public class Writing {
         conn.close();
     }
 
-    public void remove(int cod, int qta) throws SQLException {
+
+    public void remove(int cod) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
         String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
 
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1,cod);
 
-        for(int i = 0; i < qta; i++)
-            preparedStmt.execute();
+        preparedStmt.execute();
+
+        conn.close();
+    }
+
+    public void remove(int cod, int quantità) throws SQLException {
+        conn = DriverManager.getConnection(url, user, password);
+
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
+        rs.next();
+        int q = rs.getInt("q")-quantità;
+
+        String query = "UPDATE INVENTARIO SET QUANTITA = "+q+" WHERE CODICE = ?;";
+
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1,cod);
+
+        preparedStmt.execute();
 
         conn.close();
     }

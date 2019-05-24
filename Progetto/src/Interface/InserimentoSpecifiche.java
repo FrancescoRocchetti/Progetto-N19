@@ -201,14 +201,7 @@ public class InserimentoSpecifiche extends JFrame {
             Reading reading = new Reading();
             ArrayList<AbstractComponent> components;
             String s = "";
-            try {
-                components = reading.read(null);
-                for(AbstractComponent x : components)
-                    s += "ID: " + x.getID() + ", Type: " + x.getType() + ", Name: " + x.getName() + ", Price: " + x.getPrice() + ", Quantity: " + x.getQuantity() + "\n";
-                JOptionPane.showMessageDialog(null, s, "Componenti archiviati", JOptionPane.INFORMATION_MESSAGE);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+            new CompList(this);
         });
 
         data.add(component);
