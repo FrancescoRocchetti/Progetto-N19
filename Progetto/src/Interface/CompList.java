@@ -27,7 +27,7 @@ public class CompList extends JFrame {
             Reading r = new Reading();
             comp = r.read(null);
             String data[][] = getString();
-            String column[] = {"ID", "TIPO", "NOME", "PREZZO"};
+            String column[] = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
             JTable table = new JTable(data, column);
             table.setDefaultEditor(Object.class, null);
             JScrollPane sp = new JScrollPane(table);
@@ -99,12 +99,13 @@ public class CompList extends JFrame {
         String data[][] = new String[comp.size()][];
         AbstractComponent abs;
         for(int i = 0; i < comp.size(); i++){
-            data[i] = new String[4];
+            data[i] = new String[5];
             abs = comp.get(i);
             data[i][0] = String.valueOf(abs.getID());
             data[i][1] = abs.getType();
             data[i][2] = abs.getName();
-            data[i][3] = String.valueOf(abs.getPrice()+"€");
+            data[i][3] = String.valueOf(abs.getQuantity());
+            data[i][4] = abs.getPrice()+"€";
         }
         return data;
     }

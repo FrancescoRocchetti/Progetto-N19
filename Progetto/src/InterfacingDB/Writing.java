@@ -63,7 +63,8 @@ public class Writing {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
         rs.next();
-        int q = rs.getInt("q")-quantità;
+        int q = rs.getInt("q");
+        q-=quantità;
 
         String query = "UPDATE INVENTARIO SET QUANTITA = "+q+" WHERE CODICE = ?;";
 

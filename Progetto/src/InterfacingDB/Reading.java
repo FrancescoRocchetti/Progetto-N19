@@ -67,7 +67,6 @@ public class Reading {
         rs.next();
         quantity = rs.getInt("q");
         conn.close();
-
         return quantity;
     }
 
