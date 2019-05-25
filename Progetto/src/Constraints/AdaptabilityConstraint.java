@@ -20,14 +20,6 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                 || r.getTypeRAM().equals(m.getTypeRAM());
     }
 
-    private static boolean checkMOBOGPU(){
-        return true;
-    }
-
-    private static boolean checkMOBOSTORAGE(){
-        return true;
-    }
-
     private static boolean checkCPURAM(CPU c, RAM r){
         return c == null || r == null
                 || r.getTypeRAM().equals(c.getTypeRAM());
@@ -43,22 +35,6 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                 || m.getCaseDim().equals(c.getCaseDim());
                 //pls fix
     }
-
-    private static boolean checkCASESTORAGE(){
-        return true;
-    }
-
-    //TODO: ?
-    //TODO: aggiungere una quarta classe di check per il numero massimo di componenti
-
-    //cpu-> (checkMOBOCPU)(checkCPURAM)(checkCPUOS)
-    //mobo-> (checkMOBOCPU)(checkMOBORAM)(checkMOBOGPU)--4(checkMOBOSTORAGE)--4(checkMOBOCASE)
-    //ram-> (checkMOBORAM)(checkCPURAM)
-    //gpu-> (checkMOBOGPU)--4
-    //storage-> (checkMOBOSTORAGE)--4
-    //case-> (checkMOBOCASE)(checkCASESTORAGE)--4
-    //os-> (checkCPUOS)
-
 
     //rimuove dall'arraylist in arrivo dal DB i componenti non compatibili
     public static ArrayList<AbstractComponent> check(ArrayList<AbstractComponent> al, SelectedComponents sc){
@@ -99,12 +75,4 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         }
         return al;
     }
-
-    /*
-    public static boolean check() {
-        //questo va sostituito con uno switch case
-        return (checkMOBOCPU() && checkMOBORAM() && checkMOBOGPU() && checkMOBOSTORAGE() &&
-                checkCPURAM() && checkCPUOS() && checkMOBOCASE() && checkCASESTORAGE());
-    }
-    */
 }

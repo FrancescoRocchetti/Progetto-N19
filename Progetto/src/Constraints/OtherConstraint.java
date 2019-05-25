@@ -74,7 +74,26 @@ public class OtherConstraint {
             //(checkMOBOSTORAGE)
             temp = false;
         }
-        //TODO: (checkMOBOGPU)(checkCASESTORAGE) nram nstorage
+
+        if(before.isOkMOBO() && (after.getnPci() < 0)){
+            //(checkMOBOGPU)
+            temp = false;
+        }
+
+        if(before.isOkCase() && (after.getnSlot325() < 0)){
+            //(checkCASESTORAGE)
+            temp = false;
+        }
+
+        if(before.isOkMOBO() && (after.getModulesRAM() < 0)){
+            //(nram)
+            temp = false;
+        }
+
+        if(before.isOkMOBO() && (after.getnSATA() < 0)){
+            //(nstorage)
+            temp = false;
+        }
 
         return temp;
     }
