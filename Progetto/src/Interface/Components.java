@@ -63,12 +63,16 @@ public class Components extends JFrame {
             Writing writing = new Writing();
             String item;
             String[] cod;
+            String qtaItem;
             int rmCod;
+            int qtaRmv;
             item = (String) comp.getSelectedItem();
             cod = item.split(" ");
             rmCod = Integer.parseInt(String.valueOf(cod[0]));
+            qtaRmv = (Integer) qta.getSelectedItem();
+            System.out.println(qtaRmv);
             try {
-                writing.remove(rmCod, qtaToRmv);
+                writing.remove(rmCod, qtaRmv);
                 JOptionPane.showMessageDialog(null, item + " rimosso con successo", "Componente rimosso", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (SQLException e1) {
