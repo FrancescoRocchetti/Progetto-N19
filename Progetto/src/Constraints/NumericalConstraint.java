@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class NumericalConstraint implements AbstractConstraint {
 
-    //questi vincoli creano solo dei warning
+    //QUESTA PARTE è DIVENTATA INUTILE DA QUANDO ESISTONO LE RISORSE
     private static boolean checkPOWER(SelectedComponents sc){
         if(sc.getType(PCParts.PSU) != null) {
             int w = 0;

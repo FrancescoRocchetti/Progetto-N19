@@ -20,6 +20,10 @@ public class ConsistencyConstraint implements AbstractConstraint {
     }
 
 
+
+
+
+    //QUESTA PARTE è INUTILE
     private static boolean checkCPU(SelectedComponents sc) {
         return !(sc.getType(PCParts.CPU) == null);
     }
