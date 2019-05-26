@@ -114,9 +114,9 @@ public class Components extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public static void main(String[] args) throws SQLException {
+    /*public static void main(String[] args) throws SQLException {
         Components components = new Components();
-    }
+    }*/
 
     public void addItemToRmv(JComboBox c, ArrayList<AbstractComponent> str) {
         for(JButton b : btnArray) {
