@@ -1,15 +1,18 @@
 package Interface;
 
 import InterfacingDB.PCParts;
-import InterfacingDB.DeprecatedClasses.Reading;
+import InterfacingDB.Reading;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
+import Components.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
 
-    protected static final int CATEGORIES = 9;
+    private static final int CATEGORIES = 9;
+    private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE};
 
     protected ButtonGroup bg;
     protected Container c;
@@ -26,7 +29,6 @@ public class Piattaforma extends JFrame {
     protected JMenuItem logAdmin;
     protected JMenuItem recharge;
     protected JPanel bckg;
-    protected double tot;
 
     protected JPanel[] panels;
     protected JScrollPane[] scrollPanes;
@@ -41,8 +43,17 @@ public class Piattaforma extends JFrame {
     protected JPanel checkPane;
     protected JTextArea checkMessage;
 
+    private int row;
+    private int nr;
+    private GestoreScelte gs;
+
     public Piattaforma() {
         super("Configuratore di PC");
+        gs = new GestoreScelte();
+        //pnl = new JPanel[]{panels[0], panels[1], panels[2], panels[3], panels[4], panels[5], panels[6], panels[7], panels[8]};
+
+        nr = 0;
+        row = 100;
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
 
@@ -126,6 +137,12 @@ public class Piattaforma extends JFrame {
         setJMenuBar(menuBar);
         c.add(bckg);
 
+        loginListener();
+        newConfigListener();
+        rechargeListener();
+        exitListener();
+        obtainParts();
+
         // Opzioni frame
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -133,4 +150,78 @@ public class Piattaforma extends JFrame {
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
+
+
+    private void addComp(CompRadio button) {
+        gs.addComp(button.getAbs());
+    }
+
+    private void displayOnPanel(JTextArea textArea) {
+        textArea.setText(gs.getListAbs());
+    }
+
+    private void obtainParts(){
+        try{
+            bg = new ButtonGroup();
+            CompRadio comp;
+            ArrayList<AbstractComponent> arr;
+
+            for(int z = 0; z < CMP.length; z++) {
+                    arr = gs.obtainParts(CMP[z]);
+                for(AbstractComponent x : arr) {
+                    comp = new CompRadio(x.getType() + " " + x.getName() + " - " + x.getPrice()+" €",x);
+                    radioButtonListener(comp);
+                    bg.add(comp);
+                    panels[z].add(comp);
+                    nr++;
+                    if(row <= nr)
+                        row++;
+                }
+                panels[z].setLayout(new GridLayout(row, 1));
+            }
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Errore: impossibile connettersi al DB.\nIl programma terminerà la sua esecuzione.", "Errore", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            System.exit(10);
+        }
+    }
+
+    private void radioButtonListener(CompRadio comp) {
+        comp.addActionListener(e -> {
+            if (!gs.isAlreadyIn(comp.getAbs())){
+                addComp(comp);
+                displayOnPanel(items);
+                price.setText(gs.getPrice() + " €");
+            }
+        });
+    }
+
+    private void loginListener() {
+        logAdmin.addActionListener(e -> {
+            Login l = new Login(this);
+            setVisible(false);
+            l.setLocationRelativeTo(null);
+        });
+    }
+
+    private void newConfigListener() {
+        newConfig.addActionListener(e -> {
+            price.setText("0 €");
+            items.setText("");
+            gs.newScp();
+        });
+    }
+
+    private void rechargeListener() {
+        recharge.addActionListener(e -> {
+            for (JPanel p : panels)
+                p.removeAll();
+            obtainParts();
+        });
+    }
+
+    private void exitListener() {
+        exit.addActionListener(e -> System.exit(0));
+    }
 }
+

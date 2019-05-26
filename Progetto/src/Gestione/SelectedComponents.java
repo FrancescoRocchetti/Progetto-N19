@@ -76,4 +76,16 @@ public class SelectedComponents {
         return temp;
     }
 
+    public boolean isAlreadyIn(AbstractComponent comp){
+        return sc.contains(comp);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (AbstractComponent aStr : sc) {
+            s.append(aStr.getName()+" - "+aStr.getPrice()+" €").append("\n");
+        }
+        return s.toString();
+    }
 }

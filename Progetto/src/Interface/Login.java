@@ -64,8 +64,8 @@ public class Login extends JFrame {
         password.addActionListener(accesso);
 
         annulla.addActionListener(e -> {
-            dispose();
             p.setVisible(true);
+            dispose();
         });
 
         setResizable(false);
