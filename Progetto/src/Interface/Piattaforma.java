@@ -125,7 +125,7 @@ public class Piattaforma extends JFrame {
         // Opzioni frame
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 500);
+        setSize(800, 500);
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
