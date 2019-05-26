@@ -46,4 +46,6 @@ public class GestoreScelte{
     public String getListAbs(){
         return scp.toString();
     }
+
+
 }

@@ -1,9 +1,12 @@
 package Interface;
 
+import Interface.CustomJTable.RadioButtonEditor;
+import Interface.CustomJTable.RadioButtonRenderer;
 import InterfacingDB.PCParts;
-import InterfacingDB.Reading;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import Components.*;
 import java.sql.SQLException;
@@ -11,49 +14,43 @@ import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
 
-    private static final int CATEGORIES = 9;
-    private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE};
+    private static final int CATEGORIES = 10;
+    private static final int COLUMNS = 5;
+    private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE, PCParts.ALTRO};
 
-    protected ButtonGroup[] bg;
-    protected Container c;
-    protected Toolkit kit;
-    protected Dimension dim;
-    protected JTabbedPane components;
-    protected JMenuBar menuBar;
-    protected JMenu file;
-    protected JMenu help;
-    protected JMenu updateDB;
-    protected JMenuItem newConfig;
-    protected JMenuItem exit;
-    protected JMenuItem guide;
-    protected JMenuItem logAdmin;
-    protected JMenuItem recharge;
-    protected JPanel bckg;
+    private Container c;
+    private Toolkit kit;
+    private Dimension dim;
+    private JTabbedPane components;
+    private JMenuBar menuBar;
+    private JMenu file;
+    private JMenu help;
+    private JMenu updateDB;
+    private JMenuItem newConfig;
+    private JMenuItem exit;
+    private JMenuItem guide;
+    private JMenuItem logAdmin;
+    private JMenuItem recharge;
+    private JPanel bckg;
 
-    protected JPanel[] panels;
-    protected JScrollPane[] scrollPanes;
+    private JPanel[] panels;
 
-    protected JPanel infoBox;
-    protected JPanel listItem;
-    protected JTextArea items;
-    protected JScrollPane scroll;
-    protected JTextField price;
-    protected JLabel total;
-    protected JPanel totPanel;
-    protected JPanel checkPane;
-    protected JTextArea checkMessage;
-
-    private int row;
-    private int nr;
+    private JPanel infoBox;
+    private JPanel listItem;
+    private JTextArea items;
+    private JScrollPane scroll;
+    private JTextField price;
+    private JLabel total;
+    private JPanel totPanel;
+    private JPanel checkPane;
+    private JTextArea checkMessage;
+    
     private GestoreScelte gs;
 
     public Piattaforma() {
         super("Configuratore di PC");
         gs = new GestoreScelte();
-        //pnl = new JPanel[]{panels[0], panels[1], panels[2], panels[3], panels[4], panels[5], panels[6], panels[7], panels[8]};
 
-        nr = 0;
-        row = 100;
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
 
@@ -62,12 +59,8 @@ public class Piattaforma extends JFrame {
         components = new JTabbedPane();
         bckg = new JPanel(new BorderLayout());
         panels = new JPanel[CATEGORIES];
-        scrollPanes = new JScrollPane[CATEGORIES];
         for (int i = 0; i < CATEGORIES; i++) {
             panels[i] = new JPanel();
-            scrollPanes[i] = new JScrollPane(panels[i], JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollPanes[i].getHorizontalScrollBar().setUnitIncrement(10);
-            scrollPanes[i].getVerticalScrollBar().setUnitIncrement(10);
         }
         infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
@@ -101,7 +94,7 @@ public class Piattaforma extends JFrame {
         newConfig = new JMenuItem("New configuration");
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login");
-        recharge = new JMenuItem("Try new connection");
+        recharge = new JMenuItem("Refresh");
         guide = new JMenuItem("Guide");
 
         // Aggiunta componenti
@@ -114,15 +107,17 @@ public class Piattaforma extends JFrame {
         menuBar.add(updateDB);
         menuBar.add(help);
 
-        components.addTab("Scheda madre", scrollPanes[0]);
-        components.addTab("CPU", scrollPanes[1]);
-        components.addTab("RAM", scrollPanes[2]);
-        components.addTab("Storage", scrollPanes[3]);
-        components.addTab("GPU", scrollPanes[4]);
-        components.addTab("Power Supply", scrollPanes[5]);
-        components.addTab("Cooler CPU", scrollPanes[6]);
-        components.addTab("Operating System", scrollPanes[7]);
-        components.addTab("Case", scrollPanes[8]);
+        components.addTab("Mother Board", panels[0]);
+        components.addTab("CPU", panels[1]);
+        components.addTab("RAM", panels[2]);
+        components.addTab("Storage", panels[3]);
+        components.addTab("GPU", panels[4]);
+        components.addTab("Power Supply", panels[5]);
+        components.addTab("Cooler CPU", panels[6]);
+        components.addTab("Operating System", panels[7]);
+        components.addTab("Case", panels[8]);
+        components.addTab("Other", panels[9]);
+
 
         totPanel.add(total);
         totPanel.add(price);
@@ -144,11 +139,11 @@ public class Piattaforma extends JFrame {
         obtainParts();
 
         // Opzioni frame
-        setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 500);
+        setSize(1050, 500);
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+        setVisible(true);
     }
 
 
@@ -162,23 +157,25 @@ public class Piattaforma extends JFrame {
 
     private void obtainParts(){
         try{
-            bg = new ButtonGroup[CMP.length];
-            CompRadio comp;
             ArrayList<AbstractComponent> arr;
+            CompRadio[] c;
 
-            for(int z = 0; z < CMP.length; z++) {
-                    bg[z] = new ButtonGroup();
+
+            for(int z = 0; z < CMP.length-1; z++) {
                     arr = gs.obtainParts(CMP[z]);
-                for(AbstractComponent x : arr) {
-                    comp = new CompRadio(x.getType() + " " + x.getName() + " - " + x.getPrice()+" €",x);
-                    radioButtonListener(comp);
-                    bg[z].add(comp);
-                    panels[z].add(comp);
-                    nr++;
-                    if(row <= nr)
-                        row++;
+                    c = new CompRadio[arr.size()];
+
+                for(int i = 0; i<arr.size(); i++) {
+                    c[i] = new CompRadio("",arr.get(i));
+                    radioButtonListener(c[i]);
                 }
-                panels[z].setLayout(new GridLayout(row, 1));
+                JTable table = createTable(c);
+                JScrollPane scroll = new JScrollPane(
+                        table,
+                        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                panels[z].add(scroll);
+                panels[z].setLayout(new GridLayout());
             }
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Errore: impossibile connettersi al DB.\nIl programma terminerà la sua esecuzione.", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -217,12 +214,52 @@ public class Piattaforma extends JFrame {
         recharge.addActionListener(e -> {
             for (JPanel p : panels)
                 p.removeAll();
+            price.setText("0 €");
+            items.setText("");
+            gs.newScp();
             obtainParts();
         });
     }
 
     private void exitListener() {
         exit.addActionListener(e -> System.exit(0));
+    }
+
+    private JTable createTable(CompRadio[] cr){
+        ButtonGroup bg = new ButtonGroup();
+        DefaultTableModel dm = new DefaultTableModel();
+        Object[][] data = new Object[cr.length][];
+        String[] column = {"SCELTA","NOME", "QUANTITÁ", "PREZZO", "RANKING"};
+
+        for(int i = 0; i<cr.length; i++){
+            bg.add(cr[i]);
+            AbstractComponent abs = cr[i].getAbs();
+            data[i] = new Object[COLUMNS];
+            data[i][0] = cr[i];
+            data[i][1] = abs.getName();
+            data[i][2] = abs.getQuantity();
+            data[i][3] = abs.getPrice()+" €";
+            data[i][4] = abs.getPerformance();
+        }
+
+        dm.setDataVector(data, column);
+        JTable table = new JTable(dm) {
+            public void tableChanged(TableModelEvent e) {
+                super.tableChanged(e);
+                repaint();
+            }
+        };
+        table.getColumn("SCELTA").setCellRenderer(new RadioButtonRenderer());
+        table.getColumn("SCELTA").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+
+        int[] dim = {15,250,15,15,15};
+        for(int i = 0; i<dim.length;i++){
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
+
+        table.setDefaultEditor(Object.class, null);
+        return table;
     }
 }
 

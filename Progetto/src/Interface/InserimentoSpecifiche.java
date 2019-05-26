@@ -18,8 +18,8 @@ public class InserimentoSpecifiche extends JFrame {
     private JPanel background;
     private JPanel data;
     private JPanel descPanel;
-    protected Toolkit kit;
-    protected Dimension dim;
+    private Toolkit kit;
+    private Dimension dim;
 
     private JLabel title;
     private JLabel component;
@@ -49,7 +49,7 @@ public class InserimentoSpecifiche extends JFrame {
     private JPanel checkButton;
     private JLabel title1;
 
-    private String componentsName[];
+    private String[] componentsName;
 
     private final int QTA = 99;
 
@@ -266,7 +266,7 @@ public class InserimentoSpecifiche extends JFrame {
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
     }
 
-    public void setSpinnerNotWritable(JSpinner spinner) {
+    private void setSpinnerNotWritable(JSpinner spinner) {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }

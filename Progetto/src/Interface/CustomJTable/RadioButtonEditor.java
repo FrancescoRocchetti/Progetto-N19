@@ -1,10 +1,10 @@
-package Interface.ProvaJTable;
+package Interface.CustomJTable;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
+public class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
     private JRadioButton button;
 
     public RadioButtonEditor(JCheckBox checkBox) {

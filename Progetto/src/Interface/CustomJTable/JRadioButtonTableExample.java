@@ -1,4 +1,4 @@
-package Interface.ProvaJTable;
+package Interface.CustomJTable;
 
 
 

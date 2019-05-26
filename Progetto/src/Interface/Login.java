@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 
 public class Login extends JFrame {
-    protected Toolkit kit;
-    protected Dimension dim;
+    private Toolkit kit;
+    private Dimension dim;
 
     public Login(Piattaforma p) {
         super("Login");
