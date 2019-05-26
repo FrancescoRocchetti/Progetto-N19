@@ -69,14 +69,24 @@ public class GestoreScelte extends Piattaforma {
     private void radioButtonListener(CompRadio comp) {
         comp.addActionListener(e -> {
             String currentChoice;
-            //currentChoice = comp.getText();
-            //System.out.println(str);
-            //System.out.println(currentChoice);
-            addForDisplay(comp);
-            displayOnPanel(items);
-            scp.addCList(comp.getAbs());
-            tot = scp.getTotPrice();
-            price.setText(String.valueOf(tot) + " €");
+            String alreadyPresent;
+            boolean giaPresente;
+            currentChoice = "- " + comp.getText() + "\n";
+            if(str.isEmpty())
+                addToCart(comp);
+            else {
+                giaPresente = false;
+                for (String aStr : str) {
+                    alreadyPresent = aStr;
+                    if (currentChoice.equals(alreadyPresent))
+                        giaPresente = true;
+                }
+                if (!giaPresente)
+                    addToCart(comp);
+                else
+                    JOptionPane.showMessageDialog(null, "Articolo già presente", "", JOptionPane.INFORMATION_MESSAGE);
+            }
+            // TODO: gestire la sovrascrittura dei componenti
         });
     }
 
@@ -90,8 +100,9 @@ public class GestoreScelte extends Piattaforma {
 
     private void newConfigListener() {
         newConfig.addActionListener(e -> {
+            // TODO: controllare tot perchè non si azzera
             tot = 0;
-            price.setText("0 €");
+            price.setText(String.valueOf(tot) + " €");
             items.setText("");
             str.clear();
         });
@@ -109,6 +120,14 @@ public class GestoreScelte extends Piattaforma {
                 System.exit(10);
             }
         });
+    }
+
+    private void addToCart(CompRadio c) {
+        addForDisplay(c);
+        displayOnPanel(items);
+        scp.addCList(c.getAbs());
+        tot = scp.getTotPrice();
+        price.setText(String.valueOf(tot) + " €");
     }
 
     private void exitListener() {
