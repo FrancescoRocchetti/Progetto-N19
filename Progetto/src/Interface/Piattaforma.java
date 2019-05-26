@@ -161,7 +161,7 @@ public class Piattaforma extends JFrame {
             CompRadio[] c;
 
 
-            for(int z = 0; z < CMP.length-1; z++) {
+            for(int z = 0; z < CMP.length; z++) {
                     arr = gs.obtainParts(CMP[z]);
                     c = new CompRadio[arr.size()];
 
