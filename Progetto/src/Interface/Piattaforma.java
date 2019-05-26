@@ -1,45 +1,41 @@
 package Interface;
 
-import InterfacingDB.PCParts;
-import InterfacingDB.DeprecatedClasses.Reading;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 
 public class Piattaforma extends JFrame {
 
-    protected static final int CATEGORIES = 9;
+    private static final int CATEGORIES = 9;
 
-    protected ButtonGroup bg;
+    ButtonGroup bg;
     protected Container c;
-    protected Toolkit kit;
-    protected Dimension dim;
+    private Toolkit kit;
+    private Dimension dim;
     protected JTabbedPane components;
-    protected JMenuBar menuBar;
-    protected JMenu file;
-    protected JMenu help;
-    protected JMenu updateDB;
-    protected JMenuItem newConfig;
-    protected JMenuItem exit;
-    protected JMenuItem guide;
-    protected JMenuItem logAdmin;
-    protected JMenuItem recharge;
-    protected JPanel bckg;
-    protected double tot;
+    private JMenuBar menuBar;
+    private JMenu file;
+    private JMenu help;
+    private JMenu updateDB;
+    JMenuItem newConfig;
+    JMenuItem exit;
+    JMenuItem guide;
+    JMenuItem logAdmin;
+    JMenuItem recharge;
+    private JPanel bckg;
+    double tot;
 
-    protected JPanel[] panels;
-    protected JScrollPane[] scrollPanes;
+    JPanel[] panels;
+    private JScrollPane[] scrollPanes;
 
-    protected JPanel infoBox;
-    protected JPanel listItem;
-    protected JTextArea items;
-    protected JScrollPane scroll;
-    protected JTextField price;
-    protected JLabel total;
-    protected JPanel totPanel;
-    protected JPanel checkPane;
-    protected JTextArea checkMessage;
+    private JPanel infoBox;
+    private JPanel listItem;
+    JTextArea items;
+    private JScrollPane scroll;
+    JTextField price;
+    private JLabel total;
+    private JPanel totPanel;
+    private JPanel checkPane;
+    private JTextArea checkMessage;
 
     public Piattaforma() {
         super("Configuratore di PC");
