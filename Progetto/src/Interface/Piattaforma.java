@@ -24,11 +24,9 @@ public class Piattaforma extends JFrame {
     private JTabbedPane components;
     private JMenuBar menuBar;
     private JMenu file;
-    private JMenu help;
     private JMenu updateDB;
     private JMenuItem newConfig;
     private JMenuItem exit;
-    private JMenuItem guide;
     private JMenuItem logAdmin;
     private JMenuItem recharge;
     private JPanel bckg;
@@ -90,22 +88,18 @@ public class Piattaforma extends JFrame {
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
-        help = new JMenu("?");
         newConfig = new JMenuItem("New configuration");
         exit = new JMenuItem("Exit");
-        logAdmin = new JMenuItem("Login");
-        recharge = new JMenuItem("Refresh");
-        guide = new JMenuItem("Guide");
+        logAdmin = new JMenuItem("Login as administrator");
+        recharge = new JMenuItem("Refresh inventory");
 
         // Aggiunta componenti
         file.add(newConfig);
         file.add(exit);
         updateDB.add(logAdmin);
         updateDB.add(recharge);
-        help.add(guide);
         menuBar.add(file);
         menuBar.add(updateDB);
-        menuBar.add(help);
 
         components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
@@ -145,7 +139,6 @@ public class Piattaforma extends JFrame {
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
     }
-
 
     private void addComp(CompRadio button) {
         gs.addComp(button.getAbs());
@@ -199,8 +192,7 @@ public class Piattaforma extends JFrame {
     private void loginListener() {
         logAdmin.addActionListener(e -> {
             Login l = new Login(this);
-            setVisible(false);
-            l.setLocationRelativeTo(null);
+            l.setLocationRelativeTo(this);
         });
     }
 
@@ -214,17 +206,21 @@ public class Piattaforma extends JFrame {
 
     private void rechargeListener() {
         recharge.addActionListener(e -> {
-            for (JPanel p : panels)
-                p.removeAll();
-            price.setText("0 €");
-            items.setText("");
-            gs.newScp();
-            obtainParts();
+            refresh();
         });
     }
 
     private void exitListener() {
         exit.addActionListener(e -> System.exit(0));
+    }
+
+    public void refresh(){
+        for (JPanel p : panels)
+            p.removeAll();
+        price.setText("0 €");
+        items.setText("");
+        gs.newScp();
+        obtainParts();
     }
 
     private JTable createTable(CompRadio[] cr){

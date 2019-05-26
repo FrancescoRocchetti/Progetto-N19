@@ -50,6 +50,7 @@ public class InserimentoSpecifiche extends JFrame {
     private JLabel title1;
 
     private String[] componentsName;
+    private boolean changed;
 
     private final int QTA = 99;
 
@@ -166,7 +167,6 @@ public class InserimentoSpecifiche extends JFrame {
 
         goBack.addActionListener(e -> {
             dispose();
-            p.setVisible(true);
         });
 
         confirm.addActionListener(e -> {
@@ -175,6 +175,7 @@ public class InserimentoSpecifiche extends JFrame {
             try {
                 if(!descrizione.getText().isEmpty()) {
                     writing.write((PCParts)componente.getSelectedItem(), descrizione.getText().toUpperCase(), (int)quantita.getValue(), (int)prezzo.getValue(), (int)valutazione.getValue());
+                    changed = true;
                     Object[] options = {"YES", "NO"};
                     int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
                     if(inserimento == 0) {
@@ -185,7 +186,6 @@ public class InserimentoSpecifiche extends JFrame {
                         valutazione.setValue(1);
                     } else {
                         dispose();
-                        p.setVisible(true);
                     }
                 }
                 else
@@ -242,8 +242,9 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                dispose();
-                p.setVisible(true);
+                if(changed) p.refresh();
+                p.setEnabled(true);
+                p.setDefaultCloseOperation(EXIT_ON_CLOSE);
             }
 
             @Override
