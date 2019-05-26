@@ -42,6 +42,7 @@ public class GestoreScelte{
     public ArrayList<AbstractComponent> getComps(){
         return scp.getAR();
     }
+
     public String getListAbs(){
         return scp.toString();
     }
