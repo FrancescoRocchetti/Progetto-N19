@@ -14,7 +14,7 @@ public class Piattaforma extends JFrame {
     private static final int CATEGORIES = 9;
     private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE};
 
-    protected ButtonGroup bg;
+    protected ButtonGroup[] bg;
     protected Container c;
     protected Toolkit kit;
     protected Dimension dim;
@@ -162,16 +162,17 @@ public class Piattaforma extends JFrame {
 
     private void obtainParts(){
         try{
-            bg = new ButtonGroup();
+            bg = new ButtonGroup[CMP.length];
             CompRadio comp;
             ArrayList<AbstractComponent> arr;
 
             for(int z = 0; z < CMP.length; z++) {
+                    bg[z] = new ButtonGroup();
                     arr = gs.obtainParts(CMP[z]);
                 for(AbstractComponent x : arr) {
                     comp = new CompRadio(x.getType() + " " + x.getName() + " - " + x.getPrice()+" €",x);
                     radioButtonListener(comp);
-                    bg.add(comp);
+                    bg[z].add(comp);
                     panels[z].add(comp);
                     nr++;
                     if(row <= nr)
