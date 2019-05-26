@@ -190,6 +190,8 @@ public class Piattaforma extends JFrame {
                 addComp(comp);
                 displayOnPanel(items);
                 price.setText(gs.getPrice() + " €");
+            } else {
+                JOptionPane.showMessageDialog(null, comp.getAbs().getType() + ", " + comp.getAbs().getName() + " già presente", "", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }
