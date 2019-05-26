@@ -54,7 +54,7 @@ public class GestoreScelte extends Piattaforma {
         for(int z = 0; z < components.length; z++) {
             arr = dati.read(components[z]);
             for(AbstractComponent x : arr) {
-                comp = new CompRadio( x.getName() + " " + x.getPrice()+"€",x);
+                comp = new CompRadio(x.getName() + " " + x.getPrice()+"€",x);
                 radioButtonListener(comp);
                 bg.add(comp);
                 panel[z].add(comp);
@@ -68,6 +68,10 @@ public class GestoreScelte extends Piattaforma {
 
     private void radioButtonListener(CompRadio comp) {
         comp.addActionListener(e -> {
+            String currentChoice;
+            //currentChoice = comp.getText();
+            //System.out.println(str);
+            //System.out.println(currentChoice);
             addForDisplay(comp);
             displayOnPanel(items);
             scp.addCList(comp.getAbs());
