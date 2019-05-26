@@ -19,10 +19,8 @@ public class GestoreScelte{
     }
 
     public ArrayList<AbstractComponent> obtainParts(PCParts comp) throws SQLException {
-        ArrayList<AbstractComponent> arr;
         InterfacingDB.Reading dati = new Reading();
-        arr = dati.read(comp);
-        return arr;
+        return dati.read(comp);
     }
 
     public boolean isAlreadyIn(AbstractComponent comp){
