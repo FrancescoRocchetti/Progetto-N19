@@ -4,7 +4,9 @@ import Components.AbstractComponent;
 import InterfacingDB.Reading;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +39,7 @@ public class CompList extends JFrame {
             table.getColumnModel().getColumn(0).setPreferredWidth(40);
             table.getColumnModel().getColumn(1).setPreferredWidth(55);
             table.getColumnModel().getColumn(2).setPreferredWidth(250);
-            table.getColumnModel().getColumn(3).setPreferredWidth(30);
+            table.getColumnModel().getColumn(3).setPreferredWidth(70);
             table.getColumnModel().getColumn(4).setPreferredWidth(50);
             table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             JScrollPane sp = new JScrollPane(table);
@@ -106,11 +108,11 @@ public class CompList extends JFrame {
         return data;
     }
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         try {
             new CompList(new InserimentoSpecifiche(null, "FABBBBIO"));
         } catch (Exception e) {
             System.err.println("asd");
         }
-    }*/
+    }
 }
