@@ -3,7 +3,6 @@ package Interface;
 import Components.AbstractComponent;
 import InterfacingDB.PCParts;
 import InterfacingDB.Reading;
-import InterfacingDB.Writing;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
@@ -139,13 +138,12 @@ public class InserimentoSpecifiche extends JFrame {
         remove.addActionListener(e -> {
             try {
                 Components comp = new Components();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         });
 
         update.addActionListener(e -> {
-            // implementazione elementare, servono filtri di controllo
             Update update = new Update(this, go);
         });
 
@@ -172,7 +170,9 @@ public class InserimentoSpecifiche extends JFrame {
                     } else {
                         dispose();
                     }
-                }
+                } else{
+                JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         check.addActionListener(e -> {
@@ -236,11 +236,11 @@ public class InserimentoSpecifiche extends JFrame {
             public void windowDeactivated(WindowEvent e) { }
         });
 
-        setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(600, 380);
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+        setVisible(true);
     }
 
     private void setSpinnerNotWritable(JSpinner spinner) {

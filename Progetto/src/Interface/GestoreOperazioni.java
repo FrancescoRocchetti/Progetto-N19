@@ -42,8 +42,8 @@ public class GestoreOperazioni {
     }
 
     public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
-        Writing writing = new Writing();
         try {
+            Writing writing = new Writing();
             if(checkDescription(componente, descrizione)) {
                 writing.write(componente, descrizione, quantita, prezzo, valutazione);
                 modified = true;
@@ -69,10 +69,10 @@ public class GestoreOperazioni {
         return true;
     }
 
-    public String[][] getString(){
+    public String[][] getString(PCParts part){
         try{
             Reading r = new Reading();
-            ArrayList<AbstractComponent> comp = r.read(null);
+            ArrayList<AbstractComponent> comp = r.read(part);
             String data[][] = new String[comp.size()][];
             AbstractComponent abs;
             for(int i = 0; i < comp.size(); i++){

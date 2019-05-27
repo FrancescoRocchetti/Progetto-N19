@@ -25,8 +25,8 @@ public class Login extends JFrame {
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
         JPanel formPanel = new JPanel(new GridLayout(2, 1));
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-        JButton accedi = new JButton("Accedi");
-        JButton annulla = new JButton("Annulla");
+        JButton access = new JButton("Accedi");
+        JButton cancel = new JButton("Annulla");
         JLabel user = new JLabel("Username");
         JLabel psw = new JLabel("Password");
         JTextField username = new JTextField();
@@ -35,8 +35,8 @@ public class Login extends JFrame {
         formPanel.add(password);
         labelPanel.add(user);
         labelPanel.add(psw);
-        buttonPanel.add(annulla);
-        buttonPanel.add(accedi);
+        buttonPanel.add(cancel);
+        buttonPanel.add(access);
         background.add(buttonPanel, BorderLayout.SOUTH);
         background.add(labelPanel, BorderLayout.WEST);
         background.add(formPanel, BorderLayout.CENTER);
@@ -51,10 +51,10 @@ public class Login extends JFrame {
             }
         };
 
-        accedi.addActionListener(accesso);
+        access.addActionListener(accesso);
         password.addActionListener(accesso);
 
-        annulla.addActionListener(e -> {
+        cancel.addActionListener(e -> {
             dispose();
         });
 
@@ -98,8 +98,8 @@ public class Login extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(250, 125);
-        setVisible(true);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+        setVisible(true);
     }
 
 }
