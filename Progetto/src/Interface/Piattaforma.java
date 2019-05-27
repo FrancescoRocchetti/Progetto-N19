@@ -30,6 +30,8 @@ public class Piattaforma extends JFrame {
     private JMenuItem logAdmin;
     private JMenuItem recharge;
     private JPanel bckg;
+    private JPanel confirmPanel;
+    private JButton confirmConfig;
 
     private JPanel[] panels;
 
@@ -67,6 +69,8 @@ public class Piattaforma extends JFrame {
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         totPanel = new JPanel(new GridLayout(1, 2));
+        confirmPanel = new JPanel(new GridLayout(2,1));
+        confirmConfig = new JButton("Confirm configuration");
         total = new JLabel("Totale:");
         price = new JTextField();
         price.setText("0 €");
@@ -115,7 +119,9 @@ public class Piattaforma extends JFrame {
 
         totPanel.add(total);
         totPanel.add(price);
-        listItem.add(totPanel, BorderLayout.SOUTH);
+        confirmPanel.add(totPanel);
+        confirmPanel.add(confirmConfig);
+        listItem.add(confirmPanel, BorderLayout.SOUTH);
         listItem.add(scroll, BorderLayout.CENTER);
         infoBox.add(listItem);
         infoBox.add(checkPane);
@@ -253,7 +259,7 @@ public class Piattaforma extends JFrame {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
-
+        table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
     }
