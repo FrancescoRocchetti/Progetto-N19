@@ -1,13 +1,11 @@
 package Interface;
 
-import InterfacingDB.LoginDB;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.SQLException;
+
 
 
 public class Login extends JFrame {
@@ -43,70 +41,17 @@ public class Login extends JFrame {
         c.add(background);
 
         ActionListener accesso = e -> {
-            LoginDB logInDB;
-            try {
-                logInDB = new LoginDB();
-                if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
-                    //codice per la modifica del DB
-                    //GestioneComponenti gest = new GestioneComponenti(p,Login.this);
-                    //System.out.println("Username: " + username.getText());
-                    //System.out.println("Password: " + password.getPassword());
-                    InserimentoSpecifiche ins = new InserimentoSpecifiche(p, username.getText());
-                    loggedin = true;
-                    dispose();
-                } else {
-                    System.err.println("Accesso non riuscito");
-                }
-            } catch (SQLException e1) {
+            if (!go.accessToDB(username.getText(), String.valueOf(password.getPassword())))
                 JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
-            }
+            else dispose();
         };
 
         accedi.addActionListener(accesso);
         password.addActionListener(accesso);
 
         annulla.addActionListener(e -> {
+            go.unlockPlatform();
             dispose();
-        });
-
-        addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-                if(!loggedin){
-                    p.setEnabled(true);
-                    p.setDefaultCloseOperation(EXIT_ON_CLOSE);
-                }
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
         });
 
         setResizable(false);

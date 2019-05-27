@@ -50,12 +50,13 @@ public class InserimentoSpecifiche extends JFrame {
     private JLabel title1;
 
     private String[] componentsName;
-    private boolean changed;
 
     private final int QTA = 99;
+    private GestoreOperazioni go;
 
-    public InserimentoSpecifiche(Piattaforma p, String user) {
+    public InserimentoSpecifiche(GestoreOperazioni go, String user) {
         super("Aggiunta componente");
+        this.go = go;
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
         c = getContentPane();
@@ -171,30 +172,24 @@ public class InserimentoSpecifiche extends JFrame {
 
         confirm.addActionListener(e -> {
             // codice per la scrittura su DB
-            Writing writing = new Writing();
-            try {
-                if(!descrizione.getText().isEmpty()) {
-                    writing.write((PCParts)componente.getSelectedItem(), descrizione.getText().toUpperCase(), (int)quantita.getValue(), (int)prezzo.getValue(), (int)valutazione.getValue());
-                    changed = true;
-                    Object[] options = {"YES", "NO"};
-                    int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
-                    if(inserimento == 0) {
-                        componente.setSelectedItem(PCParts.CASE);
-                        descrizione.setText("");
-                        quantita.setValue(1);
-                        prezzo.setValue(1);
-                        valutazione.setValue(1);
+            if(go.insertComponent(
+                    (PCParts)componente.getSelectedItem(),
+                    descrizione.getText().toUpperCase(),
+                    (int)quantita.getValue(),
+                    (int)prezzo.getValue(),
+                    (int)valutazione.getValue())){
+                Object[] options = {"YES", "NO"};
+                int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
+                if(inserimento == 0) {
+                    componente.setSelectedItem(PCParts.CASE);
+                    descrizione.setText("");
+                    quantita.setValue(1);
+                    prezzo.setValue(1);
+                    valutazione.setValue(1);
                     } else {
                         dispose();
                     }
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "La descrizione non può essere vuota", "Attenzione", JOptionPane.WARNING_MESSAGE);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            } catch (NumberFormatException n) {
-                JOptionPane.showMessageDialog(null, "Assicurati di inserire valori corretti", "Valore errato", JOptionPane.ERROR_MESSAGE);
-            }
         });
 
         check.addActionListener(e -> {
@@ -242,9 +237,7 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                if(changed) p.refresh();
-                p.setEnabled(true);
-                p.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                go.unlockPlatform();
             }
 
             @Override
