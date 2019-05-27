@@ -6,6 +6,7 @@ import InterfacingDB.PCParts;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import Components.*;
@@ -30,6 +31,8 @@ public class Piattaforma extends JFrame {
     private JMenuItem logAdmin;
     private JMenuItem recharge;
     private JPanel bckg;
+    private JButton confirmConfig;
+    private JPanel confirmPanel;
 
     private JPanel[] panels;
 
@@ -67,6 +70,8 @@ public class Piattaforma extends JFrame {
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         totPanel = new JPanel(new GridLayout(1, 2));
+        confirmPanel = new JPanel(new GridLayout(2,1));
+        confirmConfig = new JButton("Confirm configuration");
         total = new JLabel("Totale:");
         price = new JTextField();
         price.setText("0 €");
@@ -115,7 +120,9 @@ public class Piattaforma extends JFrame {
 
         totPanel.add(total);
         totPanel.add(price);
-        listItem.add(totPanel, BorderLayout.SOUTH);
+        confirmPanel.add(totPanel);
+        confirmPanel.add(confirmConfig);
+        listItem.add(confirmPanel, BorderLayout.SOUTH);
         listItem.add(scroll, BorderLayout.CENTER);
         infoBox.add(listItem);
         infoBox.add(checkPane);
@@ -184,7 +191,7 @@ public class Piattaforma extends JFrame {
                 displayOnPanel(items);
                 price.setText(gs.getPrice() + " €");
             } else {
-                JOptionPane.showMessageDialog(null, comp.getAbs().getType() + ", " + comp.getAbs().getName() + " già presente", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, comp.getAbs().getType() + ", " + comp.getAbs().getName() + " già presente", "Already in", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }
@@ -255,7 +262,7 @@ public class Piattaforma extends JFrame {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
-
+        table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
     }
