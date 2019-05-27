@@ -12,9 +12,11 @@ public class Login extends JFrame {
     private Toolkit kit;
     private Dimension dim;
     private GestoreOperazioni go;
+    private boolean set;
 
     public Login(Piattaforma p) {
         super("Login");
+        set = false;
         go = new GestoreOperazioni(p);
         Container c = getContentPane();
         kit = Toolkit.getDefaultToolkit();
@@ -43,15 +45,54 @@ public class Login extends JFrame {
         ActionListener accesso = e -> {
             if (!go.accessToDB(username.getText(), String.valueOf(password.getPassword())))
                 JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
-            else dispose();
+            else {
+                set = true;
+                dispose();
+            }
         };
 
         accedi.addActionListener(accesso);
         password.addActionListener(accesso);
 
         annulla.addActionListener(e -> {
-            go.unlockPlatform();
             dispose();
+        });
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(!set)go.setPlatform();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
         });
 
         setResizable(false);

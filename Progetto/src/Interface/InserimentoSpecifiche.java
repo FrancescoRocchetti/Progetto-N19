@@ -10,7 +10,6 @@ import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class InserimentoSpecifiche extends JFrame {
@@ -237,7 +236,7 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                go.unlockPlatform();
+                go.setPlatform();
             }
 
             @Override
