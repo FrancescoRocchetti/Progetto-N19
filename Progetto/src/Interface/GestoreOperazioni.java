@@ -17,7 +17,7 @@ public class GestoreOperazioni {
         p.setDefaultCloseOperation(0);
     }
 
-    public void setPlatform(){
+    public void unlockPlatform(){
         p.setEnabled(true);
         p.setDefaultCloseOperation(3);
         if(modified)

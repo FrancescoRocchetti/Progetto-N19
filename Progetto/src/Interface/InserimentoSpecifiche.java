@@ -236,7 +236,7 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                go.setPlatform();
+                go.unlockPlatform();
             }
 
             @Override

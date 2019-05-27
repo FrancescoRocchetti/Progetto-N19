@@ -71,7 +71,7 @@ public class Login extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                if(!set)go.setPlatform();
+                if(!set)go.unlockPlatform();
             }
 
             @Override
