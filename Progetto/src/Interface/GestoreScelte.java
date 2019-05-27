@@ -14,10 +14,6 @@ public class GestoreScelte{
         scp = new SelectedComponents();
     }
 
-    public SelectedComponents getScp() {
-        return scp;
-    }
-
     public ArrayList<AbstractComponent> obtainParts(PCParts comp) throws SQLException {
         InterfacingDB.Reading dati = new Reading();
         return dati.read(comp);
