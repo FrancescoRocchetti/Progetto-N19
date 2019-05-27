@@ -11,4 +11,4 @@ Altre caratteristiche:
 
 • configurazione automatica con ottimizzazione dei costi, delle prestazioni, etc. (opzionale);
 
-• interfaccia per la definizione dei vincoli (opzionale);
+• interfaccia per la definizione dei vincoli (opzionale).
