@@ -107,11 +107,11 @@ public class Components extends JFrame {
         bckg.add(choosePanel, BorderLayout.SOUTH);
         c.add(bckg);
 
-        setVisible(true);
         setResizable(false);
         setSize(300,300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setVisible(true);
     }
 
     /*public static void main(String[] args) throws SQLException {

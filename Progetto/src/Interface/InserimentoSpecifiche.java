@@ -50,7 +50,7 @@ public class InserimentoSpecifiche extends JFrame {
 
     private String[] componentsName;
 
-    private final int QTA = 99;
+    private final static int QTA = 99;
     private GestoreOperazioni go;
 
     public InserimentoSpecifiche(GestoreOperazioni go, String user) {
@@ -146,23 +146,7 @@ public class InserimentoSpecifiche extends JFrame {
 
         update.addActionListener(e -> {
             // implementazione elementare, servono filtri di controllo
-            Writing writing = new Writing();
-            Reading reading = new Reading();
-            ArrayList<Integer> codici;
-            try {
-                String cod = JOptionPane.showInputDialog(null, "Codice del prodotto da aggiornare:", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                if(cod != null) {
-                    codici = reading.getNumberOfRows();
-                    if(codici.contains(Integer.parseInt(cod))) {
-                        String qty = JOptionPane.showInputDialog(null, "Nuova disponibilità: ", "Aggiorna prodotto", JOptionPane.QUESTION_MESSAGE);
-                        if(qty != null)
-                            writing.update(Integer.parseInt(cod), Integer.parseInt(qty));
-                    } else
-                        JOptionPane.showMessageDialog(null, "Componente inesistente", "Errore", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+            Update update = new Update(this, go);
         });
 
         goBack.addActionListener(e -> {
@@ -195,7 +179,7 @@ public class InserimentoSpecifiche extends JFrame {
             Reading reading = new Reading();
             ArrayList<AbstractComponent> components;
             String s = "";
-            new CompList(this);
+            new CompList(this, go);
         });
 
         data.add(component);
