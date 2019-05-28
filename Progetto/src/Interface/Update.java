@@ -41,20 +41,14 @@ public class Update extends JFrame {
         mainpanel.add(btnpanel, BorderLayout.SOUTH);
         c.add(mainpanel);
 
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
+        close.addActionListener(e -> {
+            dispose();
         });
 
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(!go.updateComponent((int) index.getValue(), (int) qty.getValue())){
-                    JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
-                } else JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
-            }
+        add.addActionListener(e -> {
+            if(!go.updateComponent((int) index.getValue(), (int) qty.getValue())){
+                JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
+            } else JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
         });
 
         addWindowListener(new WindowListener() {
