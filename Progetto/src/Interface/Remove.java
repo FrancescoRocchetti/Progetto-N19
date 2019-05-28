@@ -1,8 +1,6 @@
 package Interface;
 
 import Components.AbstractComponent;
-import InterfacingDB.Reading;
-import InterfacingDB.Writing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -117,7 +115,7 @@ public class Remove extends JFrame {
             b.setMargin(new Insets(10, 10, 10, 10));
             btnPanel.add(b);
             b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponents(null);
+                ArrayList<AbstractComponent> str = go.getComponentsFromDB(null);
                 c.removeAllItems();
                 found = false;
                 for(AbstractComponent x : str) {

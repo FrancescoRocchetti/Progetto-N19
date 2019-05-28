@@ -87,7 +87,7 @@ public class GestoreOperazioni {
         return true;
     }
 
-    public ArrayList<AbstractComponent> getComponents(PCParts parts){
+    public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts){
         try {
             return reading.read(parts);
         } catch (SQLException e) {
