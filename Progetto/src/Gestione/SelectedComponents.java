@@ -83,10 +83,6 @@ public class SelectedComponents {
         return temp;
     }
 
-    public boolean isAlreadyIn(AbstractComponent comp){
-        return sc.contains(comp);
-    }
-
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();

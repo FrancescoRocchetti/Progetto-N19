@@ -29,38 +29,41 @@ public class GestoreOperazioni {
     }
 
     public boolean accessToDB(String username, String password) {
+        LoginDB login = new LoginDB();
         try {
-            LoginDB logInDB = new LoginDB();
-            if (logInDB.login(username, password)) {
+            if (login.login(username, password)) {
                 InserimentoSpecifiche ins = new InserimentoSpecifiche(this, username);
                 return true;
             }
             return false;
-        } catch (SQLException e1) {
+        } catch (Exception e1) {
+            login.forceClose();
             return false;
         }
     }
 
     public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
+        Writing writing = new Writing();
         try {
-            Writing writing = new Writing();
             if(checkDescription(componente, descrizione)) {
                 writing.write(componente, descrizione, quantita, prezzo, valutazione);
                 modified = true;
                 return true;
             }
             return false;
-        } catch (SQLException e1) {
+        } catch (Exception e1) {
+            writing.forceClose();
             return false;
         }
     }
 
     public boolean updateComponent(int index, int qty){
+        Writing writing = new Writing();
         try {
-            Writing writing = new Writing();
             writing.update(index, qty);
             return true;
-        } catch (SQLException e){
+        } catch (Exception e){
+            writing.forceClose();
             return false;
         }
     }
@@ -70,8 +73,8 @@ public class GestoreOperazioni {
     }
 
     public String[][] getString(PCParts part){
+        Reading r = new Reading();
         try{
-            Reading r = new Reading();
             ArrayList<AbstractComponent> comp = r.read(part);
             String data[][] = new String[comp.size()][];
             AbstractComponent abs;
@@ -82,10 +85,11 @@ public class GestoreOperazioni {
                 data[i][1] = abs.getType();
                 data[i][2] = abs.getName();
                 data[i][3] = String.valueOf(abs.getQuantity());
-                data[i][4] = abs.getPrice()+"€";
+                data[i][4] = abs.getPrice()+" €";
             }
             return data;
-        } catch (SQLException e){
+        } catch (Exception e){
+            r.forceClose();
             return null;
         }
     }

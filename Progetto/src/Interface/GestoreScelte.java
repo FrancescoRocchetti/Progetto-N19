@@ -1,5 +1,6 @@
 package Interface;
 
+import Constraints.OtherConstraint;
 import InterfacingDB.Reading;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
@@ -14,13 +15,18 @@ public class GestoreScelte{
         scp = new SelectedComponents();
     }
 
-    public ArrayList<AbstractComponent> obtainParts(PCParts comp) throws SQLException {
+    public ArrayList<AbstractComponent> obtainParts(PCParts comp){
         InterfacingDB.Reading dati = new Reading();
-        return dati.read(comp);
+        try {
+            return dati.read(comp);
+        } catch (Exception e) {
+            dati.forceClose();
+            return null;
+        }
     }
 
     public boolean isAlreadyIn(AbstractComponent comp){
-        return scp.isAlreadyIn(comp);
+        return OtherConstraint.check(comp, scp);
     }
 
     public void addComp(AbstractComponent comp){

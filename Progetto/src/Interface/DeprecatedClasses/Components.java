@@ -111,6 +111,7 @@ public class Components extends JFrame {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                comp.removeAllItems();
                 String[][] data = go.getString(PCParts.valueOf(btn.getText()));
                 for(int i = 0; i < data.length; i++)
                     comp.addItem(data[i]);

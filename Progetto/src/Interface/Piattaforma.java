@@ -155,13 +155,15 @@ public class Piattaforma extends JFrame {
     }
 
     private void obtainParts(){
-        try{
             ArrayList<AbstractComponent> arr;
             CompRadio[] c;
 
-
             for(int z = 0; z < CMP.length; z++) {
                     arr = gs.obtainParts(CMP[z]);
+                    if(arr==null){
+                        JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
+                        System.exit(10);
+                    }
                     c = new CompRadio[arr.size()];
 
                 for(int i = 0; i<arr.size(); i++) {
@@ -176,11 +178,6 @@ public class Piattaforma extends JFrame {
                 panels[z].add(scroll);
                 panels[z].setLayout(new GridLayout());
             }
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Errore: impossibile connettersi al DB.\nIl programma terminerà la sua esecuzione.", "Errore", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-            System.exit(10);
-        }
     }
 
     private void radioButtonListener(CompRadio comp) {
