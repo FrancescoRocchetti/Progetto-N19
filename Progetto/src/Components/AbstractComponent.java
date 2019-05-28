@@ -18,7 +18,7 @@ public abstract class AbstractComponent implements Comparable {
     public AbstractComponent() {
         /**
             Questo costruttore di default serve solo per le classi non ancora ultimate (altrimenti il programma non compila)
-            rimuvovere quando ogni classe in Components ha un suo costruttore
+            rimuvovere quando ogni classe in Remove ha un suo costruttore
         */
     }
 

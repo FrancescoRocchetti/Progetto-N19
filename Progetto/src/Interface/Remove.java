@@ -9,7 +9,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Components extends JFrame {
+public class Remove extends JFrame {
     private Container c;
     private JPanel bckg;
     private JPanel btnPanel;
@@ -35,7 +35,7 @@ public class Components extends JFrame {
     private int qtaToRmv = 0;
 
 
-    public Components() throws SQLException {
+    public Remove() throws SQLException {
         super("Remove component");
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
@@ -73,10 +73,10 @@ public class Components extends JFrame {
             item = (String) comp.getSelectedItem();
             cod = item.split(" ");
             rmCod = Integer.parseInt(String.valueOf(cod[0]));
-            qtaRmv = (Integer) qta.getSelectedItem();
+            qtaRmv = (int) qta.getSelectedItem();
             System.out.println(qtaRmv);
             try {
-                writing.remove(rmCod, qtaRmv);
+                writing.update(rmCod, -qtaRmv);
                 JOptionPane.showMessageDialog(null, item + " rimosso con successo", "Componente rimosso", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (SQLException e1) {
@@ -120,7 +120,7 @@ public class Components extends JFrame {
     }
 
     public static void main(String[] args) throws SQLException {
-        Components components = new Components();
+        Remove remove = new Remove();
     }
 
     public void addItemToRmv(JComboBox c, ArrayList<AbstractComponent> str) {
