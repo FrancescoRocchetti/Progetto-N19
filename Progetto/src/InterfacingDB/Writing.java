@@ -31,19 +31,6 @@ public class Writing {
         conn.close();
     }
 
-    public void update(int cod, int quantità) throws SQLException {
-        conn = DriverManager.getConnection(url, user, password);
-        String query = "UPDATE INVENTARIO SET QUANTITA = ? WHERE CODICE = ?;";
-
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt(1,quantità);
-        preparedStmt.setInt(2,cod);
-
-        preparedStmt.executeUpdate();
-
-        conn.close();
-    }
-
 
     public void remove(int cod) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
@@ -57,14 +44,14 @@ public class Writing {
         conn.close();
     }
 
-    public void remove(int cod, int quantità) throws SQLException {
+    public void update(int cod, int quantità) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
 
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
         rs.next();
         int q = rs.getInt("q");
-        q-=quantità;
+        q+=quantità;
 
         String query = "UPDATE INVENTARIO SET QUANTITA = "+q+" WHERE CODICE = ?;";
 
