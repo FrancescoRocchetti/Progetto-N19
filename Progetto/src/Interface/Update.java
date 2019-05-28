@@ -133,6 +133,7 @@ public class Update extends JFrame {
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 
+    // TODO: usare GestoreComponenti
     public void addItemToUpdate(JComboBox c, ArrayList<AbstractComponent> str) {
         for(JButton b : btnArray) {
             b.setMargin(new Insets(10, 10, 10, 10));
