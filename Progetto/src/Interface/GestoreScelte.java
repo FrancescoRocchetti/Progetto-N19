@@ -26,10 +26,6 @@ public class GestoreScelte{
         }
     }
 
-    public boolean isAlreadyIn(AbstractComponent comp){
-        return OtherConstraint.check(comp, scp);
-    }
-
     public void addComp(AbstractComponent comp){
         scp.addCList(comp);
     }
