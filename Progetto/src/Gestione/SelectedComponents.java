@@ -29,11 +29,11 @@ public class SelectedComponents {
     }
 
     public void addCList(AbstractComponent ac){
-        if(OtherConstraint.check(ac, this)){
+        if(!OtherConstraint.check(ac, this)){
             substitution(ac);
-            return;
-        }
-        sc.add(ac);
+
+        }else
+            sc.add(ac);
     }
 
     private void substitution(AbstractComponent ac) {

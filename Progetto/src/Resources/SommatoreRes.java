@@ -13,7 +13,7 @@ public class SommatoreRes {
             temp = new Resource.Builder()
                     .withokPSU(temp.isOkPSU() || r.isOkPSU())
                     .withokMOBO(temp.isOkMOBO() || r.isOkMOBO())
-                    .withokCPU(temp.isOkCPU() || r.isOkMOBO())
+                    .withokCPU(temp.isOkCPU() || r.isOkCPU())
                     .withokCase(temp.isOkCase() || r.isOkCase())
                     .withokRAM(temp.isOkRAM() || r.isOkRAM())
                     .withokGPU(temp.isOkGPU() || r.isOkGPU())

@@ -1,9 +1,12 @@
 package Components;
 
+import Resources.Resource;
+
 public class Other extends AbstractComponent {
 
     public Other(String[] input) {
         super(input);
+        resource = new Resource.Builder().build();
     }
 
 

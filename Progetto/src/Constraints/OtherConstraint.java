@@ -54,19 +54,19 @@ public class OtherConstraint {
         Resource after = sumResource(ac, sc);
         boolean temp = true;
 
-        if(before.isOkCPU() && p.equals("cpu")){
+        if(before.isOkCPU() && p.equalsIgnoreCase("cpu")){
             temp = false;
         }
 
-        if(before.isOkMOBO() && p.equals("mobo")){
+        if(before.isOkMOBO() && p.equalsIgnoreCase("mobo")){
             temp = false;
         }
 
-        if(before.isOkPSU() && p.equals("psu")){
+        if(before.isOkPSU() && p.equalsIgnoreCase("psu")){
             temp = false;
         }
 
-        if(before.isOkCase() && p.equals("case")){
+        if(before.isOkCase() && p.equalsIgnoreCase("case")){
             temp = false;
         }
 
