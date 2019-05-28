@@ -28,13 +28,6 @@ public class SelectedComponents {
     }
 
     public void addCList(AbstractComponent ac){
-        for(int i = 0; i< sc.size(); i++)
-
-            if(ac.getType().equals(sc.get(i).getType())){
-                sc.remove(i);
-                sc.add(ac);
-                return;
-            }
         sc.add(ac);
     }
 
