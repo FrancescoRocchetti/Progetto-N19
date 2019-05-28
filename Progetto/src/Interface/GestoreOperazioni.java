@@ -15,6 +15,7 @@ public class GestoreOperazioni {
     private Piattaforma p;
     protected Reading reading;
 
+
     public GestoreOperazioni(Piattaforma p){
         modified = false;
         this.p = p;
@@ -70,6 +71,15 @@ public class GestoreOperazioni {
             System.err.println(e.getMessage());
             writing.forceClose();
             return false;
+        }
+    }
+
+    public int getQuantityByID(int id){
+        try {
+            return reading.getQuantityByID(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 

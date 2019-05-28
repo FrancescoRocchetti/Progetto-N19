@@ -83,11 +83,7 @@ public class Remove extends JFrame {
                 String item = (String) comp.getSelectedItem();
                 String[] id;
                 id = item.split(" ");
-                try {
-                    qtaToRmv = go.reading.getQuantityByID(Integer.parseInt(id[0]));
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
+                qtaToRmv = go.getQuantityByID(Integer.parseInt(id[0]));
                 for(int i = 1; i <= qtaToRmv; i++)
                     qta.addItem(i);
             }
