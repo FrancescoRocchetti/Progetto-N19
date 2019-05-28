@@ -61,7 +61,7 @@ public class Remove extends JFrame {
         rmv = new JButton("Remove");
         rmv.setEnabled(false);
 
-        addItemToRmv(comp, componenti);
+        addItemToRmv(comp);
 
         rmv.addActionListener(e -> {
             String item;
@@ -112,11 +112,12 @@ public class Remove extends JFrame {
         Remove remove = new Remove();
     }*/
 
-    public void addItemToRmv(JComboBox c, ArrayList<AbstractComponent> str) {
+    public void addItemToRmv(JComboBox c) {
         for(JButton b : btnArray) {
             b.setMargin(new Insets(10, 10, 10, 10));
             btnPanel.add(b);
             b.addActionListener(e -> {
+                ArrayList<AbstractComponent> str = go.getComponents(null);
                 c.removeAllItems();
                 found = false;
                 for(AbstractComponent x : str) {

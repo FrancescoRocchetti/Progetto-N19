@@ -13,13 +13,16 @@ import Components.AbstractComponent;
 public class GestoreOperazioni {
     private boolean modified;
     private Piattaforma p;
-    protected Reading reading;
-
+    private Reading reading;
+    private Writing writing;
+    private LoginDB login;
 
     public GestoreOperazioni(Piattaforma p){
         modified = false;
         this.p = p;
         reading = new Reading();
+        writing = new Writing();
+        login = new LoginDB();
         p.setEnabled(false);
         p.setDefaultCloseOperation(0);
     }
@@ -32,7 +35,6 @@ public class GestoreOperazioni {
     }
 
     public boolean accessToDB(String username, String password) {
-        LoginDB login = new LoginDB();
         try {
             if (login.login(username, password)) {
                 InserimentoSpecifiche ins = new InserimentoSpecifiche(this, username);
@@ -47,7 +49,6 @@ public class GestoreOperazioni {
     }
 
     public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
-        Writing writing = new Writing();
         try {
             if(checkDescription(componente, descrizione)) {
                 writing.write(componente, descrizione, quantita, prezzo, valutazione);
@@ -63,7 +64,6 @@ public class GestoreOperazioni {
     }
 
     public boolean updateComponent(int index, int qty){
-        Writing writing = new Writing();
         try {
             writing.update(index, qty);
             return true;
@@ -87,10 +87,17 @@ public class GestoreOperazioni {
         return true;
     }
 
+    public ArrayList<AbstractComponent> getComponents(PCParts parts){
+        try {
+            return reading.read(parts);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     public String[][] getString(PCParts part){
-        Reading r = new Reading();
         try{
-            ArrayList<AbstractComponent> comp = r.read(part);
+            ArrayList<AbstractComponent> comp = reading.read(part);
             String data[][] = new String[comp.size()][];
             AbstractComponent abs;
             for(int i = 0; i < comp.size(); i++){
@@ -105,7 +112,7 @@ public class GestoreOperazioni {
             return data;
         } catch (Exception e){
             System.err.println(e.getMessage());
-            r.forceClose();
+            reading.forceClose();
             return null;
         }
     }
