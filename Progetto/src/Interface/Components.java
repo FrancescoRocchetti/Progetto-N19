@@ -24,6 +24,7 @@ public class Components extends JFrame {
     private JButton psu;
     private JButton ram;
     private JButton storage;
+    private JButton other;
     private JButton[] btnArray;
     private JComboBox comp;
     private JComboBox qta;
@@ -33,11 +34,12 @@ public class Components extends JFrame {
     private boolean found;
     private int qtaToRmv = 0;
 
+
     public Components() throws SQLException {
         super("Remove component");
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
-        btnPanel = new JPanel(new GridLayout(3,3));
+        btnPanel = new JPanel(new GridLayout(2,5));
         choosePanel = new JPanel(new BorderLayout());
         comboBoxPanel = new JPanel(new GridLayout(3,1));
         caseButton = new JButton("Case");
@@ -49,10 +51,13 @@ public class Components extends JFrame {
         psu = new JButton("PSU");
         ram = new JButton("RAM");
         storage = new JButton("Storage");
-        btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os};
+        other = new JButton("Altro");
+        btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
         comp = new JComboBox();
+        comp.addItem("No item selected...");
         qta = new JComboBox();
         rmv = new JButton("Remove");
+        rmv.setEnabled(false);
         componenti = new ArrayList<>();
         Reading reading = new Reading();
         componenti = reading.read(null);
@@ -63,7 +68,6 @@ public class Components extends JFrame {
             Writing writing = new Writing();
             String item;
             String[] cod;
-            String qtaItem;
             int rmCod;
             int qtaRmv;
             item = (String) comp.getSelectedItem();
@@ -108,7 +112,8 @@ public class Components extends JFrame {
         c.add(bckg);
 
         setResizable(false);
-        setSize(300,300);
+        //setSize(300,300);
+        pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -120,6 +125,7 @@ public class Components extends JFrame {
 
     public void addItemToRmv(JComboBox c, ArrayList<AbstractComponent> str) {
         for(JButton b : btnArray) {
+            b.setMargin(new Insets(10, 10, 10, 10));
             btnPanel.add(b);
             b.addActionListener(e -> {
                 c.removeAllItems();
@@ -129,11 +135,15 @@ public class Components extends JFrame {
                     if(x.getType().equals(b.getText().toUpperCase())) {
                         c.addItem(s);
                         found = true;
+
                     }
                     s = "";
                 }
-                if(!found)
+                rmv.setEnabled(found);
+                if(!found) {
+                    qta.removeAllItems();
                     JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
+                }
             });
         }
     }
