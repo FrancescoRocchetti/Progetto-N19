@@ -137,14 +137,18 @@ public class InserimentoSpecifiche extends JFrame {
 
         remove.addActionListener(e -> {
             try {
-                Components comp = new Components();
+                Remove comp = new Remove();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         });
 
         update.addActionListener(e -> {
-            Update update = new Update(this, go);
+            try {
+                Update update = new Update(this, go);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         });
 
         goBack.addActionListener(e -> {
