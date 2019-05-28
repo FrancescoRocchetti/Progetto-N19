@@ -58,7 +58,7 @@ public class InserimentoSpecifiche extends JFrame {
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
         c = getContentPane();
-        componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS"};
+        componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS", "ALTRO"};
         background = new JPanel(new BorderLayout());
         title = new JLabel("Inserisci le informazioni richieste");
         title.setFont(new Font("Arial", Font.BOLD, 20));
@@ -74,7 +74,7 @@ public class InserimentoSpecifiche extends JFrame {
         data = new JPanel(new GridLayout(5,2));
         component = new JLabel("Componente");
         componente = new JComboBox();
-        for(int i = 0; i < PCParts.values().length - 1; i++) // length - 1 perchè non considero "ALTRO" per ora
+        for(int i = 0; i < PCParts.values().length; i++) // length - 1 perchè non considero "ALTRO" per ora
             componente.addItem(PCParts.valueOf(componentsName[i]));
         componente.setEditable(false);
         description = new JLabel("Descrizione");
@@ -133,11 +133,13 @@ public class InserimentoSpecifiche extends JFrame {
                     howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSOLT325");
                 else if(componente.getSelectedItem() == PCParts.OS)
                     howToDesc.setText("NOME_BIT");
+                else if(componente.getSelectedItem() == PCParts.ALTRO)
+                    howToDesc.setText("NOME_DESCRIZIONE");
         });
 
         remove.addActionListener(e -> {
             try {
-                Remove comp = new Remove();
+                Remove comp = new Remove(this, go);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
