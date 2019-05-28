@@ -12,8 +12,8 @@ public class MOBO extends AbstractComponent {
                 .withModules(Integer.parseInt(caratteristiche[2]))
                 .withTypeRAM(caratteristiche[3])
                 .withPower(Integer.parseInt(caratteristiche[8]))
-                .withNPci(Integer.parseInt(caratteristiche[5]))
-                .withNPcie(Integer.parseInt(caratteristiche[4]))
+                .withNPci(Integer.parseInt(caratteristiche[4]))
+                .withNPcie(Integer.parseInt(caratteristiche[5]))
                 .withokMOBO(true)
                 .build();
     }
