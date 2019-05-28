@@ -234,9 +234,9 @@ public class Piattaforma extends JFrame {
             bg.add(cr[i]);
             AbstractComponent abs = cr[i].getAbs();
             data[i] = new Object[COLUMNS];
-            data[i][0] = cr[i];
             if(abs.getQuantity() == 0)
                 cr[i].setEnabled(false);
+            data[i][0] = cr[i];
             data[i][1] = abs.getName();
             data[i][2] = abs.getQuantity();
             data[i][3] = abs.getPrice()+" €";
