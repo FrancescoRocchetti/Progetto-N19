@@ -60,9 +60,6 @@ public class Remove extends JFrame {
         qta = new JComboBox();
         rmv = new JButton("Remove");
         rmv.setEnabled(false);
-        componenti = new ArrayList<>();
-        Reading reading = new Reading();
-        componenti = reading.read(null);
 
         addItemToRmv(comp, componenti);
 
@@ -87,7 +84,7 @@ public class Remove extends JFrame {
                 String[] id;
                 id = item.split(" ");
                 try {
-                    qtaToRmv = reading.getQuantityByID(Integer.parseInt(id[0]));
+                    qtaToRmv = go.reading.getQuantityByID(Integer.parseInt(id[0]));
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
