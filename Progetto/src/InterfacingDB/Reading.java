@@ -37,7 +37,7 @@ public class Reading {
         return list;
     }
 
-    public ArrayList<Integer> getNumberOfRows() throws SQLException {
+    /*public ArrayList<Integer> getNumberOfRows() throws SQLException {
         ArrayList<Integer> cods = new ArrayList<>();
         connectToDB();
         rs = stmt.executeQuery("SELECT CODICE AS cod from INVENTARIO");
@@ -45,7 +45,7 @@ public class Reading {
             cods.add(rs.getInt("cod"));
         conn.close();
         return cods;
-    }
+    }*/
 
     private void connectToDB() throws SQLException {
         conn = DriverManager.getConnection(url,user,password);
