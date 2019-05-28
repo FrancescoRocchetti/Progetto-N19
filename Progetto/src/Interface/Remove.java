@@ -33,10 +33,12 @@ public class Remove extends JFrame {
     private String s = "";
     private boolean found;
     private int qtaToRmv = 0;
+    private GestoreOperazioni go;
 
 
-    public Remove() throws SQLException {
+    public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
         super("Remove component");
+        this.go = go;
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
         btnPanel = new JPanel(new GridLayout(2,5));
@@ -58,14 +60,10 @@ public class Remove extends JFrame {
         qta = new JComboBox();
         rmv = new JButton("Remove");
         rmv.setEnabled(false);
-        componenti = new ArrayList<>();
-        Reading reading = new Reading();
-        componenti = reading.read(null);
 
         addItemToRmv(comp, componenti);
 
         rmv.addActionListener(e -> {
-            Writing writing = new Writing();
             String item;
             String[] cod;
             int rmCod;
@@ -74,14 +72,9 @@ public class Remove extends JFrame {
             cod = item.split(" ");
             rmCod = Integer.parseInt(String.valueOf(cod[0]));
             qtaRmv = (int) qta.getSelectedItem();
-            System.out.println(qtaRmv);
-            try {
-                writing.update(rmCod, -qtaRmv);
-                JOptionPane.showMessageDialog(null, item + " rimosso con successo", "Componente rimosso", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+            if(!go.updateComponent(rmCod, -qtaRmv)){
+                JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
+            } else JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
         });
 
         comp.addActionListener(e -> {
@@ -91,7 +84,7 @@ public class Remove extends JFrame {
                 String[] id;
                 id = item.split(" ");
                 try {
-                    qtaToRmv = reading.getQuantityByID(Integer.parseInt(id[0]));
+                    qtaToRmv = go.reading.getQuantityByID(Integer.parseInt(id[0]));
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
@@ -119,9 +112,9 @@ public class Remove extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) throws SQLException {
+    /*public static void main(String[] args) throws SQLException {
         Remove remove = new Remove();
-    }
+    }*/
 
     public void addItemToRmv(JComboBox c, ArrayList<AbstractComponent> str) {
         for(JButton b : btnArray) {
@@ -135,7 +128,6 @@ public class Remove extends JFrame {
                     if(x.getType().equals(b.getText().toUpperCase())) {
                         c.addItem(s);
                         found = true;
-
                     }
                     s = "";
                 }

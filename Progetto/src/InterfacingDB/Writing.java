@@ -32,7 +32,7 @@ public class Writing {
     }
 
 
-    public void remove(int cod) throws SQLException {
+    /*public void remove(int cod) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
         String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
 
@@ -42,7 +42,7 @@ public class Writing {
         preparedStmt.execute();
 
         conn.close();
-    }
+    }*/
 
     public void update(int cod, int quantità) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);

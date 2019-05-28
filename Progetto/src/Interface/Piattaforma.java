@@ -159,13 +159,12 @@ public class Piattaforma extends JFrame {
             CompRadio[] c;
 
             for(int z = 0; z < CMP.length; z++) {
-                    arr = gs.obtainParts(CMP[z]);
-                    if(arr==null){
-                        JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-                        System.exit(10);
-                    }
-                    c = new CompRadio[arr.size()];
-
+                arr = gs.obtainParts(CMP[z]);
+                if(arr==null) {
+                    JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
+                    System.exit(10);
+                }
+                c = new CompRadio[arr.size()];
                 for(int i = 0; i<arr.size(); i++) {
                     c[i] = new CompRadio("",arr.get(i));
                     radioButtonListener(c[i]);

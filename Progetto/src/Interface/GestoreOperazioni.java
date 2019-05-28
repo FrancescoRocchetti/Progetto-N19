@@ -13,10 +13,12 @@ import Components.AbstractComponent;
 public class GestoreOperazioni {
     private boolean modified;
     private Piattaforma p;
+    protected Reading reading;
 
     public GestoreOperazioni(Piattaforma p){
         modified = false;
         this.p = p;
+        reading = new Reading();
         p.setEnabled(false);
         p.setDefaultCloseOperation(0);
     }
