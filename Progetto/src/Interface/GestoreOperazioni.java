@@ -36,7 +36,8 @@ public class GestoreOperazioni {
                 return true;
             }
             return false;
-        } catch (Exception e1) {
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
             login.forceClose();
             return false;
         }
@@ -51,7 +52,8 @@ public class GestoreOperazioni {
                 return true;
             }
             return false;
-        } catch (Exception e1) {
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
             writing.forceClose();
             return false;
         }
@@ -63,6 +65,7 @@ public class GestoreOperazioni {
             writing.update(index, qty);
             return true;
         } catch (Exception e){
+            System.err.println(e.getMessage());
             writing.forceClose();
             return false;
         }
@@ -89,6 +92,7 @@ public class GestoreOperazioni {
             }
             return data;
         } catch (Exception e){
+            System.err.println(e.getMessage());
             r.forceClose();
             return null;
         }

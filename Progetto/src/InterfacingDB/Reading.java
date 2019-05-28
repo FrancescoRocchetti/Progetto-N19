@@ -16,9 +16,9 @@ public class Reading {
 
 
     public Reading(){
-        url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        user = "sql7290902";
-        password = "9Eb92Yn9qF";
+        url = "jdbc:mysql://34.65.95.40:3306/Progetto?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        user = "utente";
+        password = "prova";
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp) throws SQLException {

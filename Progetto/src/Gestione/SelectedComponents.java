@@ -1,6 +1,7 @@
 package Gestione;
 
 import Components.*;
+import Constraints.OtherConstraint;
 import InterfacingDB.PCParts;
 import Resources.*;
 
@@ -28,14 +29,20 @@ public class SelectedComponents {
     }
 
     public void addCList(AbstractComponent ac){
-        for(int i = 0; i< sc.size(); i++)
+        if(OtherConstraint.check(ac, this)){
+            substitution(ac);
+            return;
+        }
+        sc.add(ac);
+    }
 
-            if(ac.getType().equals(sc.get(i).getType())){
-                sc.remove(i);
-                sc.add(ac);
+    private void substitution(AbstractComponent ac) {
+        for(int i = 0; i<sc.size(); i++){
+            if(ac.getID()==sc.get(i).getID()){
+                sc.set(i,ac);
                 return;
             }
-        sc.add(ac);
+        }
     }
 
     public void remCList(AbstractComponent ac){

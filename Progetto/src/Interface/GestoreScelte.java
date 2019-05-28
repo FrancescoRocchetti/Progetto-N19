@@ -20,6 +20,7 @@ public class GestoreScelte{
         try {
             return dati.read(comp);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             dati.forceClose();
             return null;
         }

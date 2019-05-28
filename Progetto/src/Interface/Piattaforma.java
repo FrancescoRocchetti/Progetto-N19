@@ -182,11 +182,9 @@ public class Piattaforma extends JFrame {
 
     private void radioButtonListener(CompRadio comp) {
         comp.addActionListener(e -> {
-            if (!gs.isAlreadyIn(comp.getAbs())){
-                addComp(comp);
-                displayOnPanel(items);
-                price.setText(gs.getPrice() + " €");
-            }
+            addComp(comp);
+            displayOnPanel(items);
+            price.setText(gs.getPrice() + " €");
         });
     }
 
