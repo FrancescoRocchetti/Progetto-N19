@@ -22,8 +22,8 @@ public class Components extends JFrame {
     public Components(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Remove component");
         this.go = go;
-        //ins.setEnabled(false);
-        //ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        ins.setEnabled(false);
+        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         Container c = getContentPane();
         JPanel bckg = new JPanel(new BorderLayout());
         JPanel mainchoose = new JPanel(new BorderLayout());
