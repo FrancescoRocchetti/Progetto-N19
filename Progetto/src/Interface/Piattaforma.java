@@ -7,15 +7,16 @@ import InterfacingDB.PCParts;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import Components.*;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
 
     private static final int CATEGORIES = 10;
-    private static final int COLUMNS = 5;
+    private static final int COLUMNS = 6;
     private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE, PCParts.ALTRO};
 
     private Container c;
@@ -146,7 +147,7 @@ public class Piattaforma extends JFrame {
         setVisible(true);
     }
 
-    private void addComp(CompRadio button) {
+    private void addComp(CompButton button) {
         gs.addComp(button.getAbs());
     }
 
@@ -156,7 +157,8 @@ public class Piattaforma extends JFrame {
 
     private void obtainParts(){
             ArrayList<AbstractComponent> arr;
-            CompRadio[] c;
+            CompButton[] addButtons;
+            CompButton[] rmvButtons;
 
             for(int z = 0; z < CMP.length; z++) {
                 arr = gs.obtainParts(CMP[z]);
@@ -164,12 +166,15 @@ public class Piattaforma extends JFrame {
                     JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
                     System.exit(10);
                 }
-                c = new CompRadio[arr.size()];
+                addButtons = new CompButton[arr.size()];
+                rmvButtons = new CompButton[arr.size()];
                 for(int i = 0; i<arr.size(); i++) {
-                    c[i] = new CompRadio("",arr.get(i));
-                    radioButtonListener(c[i]);
+                    addButtons[i] = new CompButton("Add",arr.get(i));
+                    addButtonListener(addButtons[i]);
+                    rmvButtons[i] = new CompButton("Remove",arr.get(i));
+                    rmvButtonListener(rmvButtons[i]);
                 }
-                JTable table = createTable(c);
+                JTable table = createTable(addButtons, rmvButtons);
                 JScrollPane scroll = new JScrollPane(
                         table,
                         JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -179,11 +184,17 @@ public class Piattaforma extends JFrame {
             }
     }
 
-    private void radioButtonListener(CompRadio comp) {
+    private void addButtonListener(CompButton comp) {
         comp.addActionListener(e -> {
             addComp(comp);
             displayOnPanel(items);
             price.setText(gs.getPrice() + " €");
+        });
+    }
+
+    private void rmvButtonListener(CompButton comp) {
+        comp.addActionListener(e -> {
+
         });
     }
 
@@ -221,23 +232,24 @@ public class Piattaforma extends JFrame {
         obtainParts();
     }
 
-    private JTable createTable(CompRadio[] cr){
+    private JTable createTable(CompButton[] addBtns, CompButton[] rmvBtns){
         ButtonGroup bg = new ButtonGroup();
         DefaultTableModel dm = new DefaultTableModel();
-        Object[][] data = new Object[cr.length][];
-        String[] column = {"SCELTA","NOME", "QUANTITÁ", "PREZZO", "RANKING"};
+        Object[][] data = new Object[addBtns.length][];
+        String[] column = {"ADD", "REMOVE","NOME", "QUANTITÁ", "PREZZO", "RANKING"};
 
-        for(int i = 0; i<cr.length; i++){
-            bg.add(cr[i]);
-            AbstractComponent abs = cr[i].getAbs();
+        for(int i = 0; i<addBtns.length; i++){
+            //bg.add(addBtns[i]);
+            AbstractComponent abs = addBtns[i].getAbs();
             data[i] = new Object[COLUMNS];
             if(abs.getQuantity() == 0)
-                cr[i].setEnabled(false);
-            data[i][0] = cr[i];
-            data[i][1] = abs.getName();
-            data[i][2] = abs.getQuantity();
-            data[i][3] = abs.getPrice()+" €";
-            data[i][4] = abs.getPerformance();
+                addBtns[i].setEnabled(false);
+            data[i][0] = addBtns[i];
+            data[i][1] = rmvBtns[i];
+            data[i][2] = abs.getName();
+            data[i][3] = abs.getQuantity();
+            data[i][4] = abs.getPrice()+" €";
+            data[i][5] = abs.getPerformance();
         }
 
         dm.setDataVector(data, column);
@@ -247,10 +259,11 @@ public class Piattaforma extends JFrame {
                 repaint();
             }
         };
-        table.getColumn("SCELTA").setCellRenderer(new RadioButtonRenderer());
-        table.getColumn("SCELTA").setCellEditor(new RadioButtonEditor(new JCheckBox()));
+        TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+        table.getColumn("ADD").setCellRenderer(buttonRenderer);
+        table.getColumn("REMOVE").setCellRenderer(buttonRenderer);
 
-        int[] dim = {15,250,15,15,15};
+        int[] dim = {15,15,250,15,15,15};
         for(int i = 0; i<dim.length;i++){
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
@@ -258,6 +271,14 @@ public class Piattaforma extends JFrame {
         table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
+    }
+
+    private static class JTableButtonRenderer implements TableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JButton button = (JButton)value;
+            return button;
+        }
     }
 }
 
