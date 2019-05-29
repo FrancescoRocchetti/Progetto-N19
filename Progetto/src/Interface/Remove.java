@@ -27,7 +27,6 @@ public class Remove extends JFrame {
     private JComboBox comp;
     private JComboBox qta;
     private JButton rmv;
-    private ArrayList<AbstractComponent> componenti;
     private String s = "";
     private boolean found;
     private int qtaToRmv = 0;
