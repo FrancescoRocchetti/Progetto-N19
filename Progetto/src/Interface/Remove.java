@@ -1,6 +1,7 @@
 package Interface;
 
 import Components.AbstractComponent;
+import InterfacingDB.PCParts;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,16 +115,16 @@ public class Remove extends JFrame {
             b.setMargin(new Insets(10, 10, 10, 10));
             btnPanel.add(b);
             b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(null);
+                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
                 c.removeAllItems();
                 found = false;
                 for(AbstractComponent x : str) {
-                    s += x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
-                    if(x.getType().equals(b.getText().toUpperCase())) {
-                        c.addItem(s);
-                        found = true;
-                    }
-                    s = "";
+                    s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
+                    //if(x.getType().equals(b.getText().toUpperCase())) {
+                    c.addItem(s);
+                    found = true;
+                    //}
+                    //s = "";
                 }
                 rmv.setEnabled(found);
                 if(!found) {
