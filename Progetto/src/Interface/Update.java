@@ -1,5 +1,6 @@
 package Interface;
 
+import InterfacingDB.PCParts;
 import InterfacingDB.Reading;
 
 import javax.swing.*;
@@ -35,14 +36,16 @@ public class Update extends JFrame {
     private JComboBox comp;
     private JSpinner qta;
     private JButton up;
-    private ArrayList<AbstractComponent> componenti;
     private String s = "";
     private boolean found;
+    private GestoreOperazioni go;
+
 
     public Update(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
         super("Aggiornamento");
         ins.setEnabled(false);
         ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.go = go;
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension dim = kit.getScreenSize();
         c = getContentPane();
@@ -67,11 +70,8 @@ public class Update extends JFrame {
         setSpinnerNotWritable(qta);
         up = new JButton("Update");
         up.setEnabled(false);
-        componenti = new ArrayList<>();
-        Reading reading = new Reading();
-        componenti = reading.read(null);
 
-        addItemToUpdate(comp, componenti);
+        addItemToUpdate(comp);
 
         up.addActionListener(e -> {
             String item;
@@ -134,20 +134,22 @@ public class Update extends JFrame {
     }
 
     // TODO: usare GestoreComponenti
-    public void addItemToUpdate(JComboBox c, ArrayList<AbstractComponent> str) {
+    // FABIO: Fatto
+    public void addItemToUpdate(JComboBox c) {
         for(JButton b : btnArray) {
             b.setMargin(new Insets(10, 10, 10, 10));
             btnPanel.add(b);
             b.addActionListener(e -> {
+                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
                 c.removeAllItems();
                 found = false;
                 for(AbstractComponent x : str) {
-                    s += x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
-                    if(x.getType().equals(b.getText().toUpperCase())) {
+                    s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
+                    //if(x.getType().equals(b.getText().toUpperCase())) {
                         c.addItem(s);
                         found = true;
-                    }
-                    s = "";
+                    //}
+                    //s = "";
                 }
                 up.setEnabled(found);
                 if(!found) {

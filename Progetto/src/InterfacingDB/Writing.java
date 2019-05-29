@@ -14,7 +14,7 @@ public class Writing {
         password = "prova";
     }
 
-    public void write(PCParts part, String d, int q, int p, int r) throws SQLException {
+    public boolean write(PCParts part, String d, int q, int p, int r) throws SQLException {
         conn = DriverManager.getConnection(url,user,password);
         String query = "INSERT INTO INVENTARIO (TIPO, DESCRIZIONE, QUANTITA, PREZZO, RANK)\n" +
                 "VALUES (?,?,?,?,?);";
@@ -29,6 +29,7 @@ public class Writing {
         preparedStmt.execute();
 
         conn.close();
+        return true;
     }
 
 
@@ -44,7 +45,7 @@ public class Writing {
         conn.close();
     }*/
 
-    public void update(int cod, int quantità) throws SQLException {
+    public boolean update(int cod, int quantità) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
 
         Statement stmt = conn.createStatement();
@@ -61,6 +62,7 @@ public class Writing {
         preparedStmt.execute();
 
         conn.close();
+        return true;
     }
 
     public void forceClose() {
