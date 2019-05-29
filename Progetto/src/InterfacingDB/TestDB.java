@@ -10,7 +10,7 @@ public class TestDB {
     public static void main(String[] args) throws IOException, SQLException {
         Reading r = new Reading();
         //Writing w = new Writing();
-        LoginDB l = new LoginDB();
+        Login l = new Login();
         ArrayList<AbstractComponent> list;
 
         list = r.read(PCParts.CPU);

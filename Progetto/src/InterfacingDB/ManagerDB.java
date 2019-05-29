@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ManagerDB {
-    private LoginDB l;
+    private Login l;
     private Writing w;
     private Reading r;
 
     public ManagerDB(){
-        l = new LoginDB();
+        l = new Login();
         w = new Writing();
         r = new Reading();
     }
