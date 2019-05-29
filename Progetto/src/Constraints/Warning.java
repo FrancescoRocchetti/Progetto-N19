@@ -33,6 +33,10 @@ public class Warning {
             info.concat("too many GPUs ");
         }
 
+        if(r.isOkPSU() && r.getPower() < 0){
+            info.concat("not enough power ");
+        }
+
 
         if(info.equalsIgnoreCase("")){
             info.concat("NO WARNING");
