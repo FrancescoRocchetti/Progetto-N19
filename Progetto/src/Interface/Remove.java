@@ -5,6 +5,8 @@ import InterfacingDB.PCParts;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -36,6 +38,8 @@ public class Remove extends JFrame {
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
         super("Remove component");
+        ins.setEnabled(false);
+        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.go = go;
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
@@ -85,6 +89,31 @@ public class Remove extends JFrame {
                 for(int i = 1; i <= qtaToRmv; i++)
                     qta.addItem(i);
             }
+        });
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) { }
+
+            @Override
+            public void windowClosing(WindowEvent e) { }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ins.setEnabled(true);
+                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+            @Override
+            public void windowIconified(WindowEvent e) { }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) { }
+
+            @Override
+            public void windowActivated(WindowEvent e) { }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) { }
         });
 
         comboBoxPanel.add(comp);

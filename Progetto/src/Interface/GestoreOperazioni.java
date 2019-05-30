@@ -2,7 +2,6 @@ package Interface;
 
 import InterfacingDB.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Components.AbstractComponent;

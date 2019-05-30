@@ -24,15 +24,14 @@ public class SelectedComponents {
     }
 
     public ArrayList<AbstractComponent> getAR(){
-        ArrayList temp = sc;
-        return temp;
+        return sc;
     }
 
     public void addCList(AbstractComponent ac){
-        if(!OtherConstraint.check(ac, this)){
-            substitution(ac);
-        }else
+        if(OtherConstraint.check(ac, this)){
             sc.add(ac);
+        }
+
     }
 
     private void substitution(AbstractComponent ac) {
@@ -96,5 +95,16 @@ public class SelectedComponents {
             s.append(aStr.getName()+" - "+aStr.getPrice()+" €").append("\n");
         }
         return s.toString();
+    }
+
+    public void rmvCList(int id) {
+        AbstractComponent abs;
+        for(int i = 0; i < sc.size(); i++){
+            abs = sc.get(i);
+            if(abs.getID() == id){
+                sc.remove(i);
+                return;
+            }
+        }
     }
 }

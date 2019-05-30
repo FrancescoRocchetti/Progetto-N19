@@ -1,7 +1,6 @@
 package Interface;
 
 import InterfacingDB.ManagerDB;
-import InterfacingDB.Reading;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
 import Gestione.SelectedComponents;
@@ -20,8 +19,12 @@ public class GestoreScelte{
             return mdb.read(comp);
     }
 
-    public void addComp(AbstractComponent comp){
-        scp.addCList(comp);
+    public void addComp(int id){
+        scp.addCList(mdb.getCompByID(id));
+    }
+
+    public void rmvComp(int id){
+        scp.rmvCList(id);
     }
 
     public void newScp() {
@@ -36,9 +39,26 @@ public class GestoreScelte{
         return scp.getAR();
     }
 
-    public String getListAbs(){
-        return scp.toString();
+    public boolean checkInternet(){
+        return mdb.checkInternet();
     }
 
-
+    public Object[][] getString(){
+        ArrayList<AbstractComponent> comp = scp.getAR();
+        if(comp==null){
+            return null;
+        }
+        Object data[][] = new Object[comp.size()][];
+        AbstractComponent abs;
+        for(int i = 0; i < comp.size(); i++){
+            data[i] = new Object[5];
+            abs = comp.get(i);
+            data[i][0] = abs.getID();
+            data[i][1] = abs.getType();
+            data[i][2] = abs.getName();
+            data[i][3] = abs.getQuantity();
+            data[i][4] = abs.getPrice()+" €";
+        }
+        return data;
+    }
 }

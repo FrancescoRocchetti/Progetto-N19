@@ -3,13 +3,12 @@ package Interface;
 import InterfacingDB.PCParts;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import Components.*;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -42,23 +41,32 @@ public class Piattaforma extends JFrame {
 
     private JPanel infoBox;
     private JPanel listItem;
-    private JTextArea items;
     private JScrollPane scroll;
     private JTextField price;
     private JLabel total;
     private JPanel totPanel;
     private JPanel checkPane;
     private JTextArea checkMessage;
-    private JTable tableChoose;
-    private JTable[] tableComp;
+    private JTable chooseTable;
+    private JTable[] compTable;
     
     private GestoreScelte gs;
 
-    private int row;
+    private int rowAdd;
+    private int rowRmv;
+    private int idAdd;
+    private int idRmv;
 
     public Piattaforma() {
         super("Configuratore di PC");
         gs = new GestoreScelte();
+
+        Loading l = new Loading();
+        if(!gs.checkInternet()){
+            JOptionPane.showMessageDialog(null, "Impossibile stabilire una connessione a Internet.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
+            System.exit(10);
+        }
+
 
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -73,9 +81,9 @@ public class Piattaforma extends JFrame {
         }
         infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
-        tableComp = new JTable[CATEGORIES];
-        tableChoose = createTable();
-        scroll = new JScrollPane(tableChoose, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        compTable = new JTable[CATEGORIES];
+        chooseTable = createTable();
+        scroll = new JScrollPane(chooseTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         totPanel = new JPanel(new GridLayout(1, 2));
@@ -130,6 +138,16 @@ public class Piattaforma extends JFrame {
         components.addTab("CASE", panels[8]);
         components.addTab("ALTRO", panels[9]);
 
+        components.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                add.setEnabled(false);
+                rowAdd = -1;
+                for(JTable table: compTable){
+                    table.clearSelection();
+                }
+            }
+        });
 
         totPanel.add(total);
         totPanel.add(price);
@@ -149,11 +167,14 @@ public class Piattaforma extends JFrame {
         setJMenuBar(menuBar);
         c.add(bckg);
 
+        addButtonListener(add);
+        rmvButtonListener(rmv);
         loginListener();
         newConfigListener();
         rechargeListener();
         exitListener();
         obtainParts();
+        l.dispose();
 
         // Opzioni frame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -163,18 +184,12 @@ public class Piattaforma extends JFrame {
         setVisible(true);
     }
 
-    private void addComp(CompButton button) {
-        gs.addComp(button.getAbs());
-    }
-
-    private void displayOnPanel(JTextArea textArea) {
-        textArea.setText(gs.getListAbs());
+    private void addComp(int id) {
+        gs.addComp(id);
     }
 
     private void obtainParts(){
             ArrayList<AbstractComponent> arr;
-            CompButton[] addButtons;
-            CompButton[] rmvButtons;
 
             for(int z = 0; z < CMP.length; z++) {
                 arr = gs.obtainParts(CMP[z]);
@@ -182,9 +197,9 @@ public class Piattaforma extends JFrame {
                     JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
                     System.exit(10);
                 }
-                tableComp[z] = createTable(arr);
+                compTable[z] = createTable(arr);
                 JScrollPane scroll = new JScrollPane(
-                        tableComp[z],
+                        compTable[z],
                         JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
                 panels[z].add(scroll);
@@ -192,18 +207,32 @@ public class Piattaforma extends JFrame {
             }
     }
 
-    private void addButtonListener(CompButton comp) {
-        comp.addActionListener(e -> {
-            addComp(comp);
-            displayOnPanel(items);
+    private void addButtonListener(JButton btn) {
+        btn.addActionListener(e -> {
+            addComp(idAdd);
+            Object[][] data = gs.getString();
+            DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
+            model.setRowCount(0);
+            for(Object[] str: data){
+                model.addRow(str);
+            }
             price.setText(gs.getPrice() + " €");
         });
     }
 
-    private void rmvButtonListener(CompButton comp) {
-        comp.addActionListener(e -> {
-
+    private void rmvButtonListener(JButton btn) {
+        btn.addActionListener(e -> {
+            rmvComp(idRmv);
+            DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
+            int index = chooseTable.getSelectedRow();
+            model.removeRow(index);
+            price.setText(gs.getPrice() + " €");
+            btn.setEnabled(false);
         });
+    }
+
+    private void rmvComp(int id) {
+        gs.rmvComp(id);
     }
 
     private void loginListener() {
@@ -216,7 +245,6 @@ public class Piattaforma extends JFrame {
     private void newConfigListener() {
         newConfig.addActionListener(e -> {
             price.setText("0 €");
-            items.setText("");
             gs.newScp();
         });
     }
@@ -235,7 +263,8 @@ public class Piattaforma extends JFrame {
         for (JPanel p : panels)
             p.removeAll();
         price.setText("0 €");
-        items.setText("");
+        DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
+        model.setRowCount(0);
         gs.newScp();
         obtainParts();
     }
@@ -261,11 +290,11 @@ public class Piattaforma extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try{
-                    row = ((JTable)e.getSource()).getSelectedRow();
+                    rowAdd = ((JTable)e.getSource()).getSelectedRow();
                     add.setEnabled(true);
-                    System.out.println(((JTable)e.getSource()).getValueAt(row,0));
+                    idAdd = (int) ((JTable)e.getSource()).getValueAt(rowAdd,0);
                 }catch (ArrayIndexOutOfBoundsException o){
-                    row=-1;
+                    rowAdd =-1;
                     add.setEnabled(false);
                 }
             }
@@ -290,8 +319,8 @@ public class Piattaforma extends JFrame {
 
             }
         });
-        //tableChoose.getColumn("ADD").setCellRenderer(new AddButtonColumn(tableChoose, 0, arr));
-        //tableChoose.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(tableChoose,1, arr));
+        //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
+        //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
 
         int[] dim = {15,250,15,15,15};
         for(int i = 0; i<dim.length;i++){
@@ -299,36 +328,62 @@ public class Piattaforma extends JFrame {
             table.getColumnModel().getColumn(i).setResizable(false);
         }
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setRowHeight(30);
+        //table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
     }
 
     private JTable createTable(){
         DefaultTableModel dm = new DefaultTableModel();
-        String[] column = {"ID", "NOME", "QUANTITÁ", "PREZZO", "RANKING"};
-        dm.setDataVector(null, column);
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+        dm.setDataVector(gs.getString(), column);
         JTable table = new JTable(dm);
-        //tableChoose.getColumn("ADD").setCellRenderer(new AddButtonColumn(tableChoose, 0, arr));
-        //tableChoose.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(tableChoose,1, arr));
+        //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
+        //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
 
-        int[] dim = {5,15,25,20,20};
+        int[] dim = {3,7,25,20,20};
         for(int i = 0; i<dim.length;i++){
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try{
+                    rowRmv = ((JTable)e.getSource()).getSelectedRow();
+                    rmv.setEnabled(true);
+                    idRmv = (int) ((JTable)e.getSource()).getValueAt(rowRmv,0);
+                }catch (ArrayIndexOutOfBoundsException o){
+                    rowRmv =-1;
+                    rmv.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setRowHeight(30);
+        //table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
-    }
-
-    private static class JTableButtonRenderer implements TableCellRenderer {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            JButton button = (JButton)value;
-            return button;
-        }
     }
 }
 

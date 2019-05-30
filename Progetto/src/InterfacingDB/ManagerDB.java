@@ -9,11 +9,13 @@ public class ManagerDB {
     private Login l;
     private Writing w;
     private Reading r;
+    private CheckInternet c;
 
     public ManagerDB(){
         l = new Login();
         w = new Writing();
         r = new Reading();
+
     }
 
     public boolean login(String user, String password){
@@ -59,5 +61,18 @@ public class ManagerDB {
             r.forceClose();
             return -1;
         }
+    }
+
+    public AbstractComponent getCompByID(int id){
+        try{
+            return r.getCompByID(id);
+        }catch(SQLException e){
+            r.forceClose();
+            return null;
+        }
+    }
+
+    public boolean checkInternet() {
+        return c.check();
     }
 }

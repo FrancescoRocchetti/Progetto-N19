@@ -95,8 +95,8 @@ public class Update extends JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 ins.setEnabled(true);
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);}
-
+                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
             @Override
             public void windowIconified(WindowEvent e) { }
 
@@ -123,8 +123,8 @@ public class Update extends JFrame {
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 

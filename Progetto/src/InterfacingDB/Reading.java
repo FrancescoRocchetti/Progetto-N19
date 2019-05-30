@@ -70,6 +70,18 @@ public class Reading {
         return quantity;
     }
 
+    public AbstractComponent getCompByID (int id) throws SQLException{
+        connectToDB();
+        rs = stmt.executeQuery("SELECT * FROM INVENTARIO WHERE CODICE = '" + id + "'");
+        String[] str = new String[ELEMENTS];
+        rs.next();
+        for(int i = 1; i<ELEMENTS+1; i++)
+            str[i-1] = rs.getString(i);
+        conn.close();
+        return getComponent(str);
+    }
+
+
     private AbstractComponent getComponent(String[] str){
         switch(str[1].toUpperCase()){
             case "CASE": return new CASE(str);
