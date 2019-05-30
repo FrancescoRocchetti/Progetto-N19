@@ -9,7 +9,7 @@ public class Loading extends JFrame {
     public Loading(){
         super("Caricamento...");
         Container c = getContentPane();
-        URL url = getClass().getResource("loading.gif");
+        URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
         JLabel label = new JLabel(img);
         JLabel txt = new JLabel("Prelevando i dati dal DB...", SwingConstants.CENTER);
