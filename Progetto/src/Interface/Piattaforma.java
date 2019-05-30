@@ -328,7 +328,7 @@ public class Piattaforma extends JFrame {
             table.getColumnModel().getColumn(i).setResizable(false);
         }
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //table.setRowHeight(30);
+        table.setRowHeight(20);
         table.setDefaultEditor(Object.class, null);
         return table;
     }
