@@ -2,9 +2,9 @@ package Components;
 
 import Resources.Resource;
 
-public class Case extends AbstractComponent {
+public class CASE extends AbstractComponent {
 
-    public Case(String[] input) {
+    public CASE(String[] input) {
         super(input);
 
         resource = new Resource.Builder()

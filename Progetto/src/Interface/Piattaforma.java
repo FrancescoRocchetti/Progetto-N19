@@ -122,13 +122,13 @@ public class Piattaforma extends JFrame {
         components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
         components.addTab("RAM", panels[2]);
-        components.addTab("Storage", panels[3]);
+        components.addTab("STORAGE", panels[3]);
         components.addTab("GPU", panels[4]);
         components.addTab("Power Supply", panels[5]);
         components.addTab("Cooler CPU", panels[6]);
         components.addTab("Operating System", panels[7]);
-        components.addTab("Case", panels[8]);
-        components.addTab("Other", panels[9]);
+        components.addTab("CASE", panels[8]);
+        components.addTab("ALTRO", panels[9]);
 
 
         totPanel.add(total);

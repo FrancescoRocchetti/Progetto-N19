@@ -72,16 +72,16 @@ public class Reading {
 
     private AbstractComponent getComponent(String[] str){
         switch(str[1].toUpperCase()){
-            case "CASE": return new Case(str);
-            case "COOLER": return new CoolerCPU(str);
+            case "CASE": return new CASE(str);
+            case "COOLER": return new COOLER(str);
             case "CPU": return new CPU(str);
             case "GPU": return new GPU(str);
             case "MOBO": return new MOBO(str);
             case "OS": return new OS(str);
             case "PSU": return new PSU(str);
             case "RAM": return new RAM(str);
-            case "STORAGE": return new Storage(str);
-            case "ALTRO": return new Other(str);
+            case "STORAGE": return new STORAGE(str);
+            case "ALTRO": return new ALTRO(str);
             default: return null;
         }
     }

@@ -30,7 +30,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                 || o.getBit() <= c.getBit();
     }
 
-    private static boolean checkMOBOCASE(MOBO m, Case c){
+    private static boolean checkMOBOCASE(MOBO m, CASE c){
         return m == null || c == null
                 || m.getCaseDim().equals(c.getCaseDim());
                 //pls fix
@@ -40,7 +40,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     public static ArrayList<AbstractComponent> check(ArrayList<AbstractComponent> al, SelectedComponents sc){
 
         for(AbstractComponent ac : al) {
-            switch (ac.getType()) {
+            switch (ac.getType().toLowerCase()) {
                 case "cpu":
                     if (!(checkMOBOCPU((MOBO) sc.getType(PCParts.MOBO), (CPU) ac)
                             && checkCPURAM((CPU) ac,(RAM) sc.getType(PCParts.RAM))
@@ -51,7 +51,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                 case "mobo":
                     if (!(checkMOBOCPU((MOBO) ac, (CPU) sc.getType(PCParts.CPU))
                             && checkMOBORAM((MOBO) ac, (RAM) sc.getType(PCParts.RAM))
-                            && checkMOBOCASE((MOBO) ac, (Case) sc.getType(PCParts.CASE)))){
+                            && checkMOBOCASE((MOBO) ac, (CASE) sc.getType(PCParts.CASE)))){
                         al.remove(ac);
                     }
                     break;
@@ -62,7 +62,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                     }
                     break;
                 case "case":
-                    if (!(checkMOBOCASE((MOBO) sc.getType(PCParts.MOBO), (Case) ac))){
+                    if (!(checkMOBOCASE((MOBO) sc.getType(PCParts.MOBO), (CASE) ac))){
                         al.remove(ac);
                     }
                     break;

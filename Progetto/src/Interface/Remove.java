@@ -42,7 +42,7 @@ public class Remove extends JFrame {
         btnPanel = new JPanel(new GridLayout(2,5));
         choosePanel = new JPanel(new BorderLayout());
         comboBoxPanel = new JPanel(new GridLayout(3,1));
-        caseButton = new JButton("Case");
+        caseButton = new JButton("CASE");
         cooler = new JButton("Cooler");
         cpu = new JButton("CPU");
         gpu = new JButton("GPU");
@@ -50,7 +50,7 @@ public class Remove extends JFrame {
         os = new JButton("OS");
         psu = new JButton("PSU");
         ram = new JButton("RAM");
-        storage = new JButton("Storage");
+        storage = new JButton("STORAGE");
         other = new JButton("Altro");
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
         comp = new JComboBox();
