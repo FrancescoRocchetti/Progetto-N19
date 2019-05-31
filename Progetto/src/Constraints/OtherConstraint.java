@@ -70,27 +70,27 @@ public class OtherConstraint {
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getnSATA() < 0)){
+        if(before.isOkMOBO() && (after.getnSATA() < 0) && (before.getnSATA() > 0)){
             //(checkMOBOSTORAGE)
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getnPci() < 0)){
+        if(before.isOkMOBO() && (after.getnPci() < 0) && (before.getnPci() > 0)){
             //(checkMOBOGPU)
             temp = false;
         }
 
-        if(before.isOkCase() && (after.getnSlot325() < 0)){
+        if(before.isOkCase() && (after.getnSlot325() < 0) && (before.getnSlot325() > 0)){
             //(checkCASESTORAGE)
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getModulesRAM() < 0)){
+        if(before.isOkMOBO() && (after.getModulesRAM() < 0) && (before.getModulesRAM() > 0)){
             //(nram)
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getnSATA() < 0)){
+        if(before.isOkMOBO() && (after.getnSATA() < 0) && (before.getnSATA() > 0)){
             //(nstorage)
             temp = false;
         }

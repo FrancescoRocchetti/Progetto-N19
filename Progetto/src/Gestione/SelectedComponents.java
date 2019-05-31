@@ -2,6 +2,7 @@ package Gestione;
 
 import Components.*;
 import Constraints.OtherConstraint;
+import Constraints.Warning;
 import InterfacingDB.PCParts;
 import Resources.*;
 
@@ -10,9 +11,11 @@ import java.util.ArrayList;
 //classe che gestisce i componenti già scelti
 public class SelectedComponents {
     private ArrayList<AbstractComponent> sc;
+    private Warning w;
 
     public SelectedComponents(){
         sc = new ArrayList<>();
+        w = Warning.getwInstance();
     }
 
     public AbstractComponent getComponent(int i){
@@ -30,6 +33,8 @@ public class SelectedComponents {
     public void addCList(AbstractComponent ac){
         if(OtherConstraint.check(ac, this)){
             sc.add(ac);
+            System.err.println(w.check(this));
+            System.err.println(w.getInfo());
         }
 
     }
