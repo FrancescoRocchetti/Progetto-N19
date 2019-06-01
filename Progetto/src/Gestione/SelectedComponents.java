@@ -1,6 +1,7 @@
 package Gestione;
 
 import Components.*;
+import Constraints.NumericalConstraint;
 import Constraints.OtherConstraint;
 import Constraints.Warning;
 import InterfacingDB.PCParts;
@@ -34,6 +35,7 @@ public class SelectedComponents {
         if(OtherConstraint.check(ac, this)){
             sc.add(ac);
             w.check(this);
+            System.err.println(NumericalConstraint.check2(this));
             System.err.println(w.getInfo());
         }
 

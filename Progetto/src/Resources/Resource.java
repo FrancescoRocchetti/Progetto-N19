@@ -159,6 +159,7 @@ public class Resource {
             risorsa.okCPU = false;
             risorsa.okGPU = false;
             risorsa.okRAM = false;
+            risorsa.okPSU =false;
             risorsa.modulesRAM = this.modulesRam;
             risorsa.power = this.power;
             risorsa.typeSocket = this.typeSocket;
