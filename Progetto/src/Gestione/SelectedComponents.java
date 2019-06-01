@@ -33,7 +33,7 @@ public class SelectedComponents {
     public void addCList(AbstractComponent ac){
         if(OtherConstraint.check(ac, this)){
             sc.add(ac);
-            System.err.println(w.check(this));
+            w.check(this);
             System.err.println(w.getInfo());
         }
 

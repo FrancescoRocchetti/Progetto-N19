@@ -1,5 +1,6 @@
 package Interface;
 
+import Constraints.AdaptabilityConstraint;
 import InterfacingDB.ManagerDB;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
