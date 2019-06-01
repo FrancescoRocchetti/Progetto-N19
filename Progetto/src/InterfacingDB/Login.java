@@ -5,14 +5,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.*;
 
-public class LoginDB {
+public class Login {
     private String url;
     private String user;
     private String password;
     private Connection conn;
 
 
-    public LoginDB(){
+    public Login(){
         url = "jdbc:mysql://34.65.95.40:3306/Progetto?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         user = "utente";
         password = "prova";

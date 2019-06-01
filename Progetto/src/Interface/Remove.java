@@ -1,9 +1,12 @@
 package Interface;
 
 import Components.AbstractComponent;
+import InterfacingDB.PCParts;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,7 +30,6 @@ public class Remove extends JFrame {
     private JComboBox comp;
     private JComboBox qta;
     private JButton rmv;
-    private ArrayList<AbstractComponent> componenti;
     private String s = "";
     private boolean found;
     private int qtaToRmv = 0;
@@ -36,13 +38,15 @@ public class Remove extends JFrame {
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
         super("Remove component");
+        ins.setEnabled(false);
+        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.go = go;
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
         btnPanel = new JPanel(new GridLayout(2,5));
         choosePanel = new JPanel(new BorderLayout());
         comboBoxPanel = new JPanel(new GridLayout(3,1));
-        caseButton = new JButton("Case");
+        caseButton = new JButton("CASE");
         cooler = new JButton("Cooler");
         cpu = new JButton("CPU");
         gpu = new JButton("GPU");
@@ -50,7 +54,7 @@ public class Remove extends JFrame {
         os = new JButton("OS");
         psu = new JButton("PSU");
         ram = new JButton("RAM");
-        storage = new JButton("Storage");
+        storage = new JButton("STORAGE");
         other = new JButton("Altro");
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
         comp = new JComboBox();
@@ -87,6 +91,31 @@ public class Remove extends JFrame {
             }
         });
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) { }
+
+            @Override
+            public void windowClosing(WindowEvent e) { }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ins.setEnabled(true);
+                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+            @Override
+            public void windowIconified(WindowEvent e) { }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) { }
+
+            @Override
+            public void windowActivated(WindowEvent e) { }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) { }
+        });
+
         comboBoxPanel.add(comp);
         comboBoxPanel.add(new JLabel("Pieces to remove:"));
         comboBoxPanel.add(qta);
@@ -115,16 +144,16 @@ public class Remove extends JFrame {
             b.setMargin(new Insets(10, 10, 10, 10));
             btnPanel.add(b);
             b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(null);
+                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
                 c.removeAllItems();
                 found = false;
                 for(AbstractComponent x : str) {
-                    s += x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
-                    if(x.getType().equals(b.getText().toUpperCase())) {
-                        c.addItem(s);
-                        found = true;
-                    }
-                    s = "";
+                    s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
+                    //if(x.getType().equals(b.getText().toUpperCase())) {
+                    c.addItem(s);
+                    found = true;
+                    //}
+                    //s = "";
                 }
                 rmv.setEnabled(found);
                 if(!found) {

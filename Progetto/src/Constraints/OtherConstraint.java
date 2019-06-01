@@ -14,11 +14,11 @@ public class OtherConstraint {
      * la sequenza di utilizzo delle classi vincolo è la seguente:
      * Adaptibilty è chiamata su vettori di componenti provenienti dal DB per scartare
      * componenti non "utilizzabili".
-     * Other impedisce l'aggiunta di componenti in sovrannumero (es. 2 cpu)
+     * ALTRO impedisce l'aggiunta di componenti in sovrannumero (es. 2 cpu)
      * Numerical esegue i conti sul Wattaggio dopo l'aggiunta di ogni componente
      * Consistency probisce ultimazione di una build se non possiede i componenti essenziali
      *
-     * In quanto Other e Numerical vengono richiamate praticamente nello stesso momento
+     * In quanto ALTRO e Numerical vengono richiamate praticamente nello stesso momento
      * si potrebbe valutare la possibilità di inglobare una classe nell'altra, ma
      * tenendole separate si ha la possibilità di definire una classe solo per i
      * warning e una per bloccare comportamenti errati
@@ -70,27 +70,27 @@ public class OtherConstraint {
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getnSATA() < 0)){
+        if(before.isOkMOBO() && (after.getnSATA() < 0) && (before.getnSATA() >= 0)){
             //(checkMOBOSTORAGE)
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getnPci() < 0)){
+        if(before.isOkMOBO() && (after.getnPci() < 0) && (before.getnPci() >= 0)){
             //(checkMOBOGPU)
             temp = false;
         }
 
-        if(before.isOkCase() && (after.getnSlot325() < 0)){
+        if(before.isOkCase() && (after.getnSlot325() < 0) && (before.getnSlot325() >= 0)){
             //(checkCASESTORAGE)
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getModulesRAM() < 0)){
+        if(before.isOkMOBO() && (after.getModulesRAM() < 0) && (before.getModulesRAM() >= 0)){
             //(nram)
             temp = false;
         }
 
-        if(before.isOkMOBO() && (after.getnSATA() < 0)){
+        if(before.isOkMOBO() && (after.getnSATA() < 0) && (before.getnSATA() >= 0)){
             //(nstorage)
             temp = false;
         }

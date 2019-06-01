@@ -18,7 +18,7 @@ public class GestioneComponenti extends JFrame {
     private String[] componentsName;
     public GestioneComponenti(Piattaforma p, Login login) {
         super("Gestione componenti");
-        componentsName = new String[]{"Case", "Cooler CPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "Storage", "Other"};
+        componentsName = new String[]{"CASE", "Cooler CPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "ALTRO"};
         background = new JPanel(new BorderLayout());
         logout = new JButton("Logout");
         label = new JLabel("Choose the component to update...");

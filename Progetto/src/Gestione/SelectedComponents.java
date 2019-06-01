@@ -2,6 +2,7 @@ package Gestione;
 
 import Components.*;
 import Constraints.OtherConstraint;
+import Constraints.Warning;
 import InterfacingDB.PCParts;
 import Resources.*;
 
@@ -10,9 +11,11 @@ import java.util.ArrayList;
 //classe che gestisce i componenti già scelti
 public class SelectedComponents {
     private ArrayList<AbstractComponent> sc;
+    private Warning w;
 
     public SelectedComponents(){
         sc = new ArrayList<>();
+        w = Warning.getwInstance();
     }
 
     public AbstractComponent getComponent(int i){
@@ -24,15 +27,16 @@ public class SelectedComponents {
     }
 
     public ArrayList<AbstractComponent> getAR(){
-        ArrayList temp = sc;
-        return temp;
+        return sc;
     }
 
     public void addCList(AbstractComponent ac){
-        if(!OtherConstraint.check(ac, this)){
-            substitution(ac);
-        }else
+        if(OtherConstraint.check(ac, this)){
             sc.add(ac);
+            w.check(this);
+            System.err.println(w.getInfo());
+        }
+
     }
 
     private void substitution(AbstractComponent ac) {
@@ -96,5 +100,16 @@ public class SelectedComponents {
             s.append(aStr.getName()+" - "+aStr.getPrice()+" €").append("\n");
         }
         return s.toString();
+    }
+
+    public void rmvCList(int id) {
+        AbstractComponent abs;
+        for(int i = 0; i < sc.size(); i++){
+            abs = sc.get(i);
+            if(abs.getID() == id){
+                sc.remove(i);
+                return;
+            }
+        }
     }
 }

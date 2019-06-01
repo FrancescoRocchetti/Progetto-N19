@@ -254,7 +254,7 @@ public class InserimentoSpecifiche extends JFrame {
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         InserimentoSpecifiche ins = new InserimentoSpecifiche(null, "prova");
-    }
+    }*/
 }
