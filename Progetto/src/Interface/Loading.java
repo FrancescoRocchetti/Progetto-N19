@@ -12,7 +12,7 @@ public class Loading extends JFrame {
         URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
         JLabel label = new JLabel(img);
-        JLabel txt = new JLabel("Prelevando i dati dal DB...", SwingConstants.CENTER);
+        JLabel txt = new JLabel("Sto scaricando i dati...", SwingConstants.CENTER);
         txt.setBorder(new EmptyBorder(0,0,30,0));
         c.setLayout(new BorderLayout());
         c.add(label, BorderLayout.CENTER);
