@@ -43,12 +43,15 @@ public class Piattaforma extends JFrame {
     private JPanel listItem;
     private JScrollPane scroll;
     private JTextField price;
+    private JTextField watt;
     private JLabel total;
+    private JLabel power;
     private JPanel totPanel;
     private JPanel checkPane;
     private JTextArea checkMessage;
     private JTable chooseTable;
     private JTable[] compTable;
+    private JPanel wattPanel;
     
     private GestoreScelte gs;
 
@@ -87,6 +90,7 @@ public class Piattaforma extends JFrame {
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         totPanel = new JPanel(new GridLayout(1, 2));
+        wattPanel = new JPanel(new GridLayout(1,2));
         confirmConfig = new JButton("Confirm configuration");
         btnpanel = new JPanel(new GridLayout(3,1));
         add = new JButton("Add");
@@ -96,21 +100,26 @@ public class Piattaforma extends JFrame {
         rmv.setEnabled(false);
         total = new JLabel("Totale:");
         price = new JTextField();
+        power = new JLabel("Power:");
+        watt = new JTextField();
         price.setText("0 €");
         price.setEditable(false);
+        watt.setText("0 W");
+        watt.setEditable(false);
         price.setHorizontalAlignment(SwingConstants.RIGHT);
+        watt.setHorizontalAlignment(SwingConstants.RIGHT);
         listItem.setPreferredSize(new Dimension(300, getHeight() / 2));
-        listItem.setBorder(BorderFactory.createLineBorder(Color.black));
-        listItem.setBackground(Color.lightGray);
-        checkPane = new JPanel();
-        checkMessage = new JTextArea();
-        checkMessage.setEditable(false);
+        listItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        listItem.setBackground(Color.LIGHT_GRAY);
+        checkPane = new JPanel(new BorderLayout());
+        //checkMessage = new JTextArea();
+        //checkMessage.setEditable(false);
         checkPane.setPreferredSize(new Dimension(300, getHeight() / 2));
-        checkPane.setBorder(BorderFactory.createLineBorder(Color.black));
+        checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
-        checkMessage.setBackground(Color.LIGHT_GRAY);
-        checkMessage.setText("Compatibilità delle componenti");
-        checkPane.add(checkMessage);
+        //checkMessage.setBackground(Color.LIGHT_GRAY);
+        //checkMessage.setText("Compatibilità delle componenti");
+        //checkPane.add(checkMessage);
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
@@ -138,24 +147,24 @@ public class Piattaforma extends JFrame {
         components.addTab("CASE", panels[8]);
         components.addTab("ALTRO", panels[9]);
 
-        components.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
+        components.addChangeListener(e -> {
                 add.setEnabled(false);
                 rowAdd = -1;
                 for(JTable table: compTable){
                     table.clearSelection();
                 }
-            }
         });
 
         totPanel.add(total);
         totPanel.add(price);
+        wattPanel.add(power);
+        wattPanel.add(watt);
         btnpanel.add(add);
         btnpanel.add(rmv);
         btnpanel.add(confirmConfig);
         panel.add(totPanel, BorderLayout.NORTH);
-        panel.add(btnpanel, BorderLayout.SOUTH);
+        panel.add(wattPanel, BorderLayout.SOUTH);
+        checkPane.add(btnpanel, BorderLayout.NORTH);
         listItem.add(scroll, BorderLayout.CENTER);
         listItem.add(panel, BorderLayout.SOUTH);
         infoBox.add(listItem);
@@ -286,39 +295,7 @@ public class Piattaforma extends JFrame {
 
         dm.setDataVector(data, column);
         JTable table = new JTable(dm);
-        table.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try{
-                    rowAdd = ((JTable)e.getSource()).getSelectedRow();
-                    add.setEnabled(true);
-                    idAdd = (int) ((JTable)e.getSource()).getValueAt(rowAdd,0);
-                }catch (ArrayIndexOutOfBoundsException o){
-                    rowAdd =-1;
-                    add.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
+        tableMouseListener(table);
         //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
         //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
 
@@ -346,7 +323,16 @@ public class Piattaforma extends JFrame {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
-        table.addMouseListener(new MouseListener() {
+        tableMouseListener(table);
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //table.setRowHeight(30);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+    private void tableMouseListener(JTable t) {
+        t.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try{
@@ -379,11 +365,6 @@ public class Piattaforma extends JFrame {
 
             }
         });
-
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //table.setRowHeight(30);
-        table.setDefaultEditor(Object.class, null);
-        return table;
     }
 }
 
