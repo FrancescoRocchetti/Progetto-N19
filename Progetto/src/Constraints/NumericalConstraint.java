@@ -23,8 +23,9 @@ public class NumericalConstraint implements AbstractConstraint {
     }
 
     public static boolean check2(SelectedComponents sc){
-
-        return (sc.getTotRes().isOkPSU() && sc.getTotRes().getPower()>=0);
+        //System.out.println(sc.getTotRes().isOkPSU());
+        //System.out.println(sc.getTotRes().getPower());
+        return (sc.getTotRes().isOkPSU() && (sc.getTotRes().getPower()>=0));
     }
 
     public static boolean check(SelectedComponents sc) {

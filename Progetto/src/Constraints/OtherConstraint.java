@@ -54,19 +54,19 @@ public class OtherConstraint {
         Resource after = sumResource(ac, sc);
         boolean temp = true;
 
-        if(before.isOkCPU() && p.equalsIgnoreCase("cpu")){
+        if(before.isOkCPU() && p.equalsIgnoreCase("components.cpu")){
             temp = false;
         }
 
-        if(before.isOkMOBO() && p.equalsIgnoreCase("mobo")){
+        if(before.isOkMOBO() && p.equalsIgnoreCase("components.mobo")){
             temp = false;
         }
 
-        if(before.isOkPSU() && p.equalsIgnoreCase("psu")){
+        if(before.isOkPSU() && p.equalsIgnoreCase("components.PSU")){
             temp = false;
         }
 
-        if(before.isOkCase() && p.equalsIgnoreCase("case")){
+        if(before.isOkCase() && p.equalsIgnoreCase("components.case")){
             temp = false;
         }
 
@@ -99,6 +99,7 @@ public class OtherConstraint {
     }
 
     public static boolean check(AbstractComponent ac, SelectedComponents sc){
-        return difCheck(ac, sc, ac.getType());
+        //System.out.println(ac.getClass().getName());
+        return difCheck(ac, sc, ac.getClass().getName());
     }
 }
