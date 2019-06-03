@@ -108,14 +108,14 @@ public class Piattaforma extends JFrame {
         listItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         listItem.setBackground(Color.LIGHT_GRAY);
         checkPane = new JPanel(new BorderLayout());
-        //checkMessage = new JTextArea();
-        //checkMessage.setEditable(false);
+        checkMessage = new JTextArea();
+        checkMessage.setEditable(false);
         checkPane.setPreferredSize(new Dimension(300, getHeight() / 2));
         checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
-        //checkMessage.setBackground(Color.LIGHT_GRAY);
+        checkMessage.setBackground(Color.LIGHT_GRAY);
         //checkMessage.setText("Compatibilità delle componenti");
-        //checkPane.add(checkMessage);
+        checkPane.add(checkMessage);
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
@@ -297,11 +297,16 @@ public class Piattaforma extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    add.setEnabled(false);
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
-                    if((int) table.getValueAt(rowAdd, 2) != 0)
+                    if((int) table.getValueAt(rowAdd, 2) > 0) {
                         add.setEnabled(true);
-                    idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
+                        checkMessage.setText("");
+                        idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
+                    } else {
+                        add.setEnabled(false);
+                        checkMessage.setForeground(Color.RED);
+                        checkMessage.setText("Disponibilità insufficiente");
+                    }
                 } catch (ArrayIndexOutOfBoundsException o) {
                     rowAdd = -1;
                     add.setEnabled(false);
