@@ -213,6 +213,11 @@ public class Piattaforma extends JFrame {
         }
     }
 
+
+    /*TODO: pensare a qualcosa per un eventuale replace
+       nel caso in cui sia già presente un certo tipo
+       di componente
+    */
     private void addButtonListener(JButton btn) {
         btn.addActionListener(e -> {
             addComp(idAdd);
