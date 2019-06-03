@@ -295,7 +295,34 @@ public class Piattaforma extends JFrame {
 
         dm.setDataVector(data, column);
         JTable table = new JTable(dm);
-        tableMouseListener(table);
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try{
+                    rowAdd = ((JTable)e.getSource()).getSelectedRow();
+                    add.setEnabled(true);
+                    idAdd = (int) ((JTable)e.getSource()).getValueAt(rowAdd,0);
+                }catch (ArrayIndexOutOfBoundsException o){
+                    rowAdd =-1;
+                    add.setEnabled(false);
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //tableMouseListener(table);
         //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
         //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
 
@@ -323,7 +350,41 @@ public class Piattaforma extends JFrame {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
-        tableMouseListener(table);
+        //tableMouseListener(table);
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try{
+                    rowRmv = ((JTable)e.getSource()).getSelectedRow();
+                    add.setEnabled(false);
+                    rmv.setEnabled(true);
+                    idRmv = (int) ((JTable)e.getSource()).getValueAt(rowRmv,0);
+                }catch (ArrayIndexOutOfBoundsException o){
+                    rowRmv =-1;
+                    rmv.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //table.setRowHeight(30);
@@ -331,7 +392,7 @@ public class Piattaforma extends JFrame {
         return table;
     }
 
-    private void tableMouseListener(JTable t) {
+    /*private void tableMouseListener(JTable t) {
         t.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -365,6 +426,6 @@ public class Piattaforma extends JFrame {
 
             }
         });
-    }
+    }*/
 }
 
