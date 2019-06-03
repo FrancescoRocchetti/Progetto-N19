@@ -115,7 +115,7 @@ public class Piattaforma extends JFrame {
         checkPane.setBackground(Color.LIGHT_GRAY);
         checkMessage.setBackground(Color.LIGHT_GRAY);
         //checkMessage.setText("Compatibilità delle componenti");
-        checkPane.add(checkMessage);
+        checkMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
@@ -161,6 +161,7 @@ public class Piattaforma extends JFrame {
         panel.add(totPanel, BorderLayout.NORTH);
         panel.add(wattPanel, BorderLayout.SOUTH);
         checkPane.add(btnpanel, BorderLayout.NORTH);
+        checkPane.add(checkMessage, BorderLayout.CENTER);
         listItem.add(scroll, BorderLayout.CENTER);
         listItem.add(panel, BorderLayout.SOUTH);
         infoBox.add(listItem);
@@ -247,7 +248,6 @@ public class Piattaforma extends JFrame {
         });
     }
 
-    // TODO: non vengono rimossi gli elementi dalla tabella
     private void newConfigListener() {
         newConfig.addActionListener(e -> {
             for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
