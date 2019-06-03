@@ -11,14 +11,14 @@ public class ManagerDB {
     private Reading r;
     private CheckInternet c;
 
-    public ManagerDB(){
+    public ManagerDB() {
         l = new Login();
         w = new Writing();
         r = new Reading();
 
     }
 
-    public boolean login(String user, String password){
+    public boolean login(String user, String password) {
         try {
             return l.login(user, password);
         } catch (SQLException e) {
@@ -27,7 +27,7 @@ public class ManagerDB {
         }
     }
 
-    public boolean write(PCParts part, String d, int q, int p, int r){
+    public boolean write(PCParts part, String d, int q, int p, int r) {
         try {
             return w.write(part, d, q, p, r);
         } catch (SQLException e) {
@@ -36,7 +36,7 @@ public class ManagerDB {
         }
     }
 
-    public boolean update(int cod, int quantità){
+    public boolean update(int cod, int quantità) {
         try {
             return w.update(cod, quantità);
         } catch (SQLException e) {
@@ -45,28 +45,28 @@ public class ManagerDB {
         }
     }
 
-    public ArrayList<AbstractComponent> read(PCParts comp){
+    public ArrayList<AbstractComponent> read(PCParts comp) {
         try {
             return r.read(comp);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             r.forceClose();
             return null;
         }
     }
 
-    public int getQuantityByID(int id){
+    public int getQuantityByID(int id) {
         try {
             return r.getQuantityByID(id);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             r.forceClose();
             return -1;
         }
     }
 
-    public AbstractComponent getCompByID(int id){
-        try{
+    public AbstractComponent getCompByID(int id) {
+        try {
             return r.getCompByID(id);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             r.forceClose();
             return null;
         }

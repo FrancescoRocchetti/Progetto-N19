@@ -6,10 +6,10 @@ public class SommatoreRes {
 
     //somma le risorse di una build in una risorsa unica
 
-    private static Resource loop(ArrayList<Resource> ar){
+    private static Resource loop(ArrayList<Resource> ar) {
         Resource temp = new Resource.Builder().build();
 
-        for(Resource r : ar){
+        for (Resource r : ar) {
             temp = new Resource.Builder()
                     .withokPSU(temp.isOkPSU() || r.isOkPSU())
                     .withokMOBO(temp.isOkMOBO() || r.isOkMOBO())
@@ -33,7 +33,7 @@ public class SommatoreRes {
         return temp;
     }
 
-    public static Resource sum(ArrayList<Resource> ar){
+    public static Resource sum(ArrayList<Resource> ar) {
         return loop(ar);
     }
 }

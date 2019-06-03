@@ -12,18 +12,18 @@ public class Login {
     private Connection conn;
 
 
-    public Login(){
+    public Login() {
         url = "jdbc:mysql://34.65.95.40:3306/Progetto?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         user = "utente";
         password = "prova";
     }
 
     public boolean login(String user, String password) throws SQLException {
-        conn = DriverManager.getConnection(url,this.user,this.password);
+        conn = DriverManager.getConnection(url, this.user, this.password);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * from UTENTI");
-        while (rs.next()){
-            if(rs.getString(1).equals(user) && rs.getString(2).equals(getHash(password))) {
+        while (rs.next()) {
+            if (rs.getString(1).equals(user) && rs.getString(2).equals(getHash(password))) {
                 conn.close();
                 return true;
             }
@@ -32,7 +32,7 @@ public class Login {
         return false;
     }
 
-    private static String getHash(String input){
+    private static String getHash(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] messageDigest = md.digest(input.getBytes());
@@ -44,7 +44,7 @@ public class Login {
             }
             return hashtext;
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
             return null;
         }

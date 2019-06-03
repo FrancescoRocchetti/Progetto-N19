@@ -11,7 +11,7 @@ public class GestoreOperazioni {
     private Piattaforma p;
     private ManagerDB mdb;
 
-    public GestoreOperazioni(Piattaforma p){
+    public GestoreOperazioni(Piattaforma p) {
         modified = false;
         this.p = p;
         mdb = new ManagerDB();
@@ -19,23 +19,23 @@ public class GestoreOperazioni {
         p.setDefaultCloseOperation(0);
     }
 
-    public void unlockPlatform(){
+    public void unlockPlatform() {
         p.setEnabled(true);
         p.setDefaultCloseOperation(3);
-        if(modified)
+        if (modified)
             p.refresh();
     }
 
     public boolean accessToDB(String username, String password) {
-            if (mdb.login(username, password)) {
-                InserimentoSpecifiche ins = new InserimentoSpecifiche(this, username);
-                return true;
-            }
-            return false;
+        if (mdb.login(username, password)) {
+            InserimentoSpecifiche ins = new InserimentoSpecifiche(this, username);
+            return true;
+        }
+        return false;
     }
 
     public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
-        if(checkDescription(componente, descrizione)) {
+        if (checkDescription(componente, descrizione)) {
             mdb.write(componente, descrizione, quantita, prezzo, valutazione);
             modified = true;
             return true;
@@ -43,12 +43,12 @@ public class GestoreOperazioni {
         return false;
     }
 
-    public boolean updateComponent(int index, int qty){
+    public boolean updateComponent(int index, int qty) {
         mdb.update(index, qty);
         return true;
     }
 
-    public int getQuantityByID(int id){
+    public int getQuantityByID(int id) {
         return mdb.getQuantityByID(id);
 
     }
@@ -57,26 +57,26 @@ public class GestoreOperazioni {
         return true;
     }
 
-    public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts){
+    public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts) {
         return mdb.read(parts);
 
     }
 
-    public String[][] getString(PCParts part){
+    public String[][] getString(PCParts part) {
         ArrayList<AbstractComponent> comp = mdb.read(part);
-        if(comp==null){
+        if (comp == null) {
             return null;
         }
         String data[][] = new String[comp.size()][];
         AbstractComponent abs;
-        for(int i = 0; i < comp.size(); i++){
+        for (int i = 0; i < comp.size(); i++) {
             data[i] = new String[5];
             abs = comp.get(i);
             data[i][0] = String.valueOf(abs.getID());
             data[i][1] = abs.getType();
             data[i][2] = abs.getName();
             data[i][3] = String.valueOf(abs.getQuantity());
-            data[i][4] = abs.getPrice()+" €";
+            data[i][4] = abs.getPrice() + " €";
         }
         return data;
     }

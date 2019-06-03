@@ -15,7 +15,7 @@ public class CompList extends JFrame {
     private Toolkit kit;
     private Dimension dim;
 
-    public CompList(InserimentoSpecifiche ins, GestoreOperazioni go){
+    public CompList(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Inventario");
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -24,8 +24,8 @@ public class CompList extends JFrame {
         ins.setEnabled(false);
         ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         String data[][] = go.getString(null);
-        if(data == null){
-            JOptionPane.showMessageDialog(null,"Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
+        if (data == null) {
+            JOptionPane.showMessageDialog(null, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
             dispose();
         }
         String column[] = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
@@ -52,17 +52,19 @@ public class CompList extends JFrame {
         setVisible(true);
 
         btn.addActionListener(e -> {
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                ins.setEnabled(true);
-                CompList.super.dispose();
+            ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            ins.setEnabled(true);
+            CompList.super.dispose();
         });
 
         addWindowListener(new WindowListener() {
             @Override
-            public void windowOpened(WindowEvent e) { }
+            public void windowOpened(WindowEvent e) {
+            }
 
             @Override
-            public void windowClosing(WindowEvent e) { }
+            public void windowClosing(WindowEvent e) {
+            }
 
             @Override
             public void windowClosed(WindowEvent e) {
@@ -71,16 +73,20 @@ public class CompList extends JFrame {
             }
 
             @Override
-            public void windowIconified(WindowEvent e) { }
+            public void windowIconified(WindowEvent e) {
+            }
 
             @Override
-            public void windowDeiconified(WindowEvent e) { }
+            public void windowDeiconified(WindowEvent e) {
+            }
 
             @Override
-            public void windowActivated(WindowEvent e) { }
+            public void windowActivated(WindowEvent e) {
+            }
 
             @Override
-            public void windowDeactivated(WindowEvent e) { }
+            public void windowDeactivated(WindowEvent e) {
+            }
         });
     }
 }

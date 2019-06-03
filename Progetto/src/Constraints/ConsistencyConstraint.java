@@ -11,16 +11,13 @@ public class ConsistencyConstraint implements AbstractConstraint {
 
 
     //MODO ALTERNATIVO
-    public static boolean checkRes(SelectedComponents sc){
+    public static boolean checkRes(SelectedComponents sc) {
         Resource r = SommatoreRes.sum(sc.getRes());
 
         return (r.isOkCPU() && r.isOkMOBO() && r.isOkRAM()
                 && r.isOkGPU() && r.isOkPSU() && r.isOkCase()
                 && r.isOkStorage() && r.isOkCooler() && NumericalConstraint.check(sc));
     }
-
-
-
 
 
     //QUESTA PARTE è INUTILE
@@ -50,7 +47,7 @@ public class ConsistencyConstraint implements AbstractConstraint {
     }
 
     private static boolean checkCOOLER(SelectedComponents sc) {
-        return (sc.getType(PCParts.COOLER)!=null
+        return (sc.getType(PCParts.COOLER) != null
                 || sc.getType(PCParts.CPU).getResource().isOkCooler());
     }
 

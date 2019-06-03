@@ -13,7 +13,7 @@ public class ABuild {
     private final double cPsu = 0.075;
     private final double cCooler = 0.05;
     private final double cCase = 0.1;
-    private final double cStorage= 0.1;
+    private final double cStorage = 0.1;
 
 
     public ABuild(int maxCost) {
@@ -21,7 +21,7 @@ public class ABuild {
         sc = new SelectedComponents();
     }
 
-    public boolean genBuild(){
+    public boolean genBuild() {
         return false;
     }
 

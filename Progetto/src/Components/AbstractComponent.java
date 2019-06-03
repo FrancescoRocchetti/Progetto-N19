@@ -17,17 +17,17 @@ public abstract class AbstractComponent implements Comparable {
     @Deprecated
     public AbstractComponent() {
         /**
-            Questo costruttore di default serve solo per le classi non ancora ultimate (altrimenti il programma non compila)
-            rimuvovere quando ogni classe in Remove ha un suo costruttore
-        */
+         Questo costruttore di default serve solo per le classi non ancora ultimate (altrimenti il programma non compila)
+         rimuvovere quando ogni classe in Remove ha un suo costruttore
+         */
     }
 
     public AbstractComponent(String[] input) {
-        this.price=Integer.parseInt(input[4]);
-        this.performance=Integer.parseInt(input[5]);
-        this.quantity=Integer.parseInt(input[3]);
-        this.ID=Integer.parseInt(input[0]);
-        this.type=input[1].toUpperCase();
+        this.price = Integer.parseInt(input[4]);
+        this.performance = Integer.parseInt(input[5]);
+        this.quantity = Integer.parseInt(input[3]);
+        this.ID = Integer.parseInt(input[0]);
+        this.type = input[1].toUpperCase();
         this.caratteristiche = input[2].split("_");
         this.name = caratteristiche[0];
     }
@@ -37,7 +37,9 @@ public abstract class AbstractComponent implements Comparable {
         return performance;
     }
 
-    public int getID() { return ID; }
+    public int getID() {
+        return ID;
+    }
 
     public int getPrice() {
         return price;
@@ -66,19 +68,19 @@ public abstract class AbstractComponent implements Comparable {
         return name;
     }
 
-    public String getSocket(){
+    public String getSocket() {
         return resource.getTypeSocket();
     }
 
-    public String getTypeRAM(){
+    public String getTypeRAM() {
         return resource.getTypeRAM();
     }
 
-    public int getBit(){
+    public int getBit() {
         return resource.getnBit();
     }
 
-    public String getCaseDim(){
+    public String getCaseDim() {
         return resource.getDimensionCase();
     }
 

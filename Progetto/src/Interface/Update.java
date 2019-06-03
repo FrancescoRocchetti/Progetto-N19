@@ -4,6 +4,7 @@ import InterfacingDB.PCParts;
 import InterfacingDB.Reading;
 
 import javax.swing.*;
+
 import Components.AbstractComponent;
 import InterfacingDB.Writing;
 
@@ -50,9 +51,9 @@ public class Update extends JFrame {
         Dimension dim = kit.getScreenSize();
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
-        btnPanel = new JPanel(new GridLayout(2,5));
+        btnPanel = new JPanel(new GridLayout(2, 5));
         choosePanel = new JPanel(new BorderLayout());
-        comboBoxPanel = new JPanel(new GridLayout(3,1));
+        comboBoxPanel = new JPanel(new GridLayout(3, 1));
         caseButton = new JButton("CASE");
         cooler = new JButton("Cooler");
         cpu = new JButton("CPU");
@@ -66,7 +67,7 @@ public class Update extends JFrame {
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
         comp = new JComboBox();
         comp.addItem("No item selected...");
-        qta = new JSpinner(new SpinnerNumberModel(1,1,null,1));
+        qta = new JSpinner(new SpinnerNumberModel(1, 1, null, 1));
         setSpinnerNotWritable(qta);
         up = new JButton("Update");
         up.setEnabled(false);
@@ -80,34 +81,42 @@ public class Update extends JFrame {
             item = (String) comp.getSelectedItem();
             cod = item.split(" ");
             upCod = Integer.parseInt(String.valueOf(cod[0]));
-            if(!go.updateComponent(upCod, (int) qta.getValue())){
+            if (!go.updateComponent(upCod, (int) qta.getValue())) {
                 JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
-            } else JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
+            } else
+                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
         });
 
         addWindowListener(new WindowListener() {
             @Override
-            public void windowOpened(WindowEvent e) { }
+            public void windowOpened(WindowEvent e) {
+            }
 
             @Override
-            public void windowClosing(WindowEvent e) { }
+            public void windowClosing(WindowEvent e) {
+            }
 
             @Override
             public void windowClosed(WindowEvent e) {
                 ins.setEnabled(true);
                 ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             }
-            @Override
-            public void windowIconified(WindowEvent e) { }
 
             @Override
-            public void windowDeiconified(WindowEvent e) { }
+            public void windowIconified(WindowEvent e) {
+            }
 
             @Override
-            public void windowActivated(WindowEvent e) { }
+            public void windowDeiconified(WindowEvent e) {
+            }
 
             @Override
-            public void windowDeactivated(WindowEvent e) { }
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
         });
 
         comboBoxPanel.add(comp);
@@ -136,23 +145,23 @@ public class Update extends JFrame {
     // TODO: usare GestoreComponenti
     // FABIO: Fatto
     public void addItemToUpdate(JComboBox c) {
-        for(JButton b : btnArray) {
+        for (JButton b : btnArray) {
             b.setMargin(new Insets(10, 10, 10, 10));
             btnPanel.add(b);
             b.addActionListener(e -> {
                 ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
                 c.removeAllItems();
                 found = false;
-                for(AbstractComponent x : str) {
+                for (AbstractComponent x : str) {
                     s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
                     //if(x.getType().equals(b.getText().toUpperCase())) {
-                        c.addItem(s);
-                        found = true;
+                    c.addItem(s);
+                    found = true;
                     //}
                     //s = "";
                 }
                 up.setEnabled(found);
-                if(!found) {
+                if (!found) {
                     JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
                 }
             });

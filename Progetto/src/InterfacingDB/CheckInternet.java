@@ -5,15 +5,14 @@ import java.net.URLConnection;
 
 public class CheckInternet {
 
-    public static boolean check(){
-        try
-        {
+    public static boolean check() {
+        try {
             URL url = new URL("http://www.google.com");
             URLConnection connection = url.openConnection();
             connection.connect();
             return true;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }

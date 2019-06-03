@@ -16,6 +16,7 @@ public class GestioneComponenti extends JFrame {
     private JButton logout;
     private JLabel label;
     private String[] componentsName;
+
     public GestioneComponenti(Piattaforma p, Login login) {
         super("Gestione componenti");
         componentsName = new String[]{"CASE", "Cooler CPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "ALTRO"};
@@ -23,7 +24,7 @@ public class GestioneComponenti extends JFrame {
         logout = new JButton("Logout");
         label = new JLabel("Choose the component to update...");
         c = getContentPane();
-        buttonsPanel = new JPanel(new GridLayout(5,2));
+        buttonsPanel = new JPanel(new GridLayout(5, 2));
         addButtonsToPanel(buttonsPanel);
         background.add(label, BorderLayout.NORTH);
         background.add(buttonsPanel, BorderLayout.CENTER);
@@ -46,7 +47,7 @@ public class GestioneComponenti extends JFrame {
     }
 
     public void addButtonsToPanel(JPanel p) {
-        for(int i = 0; i < componentsName.length; i++) {
+        for (int i = 0; i < componentsName.length; i++) {
             p.add(new JButton(componentsName[i]));
         }
     }

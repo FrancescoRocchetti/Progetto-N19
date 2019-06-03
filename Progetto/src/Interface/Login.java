@@ -7,7 +7,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 
-
 public class Login extends JFrame {
     private Toolkit kit;
     private Dimension dim;
@@ -71,7 +70,7 @@ public class Login extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                if(!set)go.unlockPlatform();
+                if (!set) go.unlockPlatform();
             }
 
             @Override

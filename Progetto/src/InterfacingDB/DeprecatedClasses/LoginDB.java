@@ -13,8 +13,8 @@ public class LoginDB {
 
     public boolean login(String user, String password) throws IOException {
         String str;
-        while ((str = buffer.readLine())!=null){
-            if(str.split(";")[0].equals(user) && str.split(";")[1].equals(password)) {
+        while ((str = buffer.readLine()) != null) {
+            if (str.split(";")[0].equals(user) && str.split(";")[1].equals(password)) {
                 buffer.close();
                 return true;
             }
