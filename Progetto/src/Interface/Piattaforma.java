@@ -250,7 +250,10 @@ public class Piattaforma extends JFrame {
     // TODO: non vengono rimossi gli elementi dalla tabella
     private void newConfigListener() {
         newConfig.addActionListener(e -> {
+            for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
+                ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
             price.setText("0 €");
+            rmv.setEnabled(false);
             gs.newScp();
         });
     }
@@ -294,8 +297,10 @@ public class Piattaforma extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
+                    add.setEnabled(false);
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
-                    add.setEnabled(true);
+                    if((int) table.getValueAt(rowAdd, 2) != 0)
+                        add.setEnabled(true);
                     idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
                     rowAdd = -1;
