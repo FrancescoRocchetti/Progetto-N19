@@ -112,6 +112,10 @@ public class SelectedComponents {
         return s.toString();
     }
 
+    public int getPower(){
+        return getTotRes().getPower();
+    }
+
     public void rmvCList(int id) {
         AbstractComponent abs;
         for (int i = 0; i < sc.size(); i++) {
