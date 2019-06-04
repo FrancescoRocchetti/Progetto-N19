@@ -10,17 +10,16 @@ public class Loading extends JFrame {
     public Loading() {
         super("Caricamento...");
         Container c = getContentPane();
-        URL url = getClass().getResource("Resources/loading3.gif");
+        URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
-        Image image = img.getImage();
+        /*Image image = img.getImage();
         Image newImage = image.getScaledInstance(150,150, Image.SCALE_DEFAULT);
-        img = new ImageIcon(newImage);
+        img = new ImageIcon(newImage);*/
         JLabel label = new JLabel(img);
         JLabel txt = new JLabel();
-        String[] loadingStrings = {"Sto contando le stelle...", "Sto allineando i pianeti...", "Ti sto guardando...", "Sto svuotando le nuvole..."};
+        String[] loadingStrings = {"Sto contando le stelle...", "Sto allineando i pianeti...", "Ti sto guardando...", "Sto svuotando le nuvole...", "Sto scaricando i dati...", "Sto smacchiando le giraffe..."};
         Random random = new Random();
         int ran = random.nextInt(loadingStrings.length);
-        System.out.println(ran);
         txt.setText(loadingStrings[ran]);
         txt.setHorizontalAlignment(SwingConstants.CENTER);
         txt.setBorder(new EmptyBorder(0, 0, 30, 0));

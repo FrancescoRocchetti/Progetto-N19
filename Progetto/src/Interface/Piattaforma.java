@@ -23,10 +23,12 @@ public class Piattaforma extends JFrame {
     private JMenuBar menuBar;
     private JMenu file;
     private JMenu updateDB;
+    private JMenu autoConfig;
     private JMenuItem newConfig;
     private JMenuItem exit;
     private JMenuItem logAdmin;
     private JMenuItem recharge;
+    private JMenuItem getAutoConfig;
     private JPanel bckg;
     private JPanel panel;
     private JPanel btnpanel;
@@ -119,18 +121,22 @@ public class Piattaforma extends JFrame {
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
+        autoConfig = new JMenu("Auto configuration");
         newConfig = new JMenuItem("New configuration");
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login as administrator");
         recharge = new JMenuItem("Refresh inventory");
+        getAutoConfig = new JMenuItem("Start");
 
         // Aggiunta componenti
         file.add(newConfig);
         file.add(exit);
         updateDB.add(logAdmin);
         updateDB.add(recharge);
+        autoConfig.add(getAutoConfig);
         menuBar.add(file);
         menuBar.add(updateDB);
+        menuBar.add(autoConfig);
 
         components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
