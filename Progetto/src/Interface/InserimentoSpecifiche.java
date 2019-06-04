@@ -128,7 +128,7 @@ public class InserimentoSpecifiche extends JFrame {
             } else if (componente.getSelectedItem() == PCParts.STORAGE)
                 howToDesc.setText("NOME_DIMENSIONE_GB");
             else if (componente.getSelectedItem() == PCParts.CASE)
-                howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSOLT325");
+                howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSLOT325");
             else if (componente.getSelectedItem() == PCParts.OS)
                 howToDesc.setText("NOME_BIT");
             else if (componente.getSelectedItem() == PCParts.ALTRO)
