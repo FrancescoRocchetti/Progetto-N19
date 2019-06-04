@@ -266,7 +266,7 @@ public class Piattaforma extends JFrame {
         exit.addActionListener(e -> System.exit(0));
     }
 
-    public void refresh() {
+    void refresh() {
         for (JPanel p : panels)
             p.removeAll();
         price.setText("0 €");
