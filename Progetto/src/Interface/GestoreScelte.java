@@ -1,6 +1,5 @@
 package Interface;
 
-import Constraints.AdaptabilityConstraint;
 import InterfacingDB.ManagerDB;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
@@ -10,19 +9,23 @@ import java.util.ArrayList;
 
 public class GestoreScelte {
     private SelectedComponents scp;
+    private ActiveComponents ac;
     private ManagerDB mdb;
 
     public GestoreScelte() {
         scp = new SelectedComponents();
+        ac = new ActiveComponents();
         mdb = new ManagerDB();
     }
 
     public ArrayList<AbstractComponent> obtainParts(PCParts comp) {
-        return mdb.read(comp);
+        ac.buildList(mdb.read(comp));
+        return ac.getAc();
     }
 
     public void addComp(int id) {
-        scp.addCList(mdb.getCompByID(id));
+        AbstractComponent abs = ac.getCompByID(id);
+        scp.addCList(abs);
     }
 
     public void rmvComp(int id) {
@@ -45,7 +48,7 @@ public class GestoreScelte {
         return mdb.checkInternet();
     }
 
-    public Object[][] getString() {
+    public Object[][] getCart() {
         ArrayList<AbstractComponent> comp = scp.getAR();
         if (comp == null) {
             return null;
@@ -63,4 +66,5 @@ public class GestoreScelte {
         }
         return data;
     }
+
 }

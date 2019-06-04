@@ -218,7 +218,7 @@ public class Piattaforma extends JFrame {
     private void addButtonListener(JButton btn) {
         btn.addActionListener(e -> {
             addComp(idAdd);
-            Object[][] data = gs.getString();
+            Object[][] data = gs.getCart();
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
             model.setRowCount(0);
             for (Object[] str : data) {
@@ -351,7 +351,7 @@ public class Piattaforma extends JFrame {
     private JTable createTable() {
         DefaultTableModel dm = new DefaultTableModel();
         String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
-        dm.setDataVector(gs.getString(), column);
+        dm.setDataVector(gs.getCart(), column);
         JTable table = new JTable(dm);
         //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
         //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
