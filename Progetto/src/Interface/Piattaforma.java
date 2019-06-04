@@ -187,6 +187,7 @@ public class Piattaforma extends JFrame {
         l.dispose();
 
         // Opzioni frame
+        //setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1050, 500);
         setResizable(false);
