@@ -1,25 +1,31 @@
 package Interface;
 
-import Interface.DeprecatedClasses.GestioneComponenti;
-import InterfacingDB.LoginDB;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.sql.SQLException;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 
 public class Login extends JFrame {
+    private Toolkit kit;
+    private Dimension dim;
+    private GestoreOperazioni go;
+    private boolean set;
+
     public Login(Piattaforma p) {
         super("Login");
+        set = false;
+        go = new GestoreOperazioni(p);
         Container c = getContentPane();
+        kit = Toolkit.getDefaultToolkit();
+        dim = kit.getScreenSize();
         JPanel background = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
         JPanel formPanel = new JPanel(new GridLayout(2, 1));
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-        JButton accedi = new JButton("Accedi");
-        JButton annulla = new JButton("Annulla");
+        JButton access = new JButton("Accedi");
+        JButton cancel = new JButton("Annulla");
         JLabel user = new JLabel("Username");
         JLabel psw = new JLabel("Password");
         JTextField username = new JTextField();
@@ -28,46 +34,71 @@ public class Login extends JFrame {
         formPanel.add(password);
         labelPanel.add(user);
         labelPanel.add(psw);
-        buttonPanel.add(annulla);
-        buttonPanel.add(accedi);
+        buttonPanel.add(cancel);
+        buttonPanel.add(access);
         background.add(buttonPanel, BorderLayout.SOUTH);
         background.add(labelPanel, BorderLayout.WEST);
         background.add(formPanel, BorderLayout.CENTER);
         c.add(background);
 
         ActionListener accesso = e -> {
-            LoginDB logInDB;
-            try {
-                logInDB = new LoginDB();
-                if(logInDB.login(username.getText(), String.valueOf(password.getPassword()))) {
-                    //codice per la modifica del DB
-                    //GestioneComponenti gest = new GestioneComponenti(p,Login.this);
-                    System.out.println("Username: " + username.getText());
-                    System.out.println("Password: " + password.getPassword());
-                    InserimentoSpecifiche ins = new InserimentoSpecifiche(p, username.getText());
-                    Login.super.setVisible(false);
-                } else {
-                    System.err.println("Accesso non riuscito");
-                }
-            } catch (SQLException e1) {
-                e1.printStackTrace();
+            if (!go.accessToDB(username.getText(), String.valueOf(password.getPassword())))
+                JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
+            else {
+                set = true;
+                dispose();
             }
         };
 
-        accedi.addActionListener(accesso);
+        access.addActionListener(accesso);
         password.addActionListener(accesso);
 
-        annulla.addActionListener(e -> {
+        cancel.addActionListener(e -> {
             dispose();
-            p.setVisible(true);
+        });
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (!set) go.unlockPlatform();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
         });
 
         setResizable(false);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(250, 125);
+        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
     }
-
 
 }

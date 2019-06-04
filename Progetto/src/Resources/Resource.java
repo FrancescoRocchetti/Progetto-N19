@@ -52,7 +52,7 @@ public class Resource {
         private boolean okPSU;
 
 
-        public Builder withTypeRAM(String typeRAM){
+        public Builder withTypeRAM(String typeRAM) {
             this.typeRAM = typeRAM;
             return this;
         }
@@ -67,7 +67,7 @@ public class Resource {
             return this;
         }
 
-        public Builder withNSlot (int nSlot325) {
+        public Builder withNSlot(int nSlot325) {
             this.nSlot325 = nSlot325;
             return this;
         }
@@ -88,56 +88,56 @@ public class Resource {
         }
 
         public Builder withAmountRAM(int amountRAM) {
-            this.amountRAM= amountRAM;
+            this.amountRAM = amountRAM;
             return this;
         }
 
         public Builder withNPci(int nPci) {
-            this.nPci= nPci;
+            this.nPci = nPci;
             return this;
         }
 
         public Builder withNPcie(int nPcie) {
-            this.nPcie= nPcie;
+            this.nPcie = nPcie;
             return this;
         }
 
         public Builder withnBit(int nBit) {
-            this.nBit= nBit;
+            this.nBit = nBit;
             return this;
         }
 
         public Builder withNSATA(int nSATA) {
-            this.nSATA= nSATA;
+            this.nSATA = nSATA;
             return this;
         }
 
         public Builder withokCPU(boolean okCPU) {
-            this.okCPU= okCPU;
+            this.okCPU = okCPU;
             return this;
         }
 
         public Builder withokMOBO(boolean okMOBO) {
-            this.okMOBO= okMOBO;
+            this.okMOBO = okMOBO;
             return this;
         }
 
         public Builder withokRAM(boolean okRAM) {
-            this.okRAM= okRAM;
+            this.okRAM = okRAM;
             return this;
         }
 
         public Builder withokStorage(boolean okStorage) {
-            this.okStorage= okStorage;
+            this.okStorage = okStorage;
             return this;
         }
 
         public Builder withokGPU(boolean okGPU) {
-            this.okGPU=okGPU;
+            this.okGPU = okGPU;
             return this;
         }
 
-        public Builder withokCase (boolean okCase) {
+        public Builder withokCase(boolean okCase) {
             this.okCase = okCase;
             return this;
         }
@@ -154,15 +154,16 @@ public class Resource {
 
         public Resource build() {
             Resource risorsa = new Resource();
-            risorsa.okCase= false;
+            risorsa.okCase = false;
             risorsa.okCooler = false;
             risorsa.okCPU = false;
             risorsa.okGPU = false;
             risorsa.okRAM = false;
+            risorsa.okPSU = false;
             risorsa.modulesRAM = this.modulesRam;
             risorsa.power = this.power;
             risorsa.typeSocket = this.typeSocket;
-            risorsa.amountRAM=this.amountRAM;
+            risorsa.amountRAM = this.amountRAM;
             risorsa.nPci = this.nPci;
             risorsa.nPcie = this.nPcie;
             risorsa.nSATA = this.nSATA;

@@ -5,24 +5,25 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.*;
 
-public class LoginDB {
+public class Login {
     private String url;
     private String user;
     private String password;
+    private Connection conn;
 
 
-    public LoginDB(){
-        url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7290902?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        user = "sql7290902";
-        password = "9Eb92Yn9qF";
+    public Login() {
+        url = "jdbc:mysql://34.65.95.40:3306/Progetto?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        user = "utente";
+        password = "prova";
     }
 
     public boolean login(String user, String password) throws SQLException {
-        Connection conn = DriverManager.getConnection(url,this.user,this.password);
+        conn = DriverManager.getConnection(url, this.user, this.password);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * from UTENTI");
-        while (rs.next()){
-            if(rs.getString(1).equals(user) && rs.getString(2).equals(getHash(password))) {
+        while (rs.next()) {
+            if (rs.getString(1).equals(user) && rs.getString(2).equals(getHash(password))) {
                 conn.close();
                 return true;
             }
@@ -31,7 +32,7 @@ public class LoginDB {
         return false;
     }
 
-    private static String getHash(String input){
+    private static String getHash(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] messageDigest = md.digest(input.getBytes());
@@ -43,9 +44,17 @@ public class LoginDB {
             }
             return hashtext;
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
             return null;
+        }
+    }
+
+    public void forceClose() {
+        try {
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Già chiuso.");
         }
     }
 }

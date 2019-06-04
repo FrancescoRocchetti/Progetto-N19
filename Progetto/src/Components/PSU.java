@@ -8,6 +8,7 @@ public class PSU extends AbstractComponent {
         super(input);
         resource = new Resource.Builder()
                 .withPower(Integer.parseInt(caratteristiche[1]))
+                .withokPSU(true)
                 .build();
     }
 
