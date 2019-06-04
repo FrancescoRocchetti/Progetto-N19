@@ -18,18 +18,22 @@ public class Login {
         password = "prova";
     }
 
-    public boolean login(String user, String password) throws SQLException {
-        conn = DriverManager.getConnection(url, this.user, this.password);
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * from UTENTI");
-        while (rs.next()) {
-            if (rs.getString(1).equals(user) && rs.getString(2).equals(getHash(password))) {
-                conn.close();
-                return true;
+    public boolean login(String user, String password){
+        try{
+            conn = DriverManager.getConnection(url, this.user, this.password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * from UTENTI");
+            while (rs.next()) {
+                if (rs.getString(1).equals(user) && rs.getString(2).equals(getHash(password))) {
+                    conn.close();
+                    return true;
+                }
             }
+            return false;
+        } catch (SQLException e) {
+            forceClose();
+            return false;
         }
-        conn.close();
-        return false;
     }
 
     private static String getHash(String input) {

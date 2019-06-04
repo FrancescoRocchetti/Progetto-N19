@@ -14,22 +14,27 @@ public class Writer {
         password = "prova";
     }
 
-    public boolean write(PCParts part, String d, int q, int p, int r) throws SQLException {
-        conn = DriverManager.getConnection(url, user, password);
-        String query = "INSERT INTO INVENTARIO (TIPO, DESCRIZIONE, QUANTITA, PREZZO, RANK)\n" +
-                "VALUES (?,?,?,?,?);";
+    public boolean write(PCParts part, String d, int q, int p, int r){
+        try{
+            conn = DriverManager.getConnection(url, user, password);
+            String query = "INSERT INTO INVENTARIO (TIPO, DESCRIZIONE, QUANTITA, PREZZO, RANK)\n" +
+                    "VALUES (?,?,?,?,?);";
 
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setString(1, part.name());
-        preparedStmt.setString(2, d);
-        preparedStmt.setInt(3, q);
-        preparedStmt.setInt(4, p);
-        preparedStmt.setInt(5, r);
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, part.name());
+            preparedStmt.setString(2, d);
+            preparedStmt.setInt(3, q);
+            preparedStmt.setInt(4, p);
+            preparedStmt.setInt(5, r);
 
-        preparedStmt.execute();
+            preparedStmt.execute();
 
-        conn.close();
-        return true;
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            forceClose();
+            return false;
+        }
     }
 
 
@@ -45,24 +50,29 @@ public class Writer {
         conn.close();
     }*/
 
-    public boolean update(int cod, int quantità) throws SQLException {
-        conn = DriverManager.getConnection(url, user, password);
+    public boolean update(int cod, int quantità){
+        try{
+            conn = DriverManager.getConnection(url, user, password);
 
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
-        rs.next();
-        int q = rs.getInt("q");
-        q += quantità;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
+            rs.next();
+            int q = rs.getInt("q");
+            q += quantità;
 
-        String query = "UPDATE INVENTARIO SET QUANTITA = " + q + " WHERE CODICE = ?;";
+            String query = "UPDATE INVENTARIO SET QUANTITA = " + q + " WHERE CODICE = ?;";
 
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt(1, cod);
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, cod);
 
-        preparedStmt.execute();
+            preparedStmt.execute();
 
-        conn.close();
-        return true;
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            forceClose();
+            return false;
+        }
     }
 
     public void forceClose() {
