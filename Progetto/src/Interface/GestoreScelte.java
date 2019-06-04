@@ -63,4 +63,8 @@ public class GestoreScelte {
         }
         return data;
     }
+
+    public int getWatt(){
+        return scp.getTotWatt();//
+    }
 }
