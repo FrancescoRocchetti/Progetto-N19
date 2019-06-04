@@ -1,6 +1,7 @@
 package Constraints;
 
 import Components.*;
+import Constraints.DeprecatedClass.AbstractConstraint;
 import Gestione.SelectedComponents;
 import InterfacingDB.PCParts;
 
