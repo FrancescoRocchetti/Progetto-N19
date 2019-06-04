@@ -1,6 +1,7 @@
 package Interface;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -39,6 +40,7 @@ public class Login extends JFrame {
         background.add(buttonPanel, BorderLayout.SOUTH);
         background.add(labelPanel, BorderLayout.WEST);
         background.add(formPanel, BorderLayout.CENTER);
+        background.setBorder(new EmptyBorder(5,5,5,5));
         c.add(background);
 
         ActionListener accesso = e -> {
@@ -96,7 +98,8 @@ public class Login extends JFrame {
 
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(250, 125);
+        //setSize(250, 125);
+        pack();
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
     }
