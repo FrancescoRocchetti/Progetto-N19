@@ -1,5 +1,6 @@
 package Interface;
 
+import Constraints.AdaptabilityConstraint;
 import InterfacingDB.ManagerDB;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
@@ -19,7 +20,7 @@ public class GestoreScelte {
     }
 
     public ArrayList<AbstractComponent> obtainParts(PCParts comp) {
-        ac.buildList(mdb.read(comp));
+        ac.buildList(AdaptabilityConstraint.check(mdb.read(comp),scp));
         return ac.getAc();
     }
 
