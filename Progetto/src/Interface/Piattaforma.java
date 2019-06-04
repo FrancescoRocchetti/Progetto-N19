@@ -47,7 +47,7 @@ public class Piattaforma extends JFrame {
     private JPanel checkPane;
     private JTextArea checkMessage;
     private JTable chooseTable;
-    private JTable[] compTable;
+    private JTable compTable;
     private JPanel wattPanel;
 
     private GestoreScelte gs;
@@ -80,7 +80,7 @@ public class Piattaforma extends JFrame {
         }
         infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
-        compTable = new JTable[CATEGORIES];
+        //compTable = new JTable();
         chooseTable = createTable();
         scroll = new JScrollPane(chooseTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(10);
@@ -146,9 +146,7 @@ public class Piattaforma extends JFrame {
         components.addChangeListener(e -> {
             add.setEnabled(false);
             rowAdd = -1;
-            for (JTable table : compTable) {
-                table.clearSelection();
-            }
+            obtainParts(components.getSelectedIndex());
         });
 
         totPanel.add(total);
@@ -179,7 +177,7 @@ public class Piattaforma extends JFrame {
         newConfigListener();
         rechargeListener();
         exitListener();
-        obtainParts();
+        obtainParts(components.getSelectedIndex());
         l.dispose();
 
         // Opzioni frame
@@ -194,23 +192,21 @@ public class Piattaforma extends JFrame {
         gs.addComp(id);
     }
 
-    private void obtainParts() {
+    private void obtainParts(int index) {
         ArrayList<AbstractComponent> arr;
-
-        for (int z = 0; z < CMP.length; z++) {
-            arr = gs.obtainParts(CMP[z]);
-            if (arr == null) {
-                JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-                System.exit(10);
-            }
-            compTable[z] = createTable(arr);
-            JScrollPane scroll = new JScrollPane(
-                    compTable[z],
-                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            panels[z].add(scroll);
-            panels[z].setLayout(new GridLayout());
+        arr = gs.obtainParts(CMP[index]);
+        if (arr == null) {
+            JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
+            System.exit(10);
         }
+        panels[index].removeAll();
+        compTable = createTable(arr);
+        JScrollPane scroll = new JScrollPane(
+                compTable,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panels[index].add(scroll);
+        panels[index].setLayout(new GridLayout());
     }
 
     private void addButtonListener(JButton btn) {
@@ -273,7 +269,7 @@ public class Piattaforma extends JFrame {
         DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
         model.setRowCount(0);
         gs.newScp();
-        obtainParts();
+        obtainParts(components.getSelectedIndex());
     }
 
     private JTable createTable(ArrayList<AbstractComponent> arr) {
