@@ -226,6 +226,7 @@ public class Piattaforma extends JFrame {
                 model.addRow(str);
             }
             price.setText(gs.getPrice() + " €");
+            watt.setText(gs.getWatt() + " W");
         });
     }
 
@@ -236,6 +237,7 @@ public class Piattaforma extends JFrame {
             int index = chooseTable.getSelectedRow();
             model.removeRow(index);
             price.setText(gs.getPrice() + " €");
+            watt.setText(gs.getWatt() + " W");
             btn.setEnabled(false);
         });
     }
@@ -256,6 +258,7 @@ public class Piattaforma extends JFrame {
             for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
                 ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
             price.setText("0 €");
+            watt.setText("0 W");
             rmv.setEnabled(false);
             gs.newScp();
         });
