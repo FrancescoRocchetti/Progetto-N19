@@ -1,15 +1,13 @@
 package Interface;
 
-import Interface.CustomJTable.RadioButtonEditor;
-import Interface.CustomJTable.RadioButtonRenderer;
+import Components.AbstractComponent;
 import InterfacingDB.PCParts;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import Components.*;
-import java.sql.SQLException;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class Piattaforma extends JFrame {
@@ -30,26 +28,44 @@ public class Piattaforma extends JFrame {
     private JMenuItem logAdmin;
     private JMenuItem recharge;
     private JPanel bckg;
-    private JPanel confirmPanel;
+    private JPanel panel;
+    private JPanel btnpanel;
     private JButton confirmConfig;
+    private JButton add;
+    private JButton rmv;
 
     private JPanel[] panels;
 
     private JPanel infoBox;
     private JPanel listItem;
-    private JTextArea items;
     private JScrollPane scroll;
     private JTextField price;
+    private JTextField watt;
     private JLabel total;
+    private JLabel power;
     private JPanel totPanel;
     private JPanel checkPane;
     private JTextArea checkMessage;
-    
+    private JTable chooseTable;
+    private JTable[] compTable;
+    private JPanel wattPanel;
+
     private GestoreScelte gs;
+
+    private int rowAdd;
+    private int rowRmv;
+    private int idAdd;
+    private int idRmv;
 
     public Piattaforma() {
         super("Configuratore di PC");
         gs = new GestoreScelte();
+
+        Loading l = new Loading();
+        if (!gs.checkInternet()) {
+            JOptionPane.showMessageDialog(null, "Impossibile stabilire una connessione a Internet.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
+            System.exit(10);
+        }
 
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -64,31 +80,42 @@ public class Piattaforma extends JFrame {
         }
         infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
-        items = new JTextArea();
-        scroll = new JScrollPane(items, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        compTable = new JTable[CATEGORIES];
+        chooseTable = createTable();
+        scroll = new JScrollPane(chooseTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(10);
         scroll.getHorizontalScrollBar().setUnitIncrement(10);
         totPanel = new JPanel(new GridLayout(1, 2));
-        confirmPanel = new JPanel(new GridLayout(2,1));
+        wattPanel = new JPanel(new GridLayout(1, 2));
         confirmConfig = new JButton("Confirm configuration");
+        btnpanel = new JPanel(new GridLayout(3, 1));
+        add = new JButton("Add");
+        rmv = new JButton("Remove");
+        panel = new JPanel(new BorderLayout());
+        add.setEnabled(false);
+        rmv.setEnabled(false);
         total = new JLabel("Totale:");
         price = new JTextField();
+        power = new JLabel("Power:");
+        watt = new JTextField();
         price.setText("0 €");
         price.setEditable(false);
+        watt.setText("0 W");
+        watt.setEditable(false);
         price.setHorizontalAlignment(SwingConstants.RIGHT);
+        watt.setHorizontalAlignment(SwingConstants.RIGHT);
         listItem.setPreferredSize(new Dimension(300, getHeight() / 2));
-        listItem.setBorder(BorderFactory.createLineBorder(Color.black));
-        listItem.setBackground(Color.lightGray);
-        items.setEditable(false);
-        checkPane = new JPanel();
+        listItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        listItem.setBackground(Color.LIGHT_GRAY);
+        checkPane = new JPanel(new BorderLayout());
         checkMessage = new JTextArea();
         checkMessage.setEditable(false);
         checkPane.setPreferredSize(new Dimension(300, getHeight() / 2));
-        checkPane.setBorder(BorderFactory.createLineBorder(Color.black));
+        checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
         checkMessage.setBackground(Color.LIGHT_GRAY);
-        checkMessage.setText("Compatibilità delle componenti");
-        checkPane.add(checkMessage);
+        //checkMessage.setText("Compatibilità delle componenti");
+        checkMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
@@ -108,21 +135,35 @@ public class Piattaforma extends JFrame {
         components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
         components.addTab("RAM", panels[2]);
-        components.addTab("Storage", panels[3]);
+        components.addTab("STORAGE", panels[3]);
         components.addTab("GPU", panels[4]);
         components.addTab("Power Supply", panels[5]);
         components.addTab("Cooler CPU", panels[6]);
         components.addTab("Operating System", panels[7]);
-        components.addTab("Case", panels[8]);
-        components.addTab("Other", panels[9]);
+        components.addTab("CASE", panels[8]);
+        components.addTab("ALTRO", panels[9]);
 
+        components.addChangeListener(e -> {
+            add.setEnabled(false);
+            rowAdd = -1;
+            for (JTable table : compTable) {
+                table.clearSelection();
+            }
+        });
 
         totPanel.add(total);
         totPanel.add(price);
-        confirmPanel.add(totPanel);
-        confirmPanel.add(confirmConfig);
-        listItem.add(confirmPanel, BorderLayout.SOUTH);
+        wattPanel.add(power);
+        wattPanel.add(watt);
+        btnpanel.add(add);
+        btnpanel.add(rmv);
+        btnpanel.add(confirmConfig);
+        panel.add(totPanel, BorderLayout.NORTH);
+        panel.add(wattPanel, BorderLayout.SOUTH);
+        checkPane.add(btnpanel, BorderLayout.NORTH);
+        checkPane.add(checkMessage, BorderLayout.CENTER);
         listItem.add(scroll, BorderLayout.CENTER);
+        listItem.add(panel, BorderLayout.SOUTH);
         infoBox.add(listItem);
         infoBox.add(checkPane);
 
@@ -132,11 +173,14 @@ public class Piattaforma extends JFrame {
         setJMenuBar(menuBar);
         c.add(bckg);
 
+        addButtonListener(add);
+        rmvButtonListener(rmv);
         loginListener();
         newConfigListener();
         rechargeListener();
         exitListener();
         obtainParts();
+        l.dispose();
 
         // Opzioni frame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -146,45 +190,60 @@ public class Piattaforma extends JFrame {
         setVisible(true);
     }
 
-    private void addComp(CompRadio button) {
-        gs.addComp(button.getAbs());
+    private void addComp(int id) {
+        gs.addComp(id);
     }
 
-    private void displayOnPanel(JTextArea textArea) {
-        textArea.setText(gs.getListAbs());
-    }
+    private void obtainParts() {
+        ArrayList<AbstractComponent> arr;
 
-    private void obtainParts(){
-            ArrayList<AbstractComponent> arr;
-            CompRadio[] c;
-
-            for(int z = 0; z < CMP.length; z++) {
-                arr = gs.obtainParts(CMP[z]);
-                if(arr==null) {
-                    JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-                    System.exit(10);
-                }
-                c = new CompRadio[arr.size()];
-                for(int i = 0; i<arr.size(); i++) {
-                    c[i] = new CompRadio("",arr.get(i));
-                    radioButtonListener(c[i]);
-                }
-                JTable table = createTable(c);
-                JScrollPane scroll = new JScrollPane(
-                        table,
-                        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-                panels[z].add(scroll);
-                panels[z].setLayout(new GridLayout());
+        for (int z = 0; z < CMP.length; z++) {
+            arr = gs.obtainParts(CMP[z]);
+            if (arr == null) {
+                JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
+                System.exit(10);
             }
+            compTable[z] = createTable(arr);
+            JScrollPane scroll = new JScrollPane(
+                    compTable[z],
+                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            panels[z].add(scroll);
+            panels[z].setLayout(new GridLayout());
+        }
     }
 
-    private void radioButtonListener(CompRadio comp) {
-        comp.addActionListener(e -> {
-            addComp(comp);
-            displayOnPanel(items);
+
+    /*TODO: pensare a qualcosa per un eventuale replace
+       nel caso in cui sia già presente un certo tipo
+       di componente
+    */
+    private void addButtonListener(JButton btn) {
+        btn.addActionListener(e -> {
+            addComp(idAdd);
+            Object[][] data = gs.getString();
+            DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
+            model.setRowCount(0);
+            for (Object[] str : data) {
+                model.addRow(str);
+            }
             price.setText(gs.getPrice() + " €");
         });
+    }
+
+    private void rmvButtonListener(JButton btn) {
+        btn.addActionListener(e -> {
+            rmvComp(idRmv);
+            DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
+            int index = chooseTable.getSelectedRow();
+            model.removeRow(index);
+            price.setText(gs.getPrice() + " €");
+            btn.setEnabled(false);
+        });
+    }
+
+    private void rmvComp(int id) {
+        gs.rmvComp(id);
     }
 
     private void loginListener() {
@@ -196,66 +255,149 @@ public class Piattaforma extends JFrame {
 
     private void newConfigListener() {
         newConfig.addActionListener(e -> {
+            for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
+                ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
             price.setText("0 €");
-            items.setText("");
+            rmv.setEnabled(false);
             gs.newScp();
         });
     }
 
     private void rechargeListener() {
-        recharge.addActionListener(e -> {
-            refresh();
-        });
+        recharge.addActionListener(e -> refresh());
     }
 
     private void exitListener() {
         exit.addActionListener(e -> System.exit(0));
     }
 
-    public void refresh(){
+    public void refresh() {
         for (JPanel p : panels)
             p.removeAll();
         price.setText("0 €");
-        items.setText("");
+        DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
+        model.setRowCount(0);
         gs.newScp();
         obtainParts();
     }
 
-    private JTable createTable(CompRadio[] cr){
-        ButtonGroup bg = new ButtonGroup();
+    private JTable createTable(ArrayList<AbstractComponent> arr) {
         DefaultTableModel dm = new DefaultTableModel();
-        Object[][] data = new Object[cr.length][];
-        String[] column = {"SCELTA","NOME", "QUANTITÁ", "PREZZO", "RANKING"};
+        Object[][] data = new Object[arr.size()][];
+        String[] column = {"ID", "NOME", "QUANTITÁ", "PREZZO", "RANKING"};
 
-        for(int i = 0; i<cr.length; i++){
-            bg.add(cr[i]);
-            AbstractComponent abs = cr[i].getAbs();
+        for (int i = 0; i < arr.size(); i++) {
             data[i] = new Object[COLUMNS];
-            if(abs.getQuantity() == 0)
-                cr[i].setEnabled(false);
-            data[i][0] = cr[i];
+            AbstractComponent abs = arr.get(i);
+            data[i][0] = abs.getID();
             data[i][1] = abs.getName();
             data[i][2] = abs.getQuantity();
-            data[i][3] = abs.getPrice()+" €";
+            data[i][3] = abs.getPrice() + " €";
             data[i][4] = abs.getPerformance();
         }
 
         dm.setDataVector(data, column);
-        JTable table = new JTable(dm) {
-            public void tableChanged(TableModelEvent e) {
-                super.tableChanged(e);
-                repaint();
+        JTable table = new JTable(dm);
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    rowAdd = ((JTable) e.getSource()).getSelectedRow();
+                    if((int) table.getValueAt(rowAdd, 2) > 0) {
+                        add.setEnabled(true);
+                        checkMessage.setText("");
+                        idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
+                    } else {
+                        add.setEnabled(false);
+                        checkMessage.setForeground(Color.RED);
+                        checkMessage.setText("Disponibilità insufficiente");
+                    }
+                } catch (ArrayIndexOutOfBoundsException o) {
+                    rowAdd = -1;
+                    add.setEnabled(false);
+                }
             }
-        };
-        table.getColumn("SCELTA").setCellRenderer(new RadioButtonRenderer());
-        table.getColumn("SCELTA").setCellEditor(new RadioButtonEditor(new JCheckBox()));
 
-        int[] dim = {15,250,15,15,15};
-        for(int i = 0; i<dim.length;i++){
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //tableMouseListener(table);
+        //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
+        //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
+
+        int[] dim = {15, 250, 15, 15, 15};
+        for (int i = 0; i < dim.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
-        table.setRowHeight(30);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(20);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+    private JTable createTable() {
+        DefaultTableModel dm = new DefaultTableModel();
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+        dm.setDataVector(gs.getString(), column);
+        JTable table = new JTable(dm);
+        //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
+        //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
+
+        int[] dim = {3, 7, 25, 20, 20};
+        for (int i = 0; i < dim.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
+        //tableMouseListener(table);
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
+                    add.setEnabled(false);
+                    rmv.setEnabled(true);
+                    idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
+                } catch (ArrayIndexOutOfBoundsException o) {
+                    rowRmv = -1;
+                    rmv.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
     }

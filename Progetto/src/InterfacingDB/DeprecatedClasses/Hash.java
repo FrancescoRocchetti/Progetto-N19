@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Hash {
-    public static String getHash(String input){
+    public static String getHash(String input) {
 
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -18,7 +18,7 @@ public class Hash {
             }
             return hashtext;
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
             return null;
         }

@@ -8,7 +8,7 @@ public class GPU extends AbstractComponent {
         super(input);
         resource = new Resource.Builder()
                 .withokGPU(true)
-                .withPower(0-Integer.parseInt(caratteristiche[2]))
+                .withPower(0 - Integer.parseInt(caratteristiche[2]))
                 .withNPci(-1)
                 .build();
     }

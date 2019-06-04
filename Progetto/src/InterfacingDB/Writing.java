@@ -8,14 +8,14 @@ public class Writing {
     private String password;
     private Connection conn;
 
-    public Writing(){
+    public Writing() {
         url = "jdbc:mysql://34.65.95.40:3306/Progetto?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         user = "utente";
         password = "prova";
     }
 
-    public void write(PCParts part, String d, int q, int p, int r) throws SQLException {
-        conn = DriverManager.getConnection(url,user,password);
+    public boolean write(PCParts part, String d, int q, int p, int r) throws SQLException {
+        conn = DriverManager.getConnection(url, user, password);
         String query = "INSERT INTO INVENTARIO (TIPO, DESCRIZIONE, QUANTITA, PREZZO, RANK)\n" +
                 "VALUES (?,?,?,?,?);";
 
@@ -29,6 +29,7 @@ public class Writing {
         preparedStmt.execute();
 
         conn.close();
+        return true;
     }
 
 
@@ -44,23 +45,24 @@ public class Writing {
         conn.close();
     }*/
 
-    public void update(int cod, int quantità) throws SQLException {
+    public boolean update(int cod, int quantità) throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
 
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
         rs.next();
         int q = rs.getInt("q");
-        q+=quantità;
+        q += quantità;
 
-        String query = "UPDATE INVENTARIO SET QUANTITA = "+q+" WHERE CODICE = ?;";
+        String query = "UPDATE INVENTARIO SET QUANTITA = " + q + " WHERE CODICE = ?;";
 
         PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt(1,cod);
+        preparedStmt.setInt(1, cod);
 
         preparedStmt.execute();
 
         conn.close();
+        return true;
     }
 
     public void forceClose() {

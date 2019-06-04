@@ -12,7 +12,7 @@ public class CPU extends AbstractComponent {
                 .withokGPU(caratteristiche[6].equals("Y"))
                 .withSocket(caratteristiche[7])
                 .withnBit(Integer.parseInt(caratteristiche[5]))
-                .withPower(0-Integer.parseInt(caratteristiche[4]))
+                .withPower(0 - Integer.parseInt(caratteristiche[4]))
                 .build();
     }
 

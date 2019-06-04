@@ -14,7 +14,7 @@ import java.awt.event.WindowListener;
 public class Components extends JFrame {
 
     private final static int NCOMP = 10;
-    private final static String[] SCOMP = {"CASE","COOLER","CPU","GPU","MOBO","OS","PSU","RAM","STORAGE","ALTRO"};
+    private final static String[] SCOMP = {"CASE", "COOLER", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "ALTRO"};
     private GestoreOperazioni go;
     private JComboBox comp;
     private JComboBox qta;
@@ -27,19 +27,19 @@ public class Components extends JFrame {
         Container c = getContentPane();
         JPanel bckg = new JPanel(new BorderLayout());
         JPanel mainchoose = new JPanel(new BorderLayout());
-        JPanel gridpanel = new JPanel(new GridLayout(3,3));
+        JPanel gridpanel = new JPanel(new GridLayout(3, 3));
         JPanel btnpanel = new JPanel(new BorderLayout());
-        JPanel choosepanel = new JPanel(new GridLayout(0,1));
+        JPanel choosepanel = new JPanel(new GridLayout(0, 1));
         JPanel btnchoose = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton[] btnarray = new JButton[NCOMP];
-        for(int i = 0; i < NCOMP-1; i++){
+        for (int i = 0; i < NCOMP - 1; i++) {
             btnarray[i] = new JButton(SCOMP[i]);
             gridpanel.add(btnarray[i]);
             addActionListenerBtnComp(btnarray[i]);
         }
-        btnarray[NCOMP-1] = new JButton(SCOMP[NCOMP-1]);
+        btnarray[NCOMP - 1] = new JButton(SCOMP[NCOMP - 1]);
         btnpanel.add(gridpanel, BorderLayout.CENTER);
-        btnpanel.add(btnarray[NCOMP-1], BorderLayout.SOUTH);
+        btnpanel.add(btnarray[NCOMP - 1], BorderLayout.SOUTH);
         JButton rmv = new JButton("Remove");
         JButton back = new JButton("Back");
         rmv.setEnabled(false);
@@ -107,19 +107,19 @@ public class Components extends JFrame {
         setVisible(true);
     }
 
-    private void addActionListenerBtnComp(JButton btn){
+    private void addActionListenerBtnComp(JButton btn) {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 comp.removeAllItems();
                 String[][] data = go.getString(PCParts.valueOf(btn.getText()));
-                for(int i = 0; i < data.length; i++)
+                for (int i = 0; i < data.length; i++)
                     comp.addItem(data[i]);
             }
         });
     }
 
     public static void main(String[] args) {
-        new Components(null,new GestoreOperazioni(null));
+        new Components(null, new GestoreOperazioni(null));
     }
 }

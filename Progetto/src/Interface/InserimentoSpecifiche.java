@@ -67,14 +67,14 @@ public class InserimentoSpecifiche extends JFrame {
         loggedAs.setForeground(Color.GRAY);
         title1 = new JLabel("Aggiungi nuovo componente");
         title1.setFont(new Font("Arial", Font.BOLD, 16));
-        northPanel = new JPanel(new GridLayout(3,1));
+        northPanel = new JPanel(new GridLayout(3, 1));
         northPanel.add(title);
         northPanel.add(loggedAs);
         northPanel.add(title1);
-        data = new JPanel(new GridLayout(5,2));
+        data = new JPanel(new GridLayout(5, 2));
         component = new JLabel("Componente");
         componente = new JComboBox();
-        for(int i = 0; i < PCParts.values().length; i++) // length - 1 perchè non considero "ALTRO" per ora
+        for (int i = 0; i < PCParts.values().length; i++) // length - 1 perchè non considero "ALTRO" per ora
             componente.addItem(PCParts.valueOf(componentsName[i]));
         componente.setEditable(false);
         description = new JLabel("Descrizione");
@@ -84,7 +84,7 @@ public class InserimentoSpecifiche extends JFrame {
         descrizione = new JTextField();
         descrizione.setFont(new Font("Arial", Font.PLAIN, 10));
         descrizione.setText("Rispettare il formato di inserimento proposto sotto");
-        descPanel = new JPanel(new GridLayout(2,1));
+        descPanel = new JPanel(new GridLayout(2, 1));
         descPanel.add(descrizione);
         descPanel.add(howToDesc);
         quantity = new JLabel("Quantità");
@@ -107,34 +107,32 @@ public class InserimentoSpecifiche extends JFrame {
         remove = new JButton("Remove component...");
         check = new JButton("Show stored components...");
         btnPanel = new JPanel(new BorderLayout());
-        fourButtons = new JPanel(new GridLayout(3,2));
-        checkButton = new JPanel(new GridLayout(1,1));
+        fourButtons = new JPanel(new GridLayout(3, 2));
+        checkButton = new JPanel(new GridLayout(1, 1));
 
         componente.addActionListener(e -> {
-                if(componente.getSelectedItem() == PCParts.CPU){
-                    howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
-                    howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
-                }
-                else if(componente.getSelectedItem() == PCParts.COOLER)
-                    howToDesc.setText("NOME_LIQUIDO");
-                else if(componente.getSelectedItem() == PCParts.RAM)
-                    howToDesc.setText("NOME_WATT_TIPO_GB_FREQUENZA_NMODULI");
-                else if(componente.getSelectedItem() == PCParts.PSU)
-                    howToDesc.setText("NOME_WATT_DIMENSIONE_CERTIFICAZIONE");
-                else if(componente.getSelectedItem() == PCParts.GPU)
-                    howToDesc.setText("NOME_GB_TDP");
-                else if(componente.getSelectedItem() == PCParts.MOBO) {
-                    howToDesc.setText("NOME_CPUSOCKET_NBANCHI_RAMMODEL_NPCIE_NPCI_DIMENSIONE_NSATA_WATT");
-                    howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
-                }
-                else if(componente.getSelectedItem() == PCParts.STORAGE)
-                    howToDesc.setText("NOME_DIMENSIONE_GB");
-                else if(componente.getSelectedItem() == PCParts.CASE)
-                    howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSOLT325");
-                else if(componente.getSelectedItem() == PCParts.OS)
-                    howToDesc.setText("NOME_BIT");
-                else if(componente.getSelectedItem() == PCParts.ALTRO)
-                    howToDesc.setText("NOME_DESCRIZIONE");
+            if (componente.getSelectedItem() == PCParts.CPU) {
+                howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
+                howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
+            } else if (componente.getSelectedItem() == PCParts.COOLER)
+                howToDesc.setText("NOME_LIQUIDO");
+            else if (componente.getSelectedItem() == PCParts.RAM)
+                howToDesc.setText("NOME_WATT_TIPO_GB_FREQUENZA_NMODULI");
+            else if (componente.getSelectedItem() == PCParts.PSU)
+                howToDesc.setText("NOME_WATT_DIMENSIONE_CERTIFICAZIONE");
+            else if (componente.getSelectedItem() == PCParts.GPU)
+                howToDesc.setText("NOME_GB_TDP");
+            else if (componente.getSelectedItem() == PCParts.MOBO) {
+                howToDesc.setText("NOME_CPUSOCKET_NBANCHI_RAMMODEL_NPCIE_NPCI_DIMENSIONE_NSATA_WATT");
+                howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
+            } else if (componente.getSelectedItem() == PCParts.STORAGE)
+                howToDesc.setText("NOME_DIMENSIONE_GB");
+            else if (componente.getSelectedItem() == PCParts.CASE)
+                howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSLOT325");
+            else if (componente.getSelectedItem() == PCParts.OS)
+                howToDesc.setText("NOME_BIT");
+            else if (componente.getSelectedItem() == PCParts.ALTRO)
+                howToDesc.setText("NOME_DESCRIZIONE");
         });
 
         remove.addActionListener(e -> {
@@ -159,24 +157,24 @@ public class InserimentoSpecifiche extends JFrame {
 
         confirm.addActionListener(e -> {
             // codice per la scrittura su DB
-            if(go.insertComponent(
-                    (PCParts)componente.getSelectedItem(),
+            if (go.insertComponent(
+                    (PCParts) componente.getSelectedItem(),
                     descrizione.getText().toUpperCase(),
-                    (int)quantita.getValue(),
-                    (int)prezzo.getValue(),
-                    (int)valutazione.getValue())){
+                    (int) quantita.getValue(),
+                    (int) prezzo.getValue(),
+                    (int) valutazione.getValue())) {
                 Object[] options = {"YES", "NO"};
                 int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
-                if(inserimento == 0) {
+                if (inserimento == 0) {
                     componente.setSelectedItem(PCParts.CASE);
                     descrizione.setText("");
                     quantita.setValue(1);
                     prezzo.setValue(1);
                     valutazione.setValue(1);
-                    } else {
-                        dispose();
-                    }
-                } else{
+                } else {
+                    dispose();
+                }
+            } else {
                 JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -219,10 +217,12 @@ public class InserimentoSpecifiche extends JFrame {
 
         addWindowListener(new WindowListener() {
             @Override
-            public void windowOpened(WindowEvent e) { }
+            public void windowOpened(WindowEvent e) {
+            }
 
             @Override
-            public void windowClosing(WindowEvent e) { }
+            public void windowClosing(WindowEvent e) {
+            }
 
             @Override
             public void windowClosed(WindowEvent e) {
@@ -230,16 +230,20 @@ public class InserimentoSpecifiche extends JFrame {
             }
 
             @Override
-            public void windowIconified(WindowEvent e) { }
+            public void windowIconified(WindowEvent e) {
+            }
 
             @Override
-            public void windowDeiconified(WindowEvent e) { }
+            public void windowDeiconified(WindowEvent e) {
+            }
 
             @Override
-            public void windowActivated(WindowEvent e) { }
+            public void windowActivated(WindowEvent e) {
+            }
 
             @Override
-            public void windowDeactivated(WindowEvent e) { }
+            public void windowDeactivated(WindowEvent e) {
+            }
         });
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -254,7 +258,7 @@ public class InserimentoSpecifiche extends JFrame {
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         InserimentoSpecifiche ins = new InserimentoSpecifiche(null, "prova");
-    }
+    }*/
 }
