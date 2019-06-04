@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class ManagerDB {
     private Login l;
-    private Writing w;
-    private Reading r;
+    private Writer w;
+    private Reader r;
     private CheckInternet c;
 
     public ManagerDB() {
         l = new Login();
-        w = new Writing();
-        r = new Reading();
+        w = new Writer();
+        r = new Reader();
 
     }
 

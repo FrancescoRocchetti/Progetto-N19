@@ -1,14 +1,9 @@
 package Interface;
 
-import Components.AbstractComponent;
-import InterfacingDB.Reading;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class CompList extends JFrame {
 

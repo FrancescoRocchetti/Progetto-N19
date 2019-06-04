@@ -2,7 +2,7 @@ package Interface;
 
 import Components.AbstractComponent;
 import InterfacingDB.PCParts;
-import InterfacingDB.Reading;
+import InterfacingDB.Reader;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
@@ -180,7 +180,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         check.addActionListener(e -> {
-            Reading reading = new Reading();
+            Reader reading = new Reader();
             ArrayList<AbstractComponent> components;
             String s = "";
             new CompList(this, go);

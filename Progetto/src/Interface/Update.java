@@ -1,12 +1,10 @@
 package Interface;
 
 import InterfacingDB.PCParts;
-import InterfacingDB.Reading;
 
 import javax.swing.*;
 
 import Components.AbstractComponent;
-import InterfacingDB.Writing;
 
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
