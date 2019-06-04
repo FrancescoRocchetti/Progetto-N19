@@ -218,6 +218,7 @@ public class Piattaforma extends JFrame {
 
     private void addButtonListener(JButton btn) {
         btn.addActionListener(e -> {
+            rmv.setEnabled(false);
             addComp(idAdd);
             Object[][] data = gs.getCart();
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
@@ -232,13 +233,13 @@ public class Piattaforma extends JFrame {
 
     private void rmvButtonListener(JButton btn) {
         btn.addActionListener(e -> {
+            btn.setEnabled(false);
             rmvComp(idRmv);
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
             int index = chooseTable.getSelectedRow();
             model.removeRow(index);
             price.setText(gs.getPrice() + " €");
             watt.setText(gs.getWatt() + " W");
-            btn.setEnabled(false);
         });
     }
 
@@ -314,8 +315,8 @@ public class Piattaforma extends JFrame {
                         checkMessage.setText("Disponibilità insufficiente");
                     }
                 } catch (ArrayIndexOutOfBoundsException o) {
-                    rowAdd = -1;
                     add.setEnabled(false);
+                    rowAdd = -1;
                 }
             }
 
@@ -370,13 +371,12 @@ public class Piattaforma extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
-                    add.setEnabled(false);
                     rmv.setEnabled(true);
+                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
                     idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
-                    rowRmv = -1;
                     rmv.setEnabled(false);
+                    rowRmv = -1;
                 }
             }
 
