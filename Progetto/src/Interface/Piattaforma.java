@@ -212,7 +212,7 @@ public class Piattaforma extends JFrame {
             panels[z].setLayout(new GridLayout());
         }
     }
-    
+
     private void addButtonListener(JButton btn) {
         btn.addActionListener(e -> {
             addComp(idAdd);
