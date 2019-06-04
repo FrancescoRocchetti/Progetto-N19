@@ -14,7 +14,7 @@ public class Reading{
   private FileInputStream fin;
 
   public Reading() throws IOException {
-    fin = new FileInputStream("Progetto/src/InterfacingDB/prova.csv");
+    fin = new FileInputStream("Progetto/src/InterfacingDB/DeprecatedClasses/prova.csv");
     buffer = new BufferedReader(new InputStreamReader(fin));
   }
 

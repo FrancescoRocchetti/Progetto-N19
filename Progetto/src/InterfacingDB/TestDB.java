@@ -2,26 +2,30 @@ package InterfacingDB;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TestDB {
     public static void main(String[] args) throws IOException, SQLException {
         Reading r = new Reading();
-        String[] str;
+        //Writing w = new Writing();
+        LoginDB l = new LoginDB();
+        ArrayList<String[]> list;
 
-        while((str = r.read()) != null){
-            for(String stringa : str){
-                System.out.println(stringa);
-            }
-            System.out.println("-----------------");
-        }
-        System.out.println(str+"\n-----------------"); //Se è null, tutto ok, altrimenti c'è qualche problema
+        list = r.read(null);
 
-        while((str = r.read(PCParts.CPU)) != null){
-            for(String stringa : str){
-                System.out.println(stringa);
+        for(String[] arr1: list) {
+            for (String arr2 : arr1) {
+                System.out.print(arr2+"\t");
             }
-            System.out.println("-----------------");
+            System.out.println();
         }
-        System.out.println(str+"\n-----------------"); //Se è null, tutto ok, altrimenti c'è qualche problema
+
+        System.out.println(l.login("user","password"));
+        System.out.println(r.getNumberOfRows());
+        /*
+        w.write(PCParts.CPU,"BEPIS",5,999,5);
+        w.update(24,15);
+        w.remove(24);
+        */
     }
 }
