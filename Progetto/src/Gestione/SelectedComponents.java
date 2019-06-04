@@ -76,13 +76,15 @@ public class SelectedComponents {
     }
 
     // TODO: implementare metodo getWatt()
-    /*public int getTotWatt() {
+    public int getTotWatt() {
         int temp = 0;
-        for(AbstractComponent ac : sc) {
-            temp += ac.getWatt();
+        for(Resource r : getRes()) {
+            if(r.getPower()<0){
+                temp += Math.abs(r.getPower());
+            }
         }
         return temp;
-    }*/
+    }
 
     public Resource getTotRes() {
         return SommatoreRes.sum(this.getRes());
