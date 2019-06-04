@@ -23,10 +23,12 @@ public class Piattaforma extends JFrame {
     private JMenuBar menuBar;
     private JMenu file;
     private JMenu updateDB;
+    private JMenu autoConfig;
     private JMenuItem newConfig;
     private JMenuItem exit;
     private JMenuItem logAdmin;
     private JMenuItem recharge;
+    private JMenuItem getAutoConfig;
     private JPanel bckg;
     private JPanel panel;
     private JPanel btnpanel;
@@ -47,7 +49,7 @@ public class Piattaforma extends JFrame {
     private JPanel checkPane;
     private JTextArea checkMessage;
     private JTable chooseTable;
-    private JTable[] compTable;
+    private JTable compTable;
     private JPanel wattPanel;
 
     private GestoreScelte gs;
@@ -80,7 +82,7 @@ public class Piattaforma extends JFrame {
         }
         infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
-        compTable = new JTable[CATEGORIES];
+        //compTable = new JTable();
         chooseTable = createTable();
         scroll = new JScrollPane(chooseTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(10);
@@ -119,18 +121,22 @@ public class Piattaforma extends JFrame {
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
+        autoConfig = new JMenu("Auto configuration");
         newConfig = new JMenuItem("New configuration");
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login as administrator");
         recharge = new JMenuItem("Refresh inventory");
+        getAutoConfig = new JMenuItem("Start");
 
         // Aggiunta componenti
         file.add(newConfig);
         file.add(exit);
         updateDB.add(logAdmin);
         updateDB.add(recharge);
+        autoConfig.add(getAutoConfig);
         menuBar.add(file);
         menuBar.add(updateDB);
+        menuBar.add(autoConfig);
 
         components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
@@ -146,9 +152,7 @@ public class Piattaforma extends JFrame {
         components.addChangeListener(e -> {
             add.setEnabled(false);
             rowAdd = -1;
-            for (JTable table : compTable) {
-                table.clearSelection();
-            }
+            obtainParts(components.getSelectedIndex());
         });
 
         totPanel.add(total);
@@ -179,7 +183,7 @@ public class Piattaforma extends JFrame {
         newConfigListener();
         rechargeListener();
         exitListener();
-        obtainParts();
+        obtainParts(components.getSelectedIndex());
         l.dispose();
 
         // Opzioni frame
@@ -194,30 +198,23 @@ public class Piattaforma extends JFrame {
         gs.addComp(id);
     }
 
-    private void obtainParts() {
+    private void obtainParts(int index) {
         ArrayList<AbstractComponent> arr;
-
-        for (int z = 0; z < CMP.length; z++) {
-            arr = gs.obtainParts(CMP[z]);
-            if (arr == null) {
-                JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-                System.exit(10);
-            }
-            compTable[z] = createTable(arr);
-            JScrollPane scroll = new JScrollPane(
-                    compTable[z],
-                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            panels[z].add(scroll);
-            panels[z].setLayout(new GridLayout());
+        arr = gs.obtainParts(CMP[index]);
+        if (arr == null) {
+            JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
+            System.exit(10);
         }
+        panels[index].removeAll();
+        compTable = createTable(arr);
+        JScrollPane scroll = new JScrollPane(
+                compTable,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panels[index].add(scroll);
+        panels[index].setLayout(new GridLayout());
     }
 
-
-    /*TODO: pensare a qualcosa per un eventuale replace
-       nel caso in cui sia già presente un certo tipo
-       di componente
-    */
     private void addButtonListener(JButton btn) {
         btn.addActionListener(e -> {
             addComp(idAdd);
@@ -271,14 +268,14 @@ public class Piattaforma extends JFrame {
         exit.addActionListener(e -> System.exit(0));
     }
 
-    public void refresh() {
+    void refresh() {
         for (JPanel p : panels)
             p.removeAll();
         price.setText("0 €");
         DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
         model.setRowCount(0);
         gs.newScp();
-        obtainParts();
+        obtainParts(components.getSelectedIndex());
     }
 
     private JTable createTable(ArrayList<AbstractComponent> arr) {

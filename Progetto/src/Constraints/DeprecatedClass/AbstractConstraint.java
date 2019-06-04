@@ -1,4 +1,4 @@
-package Constraints;
+package Constraints.DeprecatedClass;
 
 public interface AbstractConstraint {
 
