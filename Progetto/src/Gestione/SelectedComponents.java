@@ -84,6 +84,7 @@ public class SelectedComponents {
             }
         }
         return temp;
+        //
     }
 
     public Resource getTotRes() {
