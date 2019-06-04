@@ -10,8 +10,11 @@ public class Loading extends JFrame {
     public Loading() {
         super("Caricamento...");
         Container c = getContentPane();
-        URL url = getClass().getResource("Resources/loading.gif");
+        URL url = getClass().getResource("Resources/loading3.gif");
         ImageIcon img = new ImageIcon(url);
+        Image image = img.getImage();
+        Image newImage = image.getScaledInstance(150,150, Image.SCALE_DEFAULT);
+        img = new ImageIcon(newImage);
         JLabel label = new JLabel(img);
         JLabel txt = new JLabel();
         String[] loadingStrings = {"Sto contando le stelle...", "Sto allineando i pianeti...", "Ti sto guardando...", "Sto svuotando le nuvole..."};
