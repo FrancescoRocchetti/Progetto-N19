@@ -226,7 +226,8 @@ public class Piattaforma extends JFrame {
 
     private void budgetConfigListener(JButton btn) {
         btn.addActionListener(e -> {
-
+            int budget = Integer.parseInt(JOptionPane.showInputDialog("Budget:"));
+            BudgetConfig b = new BudgetConfig(budget);
         });
     }
 
