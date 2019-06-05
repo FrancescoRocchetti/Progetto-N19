@@ -2,8 +2,8 @@ package Interface;
 
 import javax.swing.*;
 
-public class NoBudgetConfig extends JFrame {
+public class NoBudgetConfig {
     public NoBudgetConfig(){
-        super("Configurazione senza budget");
+
     }
 }

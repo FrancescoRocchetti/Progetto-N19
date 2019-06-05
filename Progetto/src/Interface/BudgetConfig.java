@@ -4,6 +4,6 @@ import javax.swing.*;
 
 public class BudgetConfig {
     public BudgetConfig(int budget) {
-        
+
     }
 }
