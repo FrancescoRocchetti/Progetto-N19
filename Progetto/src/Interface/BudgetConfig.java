@@ -1,9 +1,25 @@
 package Interface;
 
-import javax.swing.*;
+import Components.AbstractComponent;
+
+import java.util.ArrayList;
 
 public class BudgetConfig {
+    private ArrayList<AbstractComponent> scp;
+    int budget;
     public BudgetConfig(int budget) {
+        scp = new ArrayList<>();
+        this.budget = budget;
+        getAutoConfiguration(this.budget);
+    }
 
+    /*
+     * IDEA: ad ogni componente viene assegnata una percentuale del budget totale
+     * in base all'importanza che ha il componente stesso
+     */
+    public void getAutoConfiguration(int b) {
+        /*
+         * Codice per la configurazione automatica
+         */
     }
 }
