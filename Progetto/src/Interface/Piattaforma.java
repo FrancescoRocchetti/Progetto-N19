@@ -51,6 +51,8 @@ public class Piattaforma extends JFrame {
     private JTable chooseTable;
     private JTable compTable;
     private JPanel wattPanel;
+    private JButton noBudgetConfig;
+    private JButton budgetConfig;
 
     private GestoreScelte gs;
 
@@ -90,7 +92,7 @@ public class Piattaforma extends JFrame {
         totPanel = new JPanel(new GridLayout(1, 2));
         wattPanel = new JPanel(new GridLayout(1, 2));
         confirmConfig = new JButton("Confirm configuration");
-        btnpanel = new JPanel(new GridLayout(3, 1));
+        btnpanel = new JPanel(new GridLayout(5, 1));
         add = new JButton("Add");
         rmv = new JButton("Remove");
         panel = new JPanel(new BorderLayout());
@@ -116,6 +118,8 @@ public class Piattaforma extends JFrame {
         checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
         checkMessage.setBackground(Color.LIGHT_GRAY);
+        noBudgetConfig = new JButton("Configuration without budget");
+        budgetConfig = new JButton("Configuration with budget");
         //checkMessage.setText("Compatibilità delle componenti");
         checkMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         menuBar = new JMenuBar();
@@ -161,6 +165,8 @@ public class Piattaforma extends JFrame {
         wattPanel.add(watt);
         btnpanel.add(add);
         btnpanel.add(rmv);
+        btnpanel.add(noBudgetConfig);
+        btnpanel.add(budgetConfig);
         btnpanel.add(confirmConfig);
         panel.add(totPanel, BorderLayout.NORTH);
         panel.add(wattPanel, BorderLayout.SOUTH);
@@ -179,6 +185,8 @@ public class Piattaforma extends JFrame {
 
         addButtonListener(add);
         rmvButtonListener(rmv);
+        budgetConfigListener(budgetConfig);
+        noBudgetConfigListener(noBudgetConfig);
         loginListener();
         newConfigListener();
         rechargeListener();
@@ -214,6 +222,18 @@ public class Piattaforma extends JFrame {
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         panels[index].add(scroll);
         panels[index].setLayout(new GridLayout());
+    }
+
+    private void budgetConfigListener(JButton btn) {
+        btn.addActionListener(e -> {
+
+        });
+    }
+
+    private void noBudgetConfigListener(JButton btn) {
+        btn.addActionListener(e -> {
+
+        });
     }
 
     private void addButtonListener(JButton btn) {
