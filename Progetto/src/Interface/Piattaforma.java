@@ -238,6 +238,8 @@ public class Piattaforma extends JFrame {
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
             int index = chooseTable.getSelectedRow();
             model.removeRow(index);
+            obtainParts(components.getSelectedIndex());
+            panels[components.getSelectedIndex()].revalidate();
             price.setText(gs.getPrice() + " €");
             watt.setText(gs.getWatt() + " W");
         });
