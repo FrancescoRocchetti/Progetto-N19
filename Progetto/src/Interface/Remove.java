@@ -173,8 +173,10 @@ public class Remove extends JFrame {
                 for (AbstractComponent x : str) {
                     s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
                     //if(x.getType().equals(b.getText().toUpperCase())) {
-                    c.addItem(s);
-                    found = true;
+                    if(x.getQuantity() > 0) {
+                        c.addItem(s);
+                        found = true;
+                    }
                     //}
                     //s = "";
                 }
