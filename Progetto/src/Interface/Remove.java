@@ -39,7 +39,7 @@ public class Remove extends JFrame {
     private String[] btnNames;
 
 
-    public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
+    public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Remove component");
         ins.setVisible(false);
         this.go = go;

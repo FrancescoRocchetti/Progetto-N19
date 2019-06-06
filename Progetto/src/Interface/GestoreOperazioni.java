@@ -1,5 +1,6 @@
 package Interface;
 
+import Gestione.Validation;
 import InterfacingDB.*;
 
 import java.util.ArrayList;
@@ -33,7 +34,12 @@ public class GestoreOperazioni {
     }
 
     public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
-        if (checkDescription(componente, descrizione)) {
+        String[] str = {componente.name().toUpperCase(),
+                descrizione,
+                String.valueOf(quantita),
+                String.valueOf(prezzo),
+                String.valueOf(valutazione)};
+        if (checkDescription(componente, descrizione) && Validation.check(str)) {
             mdb.write(componente, descrizione, quantita, prezzo, valutazione);
             modified = true;
             return true;

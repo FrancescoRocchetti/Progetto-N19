@@ -43,7 +43,7 @@ public class Update extends JFrame {
     private String[] btnNames;
 
 
-    public Update(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
+    public Update(InserimentoSpecifiche ins, GestoreOperazioni go){
         super("Aggiornamento");
         ins.setVisible(false);
         this.go = go;

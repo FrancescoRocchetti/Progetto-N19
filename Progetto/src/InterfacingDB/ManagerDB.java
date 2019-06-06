@@ -2,14 +2,12 @@ package InterfacingDB;
 
 import Components.AbstractComponent;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ManagerDB {
     private Login l;
     private Writer w;
     private Reader r;
-    private CheckInternet c;
 
     public ManagerDB() {
         l = new Login();
@@ -49,6 +47,6 @@ public class ManagerDB {
     }
 
     public boolean checkInternet() {
-        return c.check();
+        return CheckInternet.check();
     }
 }
