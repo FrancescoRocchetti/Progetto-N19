@@ -47,7 +47,7 @@ public class Remove extends JFrame {
         bckg = new JPanel(new BorderLayout());
         btnPanel = new JPanel(new GridLayout(2, 5));
         choosePanel = new JPanel(new BorderLayout());
-        comboBoxPanel = new JPanel(new GridLayout(3, 1));
+        comboBoxPanel = new JPanel(new GridLayout(1, 1));
         caseButton = new JButton();
         cooler = new JButton();
         cpu = new JButton();
@@ -63,7 +63,7 @@ public class Remove extends JFrame {
         btnNames = new String[]{"CASE", "Cooler", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "Altro"};
         comp = new JComboBox();
         comp.addItem("No item selected...");
-        qta = new JComboBox();
+        //qta = new JComboBox();
         rmv = new JButton("Remove");
         rmv.setEnabled(false);
 
@@ -77,22 +77,26 @@ public class Remove extends JFrame {
             item = (String) comp.getSelectedItem();
             cod = item.split(" ");
             rmCod = Integer.parseInt(String.valueOf(cod[0]));
-            qtaRmv = (int) qta.getSelectedItem();
-            if (!go.updateComponent(rmCod, -qtaRmv)) {
+            //qtaRmv = (int) qta.getSelectedItem();
+            if(go.remove(rmCod)) {
+                JOptionPane.showMessageDialog(null, "Componente rimosso", "Rimozione", JOptionPane.INFORMATION_MESSAGE);
+                addItemToRmv(comp);
+            }
+            /*if (!go.updateComponent(rmCod, -qtaRmv)) {
                 JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
             } else
-                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);*/
         });
 
         comp.addActionListener(e -> {
             if (comp.getSelectedItem() != null) {
-                qta.removeAllItems();
+                //qta.removeAllItems();
                 String item = (String) comp.getSelectedItem();
                 String[] id;
                 id = item.split(" ");
                 qtaToRmv = go.getQuantityByID(Integer.parseInt(id[0]));
-                for (int i = 1; i <= qtaToRmv; i++)
-                    qta.addItem(i);
+                /*for (int i = 1; i <= qtaToRmv; i++)
+                    qta.addItem(i);*/
             }
         });
 
@@ -128,8 +132,8 @@ public class Remove extends JFrame {
         });
 
         comboBoxPanel.add(comp);
-        comboBoxPanel.add(new JLabel("Pieces to remove:"));
-        comboBoxPanel.add(qta);
+        //comboBoxPanel.add(new JLabel("Pieces to remove:"));
+        //comboBoxPanel.add(qta);
 
         choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
         choosePanel.add(rmv, BorderLayout.SOUTH);
@@ -156,10 +160,9 @@ public class Remove extends JFrame {
             b.setMargin(new Insets(10, 10, 10, 10));
             URL url = getClass().getResource("Imgs/" + imgs[i]);
             ImageIcon img = new ImageIcon(url);
-            Image image = img.getImage();
+            /*Image image = img.getImage();
             Image newImage = image.getScaledInstance(100,100, Image.SCALE_DEFAULT);
-            img = new ImageIcon(newImage);
-            b.setLayout(new BorderLayout());
+            img = new ImageIcon(newImage);*/
             b.setIcon(img);
             b.setText(btnNames[i]);
             i++;
@@ -171,18 +174,16 @@ public class Remove extends JFrame {
                 for (AbstractComponent x : str) {
                     s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
                     //if(x.getType().equals(b.getText().toUpperCase())) {
-                    if(x.getQuantity() > 0) {
-                        c.addItem(s);
-                        found = true;
-                    }
+                    c.addItem(s);
+                    found = true;
                     //}
                     //s = "";
                 }
                 rmv.setEnabled(found);
-                if (!found) {
+                /*if (!found) {
                     qta.removeAllItems();
                     JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
-                }
+                }*/
             });
         }
     }

@@ -151,10 +151,9 @@ public class Update extends JFrame {
             b.setMargin(new Insets(10, 10, 10, 10));
             URL url = getClass().getResource("Imgs/" + imgs[i]);
             ImageIcon img = new ImageIcon(url);
-            Image image = img.getImage();
+            /*Image image = img.getImage();
             Image newImage = image.getScaledInstance(100,100, Image.SCALE_DEFAULT);
-            img = new ImageIcon(newImage);
-            b.setLayout(new BorderLayout());
+            img = new ImageIcon(newImage);*/
             b.setIcon(img);
             b.setText(btnNames[i]);
             i++;
