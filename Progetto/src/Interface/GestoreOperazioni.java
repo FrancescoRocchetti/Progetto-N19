@@ -44,12 +44,13 @@ public class GestoreOperazioni {
     }
 
     public boolean updateComponent(int index, int qty) {
-        mdb.update(index, qty);
-        return true;
+        modified = mdb.update(index, qty);
+        return modified;
     }
 
     public boolean remove(int id){
-        return mdb.remove(id);
+        modified = mdb.remove(id);
+        return modified;
     }
 
     public int getQuantityByID(int id) {
