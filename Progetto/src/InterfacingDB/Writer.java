@@ -38,17 +38,23 @@ public class Writer {
     }
 
 
-    /*public void remove(int cod) throws SQLException {
-        conn = DriverManager.getConnection(url, user, password);
-        String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
+    public boolean remove(int cod){
+        try{
+            conn = DriverManager.getConnection(url, user, password);
+            String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
 
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt(1,cod);
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,cod);
 
-        preparedStmt.execute();
+            preparedStmt.execute();
 
-        conn.close();
-    }*/
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            forceClose();
+            return false;
+        }
+    }
 
     public boolean update(int cod, int quantità){
         try{

@@ -48,6 +48,10 @@ public class GestoreOperazioni {
         return true;
     }
 
+    public boolean remove(int id){
+        return mdb.remove(id);
+    }
+
     public int getQuantityByID(int id) {
         return mdb.getQuantityByID(id);
 
