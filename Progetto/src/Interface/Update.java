@@ -45,8 +45,7 @@ public class Update extends JFrame {
 
     public Update(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
         super("Aggiornamento");
-        ins.setEnabled(false);
-        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        ins.setVisible(false);
         this.go = go;
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension dim = kit.getScreenSize();
@@ -101,8 +100,7 @@ public class Update extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setEnabled(true);
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                ins.setVisible(true);
             }
 
             @Override

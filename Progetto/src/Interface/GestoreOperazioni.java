@@ -15,13 +15,11 @@ public class GestoreOperazioni {
         modified = false;
         this.p = p;
         mdb = new ManagerDB();
-        p.setEnabled(false);
-        p.setDefaultCloseOperation(0);
+        p.setVisible(false);
     }
 
     public void unlockPlatform() {
-        p.setEnabled(true);
-        p.setDefaultCloseOperation(3);
+        p.setVisible(true);
         if (modified)
             p.refresh();
     }

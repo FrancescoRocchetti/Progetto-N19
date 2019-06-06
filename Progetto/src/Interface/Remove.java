@@ -41,8 +41,7 @@ public class Remove extends JFrame {
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
         super("Remove component");
-        ins.setEnabled(false);
-        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        ins.setVisible(false);
         this.go = go;
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
@@ -108,8 +107,7 @@ public class Remove extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setEnabled(true);
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                ins.setVisible(true);
             }
 
             @Override
