@@ -180,10 +180,8 @@ public class Remove extends JFrame {
                     //s = "";
                 }
                 rmv.setEnabled(found);
-                /*if (!found) {
-                    qta.removeAllItems();
-                    JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
-                }*/
+                if (!found)
+                    c.addItem("No items...");
             });
         }
     }
