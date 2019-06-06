@@ -10,6 +10,7 @@ import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -38,6 +39,8 @@ public class Update extends JFrame {
     private String s = "";
     private boolean found;
     private GestoreOperazioni go;
+    private String[] imgs;
+    private String[] btnNames;
 
 
     public Update(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
@@ -63,6 +66,8 @@ public class Update extends JFrame {
         storage = new JButton("STORAGE");
         other = new JButton("Altro");
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
+        imgs = new String[]{"nav-case.png", "nav-cpucooler.png", "nav-cpu.png", "nav-videocard.png", "nav-motherboard.png", "nav-os.png", "nav-powersupply.png", "nav-memory.png", "nav-ssd.png", "nav-other.png"};
+        btnNames = new String[]{"CASE", "Cooler", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "Altro"};
         comp = new JComboBox();
         comp.addItem("No item selected...");
         qta = new JSpinner(new SpinnerNumberModel(1, 1, null, 1));
@@ -143,11 +148,21 @@ public class Update extends JFrame {
     // TODO: usare GestoreComponenti
     // FABIO: Fatto
     public void addItemToUpdate(JComboBox c) {
+        int i = 0;
         for (JButton b : btnArray) {
             b.setMargin(new Insets(10, 10, 10, 10));
+            URL url = getClass().getResource("Imgs/" + imgs[i]);
+            ImageIcon img = new ImageIcon(url);
+            Image image = img.getImage();
+            Image newImage = image.getScaledInstance(100,100, Image.SCALE_DEFAULT);
+            img = new ImageIcon(newImage);
+            b.setLayout(new BorderLayout());
+            b.setIcon(img);
+            b.setText(btnNames[i]);
+            i++;
             btnPanel.add(b);
             b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
+                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getAccessibleContext().getAccessibleName().toUpperCase()));
                 c.removeAllItems();
                 found = false;
                 for (AbstractComponent x : str) {

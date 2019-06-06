@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ public class Remove extends JFrame {
     private boolean found;
     private int qtaToRmv = 0;
     private GestoreOperazioni go;
+    private String[] imgs;
+    private String[] btnNames;
 
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
@@ -46,17 +49,19 @@ public class Remove extends JFrame {
         btnPanel = new JPanel(new GridLayout(2, 5));
         choosePanel = new JPanel(new BorderLayout());
         comboBoxPanel = new JPanel(new GridLayout(3, 1));
-        caseButton = new JButton("CASE");
-        cooler = new JButton("Cooler");
-        cpu = new JButton("CPU");
-        gpu = new JButton("GPU");
-        mobo = new JButton("MOBO");
-        os = new JButton("OS");
-        psu = new JButton("PSU");
-        ram = new JButton("RAM");
-        storage = new JButton("STORAGE");
-        other = new JButton("Altro");
+        caseButton = new JButton();
+        cooler = new JButton();
+        cpu = new JButton();
+        gpu = new JButton();
+        mobo = new JButton();
+        os = new JButton();
+        psu = new JButton();
+        ram = new JButton();
+        storage = new JButton();
+        other = new JButton();
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
+        imgs = new String[]{"nav-case.png", "nav-cpucooler.png", "nav-cpu.png", "nav-videocard.png", "nav-motherboard.png", "nav-os.png", "nav-powersupply.png", "nav-memory.png", "nav-ssd.png", "nav-other.png"};
+        btnNames = new String[]{"CASE", "Cooler", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "Altro"};
         comp = new JComboBox();
         comp.addItem("No item selected...");
         qta = new JComboBox();
@@ -148,11 +153,21 @@ public class Remove extends JFrame {
     }*/
 
     public void addItemToRmv(JComboBox c) {
+        int i = 0;
         for (JButton b : btnArray) {
             b.setMargin(new Insets(10, 10, 10, 10));
+            URL url = getClass().getResource("Imgs/" + imgs[i]);
+            ImageIcon img = new ImageIcon(url);
+            Image image = img.getImage();
+            Image newImage = image.getScaledInstance(100,100, Image.SCALE_DEFAULT);
+            img = new ImageIcon(newImage);
+            b.setLayout(new BorderLayout());
+            b.setIcon(img);
+            b.setText(btnNames[i]);
+            i++;
             btnPanel.add(b);
             b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
+                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getAccessibleContext().getAccessibleName().toUpperCase()));
                 c.removeAllItems();
                 found = false;
                 for (AbstractComponent x : str) {
