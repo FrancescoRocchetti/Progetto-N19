@@ -5,5 +5,5 @@ import Components.AbstractComponent;
 import java.util.ArrayList;
 
 public interface ObserverGS {
-    public void update(ArrayList<AbstractComponent> arr);
+    void update(ArrayList<AbstractComponent> arr);
 }

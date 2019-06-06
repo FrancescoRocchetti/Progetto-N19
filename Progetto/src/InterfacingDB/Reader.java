@@ -27,7 +27,7 @@ public class Reader {
             if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
             else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='" + comp.name() + "'");
             ArrayList<AbstractComponent> list = new ArrayList<>();
-            String str[];
+            String[] str;
             while (rs.next()) {
                 str = new String[ELEMENTS];
                 for (int i = 1; i < ELEMENTS + 1; i++)

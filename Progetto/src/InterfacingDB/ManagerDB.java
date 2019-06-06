@@ -45,8 +45,4 @@ public class ManagerDB {
     public AbstractComponent getCompByID(int id) {
             return r.getCompByID(id);
     }
-
-    public boolean checkInternet() {
-        return CheckInternet.check();
-    }
 }

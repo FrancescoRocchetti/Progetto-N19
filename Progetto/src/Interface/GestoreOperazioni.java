@@ -39,7 +39,7 @@ public class GestoreOperazioni {
                 String.valueOf(quantita),
                 String.valueOf(prezzo),
                 String.valueOf(valutazione)};
-        if (checkDescription(componente, descrizione) && Validation.check(str)) {
+        if (Validation.check(str)) {
             mdb.write(componente, descrizione, quantita, prezzo, valutazione);
             modified = true;
             return true;
@@ -62,10 +62,6 @@ public class GestoreOperazioni {
 
     }
 
-    private boolean checkDescription(PCParts componente, String descrizione) {
-        return true;
-    }
-
     public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts) {
         return mdb.read(parts);
 
@@ -76,7 +72,7 @@ public class GestoreOperazioni {
         if (comp == null) {
             return null;
         }
-        String data[][] = new String[comp.size()][];
+        String[][] data = new String[comp.size()][];
         AbstractComponent abs;
         for (int i = 0; i < comp.size(); i++) {
             data[i] = new String[5];

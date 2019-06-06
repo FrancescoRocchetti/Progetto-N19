@@ -54,7 +54,7 @@ public class GestoreScelte implements ObserverGS{
         if (comp == null) {
             return null;
         }
-        Object data[][] = new Object[comp.size()][];
+        Object[][] data = new Object[comp.size()][];
         AbstractComponent abs;
         for (int i = 0; i < comp.size(); i++) {
             data[i] = new Object[5];
