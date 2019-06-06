@@ -5,10 +5,8 @@ import Components.AbstractComponent;
 import java.util.ArrayList;
 
 public class BudgetConfig {
-    private ArrayList<AbstractComponent> scp;
     int budget;
     public BudgetConfig(int budget) {
-        scp = new ArrayList<>();
         this.budget = budget;
         getAutoConfiguration(this.budget);
     }
@@ -18,8 +16,6 @@ public class BudgetConfig {
      * in base all'importanza che ha il componente stesso
      */
     public void getAutoConfiguration(int b) {
-        /*
-         * Codice per la configurazione automatica
-         */
+
     }
 }
