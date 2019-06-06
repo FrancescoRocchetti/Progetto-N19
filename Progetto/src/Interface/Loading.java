@@ -23,7 +23,6 @@ public class Loading extends JFrame {
         txt.setText(loadingStrings[ran]);
         txt.setHorizontalAlignment(SwingConstants.CENTER);
         txt.setBorder(new EmptyBorder(0, 0, 30, 0));
-
         c.setLayout(new BorderLayout());
         c.add(label, BorderLayout.CENTER);
         c.add(txt, BorderLayout.SOUTH);

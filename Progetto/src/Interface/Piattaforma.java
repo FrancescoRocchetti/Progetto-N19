@@ -4,13 +4,15 @@ import Components.AbstractComponent;
 import InterfacingDB.PCParts;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.URL;
 import java.util.ArrayList;
 
-public class Piattaforma extends JFrame {
+public class Piattaforma extends JFrame{
 
     private static final int CATEGORIES = 10;
     private static final int COLUMNS = 5;
@@ -56,6 +58,7 @@ public class Piattaforma extends JFrame {
 
     private GestoreScelte gs;
 
+    private int index;
     private int rowAdd;
     private int rowRmv;
     private int idAdd;
@@ -63,13 +66,9 @@ public class Piattaforma extends JFrame {
 
     public Piattaforma() {
         super("Configuratore di PC");
-        gs = new GestoreScelte();
+        gs = new GestoreScelte(this);
 
-        Loading l = new Loading();
-        if (!gs.checkInternet()) {
-            JOptionPane.showMessageDialog(null, "Impossibile stabilire una connessione a Internet.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-            System.exit(10);
-        }
+        //Loading l = new Loading();
 
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -191,8 +190,9 @@ public class Piattaforma extends JFrame {
         newConfigListener();
         rechargeListener();
         exitListener();
-        obtainParts(components.getSelectedIndex());
-        l.dispose();
+        if (!gs.checkInternet()) {
+            JOptionPane.showMessageDialog(this, "Impossibile stabilire una connessione a Internet.", "Errore", JOptionPane.ERROR_MESSAGE);
+        } else obtainParts(components.getSelectedIndex());
 
         // Opzioni frame
         //setBackground(Color.BLACK);
@@ -201,27 +201,29 @@ public class Piattaforma extends JFrame {
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
+
     }
 
     private void addComp(int id) {
         gs.addComp(id);
     }
 
-    private void obtainParts(int index) {
-        ArrayList<AbstractComponent> arr;
-        arr = gs.obtainParts(CMP[index]);
-        if (arr == null) {
-            JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-            System.exit(10);
-        }
+    private void obtainParts(int i) {
+        index = i;
+        components.setEnabled(false);
         panels[index].removeAll();
-        compTable = createTable(arr);
-        JScrollPane scroll = new JScrollPane(
-                compTable,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        panels[index].add(scroll);
+        URL url = getClass().getResource("Resources/loading.gif");
+        ImageIcon img = new ImageIcon(url);
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel(img);
+        JLabel txt = new JLabel("Sto scaricando i dati...");
+        txt.setHorizontalAlignment(SwingConstants.CENTER);
+        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(txt, BorderLayout.SOUTH);
+        panels[index].add(panel);
         panels[index].setLayout(new GridLayout());
+        gs.obtainParts(CMP[index]);
     }
 
     private void budgetConfigListener(JButton btn) {
@@ -255,19 +257,15 @@ public class Piattaforma extends JFrame {
     private void rmvButtonListener(JButton btn) {
         btn.addActionListener(e -> {
             btn.setEnabled(false);
-            rmvComp(idRmv);
+            gs.rmvComp(idRmv);
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
             int index = chooseTable.getSelectedRow();
             model.removeRow(index);
-            obtainParts(components.getSelectedIndex());
+            //obtainParts(components.getSelectedIndex());
             panels[components.getSelectedIndex()].revalidate();
             price.setText(gs.getPrice() + " €");
             watt.setText(gs.getWatt() + " W");
         });
-    }
-
-    private void rmvComp(int id) {
-        gs.rmvComp(id);
     }
 
     private void loginListener() {
@@ -297,12 +295,6 @@ public class Piattaforma extends JFrame {
     }
 
     void refresh() {
-        for (JPanel p : panels)
-            p.removeAll();
-        price.setText("0 €");
-        DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
-        model.setRowCount(0);
-        gs.newScp();
         obtainParts(components.getSelectedIndex());
     }
 
@@ -424,6 +416,25 @@ public class Piattaforma extends JFrame {
         //table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
+    }
+
+
+    public void updateTable(ArrayList<AbstractComponent> arr) {
+        if (arr == null) {
+            JOptionPane.showMessageDialog(this, "Errore lettura componenti.", "Errore", JOptionPane.ERROR_MESSAGE);
+            panels[index].removeAll();
+            components.setEnabled(true);
+            return;
+        }
+        compTable = createTable(arr);
+        JScrollPane scroll = new JScrollPane(
+                compTable,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panels[index].removeAll();
+        panels[index].add(scroll);
+        panels[index].setLayout(new GridLayout());
+        components.setEnabled(true);
     }
 }
 

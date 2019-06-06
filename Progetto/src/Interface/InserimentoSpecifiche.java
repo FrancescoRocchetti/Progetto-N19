@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class InserimentoSpecifiche extends JFrame {

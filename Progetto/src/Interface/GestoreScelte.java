@@ -1,27 +1,27 @@
 package Interface;
 
 import Constraints.AdaptabilityConstraint;
-import InterfacingDB.ManagerDB;
+import InterfacingDB.CheckInternet;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
 import Gestione.SelectedComponents;
 
 import java.util.ArrayList;
 
-public class GestoreScelte {
+public class GestoreScelte implements ObserverGS{
     private SelectedComponents scp;
     private ActiveComponents ac;
-    private ManagerDB mdb;
+    private Piattaforma p;
 
-    public GestoreScelte() {
+    public GestoreScelte(Piattaforma p) {
         scp = new SelectedComponents();
         ac = new ActiveComponents();
-        mdb = new ManagerDB();
+        this.p = p;
     }
 
-    public ArrayList<AbstractComponent> obtainParts(PCParts comp) {
-        ac.buildList(AdaptabilityConstraint.check(mdb.read(comp),scp));
-        return ac.getAc();
+    public void obtainParts(PCParts comp) {
+        ThreadInventory t = new ThreadInventory(this, comp);
+        t.start();
     }
 
     public void addComp(int id) {
@@ -41,12 +41,12 @@ public class GestoreScelte {
         return scp.getTotPrice();
     }
 
-    public ArrayList<AbstractComponent> getComps() {
-        return scp.getAR();
+    public SelectedComponents getScp() {
+        return scp;
     }
 
     public boolean checkInternet() {
-        return mdb.checkInternet();
+        return CheckInternet.check();
     }
 
     public Object[][] getCart() {
@@ -70,5 +70,13 @@ public class GestoreScelte {
 
     public int getWatt(){
         return scp.getTotWatt();//
+    }
+
+    @Override
+    public void update(ArrayList<AbstractComponent> arr) {
+        if (arr != null) {
+            ac.buildList(AdaptabilityConstraint.check(arr, scp));
+            p.updateTable(ac.getAc());
+        } else p.updateTable(null);
     }
 }
