@@ -322,6 +322,7 @@ public class Piattaforma extends JFrame{
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
                     if((int) table.getValueAt(rowAdd, 2) > 0) {
                         add.setEnabled(true);
+                        rmv.setEnabled(false);
                         checkMessage.setText("");
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
@@ -387,6 +388,7 @@ public class Piattaforma extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 try {
                     rmv.setEnabled(true);
+                    add.setEnabled(false);
                     rowRmv = ((JTable) e.getSource()).getSelectedRow();
                     idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
