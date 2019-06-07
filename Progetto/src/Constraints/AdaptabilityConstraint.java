@@ -22,8 +22,8 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     }
 
     private static boolean checkCPURAM(CPU c, RAM r) {
-        return c == null || r == null
-                || r.getTypeRAM().equals(c.getTypeRAM());
+        return true/*c == null || r == null
+                || r.getTypeRAM().equals(c.getTypeRAM())  */;
     }
 
     private static boolean checkCPUOS(CPU c, OS o) {
