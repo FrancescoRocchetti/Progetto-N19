@@ -120,9 +120,9 @@ public class AdvancedSpecs extends JFrame {
         setSpinnerNotWritable(nPciE);
         JLabel dim = new JLabel("Dimension:");
         JComboBox dimension = new JComboBox();
-        ram.addItem("ATX");
-        ram.addItem("Micro-ATX");
-        ram.addItem("Mini-ITX");
+        dimension.addItem("ATX");
+        dimension.addItem("Micro-ATX");
+        dimension.addItem("Mini-ITX");
         JLabel sata = new JLabel("Slot SATA:");
         SpinnerNumberModel spinnerSataModel = new SpinnerNumberModel(1,1,6,1);
         JSpinner nSata = new JSpinner(spinnerSataModel);
