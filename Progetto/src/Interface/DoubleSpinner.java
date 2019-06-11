@@ -12,22 +12,19 @@ public class DoubleSpinner extends JSpinner {
 
     private SpinnerNumberModel model;
 
-    public DoubleSpinner(double value, double min, double max) {
+    public DoubleSpinner(double val, double min, double max) {
         super();
         // Model setup
-        model = new SpinnerNumberModel(value, min, max, 0.1);
+        model = new SpinnerNumberModel(val, min, max, 0.1);
         this.setModel(model);
 
         // Step recalculation
-        this.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
+        this.addChangeListener(e -> {
                 Double value = getDouble();
                 // Steps are sensitive to the current magnitude of the value
                 long magnitude = Math.round(Math.log10(value));
                 double stepSize = STEP_RATIO * Math.pow(10, magnitude);
                 model.setStepSize(stepSize);
-            }
         });
     }
 

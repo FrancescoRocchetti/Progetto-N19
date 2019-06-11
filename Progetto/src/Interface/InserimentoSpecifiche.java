@@ -45,6 +45,7 @@ public class InserimentoSpecifiche extends JFrame {
     private JPanel fourButtons;
     private JPanel checkButton;
     private JLabel title1;
+    private JButton advanced;
 
     private String[] componentsName;
 
@@ -77,15 +78,17 @@ public class InserimentoSpecifiche extends JFrame {
             componente.addItem(PCParts.valueOf(componentsName[i]));
         componente.setEditable(false);
         description = new JLabel("Descrizione");
-        howToDesc = new JLabel("(La descrizione varia con la componente)");
+        /*howToDesc = new JLabel("(La descrizione varia con la componente)");
         howToDesc.setFont(new Font("Arial", Font.ITALIC, 10));
-        howToDesc.setForeground(Color.RED);
-        descrizione = new JTextField();
+        howToDesc.setForeground(Color.RED);*/
+        advanced = new JButton("Avanzate");
+        /*descrizione = new JTextField();
         descrizione.setFont(new Font("Arial", Font.PLAIN, 10));
-        descrizione.setText("Rispettare il formato di inserimento proposto sotto");
-        descPanel = new JPanel(new GridLayout(2, 1));
-        descPanel.add(descrizione);
-        descPanel.add(howToDesc);
+        descrizione.setText("Rispettare il formato di inserimento proposto sotto");*/
+        descPanel = new JPanel(new GridLayout(1, 1));
+        descPanel.add(advanced);
+        /*descPanel.add(descrizione);
+        descPanel.add(howToDesc);*/
         quantity = new JLabel("Quantità");
         spinnerModel = new SpinnerNumberModel(1, 1, QTA, 1);
         quantita = new JSpinner(spinnerModel);
@@ -109,7 +112,7 @@ public class InserimentoSpecifiche extends JFrame {
         fourButtons = new JPanel(new GridLayout(3, 2));
         checkButton = new JPanel(new GridLayout(1, 1));
 
-        componente.addActionListener(e -> {
+        /*componente.addActionListener(e -> {
             if (componente.getSelectedItem() == PCParts.CPU) {
                 howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
                 howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
@@ -132,7 +135,7 @@ public class InserimentoSpecifiche extends JFrame {
                 howToDesc.setText("NOME_BIT");
             else if (componente.getSelectedItem() == PCParts.ALTRO)
                 howToDesc.setText("NOME_DESCRIZIONE");
-        });
+        });*/
 
         remove.addActionListener(e -> {
                 Remove comp = new Remove(this, go);
@@ -175,6 +178,10 @@ public class InserimentoSpecifiche extends JFrame {
             ArrayList<AbstractComponent> components;
             String s = "";
             new CompList(this, go);
+        });
+
+        advanced.addActionListener(e -> {
+
         });
 
         data.add(component);
