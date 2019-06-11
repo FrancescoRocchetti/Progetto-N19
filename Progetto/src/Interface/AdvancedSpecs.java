@@ -9,21 +9,30 @@ import java.awt.*;
 public class AdvancedSpecs extends JFrame {
     private JButton okBtn;
     private JButton cancBtn;
-    private JPanel background;
+    private JPanel bckg;
+    private JPanel compPanel;
+    private JPanel btnPanel;
 
     public AdvancedSpecs(PCParts part) {
         super("Inserimento specifiche");
         Container c = getContentPane();
         okBtn = new JButton("Conferma");
         cancBtn = new JButton("Annulla");
-        background = buildPanel(part);
+        bckg = new JPanel(new BorderLayout());
+        compPanel = buildPanel(part);
+        btnPanel = new JPanel(new GridLayout(1,2));
+        btnPanel.add(cancBtn);
+        btnPanel.add(okBtn);
+        bckg.add(compPanel, BorderLayout.CENTER);
+        bckg.add(btnPanel, BorderLayout.SOUTH);
 
-        c.add(background);
+        c.add(bckg);
 
-        setVisible(true);
         pack();
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(this);
+        setVisible(true);
     }
 
     private JPanel buildPanel(PCParts part) {
@@ -33,12 +42,15 @@ public class AdvancedSpecs extends JFrame {
                 panel = panelCPU();
                 return panel;
             }
+            case MOBO: {
+
+            }
             default: return null;
         }
     }
 
     private JPanel panelCPU() {
-        JPanel p = new JPanel(new GridLayout(10, 2));
+        JPanel p = new JPanel(new GridLayout(11, 2));
         //nome, freq, core, thread, memtype, tdp, bit, gpu, socket, cooler
         JLabel nome = new JLabel("Name:");
         JTextField name = new JTextField();
@@ -58,8 +70,12 @@ public class AdvancedSpecs extends JFrame {
         ram.addItem("DDR2");
         ram.addItem("DDR3");
         ram.addItem("DDR4");
+        JLabel maxRam = new JLabel("Max RAM:");
+        SpinnerNumberModel spinnerRamModel = new SpinnerNumberModel(1, 1, 128, 1);
+        JSpinner max = new JSpinner(spinnerRamModel);
+        setSpinnerNotWritable(max);
         JLabel tdp = new JLabel("TDP:");
-        SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,65,1);
+        SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,300,1);
         JSpinner power = new JSpinner(spinnerPowerModel);
         setSpinnerNotWritable(power);
         JLabel bit = new JLabel("Bit:");
@@ -71,29 +87,13 @@ public class AdvancedSpecs extends JFrame {
         JLabel sock = new JLabel("Socket:");
         JTextField socket = new JTextField();
         JLabel cool = new JLabel("Cooler:");
-        JCheckBox cooler  =new JCheckBox();
+        JCheckBox cooler = new JCheckBox();
 
-        p.add(nome);
-        p.add(name);
-        p.add(freq);
-        p.add(frequency);
-        p.add(frequency);
-        p.add(core);
-        p.add(nCore);
-        p.add(thrd);
-        p.add(thread);
-        p.add(memtype);
-        p.add(ram);
-        p.add(tdp);
-        p.add(power);
-        p.add(bit);
-        p.add(nBit);
-        p.add(gpu);
-        p.add(hasGpu);
-        p.add(sock);
-        p.add(socket);
-        p.add(cool);
-        p.add(cooler);
+        Component[] cmp = {nome, name, freq, frequency, core, nCore, thrd, thread, memtype, ram, maxRam, max, tdp, power, bit, nBit, gpu, hasGpu, sock, socket, cool, cooler};
+        hasGpu.setHorizontalAlignment(SwingConstants.RIGHT);
+        cooler.setHorizontalAlignment(SwingConstants.RIGHT);
+        addCmp(cmp, p);
+        
         return p;
     }
 
@@ -104,5 +104,10 @@ public class AdvancedSpecs extends JFrame {
     private void setSpinnerNotWritable(JSpinner spinner) {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
+    }
+
+    private void addCmp(Component[] arr, JPanel pan) {
+        for(Component c : arr)
+            pan.add(c);
     }
 }
