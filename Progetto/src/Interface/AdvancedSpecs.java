@@ -68,6 +68,18 @@ public class AdvancedSpecs extends JFrame {
             case PSU: {
                 return panelPSU();
             }
+            case STORAGE: {
+                return panelStorage();
+            }
+            case CASE: {
+                return panelCASE();
+            }
+            case OS: {
+                return panelOS();
+            }
+            case ALTRO: {
+                return panelALTRO();
+            }
             default: return null;
         }
     }
@@ -313,8 +325,83 @@ public class AdvancedSpecs extends JFrame {
         return p;
     }
 
+    private JPanel panelStorage() {
+        p = new JPanel(new GridLayout(4,2));
+        nome = new JLabel("Nome:");
+        name = new JTextField();
+        JLabel size = new JLabel("Size:");
+        JComboBox dim = new JComboBox();
+        dim.addItem("2.5");
+        dim.addItem("3.5");
+        JLabel dimensione = new JLabel("Storage (GB):");
+        JComboBox storage = new JComboBox();
+        storage.addItem("120");
+        storage.addItem("250");
+        storage.addItem("480");
+        storage.addItem("1000");
+        storage.addItem("2000");
+        watt = new JLabel("Watt:");
+        SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
+        power = new JSpinner(spinnerWattModel);
+        setSpinnerNotWritable(power);
+
+        Component[] cmp = {nome, name, size, dim, dimensione, storage, watt, power};
+        addCmp(cmp, p);
+
+        okBtn.addActionListener(e -> {
+            s = name.getText() + "_" + dim.getSelectedItem() + "_" + storage.getSelectedItem() + "_" + power.getValue();
+            System.out.println(s);
+        });
+
+        return p;
+    }
+
+    private JPanel panelCASE() {
+        p = new JPanel(new GridLayout());
+
+        return p;
+    }
+
+    private JPanel panelOS() {
+        p = new JPanel(new GridLayout(2,2));
+        nome = new JLabel("Nome:");
+        name = new JTextField();
+        JLabel bit = new JLabel("Bit:");
+        JComboBox nBit = new JComboBox();
+        nBit.addItem("32");
+        nBit.addItem("64");
+
+        Component[] cmp = {nome, name, bit, nBit};
+        addCmp(cmp, p);
+
+        okBtn.addActionListener(e -> {
+            s = name.getText() + "_" + nBit.getSelectedItem();
+            System.out.println(s);
+        });
+
+        return p;
+    }
+
+    private JPanel panelALTRO() {
+        p = new JPanel(new GridLayout(2,2));
+        nome = new JLabel("Nome:");
+        name = new JTextField();
+        JLabel descrizione = new JLabel("Description:");
+        JTextField description = new JTextField();
+
+        Component[] cmp = {nome, name, descrizione, description};
+        addCmp(cmp, p);
+
+        okBtn.addActionListener(e -> {
+            s = name.getText() + "_" + description.getText();
+            System.out.println(s);
+        });
+
+        return p;
+    }
+
     public static void main(String[] args) {
-        AdvancedSpecs a = new AdvancedSpecs(PCParts.PSU);
+        AdvancedSpecs a = new AdvancedSpecs(PCParts.ALTRO);
     }
 
     private void setSpinnerNotWritable(JSpinner spinner) {
