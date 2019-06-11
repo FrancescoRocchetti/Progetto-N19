@@ -9,7 +9,10 @@ public class CheckInternet {
             String ipAddress = "34.65.95.40";
             InetAddress inet = InetAddress.getByName(ipAddress);
             //System.out.println("Sending Ping Request to " + ipAddress);
-            if (inet.isReachable(5000)) return true;
+            if (inet.isReachable(20000)) {
+                System.out.println("Ok");
+                return true;
+            }
             else return false;
         } catch (Exception e) {
             return false;
