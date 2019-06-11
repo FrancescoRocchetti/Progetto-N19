@@ -37,7 +37,7 @@ public class AdvancedSpecs extends JFrame {
 
     private JPanel buildPanel(PCParts part) {
         switch(part){
-            case CPU: {panelCPU();
+            case CPU: {
                 return panelCPU();
             }
             case MOBO: {
