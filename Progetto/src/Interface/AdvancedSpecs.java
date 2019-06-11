@@ -36,14 +36,15 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel buildPanel(PCParts part) {
-        JPanel panel;
         switch(part){
-            case CPU: {
-                panel = panelCPU();
-                return panel;
+            case CPU: {panelCPU();
+                return panelCPU();
             }
             case MOBO: {
 
+            }
+            case GPU:{
+                return panelGPU();
             }
             default: return null;
         }
@@ -97,8 +98,27 @@ public class AdvancedSpecs extends JFrame {
         return p;
     }
 
+    private JPanel panelGPU(){
+        //NOME_GB_WATT
+        JPanel p = new JPanel(new GridLayout(3, 2));
+        JLabel nome = new JLabel("Name:");
+        JTextField name = new JTextField();
+        JLabel capacity = new JLabel("Capacità GB:");
+        DoubleSpinner cap = new DoubleSpinner(4,0, 16);
+        setSpinnerNotWritable(cap);
+        JLabel watt = new JLabel("TDP:");
+        SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(1, 1, 350, 10);
+        JSpinner nWatt = new JSpinner(spinnerWattModel);
+        setSpinnerNotWritable(nWatt);
+
+        Component[] cmp = {nome, name, capacity, cap, watt, nWatt};
+        addCmp(cmp, p);
+
+        return p;
+    }
+
     public static void main(String[] args) {
-        AdvancedSpecs a = new AdvancedSpecs(PCParts.CPU);
+        AdvancedSpecs a = new AdvancedSpecs(PCParts.GPU);
     }
 
     private void setSpinnerNotWritable(JSpinner spinner) {
