@@ -60,11 +60,11 @@ public class AdvancedSpecs extends JFrame {
         DoubleSpinner frequency = new DoubleSpinner(3,1, 6);
         setSpinnerNotWritable(frequency);
         JLabel core = new JLabel("Core:");
-        SpinnerNumberModel spinnerCoreModel = new SpinnerNumberModel(1, 1, null, 1);
+        SpinnerNumberModel spinnerCoreModel = new SpinnerNumberModel(1, 1, 18, 1);
         JSpinner nCore = new JSpinner(spinnerCoreModel);
         setSpinnerNotWritable(nCore);
         JLabel thrd = new JLabel("Thread:");
-        SpinnerNumberModel spinnerThreadModel = new SpinnerNumberModel(1, 1, null, 1);
+        SpinnerNumberModel spinnerThreadModel = new SpinnerNumberModel(1, 1, 36, 1);
         JSpinner thread = new JSpinner(spinnerThreadModel);
         setSpinnerNotWritable(thread);
         JLabel memtype = new JLabel("RAM type:");
