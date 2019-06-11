@@ -37,6 +37,8 @@ public class Remove extends JFrame {
     private GestoreOperazioni go;
     private String[] imgs;
     private String[] btnNames;
+    private JButton close;
+    private JPanel southPanel;
 
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) {
@@ -65,6 +67,8 @@ public class Remove extends JFrame {
         comp.addItem("No item selected...");
         //qta = new JComboBox();
         rmv = new JButton("Remove");
+        close = new JButton("Close");
+        southPanel = new JPanel(new GridLayout(1,2));
         rmv.setEnabled(false);
 
         addItemToRmv(comp);
@@ -86,6 +90,11 @@ public class Remove extends JFrame {
                 JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
             } else
                 JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);*/
+        });
+
+        close.addActionListener(e -> {
+            dispose();
+            ins.setVisible(true);
         });
 
         comp.addActionListener(e -> {
@@ -136,7 +145,9 @@ public class Remove extends JFrame {
         //comboBoxPanel.add(qta);
 
         choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
-        choosePanel.add(rmv, BorderLayout.SOUTH);
+        southPanel.add(rmv);
+        southPanel.add(close);
+        choosePanel.add(southPanel, BorderLayout.SOUTH);
 
         bckg.add(btnPanel, BorderLayout.CENTER);
         bckg.add(choosePanel, BorderLayout.SOUTH);

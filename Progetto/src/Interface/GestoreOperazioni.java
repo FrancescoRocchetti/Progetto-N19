@@ -34,7 +34,8 @@ public class GestoreOperazioni {
     }
 
     public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
-        String[] str = {componente.name().toUpperCase(),
+        String[] str = {"1",
+                componente.name().toUpperCase(),
                 descrizione,
                 String.valueOf(quantita),
                 String.valueOf(prezzo),

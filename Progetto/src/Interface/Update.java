@@ -41,6 +41,8 @@ public class Update extends JFrame {
     private GestoreOperazioni go;
     private String[] imgs;
     private String[] btnNames;
+    private JButton close;
+    private JPanel southPanel;
 
 
     public Update(InserimentoSpecifiche ins, GestoreOperazioni go){
@@ -72,6 +74,8 @@ public class Update extends JFrame {
         qta = new JSpinner(new SpinnerNumberModel(1, 1, null, 1));
         setSpinnerNotWritable(qta);
         up = new JButton("Update");
+        close = new JButton("Close");
+        southPanel = new JPanel(new GridLayout(1,2));
         up.setEnabled(false);
 
         addItemToUpdate(comp);
@@ -87,6 +91,11 @@ public class Update extends JFrame {
                 JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
             } else
                 JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        close.addActionListener(e -> {
+            dispose();
+            ins.setVisible(true);
         });
 
         addWindowListener(new WindowListener() {
@@ -125,7 +134,9 @@ public class Update extends JFrame {
         comboBoxPanel.add(qta);
 
         choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
-        choosePanel.add(up, BorderLayout.SOUTH);
+        southPanel.add(up);
+        southPanel.add(close);
+        choosePanel.add(southPanel, BorderLayout.SOUTH);
 
         bckg.add(btnPanel, BorderLayout.CENTER);
         bckg.add(choosePanel, BorderLayout.SOUTH);

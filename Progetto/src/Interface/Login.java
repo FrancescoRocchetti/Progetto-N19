@@ -18,6 +18,7 @@ public class Login extends JFrame {
         super("Login");
         set = false;
         go = new GestoreOperazioni(p);
+        p.setVisible(true);
         Container c = getContentPane();
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -49,6 +50,7 @@ public class Login extends JFrame {
             else {
                 set = true;
                 dispose();
+                p.setVisible(false);
             }
         };
 
