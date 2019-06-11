@@ -12,10 +12,10 @@ public class DoubleSpinner extends JSpinner {
 
     private SpinnerNumberModel model;
 
-    public DoubleSpinner() {
+    public DoubleSpinner(double value, double min, double max) {
         super();
         // Model setup
-        model = new SpinnerNumberModel(0.0, -1000.0, 1000.0, 0.1);
+        model = new SpinnerNumberModel(value, min, max, 0.1);
         this.setModel(model);
 
         // Step recalculation
