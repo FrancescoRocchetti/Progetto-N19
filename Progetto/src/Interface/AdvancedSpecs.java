@@ -294,6 +294,7 @@ public class AdvancedSpecs extends JFrame {
         dimension.addItem("SFX");
         JLabel certificazione = new JLabel("Certification:");
         JComboBox certification = new JComboBox();
+        certification.addItem("None");
         certification.addItem("80+");
         certification.addItem("80+ Bronze");
         certification.addItem("80+ Silver");
