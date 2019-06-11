@@ -41,8 +41,8 @@ public class AdvancedSpecs extends JFrame {
                 return panelCPU();
             }
             case MOBO: {
-                panel = panelMOBO();
-                return panel;
+                return panelMOBO();
+
             }
             case GPU:{
                 return panelGPU();
