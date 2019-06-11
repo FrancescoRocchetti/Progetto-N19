@@ -2,6 +2,7 @@ package Interface;
 
 import Components.AbstractComponent;
 import Constraints.AdaptabilityConstraint;
+import InterfacingDB.CheckInternet;
 import InterfacingDB.ManagerDB;
 import InterfacingDB.PCParts;
 
@@ -21,6 +22,8 @@ public class ThreadInventory extends Thread{
     @Override
     public void run() {
         try{
+            if(CheckInternet.check())
+                throw new NoInternetException("Impossibile connettersi al DB");
             ArrayList<AbstractComponent> arr = AdaptabilityConstraint.check(mdb.read(part), ((GestoreScelte)gs).getScp());
             gs.update(arr);
         } catch(Exception e){

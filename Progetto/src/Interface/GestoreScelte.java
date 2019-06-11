@@ -1,6 +1,7 @@
 package Interface;
 
 import Constraints.AdaptabilityConstraint;
+import Constraints.Warning;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
@@ -78,5 +79,11 @@ public class GestoreScelte implements ObserverGS{
             ac.buildList(AdaptabilityConstraint.check(arr, scp));
             p.updateTable(ac.getAc());
         } else p.updateTable(null);
+    }
+
+    public String getWarning() {
+        Warning w = Warning.getwInstance();
+        w.check(scp);
+        return w.getInfo();
     }
 }

@@ -1,6 +1,7 @@
 package Interface;
 
 import Components.AbstractComponent;
+import Constraints.Warning;
 import InterfacingDB.PCParts;
 
 import javax.swing.*;
@@ -144,13 +145,13 @@ public class Piattaforma extends JFrame{
         components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
         components.addTab("RAM", panels[2]);
-        components.addTab("STORAGE", panels[3]);
+        components.addTab("Storage", panels[3]);
         components.addTab("GPU", panels[4]);
         components.addTab("Power Supply", panels[5]);
         components.addTab("Cooler CPU", panels[6]);
         components.addTab("Operating System", panels[7]);
-        components.addTab("CASE", panels[8]);
-        components.addTab("ALTRO", panels[9]);
+        components.addTab("Case", panels[8]);
+        components.addTab("Other", panels[9]);
 
         components.addChangeListener(e -> {
             add.setEnabled(false);
@@ -190,14 +191,15 @@ public class Piattaforma extends JFrame{
         newConfigListener();
         rechargeListener();
         exitListener();
+        /*
         if (!gs.checkInternet()) {
             JOptionPane.showMessageDialog(this, "Impossibile stabilire una connessione a Internet.", "Errore", JOptionPane.ERROR_MESSAGE);
-        } else obtainParts(components.getSelectedIndex());
+        } else*/ obtainParts(components.getSelectedIndex());
 
         // Opzioni frame
         //setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1050, 500);
+        setSize(1080, 500);
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
@@ -223,7 +225,6 @@ public class Piattaforma extends JFrame{
         panel.add(txt, BorderLayout.SOUTH);
         panels[index].add(panel);
         panels[index].setLayout(new GridLayout());
-        gs.obtainParts(CMP[index]);
     }
 
     private void budgetConfigListener(JButton btn) {
@@ -251,6 +252,7 @@ public class Piattaforma extends JFrame{
             }
             price.setText(gs.getPrice() + " €");
             watt.setText(gs.getWatt() + " W");
+            checkMessage.setText(gs.getWarning());
         });
     }
 
@@ -265,6 +267,7 @@ public class Piattaforma extends JFrame{
             panels[components.getSelectedIndex()].revalidate();
             price.setText(gs.getPrice() + " €");
             watt.setText(gs.getWatt() + " W");
+            checkMessage.setText(gs.getWarning());
         });
     }
 
@@ -283,6 +286,7 @@ public class Piattaforma extends JFrame{
             watt.setText("0 W");
             rmv.setEnabled(false);
             gs.newScp();
+            checkMessage.setText(gs.getWarning());
         });
     }
 
@@ -363,6 +367,7 @@ public class Piattaforma extends JFrame{
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
+        table.getTableHeader().setReorderingAllowed(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowHeight(20);
         table.setDefaultEditor(Object.class, null);
@@ -377,7 +382,7 @@ public class Piattaforma extends JFrame{
         //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
         //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
 
-        int[] dim = {3, 7, 25, 20, 20};
+        int[] dim = {3, 7, 22, 23, 20};
         for (int i = 0; i < dim.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
@@ -413,7 +418,7 @@ public class Piattaforma extends JFrame{
             public void mouseExited(MouseEvent e) {
             }
         });
-
+        table.getTableHeader().setReorderingAllowed(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
@@ -437,6 +442,7 @@ public class Piattaforma extends JFrame{
         panels[index].add(scroll);
         panels[index].setLayout(new GridLayout());
         components.setEnabled(true);
+        checkMessage.setText(gs.getWarning());
     }
 }
 
