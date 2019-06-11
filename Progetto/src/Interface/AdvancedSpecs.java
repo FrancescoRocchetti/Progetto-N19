@@ -95,7 +95,6 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelMOBO() {
-        // nome, cpusocket, nbanchi, modelloram, npcie16, npcie, dimensione, nsata, w
         JPanel p = new JPanel(new GridLayout(9, 2));
         JLabel nome = new JLabel("Name:");
         JTextField name = new JTextField();
