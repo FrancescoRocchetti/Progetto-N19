@@ -148,7 +148,7 @@ public class AdvancedSpecs extends JFrame {
         DoubleSpinner cap = new DoubleSpinner(4,0, 16);
         setSpinnerNotWritable(cap);
         JLabel watt = new JLabel("TDP:");
-        SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(1, 1, 350, 10);
+        SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
         JSpinner nWatt = new JSpinner(spinnerWattModel);
         setSpinnerNotWritable(nWatt);
 
