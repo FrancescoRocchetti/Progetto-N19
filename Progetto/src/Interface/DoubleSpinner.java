@@ -2,8 +2,6 @@ package Interface;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class DoubleSpinner extends JSpinner {
 
@@ -17,15 +15,6 @@ public class DoubleSpinner extends JSpinner {
         // Model setup
         model = new SpinnerNumberModel(val, min, max, 0.1);
         this.setModel(model);
-
-        // Step recalculation
-        this.addChangeListener(e -> {
-                Double value = getDouble();
-                // Steps are sensitive to the current magnitude of the value
-                long magnitude = Math.round(Math.log10(value));
-                double stepSize = STEP_RATIO * Math.pow(10, magnitude);
-                model.setStepSize(stepSize);
-        });
     }
 
     /**
