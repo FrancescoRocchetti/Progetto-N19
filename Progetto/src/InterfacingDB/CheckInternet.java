@@ -1,17 +1,16 @@
 package InterfacingDB;
 
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.InetAddress;
 
 public class CheckInternet {
 
     public static boolean check() {
         try {
-            URL url = new URL("http://www.google.com");
-            URLConnection connection = url.openConnection();
-            connection.connect();
-            return true;
-
+            String ipAddress = "34.65.95.40";
+            InetAddress inet = InetAddress.getByName(ipAddress);
+            //System.out.println("Sending Ping Request to " + ipAddress);
+            if (inet.isReachable(5000)) return true;
+            else return false;
         } catch (Exception e) {
             return false;
         }

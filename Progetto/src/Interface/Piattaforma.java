@@ -225,6 +225,7 @@ public class Piattaforma extends JFrame{
         panel.add(txt, BorderLayout.SOUTH);
         panels[index].add(panel);
         panels[index].setLayout(new GridLayout());
+        gs.obtainParts(CMP[index]);
     }
 
     private void budgetConfigListener(JButton btn) {
@@ -442,7 +443,7 @@ public class Piattaforma extends JFrame{
         panels[index].add(scroll);
         panels[index].setLayout(new GridLayout());
         components.setEnabled(true);
-        checkMessage.setText(gs.getWarning());
+        //checkMessage.setText(gs.getWarning());
     }
 }
 

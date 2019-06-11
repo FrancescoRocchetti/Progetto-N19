@@ -22,7 +22,7 @@ public class ThreadInventory extends Thread{
     @Override
     public void run() {
         try{
-            if(CheckInternet.check())
+            if(!CheckInternet.check())
                 throw new NoInternetException("Impossibile connettersi al DB");
             ArrayList<AbstractComponent> arr = AdaptabilityConstraint.check(mdb.read(part), ((GestoreScelte)gs).getScp());
             gs.update(arr);
