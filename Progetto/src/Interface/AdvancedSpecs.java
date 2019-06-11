@@ -12,6 +12,7 @@ public class AdvancedSpecs extends JFrame {
     private JPanel bckg;
     private JPanel compPanel;
     private JPanel btnPanel;
+    private GestoreOperazioni go;
 
     public AdvancedSpecs(PCParts part) {
         super(part.name());
@@ -90,6 +91,26 @@ public class AdvancedSpecs extends JFrame {
         hasGpu.setHorizontalAlignment(SwingConstants.RIGHT);
         cooler.setHorizontalAlignment(SwingConstants.RIGHT);
         addCmp(cmp, p);
+
+        okBtn.addActionListener(e -> {
+            String s;
+            String t;
+            if(hasGpu.isSelected() && cooler.isSelected()) {
+                s = "Y";
+                t = "Y";
+            } else if(!hasGpu.isSelected() && cooler.isSelected()) {
+                s = "N";
+                t = "Y";
+            } else if(hasGpu.isSelected() && !cooler.isSelected()) {
+                s = "Y";
+                t = "N";
+            } else {
+                s = "N";
+                t = "N";
+            }
+            String str = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" + ram.getSelectedItem() + "_" + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
+            System.out.println(str);
+        });
 
         return p;
     }
