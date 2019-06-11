@@ -1,14 +1,9 @@
 package Interface;
 
-import Components.AbstractComponent;
-import InterfacingDB.Reading;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class CompList extends JFrame {
 
@@ -23,12 +18,12 @@ public class CompList extends JFrame {
         Container c = getContentPane();
         ins.setEnabled(false);
         ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        String data[][] = go.getString(null);
+        String[][] data = go.getString(null);
         if (data == null) {
             JOptionPane.showMessageDialog(null, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
             dispose();
         }
-        String column[] = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
         JTable table = new JTable(data, column);
         table.setDefaultEditor(Object.class, null);
         table.getColumnModel().getColumn(0).setPreferredWidth(40);

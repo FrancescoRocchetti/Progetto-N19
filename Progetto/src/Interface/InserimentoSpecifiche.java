@@ -2,13 +2,12 @@ package Interface;
 
 import Components.AbstractComponent;
 import InterfacingDB.PCParts;
-import InterfacingDB.Reading;
+import InterfacingDB.Reader;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class InserimentoSpecifiche extends JFrame {
@@ -53,7 +52,7 @@ public class InserimentoSpecifiche extends JFrame {
     private GestoreOperazioni go;
 
     public InserimentoSpecifiche(GestoreOperazioni go, String user) {
-        super("Aggiunta componente");
+        super("Pagina admin");
         this.go = go;
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -136,19 +135,11 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         remove.addActionListener(e -> {
-            try {
                 Remove comp = new Remove(this, go);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         });
 
         update.addActionListener(e -> {
-            try {
                 Update update = new Update(this, go);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
         });
 
         goBack.addActionListener(e -> {
@@ -175,12 +166,12 @@ public class InserimentoSpecifiche extends JFrame {
                     dispose();
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         check.addActionListener(e -> {
-            Reading reading = new Reading();
+            Reader reading = new Reader();
             ArrayList<AbstractComponent> components;
             String s = "";
             new CompList(this, go);

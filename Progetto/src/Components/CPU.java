@@ -9,7 +9,7 @@ public class CPU extends AbstractComponent {
 
         resource = new Resource.Builder()
                 .withokCPU(true)
-                .withokGPU(caratteristiche[6].equals("Y"))
+                .withokGPU(caratteristiche[6].equalsIgnoreCase("Y"))
                 .withSocket(caratteristiche[7])
                 .withnBit(Integer.parseInt(caratteristiche[5]))
                 .withPower(0 - Integer.parseInt(caratteristiche[4]))

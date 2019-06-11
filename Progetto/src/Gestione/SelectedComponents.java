@@ -76,13 +76,16 @@ public class SelectedComponents {
     }
 
     // TODO: implementare metodo getWatt()
-    /*public int getTotWatt() {
+    public int getTotWatt() {
         int temp = 0;
-        for(AbstractComponent ac : sc) {
-            temp += ac.getWatt();
+        for(Resource r : getRes()) {
+            if(r.getPower()<0){
+                temp += Math.abs(r.getPower());
+            }
         }
         return temp;
-    }*/
+        //
+    }
 
     public Resource getTotRes() {
         return SommatoreRes.sum(this.getRes());
@@ -110,6 +113,10 @@ public class SelectedComponents {
             s.append(aStr.getName() + " - " + aStr.getPrice() + " €").append("\n");
         }
         return s.toString();
+    }
+
+    public int getPower(){
+        return getTotRes().getPower();
     }
 
     public void rmvCList(int id) {

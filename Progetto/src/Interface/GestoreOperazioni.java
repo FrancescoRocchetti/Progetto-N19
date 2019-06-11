@@ -1,5 +1,6 @@
 package Interface;
 
+import Gestione.Validation;
 import InterfacingDB.*;
 
 import java.util.ArrayList;
@@ -15,13 +16,11 @@ public class GestoreOperazioni {
         modified = false;
         this.p = p;
         mdb = new ManagerDB();
-        p.setEnabled(false);
-        p.setDefaultCloseOperation(0);
+        p.setVisible(false);
     }
 
     public void unlockPlatform() {
-        p.setEnabled(true);
-        p.setDefaultCloseOperation(3);
+        p.setVisible(true);
         if (modified)
             p.refresh();
     }
@@ -35,7 +34,13 @@ public class GestoreOperazioni {
     }
 
     public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
-        if (checkDescription(componente, descrizione)) {
+        String[] str = {"1",
+                componente.name().toUpperCase(),
+                descrizione,
+                String.valueOf(quantita),
+                String.valueOf(prezzo),
+                String.valueOf(valutazione)};
+        if (Validation.check(str)) {
             mdb.write(componente, descrizione, quantita, prezzo, valutazione);
             modified = true;
             return true;
@@ -44,17 +49,18 @@ public class GestoreOperazioni {
     }
 
     public boolean updateComponent(int index, int qty) {
-        mdb.update(index, qty);
-        return true;
+        modified = mdb.update(index, qty);
+        return modified;
+    }
+
+    public boolean remove(int id){
+        modified = mdb.remove(id);
+        return modified;
     }
 
     public int getQuantityByID(int id) {
         return mdb.getQuantityByID(id);
 
-    }
-
-    private boolean checkDescription(PCParts componente, String descrizione) {
-        return true;
     }
 
     public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts) {
@@ -67,7 +73,7 @@ public class GestoreOperazioni {
         if (comp == null) {
             return null;
         }
-        String data[][] = new String[comp.size()][];
+        String[][] data = new String[comp.size()][];
         AbstractComponent abs;
         for (int i = 0; i < comp.size(); i++) {
             data[i] = new String[5];

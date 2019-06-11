@@ -5,7 +5,7 @@ import Components.*;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Reading {
+public class Reader {
     private static final int ELEMENTS = 6;
     private Connection conn;
     private Statement stmt;
@@ -15,26 +15,31 @@ public class Reading {
     private String password;
 
 
-    public Reading() {
+    public Reader() {
         url = "jdbc:mysql://34.65.95.40:3306/Progetto?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         user = "utente";
         password = "prova";
     }
 
-    public ArrayList<AbstractComponent> read(PCParts comp) throws SQLException {
-        connectToDB();
-        if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
-        else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='" + comp.name() + "'");
-        ArrayList<AbstractComponent> list = new ArrayList<>();
-        String str[];
-        while (rs.next()) {
-            str = new String[ELEMENTS];
-            for (int i = 1; i < ELEMENTS + 1; i++)
-                str[i - 1] = rs.getString(i);
-            list.add(getComponent(str));
+    public ArrayList<AbstractComponent> read(PCParts comp){
+        try{
+            connectToDB();
+            if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
+            else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='" + comp.name() + "'");
+            ArrayList<AbstractComponent> list = new ArrayList<>();
+            String[] str;
+            while (rs.next()) {
+                str = new String[ELEMENTS];
+                for (int i = 1; i < ELEMENTS + 1; i++)
+                    str[i - 1] = rs.getString(i);
+                list.add(getComponent(str));
+            }
+            conn.close();
+            return list;
+        } catch (SQLException e) {
+            forceClose();
+            return null;
         }
-        conn.close();
-        return list;
     }
 
     /*public ArrayList<Integer> getNumberOfRows() throws SQLException {
@@ -47,7 +52,7 @@ public class Reading {
         return cods;
     }*/
 
-    private void connectToDB() throws SQLException {
+    private void connectToDB() throws SQLException{
         conn = DriverManager.getConnection(url, user, password);
         stmt = conn.createStatement();
     }
@@ -60,25 +65,35 @@ public class Reading {
         }
     }
 
-    public int getQuantityByID(int id) throws SQLException {
-        int quantity;
-        connectToDB();
-        rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + id + "'");
-        rs.next();
-        quantity = rs.getInt("q");
-        conn.close();
-        return quantity;
+    public int getQuantityByID(int id){
+       try{
+            int quantity;
+            connectToDB();
+            rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + id + "'");
+            rs.next();
+            quantity = rs.getInt("q");
+            conn.close();
+            return quantity;
+        } catch (SQLException e) {
+            forceClose();
+            return -1;
+        }
     }
 
-    public AbstractComponent getCompByID(int id) throws SQLException {
-        connectToDB();
-        rs = stmt.executeQuery("SELECT * FROM INVENTARIO WHERE CODICE = '" + id + "'");
-        String[] str = new String[ELEMENTS];
-        rs.next();
-        for (int i = 1; i < ELEMENTS + 1; i++)
-            str[i - 1] = rs.getString(i);
-        conn.close();
-        return getComponent(str);
+    public AbstractComponent getCompByID(int id) {
+        try{
+            connectToDB();
+            rs = stmt.executeQuery("SELECT * FROM INVENTARIO WHERE CODICE = '" + id + "'");
+            String[] str = new String[ELEMENTS];
+            rs.next();
+            for (int i = 1; i < ELEMENTS + 1; i++)
+                str[i - 1] = rs.getString(i);
+            conn.close();
+            return getComponent(str);
+        } catch (SQLException e) {
+            forceClose();
+            return null;
+        }
     }
 
 

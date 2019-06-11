@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -34,33 +35,40 @@ public class Remove extends JFrame {
     private boolean found;
     private int qtaToRmv = 0;
     private GestoreOperazioni go;
+    private String[] imgs;
+    private String[] btnNames;
+    private JButton close;
+    private JPanel southPanel;
 
 
-    public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
+    public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Remove component");
-        ins.setEnabled(false);
-        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        ins.setVisible(false);
         this.go = go;
         c = getContentPane();
         bckg = new JPanel(new BorderLayout());
         btnPanel = new JPanel(new GridLayout(2, 5));
         choosePanel = new JPanel(new BorderLayout());
-        comboBoxPanel = new JPanel(new GridLayout(3, 1));
-        caseButton = new JButton("CASE");
-        cooler = new JButton("Cooler");
-        cpu = new JButton("CPU");
-        gpu = new JButton("GPU");
-        mobo = new JButton("MOBO");
-        os = new JButton("OS");
-        psu = new JButton("PSU");
-        ram = new JButton("RAM");
-        storage = new JButton("STORAGE");
-        other = new JButton("Altro");
+        comboBoxPanel = new JPanel(new GridLayout(1, 1));
+        caseButton = new JButton();
+        cooler = new JButton();
+        cpu = new JButton();
+        gpu = new JButton();
+        mobo = new JButton();
+        os = new JButton();
+        psu = new JButton();
+        ram = new JButton();
+        storage = new JButton();
+        other = new JButton();
         btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
+        imgs = new String[]{"nav-case.png", "nav-cpucooler.png", "nav-cpu.png", "nav-videocard.png", "nav-motherboard.png", "nav-os.png", "nav-powersupply.png", "nav-memory.png", "nav-ssd.png", "nav-other.png"};
+        btnNames = new String[]{"CASE", "Cooler", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "Altro"};
         comp = new JComboBox();
         comp.addItem("No item selected...");
-        qta = new JComboBox();
+        //qta = new JComboBox();
         rmv = new JButton("Remove");
+        close = new JButton("Close");
+        southPanel = new JPanel(new GridLayout(1,2));
         rmv.setEnabled(false);
 
         addItemToRmv(comp);
@@ -73,22 +81,31 @@ public class Remove extends JFrame {
             item = (String) comp.getSelectedItem();
             cod = item.split(" ");
             rmCod = Integer.parseInt(String.valueOf(cod[0]));
-            qtaRmv = (int) qta.getSelectedItem();
-            if (!go.updateComponent(rmCod, -qtaRmv)) {
+            //qtaRmv = (int) qta.getSelectedItem();
+            if(go.remove(rmCod)) {
+                JOptionPane.showMessageDialog(null, "Componente rimosso", "Rimozione", JOptionPane.INFORMATION_MESSAGE);
+                addItemToRmv(comp);
+            }
+            /*if (!go.updateComponent(rmCod, -qtaRmv)) {
                 JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
             } else
-                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);*/
+        });
+
+        close.addActionListener(e -> {
+            dispose();
+            ins.setVisible(true);
         });
 
         comp.addActionListener(e -> {
             if (comp.getSelectedItem() != null) {
-                qta.removeAllItems();
+                //qta.removeAllItems();
                 String item = (String) comp.getSelectedItem();
                 String[] id;
                 id = item.split(" ");
                 qtaToRmv = go.getQuantityByID(Integer.parseInt(id[0]));
-                for (int i = 1; i <= qtaToRmv; i++)
-                    qta.addItem(i);
+                /*for (int i = 1; i <= qtaToRmv; i++)
+                    qta.addItem(i);*/
             }
         });
 
@@ -103,8 +120,7 @@ public class Remove extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setEnabled(true);
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                ins.setVisible(true);
             }
 
             @Override
@@ -125,11 +141,13 @@ public class Remove extends JFrame {
         });
 
         comboBoxPanel.add(comp);
-        comboBoxPanel.add(new JLabel("Pieces to remove:"));
-        comboBoxPanel.add(qta);
+        //comboBoxPanel.add(new JLabel("Pieces to remove:"));
+        //comboBoxPanel.add(qta);
 
         choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
-        choosePanel.add(rmv, BorderLayout.SOUTH);
+        southPanel.add(rmv);
+        southPanel.add(close);
+        choosePanel.add(southPanel, BorderLayout.SOUTH);
 
         bckg.add(btnPanel, BorderLayout.CENTER);
         bckg.add(choosePanel, BorderLayout.SOUTH);
@@ -148,11 +166,20 @@ public class Remove extends JFrame {
     }*/
 
     public void addItemToRmv(JComboBox c) {
+        int i = 0;
         for (JButton b : btnArray) {
             b.setMargin(new Insets(10, 10, 10, 10));
+            URL url = getClass().getResource("Imgs/" + imgs[i]);
+            ImageIcon img = new ImageIcon(url);
+            /*Image image = img.getImage();
+            Image newImage = image.getScaledInstance(100,100, Image.SCALE_DEFAULT);
+            img = new ImageIcon(newImage);*/
+            b.setIcon(img);
+            b.setText(btnNames[i]);
+            i++;
             btnPanel.add(b);
             b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
+                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getAccessibleContext().getAccessibleName().toUpperCase()));
                 c.removeAllItems();
                 found = false;
                 for (AbstractComponent x : str) {
@@ -164,10 +191,8 @@ public class Remove extends JFrame {
                     //s = "";
                 }
                 rmv.setEnabled(found);
-                if (!found) {
-                    qta.removeAllItems();
-                    JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
-                }
+                if (!found)
+                    c.addItem("No items...");
             });
         }
     }

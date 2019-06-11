@@ -1,28 +1,32 @@
 package Interface;
 
 import Constraints.AdaptabilityConstraint;
-import InterfacingDB.ManagerDB;
+import InterfacingDB.CheckInternet;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
 import Gestione.SelectedComponents;
 
 import java.util.ArrayList;
 
-public class GestoreScelte {
+public class GestoreScelte implements ObserverGS{
     private SelectedComponents scp;
-    private ManagerDB mdb;
+    private ActiveComponents ac;
+    private Piattaforma p;
 
-    public GestoreScelte() {
+    public GestoreScelte(Piattaforma p) {
         scp = new SelectedComponents();
-        mdb = new ManagerDB();
+        ac = new ActiveComponents();
+        this.p = p;
     }
 
-    public ArrayList<AbstractComponent> obtainParts(PCParts comp) {
-        return mdb.read(comp);
+    public void obtainParts(PCParts comp) {
+        ThreadInventory t = new ThreadInventory(this, comp);
+        t.start();
     }
 
     public void addComp(int id) {
-        scp.addCList(mdb.getCompByID(id));
+        AbstractComponent abs = ac.getCompByID(id);
+        scp.addCList(abs);
     }
 
     public void rmvComp(int id) {
@@ -37,20 +41,20 @@ public class GestoreScelte {
         return scp.getTotPrice();
     }
 
-    public ArrayList<AbstractComponent> getComps() {
-        return scp.getAR();
+    public SelectedComponents getScp() {
+        return scp;
     }
 
     public boolean checkInternet() {
-        return mdb.checkInternet();
+        return CheckInternet.check();
     }
 
-    public Object[][] getString() {
+    public Object[][] getCart() {
         ArrayList<AbstractComponent> comp = scp.getAR();
         if (comp == null) {
             return null;
         }
-        Object data[][] = new Object[comp.size()][];
+        Object[][] data = new Object[comp.size()][];
         AbstractComponent abs;
         for (int i = 0; i < comp.size(); i++) {
             data[i] = new Object[5];
@@ -62,5 +66,17 @@ public class GestoreScelte {
             data[i][4] = abs.getPrice() + " €";
         }
         return data;
+    }
+
+    public int getWatt(){
+        return scp.getTotWatt();//
+    }
+
+    @Override
+    public void update(ArrayList<AbstractComponent> arr) {
+        if (arr != null) {
+            ac.buildList(AdaptabilityConstraint.check(arr, scp));
+            p.updateTable(ac.getAc());
+        } else p.updateTable(null);
     }
 }

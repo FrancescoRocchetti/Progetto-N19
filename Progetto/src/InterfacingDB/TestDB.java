@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TestDB {
     public static void main(String[] args) throws IOException, SQLException {
-        Reading r = new Reading();
+        Reader r = new Reader();
         //Writing w = new Writing();
         Login l = new Login();
         ArrayList<AbstractComponent> list;

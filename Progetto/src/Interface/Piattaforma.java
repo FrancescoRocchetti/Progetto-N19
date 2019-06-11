@@ -4,13 +4,15 @@ import Components.AbstractComponent;
 import InterfacingDB.PCParts;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.URL;
 import java.util.ArrayList;
 
-public class Piattaforma extends JFrame {
+public class Piattaforma extends JFrame{
 
     private static final int CATEGORIES = 10;
     private static final int COLUMNS = 5;
@@ -23,10 +25,12 @@ public class Piattaforma extends JFrame {
     private JMenuBar menuBar;
     private JMenu file;
     private JMenu updateDB;
+    private JMenu autoConfig;
     private JMenuItem newConfig;
     private JMenuItem exit;
     private JMenuItem logAdmin;
     private JMenuItem recharge;
+    private JMenuItem getAutoConfig;
     private JPanel bckg;
     private JPanel panel;
     private JPanel btnpanel;
@@ -47,11 +51,14 @@ public class Piattaforma extends JFrame {
     private JPanel checkPane;
     private JTextArea checkMessage;
     private JTable chooseTable;
-    private JTable[] compTable;
+    private JTable compTable;
     private JPanel wattPanel;
+    private JButton noBudgetConfig;
+    private JButton budgetConfig;
 
     private GestoreScelte gs;
 
+    private int index;
     private int rowAdd;
     private int rowRmv;
     private int idAdd;
@@ -59,13 +66,9 @@ public class Piattaforma extends JFrame {
 
     public Piattaforma() {
         super("Configuratore di PC");
-        gs = new GestoreScelte();
+        gs = new GestoreScelte(this);
 
-        Loading l = new Loading();
-        if (!gs.checkInternet()) {
-            JOptionPane.showMessageDialog(null, "Impossibile stabilire una connessione a Internet.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-            System.exit(10);
-        }
+        //Loading l = new Loading();
 
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -80,7 +83,7 @@ public class Piattaforma extends JFrame {
         }
         infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
-        compTable = new JTable[CATEGORIES];
+        //compTable = new JTable();
         chooseTable = createTable();
         scroll = new JScrollPane(chooseTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(10);
@@ -88,7 +91,7 @@ public class Piattaforma extends JFrame {
         totPanel = new JPanel(new GridLayout(1, 2));
         wattPanel = new JPanel(new GridLayout(1, 2));
         confirmConfig = new JButton("Confirm configuration");
-        btnpanel = new JPanel(new GridLayout(3, 1));
+        btnpanel = new JPanel(new GridLayout(5, 1));
         add = new JButton("Add");
         rmv = new JButton("Remove");
         panel = new JPanel(new BorderLayout());
@@ -114,23 +117,29 @@ public class Piattaforma extends JFrame {
         checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
         checkMessage.setBackground(Color.LIGHT_GRAY);
+        noBudgetConfig = new JButton("Configuration without budget");
+        budgetConfig = new JButton("Configuration with budget");
         //checkMessage.setText("Compatibilità delle componenti");
         checkMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         menuBar = new JMenuBar();
         file = new JMenu("File");
         updateDB = new JMenu("Connection");
+        autoConfig = new JMenu("Auto configuration");
         newConfig = new JMenuItem("New configuration");
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login as administrator");
         recharge = new JMenuItem("Refresh inventory");
+        getAutoConfig = new JMenuItem("Start");
 
         // Aggiunta componenti
         file.add(newConfig);
         file.add(exit);
         updateDB.add(logAdmin);
         updateDB.add(recharge);
+        autoConfig.add(getAutoConfig);
         menuBar.add(file);
         menuBar.add(updateDB);
+        menuBar.add(autoConfig);
 
         components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
@@ -146,9 +155,7 @@ public class Piattaforma extends JFrame {
         components.addChangeListener(e -> {
             add.setEnabled(false);
             rowAdd = -1;
-            for (JTable table : compTable) {
-                table.clearSelection();
-            }
+            obtainParts(components.getSelectedIndex());
         });
 
         totPanel.add(total);
@@ -157,6 +164,8 @@ public class Piattaforma extends JFrame {
         wattPanel.add(watt);
         btnpanel.add(add);
         btnpanel.add(rmv);
+        btnpanel.add(noBudgetConfig);
+        btnpanel.add(budgetConfig);
         btnpanel.add(confirmConfig);
         panel.add(totPanel, BorderLayout.NORTH);
         panel.add(wattPanel, BorderLayout.SOUTH);
@@ -175,75 +184,88 @@ public class Piattaforma extends JFrame {
 
         addButtonListener(add);
         rmvButtonListener(rmv);
+        budgetConfigListener(budgetConfig);
+        noBudgetConfigListener(noBudgetConfig);
         loginListener();
         newConfigListener();
         rechargeListener();
         exitListener();
-        obtainParts();
-        l.dispose();
+        if (!gs.checkInternet()) {
+            JOptionPane.showMessageDialog(this, "Impossibile stabilire una connessione a Internet.", "Errore", JOptionPane.ERROR_MESSAGE);
+        } else obtainParts(components.getSelectedIndex());
 
         // Opzioni frame
+        //setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1050, 500);
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
+
     }
 
     private void addComp(int id) {
         gs.addComp(id);
     }
 
-    private void obtainParts() {
-        ArrayList<AbstractComponent> arr;
-
-        for (int z = 0; z < CMP.length; z++) {
-            arr = gs.obtainParts(CMP[z]);
-            if (arr == null) {
-                JOptionPane.showMessageDialog(null, "Errore lettura componenti.\nIl programma verrà terminato.", "Errore", JOptionPane.ERROR_MESSAGE);
-                System.exit(10);
-            }
-            compTable[z] = createTable(arr);
-            JScrollPane scroll = new JScrollPane(
-                    compTable[z],
-                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            panels[z].add(scroll);
-            panels[z].setLayout(new GridLayout());
-        }
+    private void obtainParts(int i) {
+        index = i;
+        components.setEnabled(false);
+        panels[index].removeAll();
+        URL url = getClass().getResource("Resources/loading.gif");
+        ImageIcon img = new ImageIcon(url);
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel(img);
+        JLabel txt = new JLabel("Sto scaricando i dati...");
+        txt.setHorizontalAlignment(SwingConstants.CENTER);
+        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(txt, BorderLayout.SOUTH);
+        panels[index].add(panel);
+        panels[index].setLayout(new GridLayout());
+        gs.obtainParts(CMP[index]);
     }
 
+    private void budgetConfigListener(JButton btn) {
+        btn.addActionListener(e -> {
+            int budget = Integer.parseInt(JOptionPane.showInputDialog("Budget:"));
+            BudgetConfig b = new BudgetConfig(budget);
+        });
+    }
 
-    /*TODO: pensare a qualcosa per un eventuale replace
-       nel caso in cui sia già presente un certo tipo
-       di componente
-    */
+    private void noBudgetConfigListener(JButton btn) {
+        btn.addActionListener(e -> {
+
+        });
+    }
+
     private void addButtonListener(JButton btn) {
         btn.addActionListener(e -> {
+            rmv.setEnabled(false);
             addComp(idAdd);
-            Object[][] data = gs.getString();
+            Object[][] data = gs.getCart();
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
             model.setRowCount(0);
             for (Object[] str : data) {
                 model.addRow(str);
             }
             price.setText(gs.getPrice() + " €");
+            watt.setText(gs.getWatt() + " W");
         });
     }
 
     private void rmvButtonListener(JButton btn) {
         btn.addActionListener(e -> {
-            rmvComp(idRmv);
+            btn.setEnabled(false);
+            gs.rmvComp(idRmv);
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
             int index = chooseTable.getSelectedRow();
             model.removeRow(index);
+            obtainParts(components.getSelectedIndex());
+            panels[components.getSelectedIndex()].revalidate();
             price.setText(gs.getPrice() + " €");
-            btn.setEnabled(false);
+            watt.setText(gs.getWatt() + " W");
         });
-    }
-
-    private void rmvComp(int id) {
-        gs.rmvComp(id);
     }
 
     private void loginListener() {
@@ -258,6 +280,7 @@ public class Piattaforma extends JFrame {
             for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
                 ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
             price.setText("0 €");
+            watt.setText("0 W");
             rmv.setEnabled(false);
             gs.newScp();
         });
@@ -271,14 +294,8 @@ public class Piattaforma extends JFrame {
         exit.addActionListener(e -> System.exit(0));
     }
 
-    public void refresh() {
-        for (JPanel p : panels)
-            p.removeAll();
-        price.setText("0 €");
-        DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
-        model.setRowCount(0);
-        gs.newScp();
-        obtainParts();
+    void refresh() {
+        obtainParts(components.getSelectedIndex());
     }
 
     private JTable createTable(ArrayList<AbstractComponent> arr) {
@@ -305,6 +322,7 @@ public class Piattaforma extends JFrame {
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
                     if((int) table.getValueAt(rowAdd, 2) > 0) {
                         add.setEnabled(true);
+                        rmv.setEnabled(false);
                         checkMessage.setText("");
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
@@ -313,8 +331,8 @@ public class Piattaforma extends JFrame {
                         checkMessage.setText("Disponibilità insufficiente");
                     }
                 } catch (ArrayIndexOutOfBoundsException o) {
-                    rowAdd = -1;
                     add.setEnabled(false);
+                    rowAdd = -1;
                 }
             }
 
@@ -354,7 +372,7 @@ public class Piattaforma extends JFrame {
     private JTable createTable() {
         DefaultTableModel dm = new DefaultTableModel();
         String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
-        dm.setDataVector(gs.getString(), column);
+        dm.setDataVector(gs.getCart(), column);
         JTable table = new JTable(dm);
         //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
         //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
@@ -369,13 +387,13 @@ public class Piattaforma extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
-                    add.setEnabled(false);
                     rmv.setEnabled(true);
+                    add.setEnabled(false);
+                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
                     idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
-                    rowRmv = -1;
                     rmv.setEnabled(false);
+                    rowRmv = -1;
                 }
             }
 
@@ -400,6 +418,25 @@ public class Piattaforma extends JFrame {
         //table.setRowHeight(30);
         table.setDefaultEditor(Object.class, null);
         return table;
+    }
+
+
+    public void updateTable(ArrayList<AbstractComponent> arr) {
+        if (arr == null) {
+            JOptionPane.showMessageDialog(this, "Errore lettura componenti.", "Errore", JOptionPane.ERROR_MESSAGE);
+            panels[index].removeAll();
+            components.setEnabled(true);
+            return;
+        }
+        compTable = createTable(arr);
+        JScrollPane scroll = new JScrollPane(
+                compTable,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panels[index].removeAll();
+        panels[index].add(scroll);
+        panels[index].setLayout(new GridLayout());
+        components.setEnabled(true);
     }
 }
 
