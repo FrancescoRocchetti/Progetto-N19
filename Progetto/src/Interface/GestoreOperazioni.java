@@ -40,7 +40,7 @@ public class GestoreOperazioni {
                 String.valueOf(quantita),
                 String.valueOf(prezzo),
                 String.valueOf(valutazione)};
-        if (Validation.check(str)) {
+        if (checkValidation(str)) {
             mdb.write(componente, descrizione, quantita, prezzo, valutazione);
             modified = true;
             return true;
@@ -85,5 +85,9 @@ public class GestoreOperazioni {
             data[i][4] = abs.getPrice() + " €";
         }
         return data;
+    }
+
+    public boolean checkValidation(String[] str){
+        return Validation.check(str);
     }
 }
