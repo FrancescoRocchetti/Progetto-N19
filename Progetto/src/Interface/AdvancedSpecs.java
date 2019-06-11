@@ -14,7 +14,7 @@ public class AdvancedSpecs extends JFrame {
     private JPanel btnPanel;
 
     public AdvancedSpecs(PCParts part) {
-        super("Inserimento specifiche");
+        super(part.name());
         Container c = getContentPane();
         okBtn = new JButton("Conferma");
         cancBtn = new JButton("Annulla");
@@ -30,7 +30,7 @@ public class AdvancedSpecs extends JFrame {
 
         pack();
         setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(this);
         setVisible(true);
     }
@@ -43,15 +43,15 @@ public class AdvancedSpecs extends JFrame {
                 return panel;
             }
             case MOBO: {
-
+                panel = panelMOBO();
+                return panel;
             }
             default: return null;
         }
     }
 
     private JPanel panelCPU() {
-        JPanel p = new JPanel(new GridLayout(11, 2));
-        //nome, freq, core, thread, memtype, tdp, bit, gpu, socket, cooler
+        JPanel p = new JPanel(new GridLayout(10, 2));
         JLabel nome = new JLabel("Name:");
         JTextField name = new JTextField();
         JLabel freq = new JLabel("Frequency (GHz):");
@@ -70,10 +70,6 @@ public class AdvancedSpecs extends JFrame {
         ram.addItem("DDR2");
         ram.addItem("DDR3");
         ram.addItem("DDR4");
-        JLabel maxRam = new JLabel("Max RAM:");
-        SpinnerNumberModel spinnerRamModel = new SpinnerNumberModel(1, 1, 128, 1);
-        JSpinner max = new JSpinner(spinnerRamModel);
-        setSpinnerNotWritable(max);
         JLabel tdp = new JLabel("TDP:");
         SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,300,1);
         JSpinner power = new JSpinner(spinnerPowerModel);
@@ -89,11 +85,56 @@ public class AdvancedSpecs extends JFrame {
         JLabel cool = new JLabel("Cooler:");
         JCheckBox cooler = new JCheckBox();
 
-        Component[] cmp = {nome, name, freq, frequency, core, nCore, thrd, thread, memtype, ram, maxRam, max, tdp, power, bit, nBit, gpu, hasGpu, sock, socket, cool, cooler};
+        Component[] cmp = {nome, name, freq, frequency, core, nCore, thrd, thread, memtype, ram, tdp, power, bit, nBit, gpu, hasGpu, sock, socket, cool, cooler};
         hasGpu.setHorizontalAlignment(SwingConstants.RIGHT);
         cooler.setHorizontalAlignment(SwingConstants.RIGHT);
         addCmp(cmp, p);
-        
+
+        return p;
+    }
+
+    private JPanel panelMOBO() {
+        // nome, cpusocket, nbanchi, modelloram, npcie16, npcie, dimensione, nsata, w
+        JPanel p = new JPanel();
+        JLabel nome = new JLabel("Name:");
+        JTextField name = new JTextField();
+        JLabel sock = new JLabel("Socket:");
+        JTextField socket = new JTextField();
+        JLabel banchi = new JLabel("Slot RAM:");
+        JComboBox nBanchi = new JComboBox();
+        nBanchi.addItem("2");
+        nBanchi.addItem("4");
+        nBanchi.addItem("8");
+        JLabel memtype = new JLabel("RAM type:");
+        JComboBox ram = new JComboBox();
+        ram.addItem("DDR2");
+        ram.addItem("DDR3");
+        ram.addItem("DDR4");
+        JLabel pciE16 = new JLabel("Slot PCIE16x:");
+        SpinnerNumberModel spinnerPCIE16Model = new SpinnerNumberModel(1,1,null,1);
+        JSpinner nPci16 = new JSpinner(spinnerPCIE16Model);
+        setSpinnerNotWritable(nPci16);
+        JLabel pciE = new JLabel("Slot PCIE:");
+        SpinnerNumberModel spinnerPCIEModel = new SpinnerNumberModel(1,1,null,1);
+        JSpinner nPciE = new JSpinner(spinnerPCIEModel);
+        setSpinnerNotWritable(nPciE);
+        JLabel dim = new JLabel("Dimension:");
+        JComboBox dimension = new JComboBox();
+        ram.addItem("ATX");
+        ram.addItem("Micro-ATX");
+        ram.addItem("Mini-ITX");
+        JLabel sata = new JLabel("Slot SATA:");
+        SpinnerNumberModel spinnerSataModel = new SpinnerNumberModel(1,1,6,1);
+        JSpinner nSata = new JSpinner(spinnerSataModel);
+        setSpinnerNotWritable(nSata);
+        JLabel watt = new JLabel("Power:");
+        SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,null,1);
+        JSpinner power = new JSpinner(spinnerPowerModel);
+        setSpinnerNotWritable(power);
+
+        Component[] cmp = {nome, name, sock, socket, banchi, nBanchi, memtype, ram, pciE16, nPci16, pciE, nPciE, dim, dimension, sata, nSata, watt, power};
+        addCmp(cmp, p);
+
         return p;
     }
 

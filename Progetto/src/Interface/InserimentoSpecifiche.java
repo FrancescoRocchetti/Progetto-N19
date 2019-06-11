@@ -181,7 +181,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         advanced.addActionListener(e -> {
-
+            AdvancedSpecs adv = new AdvancedSpecs((PCParts) componente.getSelectedItem());
         });
 
         data.add(component);
