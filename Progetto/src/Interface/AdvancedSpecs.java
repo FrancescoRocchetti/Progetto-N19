@@ -139,7 +139,6 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelGPU(){
-        //NOME_GB_WATT
         JPanel p = new JPanel(new GridLayout(3, 2));
         JLabel nome = new JLabel("Name:");
         JTextField name = new JTextField();
