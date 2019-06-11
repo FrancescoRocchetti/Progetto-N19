@@ -5,6 +5,8 @@ import InterfacingDB.PCParts;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdvancedSpecs extends JFrame {
     private JButton okBtn;
@@ -173,6 +175,11 @@ public class AdvancedSpecs extends JFrame {
 
         Component[] cmp = {nome, name, capacity, cap, watt, nWatt};
         addCmp(cmp, p);
+
+        okBtn.addActionListener(e -> {
+            String s = name.getText()+"_"+cap.getDouble()+"_"+nWatt.getValue();
+            System.out.println(s);
+        });
 
         return p;
     }
