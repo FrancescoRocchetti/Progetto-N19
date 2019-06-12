@@ -16,9 +16,9 @@ public class Reader {
 
 
     public Reader() {
-        url = "jdbc:mysql://34.65.95.40:3306/Progetto";
-        user = "utente";
-        password = "prova";
+        url = "jdbc:mysql://37.59.55.185:3306/ViPqoAojwM";
+        user = "ViPqoAojwM";
+        password = "dmHj8vdaCo";
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp){
