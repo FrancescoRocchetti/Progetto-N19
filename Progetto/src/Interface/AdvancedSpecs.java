@@ -126,23 +126,17 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            String s;
-            String t;
-            if(hasGpu.isSelected() && cooler.isSelected()) {
+            String s = "N";
+            String t = "N";
+
+            if(hasGpu.isSelected())
                 s = "Y";
+            if (cooler.isSelected())
                 t = "Y";
-            } else if(!hasGpu.isSelected() && cooler.isSelected()) {
-                s = "N";
-                t = "Y";
-            } else if(hasGpu.isSelected() && !cooler.isSelected()) {
-                s = "Y";
-                t = "N";
-            } else {
-                s = "N";
-                t = "N";
-            }
+
             s = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" + ram.getSelectedItem() + "_" + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -192,6 +186,7 @@ public class AdvancedSpecs extends JFrame {
         okBtn.addActionListener(e -> {
             s = name.getText() + "_" + socket.getText() + "_" + nBanchi.getSelectedItem() + "_" + ram.getSelectedItem() + "_" + nPci16.getValue() + "_" + nPciE.getValue() + "_" + dimension.getSelectedItem() + "_" + nSata.getValue() + "_" + power.getValue();
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -215,6 +210,7 @@ public class AdvancedSpecs extends JFrame {
         okBtn.addActionListener(e -> {
             s = name.getText()+ "_" + cap.getDouble() + "_" + power.getValue();
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -238,6 +234,7 @@ public class AdvancedSpecs extends JFrame {
                 isLiquid = "N";
             s = name.getText() + "_" + isLiquid;
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -288,6 +285,7 @@ public class AdvancedSpecs extends JFrame {
         okBtn.addActionListener(e -> {
             s = name.getText() + "_" + power.getValue() + "_" + ram.getSelectedItem() + "_" + dimension.getSelectedItem() + "_" + frequency.getSelectedItem() + "_" + modules.getSelectedItem();
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -321,6 +319,7 @@ public class AdvancedSpecs extends JFrame {
         okBtn.addActionListener(e -> {
             s = name.getText() + "_" + power.getValue() + "_" + dimension.getSelectedItem() + "_" + certification.getSelectedItem();
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -336,11 +335,11 @@ public class AdvancedSpecs extends JFrame {
         dim.addItem("3.5");
         JLabel dimensione = new JLabel("Storage (GB):");
         JComboBox storage = new JComboBox();
-        storage.addItem("120");
-        storage.addItem("250");
-        storage.addItem("480");
-        storage.addItem("1000");
-        storage.addItem("2000");
+        storage.addItem("128");
+        storage.addItem("256");
+        storage.addItem("512");
+        storage.addItem("1024");
+        storage.addItem("2048");
         watt = new JLabel("Watt:");
         SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
         power = new JSpinner(spinnerWattModel);
@@ -352,6 +351,7 @@ public class AdvancedSpecs extends JFrame {
         okBtn.addActionListener(e -> {
             s = name.getText() + "_" + dim.getSelectedItem() + "_" + storage.getSelectedItem() + "_" + power.getValue();
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -359,6 +359,10 @@ public class AdvancedSpecs extends JFrame {
 
     private JPanel panelCASE() {
         p = new JPanel(new GridLayout());
+
+        okBtn.addActionListener(e -> {
+            dispose();
+        });
 
         return p;
     }
@@ -378,6 +382,7 @@ public class AdvancedSpecs extends JFrame {
         okBtn.addActionListener(e -> {
             s = name.getText() + "_" + nBit.getSelectedItem();
             System.out.println(s);
+            dispose();
         });
 
         return p;
@@ -396,6 +401,7 @@ public class AdvancedSpecs extends JFrame {
         okBtn.addActionListener(e -> {
             s = name.getText() + "_" + description.getText();
             System.out.println(s);
+            dispose();
         });
 
         return p;
