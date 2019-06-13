@@ -14,16 +14,18 @@ public class GestoreScelte implements ObserverGS{
     private SelectedComponents scp;
     private ActiveComponents ac;
     private Piattaforma p;
+    private ThreadInventory t;
 
     public GestoreScelte(Piattaforma p) {
         scp = new SelectedComponents();
         ac = new ActiveComponents();
+        t = new ThreadInventory(this);
+        t.start();
         this.p = p;
     }
 
     public void obtainParts(PCParts comp) {
-        ThreadInventory t = new ThreadInventory(this, comp);
-        t.start();
+        t.getListOf(comp);
     }
 
     public void addComp(int id) {

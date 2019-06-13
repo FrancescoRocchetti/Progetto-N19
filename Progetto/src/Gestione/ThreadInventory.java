@@ -12,22 +12,45 @@ public class ThreadInventory extends Thread{
     private ManagerDB mdb;
     private ObserverGS gs;
     private PCParts part;
+    private boolean accept;
 
-    public ThreadInventory(ObserverGS gs, PCParts part) {
+    public ThreadInventory(ObserverGS gs) {
         mdb = new ManagerDB();
+        this.accept = true;
         this.gs = gs;
+    }
+
+    public synchronized void getListOf(PCParts part) {
         this.part = part;
+        accept = false;
+        notify();
     }
 
     @Override
     public void run() {
-        try{
-            if(!CheckInternet.check())
-                throw new NoInternetException("");
-            ArrayList<AbstractComponent> arr = AdaptabilityConstraint.check(mdb.read(part), ((GestoreScelte)gs).getScp());
-            gs.update(arr);
-        } catch(Exception e){
-            gs.update(null);
+        while(true) {
+            try {
+                checkAccept();
+                accept = false;
+                if (!CheckInternet.check())
+                    throw new NoInternetException("");
+                ArrayList<AbstractComponent> arr = AdaptabilityConstraint.check(mdb.read(part), ((GestoreScelte) gs).getScp());
+                gs.update(arr);
+                accept = true;
+            } catch (Exception e) {
+                gs.update(null);
+                accept = true;
+            }
+        }
+    }
+
+    private synchronized void checkAccept(){
+        while(accept){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
