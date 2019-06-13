@@ -177,7 +177,7 @@ public class InserimentoSpecifiche extends JFrame {
             Reader reading = new Reader();
             ArrayList<AbstractComponent> components;
             String s = "";
-            new CompList(this, go);
+            new CompList(this, getString());
         });
 
         advanced.addActionListener(e -> {
@@ -256,6 +256,25 @@ public class InserimentoSpecifiche extends JFrame {
     private void setSpinnerNotWritable(JSpinner spinner) {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
+    }
+
+    public Object[][] getString() {
+        ArrayList<AbstractComponent> comp = go.read(null);
+        if (comp == null) {
+            return null;
+        }
+        String[][] data = new String[comp.size()][];
+        AbstractComponent abs;
+        for (int i = 0; i < comp.size(); i++) {
+            data[i] = new String[5];
+            abs = comp.get(i);
+            data[i][0] = String.valueOf(abs.getID());
+            data[i][1] = abs.getType();
+            data[i][2] = abs.getName();
+            data[i][3] = String.valueOf(abs.getQuantity());
+            data[i][4] = abs.getPrice() + " €";
+        }
+        return data;
     }
 
     /*public static void main(String[] args) {

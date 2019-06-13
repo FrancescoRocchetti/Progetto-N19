@@ -16,9 +16,8 @@ public class CompList extends JFrame {
     private Dimension dim;
     private GestoreOperazioni go;
 
-    public CompList(InserimentoSpecifiche ins, GestoreOperazioni go) {
+    public CompList(JFrame ins, Object[][] data) {
         super("Inventario");
-        this.go = go;
 
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -26,40 +25,55 @@ public class CompList extends JFrame {
         Container c = getContentPane();
         ins.setEnabled(false);
         ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        Object[][] data = getString();
         if (data == null) {
             JOptionPane.showMessageDialog(null, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
             dispose();
         }
         String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
         JTable table = new JTable(data, column);
-        table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(0).setPreferredWidth(40);
-        table.getColumnModel().getColumn(1).setPreferredWidth(55);
-        table.getColumnModel().getColumn(2).setPreferredWidth(250);
-        table.getColumnModel().getColumn(3).setPreferredWidth(80);
-        table.getColumnModel().getColumn(4).setPreferredWidth(70);
+        int[] arr = {40,55,250,80,70};
+        for(int i = 0; i < 5; i++){
+            table.getColumnModel().getColumn(i).setPreferredWidth(arr[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.getTableHeader().setReorderingAllowed(false);
+        table.setDefaultEditor(Object.class, null);
         JScrollPane sp = new JScrollPane(table);
         JPanel panel = new JPanel();
         JButton btn = new JButton("Ok");
         panel.add(sp);
         c.setLayout(new BorderLayout());
         c.add(sp, BorderLayout.CENTER);
-        c.add(btn, BorderLayout.SOUTH);
+
+        if(ins instanceof Piattaforma){
+            go = new GestoreOperazioni();
+            JLabel label = new JLabel("Sicuro di voler effettuare questo ordine?");
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            JButton btnCancel = new JButton("Annulla");
+            JPanel pnBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            btn.setText("Conferma");
+            pnBtn.add(btn);
+            pnBtn.add(btnCancel);
+            c.add(label, BorderLayout.NORTH);
+            c.add(pnBtn, BorderLayout.SOUTH);
+
+            btnCancel.addActionListener(e -> {
+                dispose();
+            });
+        }
+        else {
+            c.add(btn, BorderLayout.SOUTH);
+            btn.addActionListener(e -> {
+                dispose();
+            });
+        }
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         pack();
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
-
-        btn.addActionListener(e -> {
-            ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            ins.setEnabled(true);
-            CompList.super.dispose();
-        });
 
         addWindowListener(new WindowListener() {
             @Override
@@ -72,7 +86,8 @@ public class CompList extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                if(ins instanceof Piattaforma) ins.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                else ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 ins.setEnabled(true);
             }
 

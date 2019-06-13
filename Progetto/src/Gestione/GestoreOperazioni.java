@@ -9,17 +9,20 @@ import java.util.ArrayList;
 
 import Components.AbstractComponent;
 
-public class GestoreOperazioni {
+public class GestoreOperazioni implements ObserverGS{
     private boolean modified;
     private boolean loggedIn;
     private ManagerDB mdb;
     private String descrizione;
+    //private ThreadInventory t;
 
-    public GestoreOperazioni() {
+    public GestoreOperazioni(){
         modified = false;
         loggedIn = false;
         mdb = new ManagerDB();
         descrizione = null;
+        /*t = new ThreadInventory(this);
+        t.start();*/
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp){
@@ -85,5 +88,10 @@ public class GestoreOperazioni {
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    @Override
+    public void update(ArrayList<AbstractComponent> arr) {
+
     }
 }

@@ -129,6 +129,7 @@ public class Piattaforma extends JFrame{
         logAdmin = new JMenuItem("Login as administrator");
         recharge = new JMenuItem("Refresh inventory");
         getAutoConfig = new JMenuItem("Start");
+        confirmConfigListener(confirmConfig);
 
         // Aggiunta componenti
         file.add(newConfig);
@@ -224,7 +225,7 @@ public class Piattaforma extends JFrame{
 
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
-
+            CompList c = new CompList(this, getCart());
         });
     }
 
