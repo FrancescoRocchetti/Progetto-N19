@@ -70,8 +70,6 @@ public class Piattaforma extends JFrame{
         super("Configuratore di PC");
         gs = new GestoreScelte(this);
 
-        //Loading l = new Loading();
-
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
 
@@ -121,7 +119,6 @@ public class Piattaforma extends JFrame{
         checkMessage.setBackground(Color.LIGHT_GRAY);
         noBudgetConfig = new JButton("Configuration without budget");
         budgetConfig = new JButton("Configuration with budget");
-        //checkMessage.setText("Compatibilità delle componenti");
         checkMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         menuBar = new JMenuBar();
         file = new JMenu("File");
@@ -192,13 +189,9 @@ public class Piattaforma extends JFrame{
         newConfigListener();
         rechargeListener();
         exitListener();
-        /*
-        if (!gs.checkInternet()) {
-            JOptionPane.showMessageDialog(this, "Impossibile stabilire una connessione a Internet.", "Errore", JOptionPane.ERROR_MESSAGE);
-        } else*/ obtainParts(components.getSelectedIndex());
 
-        // Opzioni frame
-        //setBackground(Color.BLACK);
+        obtainParts(components.getSelectedIndex());
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 500);
         setResizable(false);
@@ -244,7 +237,6 @@ public class Piattaforma extends JFrame{
 
     private void noBudgetConfigListener(JButton btn) {
         btn.addActionListener(e -> {
-
         });
     }
 
@@ -252,7 +244,7 @@ public class Piattaforma extends JFrame{
         btn.addActionListener(e -> {
             rmv.setEnabled(false);
             addComp(idAdd);
-            Object[][] data = gs.getCart();
+            Object[][] data = getCart();
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
             model.setRowCount(0);
             for (Object[] str : data) {
@@ -327,6 +319,95 @@ public class Piattaforma extends JFrame{
 
         dm.setDataVector(data, column);
         JTable table = new JTable(dm);
+        addListTableMouseListener(table);
+
+        int[] dim = {15, 250, 15, 15, 15};
+        for (int i = 0; i < dim.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(20);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+    private JTable createTable() {
+        DefaultTableModel dm = new DefaultTableModel();
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÀ", "PREZZO"};
+        dm.setDataVector(getCart(), column);
+        JTable table = new JTable(dm);
+        TableColumn col = table.getColumnModel().getColumn(3);
+        table.removeColumn(col);
+
+        int[] dim = {1, 7, 110, 5};
+        for (int i = 0; i < dim.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
+
+        addCartTableMouseListener(table);
+
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+
+    public void updateListTable(ArrayList<AbstractComponent> arr) {
+        if (arr == null) {
+            JOptionPane.showMessageDialog(this, "Errore lettura componenti.", "Errore", JOptionPane.ERROR_MESSAGE);
+            panels[index].removeAll();
+            components.setEnabled(true);
+            return;
+        }
+        compTable = createTable(arr);
+        JScrollPane scroll = new JScrollPane(
+                compTable,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panels[index].removeAll();
+        panels[index].add(scroll);
+        panels[index].setLayout(new GridLayout());
+        components.setEnabled(true);
+    }
+
+    private void addCartTableMouseListener(JTable table){
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    rmv.setEnabled(true);
+                    add.setEnabled(false);
+                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
+                    idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
+                } catch (ArrayIndexOutOfBoundsException o) {
+                    rmv.setEnabled(false);
+                    rowRmv = -1;
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+    }
+
+    private void addListTableMouseListener(JTable table){
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -364,94 +445,25 @@ public class Piattaforma extends JFrame{
 
             }
         });
-
-        //tableMouseListener(table);
-        //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
-        //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
-
-        int[] dim = {15, 250, 15, 15, 15};
-        for (int i = 0; i < dim.length; i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
-            table.getColumnModel().getColumn(i).setResizable(false);
-        }
-        table.getTableHeader().setReorderingAllowed(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setRowHeight(20);
-        table.setDefaultEditor(Object.class, null);
-        return table;
     }
 
-    private JTable createTable() {
-        DefaultTableModel dm = new DefaultTableModel();
-        String[] column = {"ID", "TIPO", "NOME", "QUANTITÀ", "PREZZO"};
-        dm.setDataVector(gs.getCart(), column);
-        JTable table = new JTable(dm);
-        TableColumn col = table.getColumnModel().getColumn(3);
-        table.removeColumn(col);
-        //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
-        //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
-
-        int[] dim = {1, 7, 110, 5};
-        for (int i = 0; i < dim.length; i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
-            table.getColumnModel().getColumn(i).setResizable(false);
+    public Object[][] getCart() {
+        ArrayList<AbstractComponent> comp = gs.getSelectedComponents();
+        if (comp == null) {
+            return null;
         }
-        //tableMouseListener(table);
-        table.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    rmv.setEnabled(true);
-                    add.setEnabled(false);
-                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
-                    idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
-                } catch (ArrayIndexOutOfBoundsException o) {
-                    rmv.setEnabled(false);
-                    rowRmv = -1;
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        table.getTableHeader().setReorderingAllowed(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //table.setRowHeight(30);
-        table.setDefaultEditor(Object.class, null);
-        return table;
-    }
-
-
-    public void updateTable(ArrayList<AbstractComponent> arr) {
-        if (arr == null) {
-            JOptionPane.showMessageDialog(this, "Errore lettura componenti.", "Errore", JOptionPane.ERROR_MESSAGE);
-            panels[index].removeAll();
-            components.setEnabled(true);
-            return;
+        Object[][] data = new Object[comp.size()][];
+        AbstractComponent abs;
+        for (int i = 0; i < comp.size(); i++) {
+            data[i] = new Object[5];
+            abs = comp.get(i);
+            data[i][0] = abs.getID();
+            data[i][1] = abs.getType();
+            data[i][2] = abs.getName();
+            data[i][3] = abs.getQuantity();
+            data[i][4] = abs.getPrice() + " €";
         }
-        compTable = createTable(arr);
-        JScrollPane scroll = new JScrollPane(
-                compTable,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        panels[index].removeAll();
-        panels[index].add(scroll);
-        panels[index].setLayout(new GridLayout());
-        components.setEnabled(true);
-        //checkMessage.setText(gs.getWarning());
+        return data;
     }
 }
 

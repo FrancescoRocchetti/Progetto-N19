@@ -21,6 +21,10 @@ public class GestoreOperazioni {
         p.setVisible(false);
     }
 
+    public ArrayList<AbstractComponent> read(PCParts comp){
+        return mdb.read(comp);
+    }
+
     public void unlockPlatform() {
         p.setVisible(true);
         if (modified)

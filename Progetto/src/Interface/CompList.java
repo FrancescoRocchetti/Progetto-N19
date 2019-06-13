@@ -1,19 +1,25 @@
 package Interface;
 
+import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
+import InterfacingDB.PCParts;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 public class CompList extends JFrame {
 
     private Toolkit kit;
     private Dimension dim;
+    private GestoreOperazioni go;
 
     public CompList(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Inventario");
+        this.go = go;
+
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
 
@@ -32,8 +38,9 @@ public class CompList extends JFrame {
         table.getColumnModel().getColumn(1).setPreferredWidth(55);
         table.getColumnModel().getColumn(2).setPreferredWidth(250);
         table.getColumnModel().getColumn(3).setPreferredWidth(80);
-        table.getColumnModel().getColumn(4).setPreferredWidth(50);
+        table.getColumnModel().getColumn(4).setPreferredWidth(70);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.getTableHeader().setReorderingAllowed(false);
         JScrollPane sp = new JScrollPane(table);
         JPanel panel = new JPanel();
         JButton btn = new JButton("Ok");
@@ -85,5 +92,24 @@ public class CompList extends JFrame {
             public void windowDeactivated(WindowEvent e) {
             }
         });
+    }
+
+    public String[][] getString() {
+        ArrayList<AbstractComponent> comp = go.read(null);
+        if (comp == null) {
+            return null;
+        }
+        String[][] data = new String[comp.size()][];
+        AbstractComponent abs;
+        for (int i = 0; i < comp.size(); i++) {
+            data[i] = new String[5];
+            abs = comp.get(i);
+            data[i][0] = String.valueOf(abs.getID());
+            data[i][1] = abs.getType();
+            data[i][2] = abs.getName();
+            data[i][3] = String.valueOf(abs.getQuantity());
+            data[i][4] = abs.getPrice() + " €";
+        }
+        return data;
     }
 }

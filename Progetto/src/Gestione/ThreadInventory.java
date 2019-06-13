@@ -50,6 +50,7 @@ public class ThreadInventory extends Thread{
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                System.exit(10);
             }
         }
     }
