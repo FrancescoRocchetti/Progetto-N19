@@ -39,6 +39,8 @@ public class AdvancedSpecs extends JFrame {
 
         c.add(bckg);
 
+        cancBtnListener(cancBtn);
+
         pack();
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -411,5 +413,9 @@ public class AdvancedSpecs extends JFrame {
     private void addCmp(Component[] arr, JPanel pan) {
         for(Component c : arr)
             pan.add(c);
+    }
+
+    private void cancBtnListener(JButton btn) {
+        btn.addActionListener(e -> dispose());
     }
 }
