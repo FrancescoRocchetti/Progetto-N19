@@ -14,13 +14,13 @@ public class Login extends JFrame {
     private Toolkit kit;
     private Dimension dim;
     private GestoreOperazioni go;
-    private boolean set;
+    private boolean loggedIn;
 
     public Login(Piattaforma p) {
         super("Login");
-        set = false;
-        go = new GestoreOperazioni(p);
-        p.setVisible(true);
+        loggedIn = false;
+        go = new GestoreOperazioni();
+        p.setVisible(false);
         Container c = getContentPane();
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -50,9 +50,8 @@ public class Login extends JFrame {
             if (!go.accessToDB(username.getText(), String.valueOf(password.getPassword())))
                 JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
             else {
-                set = true;
+                InserimentoSpecifiche ins = new InserimentoSpecifiche(p, go, username.getText());
                 dispose();
-                p.setVisible(false);
             }
         };
 
@@ -76,7 +75,7 @@ public class Login extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                if (!set) go.unlockPlatform();
+                if (!go.isLoggedIn()) p.setVisible(true);
             }
 
             @Override

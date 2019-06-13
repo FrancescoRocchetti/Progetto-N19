@@ -464,12 +464,6 @@ public class AdvancedSpecs extends JFrame {
         return p;
     }
 
-    public static void main(String[] args) {
-        GestoreOperazioni go = new GestoreOperazioni(new Piattaforma());
-        AdvancedSpecs a = new AdvancedSpecs(PCParts.CASE,
-                go, new InserimentoSpecifiche(go,"prova"));
-    }
-
     private void setSpinnerNotWritable(JSpinner spinner) {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);

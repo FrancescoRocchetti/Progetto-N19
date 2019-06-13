@@ -11,31 +11,24 @@ import Components.AbstractComponent;
 
 public class GestoreOperazioni {
     private boolean modified;
-    private Piattaforma p;
+    private boolean loggedIn;
     private ManagerDB mdb;
     private String descrizione;
 
-    public GestoreOperazioni(Piattaforma p) {
+    public GestoreOperazioni() {
         modified = false;
-        this.p = p;
+        loggedIn = false;
         mdb = new ManagerDB();
         descrizione = null;
-        p.setVisible(false);
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp){
         return mdb.read(comp);
     }
 
-    public void unlockPlatform() {
-        p.setVisible(true);
-        if (modified)
-            p.refresh();
-    }
-
     public boolean accessToDB(String username, String password) {
         if (mdb.login(username, password)) {
-            InserimentoSpecifiche ins = new InserimentoSpecifiche(this, username);
+            loggedIn = true;
             return true;
         }
         return false;
@@ -84,5 +77,13 @@ public class GestoreOperazioni {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public boolean isModified() {
+        return modified;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
     }
 }

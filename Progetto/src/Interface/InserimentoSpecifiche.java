@@ -53,7 +53,7 @@ public class InserimentoSpecifiche extends JFrame {
     private final static int QTA = 99;
     private GestoreOperazioni go;
 
-    public InserimentoSpecifiche(GestoreOperazioni go, String user) {
+    public InserimentoSpecifiche(Piattaforma p, GestoreOperazioni go, String user) {
         super("Pagina admin");
         this.go = go;
         kit = Toolkit.getDefaultToolkit();
@@ -224,7 +224,9 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                go.unlockPlatform();
+                p.setVisible(true);
+                if (go.isModified())
+                    p.refresh();
             }
 
             @Override

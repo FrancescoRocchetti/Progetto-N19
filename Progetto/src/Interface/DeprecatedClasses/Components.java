@@ -119,7 +119,4 @@ public class Components extends JFrame {
         });
     }*/
 
-    public static void main(String[] args) {
-        new Components(null, new GestoreOperazioni(null));
-    }
 }
