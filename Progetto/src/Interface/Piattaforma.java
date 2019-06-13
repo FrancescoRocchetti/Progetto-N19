@@ -7,6 +7,7 @@ import InterfacingDB.PCParts;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -199,7 +200,7 @@ public class Piattaforma extends JFrame{
         // Opzioni frame
         //setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1080, 500);
+        setSize(1000, 500);
         setResizable(false);
         setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         setVisible(true);
@@ -226,6 +227,12 @@ public class Piattaforma extends JFrame{
         panels[index].add(panel);
         panels[index].setLayout(new GridLayout());
         gs.obtainParts(CMP[index]);
+    }
+
+    private void confirmConfigListener(JButton btn) {
+        btn.addActionListener(e -> {
+
+        });
     }
 
     private void budgetConfigListener(JButton btn) {
@@ -376,13 +383,15 @@ public class Piattaforma extends JFrame{
 
     private JTable createTable() {
         DefaultTableModel dm = new DefaultTableModel();
-        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÀ", "PREZZO"};
         dm.setDataVector(gs.getCart(), column);
         JTable table = new JTable(dm);
+        TableColumn col = table.getColumnModel().getColumn(3);
+        table.removeColumn(col);
         //chooseTable.getColumn("ADD").setCellRenderer(new AddButtonColumn(chooseTable, 0, arr));
         //chooseTable.getColumn("REMOVE").setCellRenderer(new RemoveButtonColumn(chooseTable,1, arr));
 
-        int[] dim = {3, 7, 22, 23, 20};
+        int[] dim = {1, 7, 110, 5};
         for (int i = 0; i < dim.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
