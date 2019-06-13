@@ -1,6 +1,7 @@
 package Interface;
 
 import Components.AbstractComponent;
+import Constraints.ConsistencyConstraint;
 import Gestione.GestoreScelte;
 import InterfacingDB.PCParts;
 
@@ -225,7 +226,10 @@ public class Piattaforma extends JFrame{
 
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
-            CompList c = new CompList(this, getCart());
+            if(ConsistencyConstraint.checkRes(gs.getScp())) {
+                CompList c = new CompList(this, getCart());
+            } else
+                JOptionPane.showMessageDialog(this, "Non hai ancora inserito tutti i componenti necessari.", "Errore", JOptionPane.ERROR_MESSAGE);
         });
     }
 
@@ -281,14 +285,18 @@ public class Piattaforma extends JFrame{
 
     private void newConfigListener() {
         newConfig.addActionListener(e -> {
-            for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
-                ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
-            price.setText("0 €");
-            watt.setText("0 W");
-            rmv.setEnabled(false);
-            gs.newScp();
-            checkMessage.setText(gs.getWarning());
+            newConfiguration();
         });
+    }
+
+    public void newConfiguration(){
+        for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
+            ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
+        price.setText("0 €");
+        watt.setText("0 W");
+        rmv.setEnabled(false);
+        gs.newScp();
+        checkMessage.setText(gs.getWarning());
     }
 
     private void rechargeListener() {

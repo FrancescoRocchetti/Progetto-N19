@@ -7,8 +7,9 @@ import java.net.URL;
 import java.util.Random;
 
 public class Loading extends JFrame {
-    public Loading() {
+    public Loading(JFrame comp) {
         super("Caricamento...");
+
         Container c = getContentPane();
         URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
@@ -29,7 +30,6 @@ public class Loading extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(200, 200);
         setResizable(false);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        setLocationRelativeTo(comp);
     }
 }

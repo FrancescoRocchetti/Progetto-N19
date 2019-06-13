@@ -1,14 +1,11 @@
 package Interface;
 
-import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
-import InterfacingDB.PCParts;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
 
 public class CompList extends JFrame {
 
@@ -57,6 +54,19 @@ public class CompList extends JFrame {
             pnBtn.add(btnCancel);
             c.add(label, BorderLayout.NORTH);
             c.add(pnBtn, BorderLayout.SOUTH);
+
+            btn.addActionListener(e -> {
+                Loading l = new Loading(this);
+                int[] i = getCodesOfComps(data);
+                for(int cod : i){
+                    go.updateComponent(cod, -1);
+                }
+                l.dispose();
+                JOptionPane.showMessageDialog(this, "Acquisto effettuato con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
+                ((Piattaforma) ins).newConfiguration();
+                ((Piattaforma) ins).refresh();
+                dispose();
+            });
 
             btnCancel.addActionListener(e -> {
                 dispose();
@@ -107,5 +117,15 @@ public class CompList extends JFrame {
             public void windowDeactivated(WindowEvent e) {
             }
         });
+    }
+
+    private int[] getCodesOfComps(Object[][] obj){
+        int[] i = new int[obj.length];
+
+        for(int c = 0; c< obj.length; c++){
+            Object[] comp = obj[c];
+            i[c] = (int) comp[0];
+        }
+        return i;
     }
 }
