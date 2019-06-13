@@ -1,7 +1,7 @@
 package Interface;
 
 import Components.AbstractComponent;
-import Constraints.Warning;
+import Gestione.GestoreScelte;
 import InterfacingDB.PCParts;
 
 import javax.swing.*;
@@ -306,7 +306,7 @@ public class Piattaforma extends JFrame{
         exit.addActionListener(e -> System.exit(0));
     }
 
-    void refresh() {
+    public void refresh() {
         obtainParts(components.getSelectedIndex());
     }
 

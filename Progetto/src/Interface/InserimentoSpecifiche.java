@@ -1,6 +1,7 @@
 package Interface;
 
 import Components.AbstractComponent;
+import Gestione.GestoreOperazioni;
 import InterfacingDB.PCParts;
 import InterfacingDB.Reader;
 

@@ -1,5 +1,7 @@
 package Interface;
 
+import Gestione.GestoreOperazioni;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;

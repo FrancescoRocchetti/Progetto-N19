@@ -1,11 +1,12 @@
-package Interface;
+package Gestione;
 
 import Constraints.AdaptabilityConstraint;
 import Constraints.Warning;
+import Interface.ActiveComponents;
+import Interface.Piattaforma;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
-import Gestione.SelectedComponents;
 
 import java.util.ArrayList;
 

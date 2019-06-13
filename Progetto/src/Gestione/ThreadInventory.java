@@ -1,4 +1,4 @@
-package Interface;
+package Gestione;
 
 import Components.AbstractComponent;
 import Constraints.AdaptabilityConstraint;

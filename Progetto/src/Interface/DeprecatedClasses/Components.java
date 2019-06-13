@@ -1,6 +1,6 @@
 package Interface.DeprecatedClasses;
 
-import Interface.GestoreOperazioni;
+import Gestione.GestoreOperazioni;
 import Interface.InserimentoSpecifiche;
 import InterfacingDB.PCParts;
 

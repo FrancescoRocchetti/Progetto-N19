@@ -1,6 +1,8 @@
-package Interface;
+package Gestione;
 
 import Gestione.Validation;
+import Interface.InserimentoSpecifiche;
+import Interface.Piattaforma;
 import InterfacingDB.*;
 
 import java.util.ArrayList;

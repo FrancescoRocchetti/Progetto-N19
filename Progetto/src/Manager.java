@@ -1,4 +1,3 @@
-import Interface.GestoreScelte;
 import Interface.Piattaforma;
 
 public class Manager {

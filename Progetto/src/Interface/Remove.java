@@ -1,6 +1,7 @@
 package Interface;
 
 import Components.AbstractComponent;
+import Gestione.GestoreOperazioni;
 import InterfacingDB.PCParts;
 
 import javax.swing.*;
@@ -8,7 +9,6 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Remove extends JFrame {
