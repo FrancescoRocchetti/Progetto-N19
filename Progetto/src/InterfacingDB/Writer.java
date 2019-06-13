@@ -17,7 +17,7 @@ public class Writer {
     public boolean write(PCParts part, String d, int q, int p, int r){
         try{
             conn = DriverManager.getConnection(url, user, password);
-            String query = "INSERT INTO INVENTARIO (TIPO, DESCRIZIONE, QUANTITA, PREZZO, RANK)\n" +
+            String query = "INSERT INTO `INVENTARIO` (`TIPO`, `DESCRIZIONE`, `QUANTITA`, `PREZZO`, `RANK`) " +
                     "VALUES (?,?,?,?,?);";
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -33,6 +33,7 @@ public class Writer {
             return true;
         } catch (SQLException e) {
             forceClose();
+            System.err.println(e.getMessage());
             return false;
         }
     }

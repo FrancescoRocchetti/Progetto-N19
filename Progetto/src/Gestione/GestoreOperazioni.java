@@ -13,11 +13,13 @@ public class GestoreOperazioni {
     private boolean modified;
     private Piattaforma p;
     private ManagerDB mdb;
+    private String descrizione;
 
     public GestoreOperazioni(Piattaforma p) {
         modified = false;
         this.p = p;
         mdb = new ManagerDB();
+        descrizione = null;
         p.setVisible(false);
     }
 
@@ -39,17 +41,19 @@ public class GestoreOperazioni {
         return false;
     }
 
-    public boolean insertComponent(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
+    public boolean insertComponent(PCParts componente, int quantita, int prezzo, int valutazione) {
         String[] str = {"1",
                 componente.name().toUpperCase(),
                 descrizione,
                 String.valueOf(quantita),
                 String.valueOf(prezzo),
                 String.valueOf(valutazione)};
-        if (checkValidation(str)) {
-            mdb.write(componente, descrizione, quantita, prezzo, valutazione);
-            modified = true;
-            return true;
+        if (descrizione != null && checkValidation(str)) {
+            if(mdb.write(componente, descrizione, quantita, prezzo, valutazione)) {
+                modified = true;
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -74,26 +78,11 @@ public class GestoreOperazioni {
 
     }
 
-    public String[][] getString(PCParts part) {
-        ArrayList<AbstractComponent> comp = mdb.read(part);
-        if (comp == null) {
-            return null;
-        }
-        String[][] data = new String[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new String[5];
-            abs = comp.get(i);
-            data[i][0] = String.valueOf(abs.getID());
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = String.valueOf(abs.getQuantity());
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
-    }
-
     public boolean checkValidation(String[] str){
         return Validation.check(str);
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 }

@@ -26,7 +26,7 @@ public class CompList extends JFrame {
         Container c = getContentPane();
         ins.setEnabled(false);
         ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        String[][] data = go.getString(null);
+        Object[][] data = getString();
         if (data == null) {
             JOptionPane.showMessageDialog(null, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
             dispose();
@@ -94,7 +94,7 @@ public class CompList extends JFrame {
         });
     }
 
-    public String[][] getString() {
+    public Object[][] getString() {
         ArrayList<AbstractComponent> comp = go.read(null);
         if (comp == null) {
             return null;

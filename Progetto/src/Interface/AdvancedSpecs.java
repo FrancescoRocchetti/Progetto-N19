@@ -3,9 +3,12 @@ package Interface;
 import Gestione.GestoreOperazioni;
 import InterfacingDB.PCParts;
 
+import javax.print.DocFlavor;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class AdvancedSpecs extends JFrame {
     private JButton okBtn;
@@ -21,8 +24,12 @@ public class AdvancedSpecs extends JFrame {
     private JSpinner power;
     private String s;
 
-    public AdvancedSpecs(PCParts part) {
+    public AdvancedSpecs(PCParts part, GestoreOperazioni go, InserimentoSpecifiche ins) {
         super(part.name());
+        go.setDescrizione(null);
+        ins.setEnabled(false);
+        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.go = go;
         Container c = getContentPane();
         JButton cancBtn;
         JPanel bckg;
@@ -41,6 +48,44 @@ public class AdvancedSpecs extends JFrame {
         c.add(bckg);
 
         cancBtnListener(cancBtn);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ins.setEnabled(true);
+                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         pack();
         setResizable(false);
@@ -95,12 +140,10 @@ public class AdvancedSpecs extends JFrame {
         setSpinnerNotWritable(frequency);
         JLabel core = new JLabel("Core:");
         SpinnerNumberModel spinnerCoreModel = new SpinnerNumberModel(1, 1, 18, 1);
-        JSpinner nCore = new JSpinner(spinnerCoreModel);
-        setSpinnerNotWritable(nCore);
+        JSpinner nCore = initializeSpinner(spinnerCoreModel);
         JLabel thrd = new JLabel("Thread:");
         SpinnerNumberModel spinnerThreadModel = new SpinnerNumberModel(1, 1, 36, 1);
-        JSpinner thread = new JSpinner(spinnerThreadModel);
-        setSpinnerNotWritable(thread);
+        JSpinner thread = initializeSpinner(spinnerThreadModel);
         JLabel memtype = new JLabel("RAM type:");
         JComboBox ram = new JComboBox();
         ram.addItem("DDR2");
@@ -108,8 +151,7 @@ public class AdvancedSpecs extends JFrame {
         ram.addItem("DDR4");
         watt = new JLabel("TDP:");
         SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,300,1);
-        power = new JSpinner(spinnerPowerModel);
-        setSpinnerNotWritable(power);
+        power = initializeSpinner(spinnerPowerModel);
         JLabel bit = new JLabel("Bit:");
         JComboBox nBit = new JComboBox();
         nBit.addItem("32");
@@ -127,17 +169,19 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            String s = "N";
-            String t = "N";
+            if(isEmpty(name.getText()) && isEmpty(socket.getText())){
+                String s = "N";
+                String t = "N";
 
-            if(hasGpu.isSelected())
-                s = "Y";
-            if (cooler.isSelected())
-                t = "Y";
+                if(hasGpu.isSelected())
+                    s = "Y";
+                if (cooler.isSelected())
+                    t = "Y";
 
-            s = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" + ram.getSelectedItem() + "_" + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
-            System.out.println(s);
-            dispose();
+                s = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" + ram.getSelectedItem() + "_" + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -160,34 +204,32 @@ public class AdvancedSpecs extends JFrame {
         ram.addItem("DDR3");
         ram.addItem("DDR4");
         JLabel pciE16 = new JLabel("Slot PCIE16x:");
-        SpinnerNumberModel spinnerPCIE16Model = new SpinnerNumberModel(1,1,null,1);
-        JSpinner nPci16 = new JSpinner(spinnerPCIE16Model);
-        setSpinnerNotWritable(nPci16);
+        SpinnerNumberModel spinnerPCIE16Model = new SpinnerNumberModel(1,0,null,1);
+        JSpinner nPci16 = initializeSpinner(spinnerPCIE16Model);
         JLabel pciE = new JLabel("Slot PCIE:");
-        SpinnerNumberModel spinnerPCIEModel = new SpinnerNumberModel(1,1,null,1);
-        JSpinner nPciE = new JSpinner(spinnerPCIEModel);
-        setSpinnerNotWritable(nPciE);
+        SpinnerNumberModel spinnerPCIEModel = new SpinnerNumberModel(1,0,null,1);
+        JSpinner nPciE = initializeSpinner(spinnerPCIEModel);
         JLabel dim = new JLabel("Dimension:");
         JComboBox dimension = new JComboBox();
-        dimension.addItem("ATX");
-        dimension.addItem("Micro-ATX");
-        dimension.addItem("Mini-ITX");
+        String[] str = {"EATX", "ATX", "MICROATX", "MINIITX"};
+        for(String i : str)
+            dimension.addItem(i);
         JLabel sata = new JLabel("Slot SATA:");
         SpinnerNumberModel spinnerSataModel = new SpinnerNumberModel(1,1,6,1);
-        JSpinner nSata = new JSpinner(spinnerSataModel);
-        setSpinnerNotWritable(nSata);
+        JSpinner nSata = initializeSpinner(spinnerSataModel);
         watt = new JLabel("Power:");
         SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,null,1);
-        power = new JSpinner(spinnerPowerModel);
-        setSpinnerNotWritable(power);
+        power = initializeSpinner(spinnerPowerModel);
 
         Component[] cmp = {nome, name, sock, socket, banchi, nBanchi, memtype, ram, pciE16, nPci16, pciE, nPciE, dim, dimension, sata, nSata, watt, power};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            s = name.getText() + "_" + socket.getText() + "_" + nBanchi.getSelectedItem() + "_" + ram.getSelectedItem() + "_" + nPci16.getValue() + "_" + nPciE.getValue() + "_" + dimension.getSelectedItem() + "_" + nSata.getValue() + "_" + power.getValue();
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())) {
+                s = name.getText() + "_" + socket.getText() + "_" + nBanchi.getSelectedItem() + "_" + ram.getSelectedItem() + "_" + nPci16.getValue() + "_" + nPciE.getValue() + "_" + dimension.getSelectedItem() + "_" + nSata.getValue() + "_" + power.getValue();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -202,16 +244,17 @@ public class AdvancedSpecs extends JFrame {
         setSpinnerNotWritable(cap);
         watt = new JLabel("TDP:");
         SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
-        power = new JSpinner(spinnerWattModel);
-        setSpinnerNotWritable(power);
+        power = initializeSpinner(spinnerWattModel);
 
         Component[] cmp = {nome, name, capacity, cap, watt, power};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            s = name.getText()+ "_" + cap.getDouble() + "_" + power.getValue();
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())) {
+                s = name.getText() + "_" + cap.getDouble() + "_" + power.getValue();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -228,12 +271,14 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            String isLiquid = "N";
-            if(liquid.isSelected())
-                isLiquid = "Y";
-            s = name.getText() + "_" + isLiquid;
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())) {
+                String isLiquid = "N";
+                if (liquid.isSelected())
+                    isLiquid = "Y";
+                s = name.getText() + "_" + isLiquid;
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -271,9 +316,11 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            s = name.getText() + "_" + power.getValue() + "_" + ram.getSelectedItem() + "_" + dimension.getSelectedItem() + "_" + frequency.getSelectedItem() + "_" + modules.getSelectedItem();
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())) {
+                s = name.getText() + "_" + power.getValue() + "_" + ram.getSelectedItem() + "_" + dimension.getSelectedItem() + "_" + frequency.getSelectedItem() + "_" + modules.getSelectedItem();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -301,9 +348,11 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            s = name.getText() + "_" + power.getValue() + "_" + dimension.getSelectedItem() + "_" + certification.getSelectedItem();
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())){
+                s = name.getText() + "_" + power.getValue() + "_" + dimension.getSelectedItem() + "_" + certification.getSelectedItem();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -325,25 +374,47 @@ public class AdvancedSpecs extends JFrame {
         watt = new JLabel("Watt:");
         SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
         power = new JSpinner(spinnerWattModel);
-        setSpinnerNotWritable(power);
 
         Component[] cmp = {nome, name, size, dim, dimensione, storage, watt, power};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            s = name.getText() + "_" + dim.getSelectedItem() + "_" + storage.getSelectedItem() + "_" + power.getValue();
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())) {
+                s = name.getText() + "_" + dim.getSelectedItem() + "_" + storage.getSelectedItem() + "_" + power.getValue();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
     }
 
     private JPanel panelCASE() {
-        p = new JPanel(new GridLayout());
+        p = new JPanel(new GridLayout(4,2));
+        nome = new JLabel("Nome:");
+        name = new JTextField();
+        JLabel dimensione = new JLabel("Size:");
+        JComboBox dimension = new JComboBox();
+        String[] str = {"EATX", "ATX", "MICROATX", "MINIITX"};
+        for(String i : str)
+            dimension.addItem(i);
+        JLabel slot35 = new JLabel("# slot 3.5:");
+        SpinnerNumberModel spinnerNSlot35Model = new SpinnerNumberModel(1, 0, 20, 1);
+        JSpinner nSlot35 = initializeSpinner(spinnerNSlot35Model);
+        JLabel slot25 = new JLabel("# slot 2.5:");
+        SpinnerNumberModel spinnerNSlot25Model = new SpinnerNumberModel(1, 0, 20, 1);
+        JSpinner nSlot25 = initializeSpinner(spinnerNSlot25Model);
+
+        Component[] cmp = {nome, name, dimensione, dimension, slot35, nSlot35, slot25, nSlot25};
+
+        addCmp(cmp,p);
 
         okBtn.addActionListener(e -> {
-            dispose();
+            if(isEmpty(name.getText())) {
+                s = name.getText() + "_" + dimension.getSelectedItem()+"_"+nSlot35.getValue()+"_"+nSlot25.getValue();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -362,9 +433,11 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            s = name.getText() + "_" + nBit.getSelectedItem();
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())) {
+                s = name.getText() + "_" + nBit.getSelectedItem();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
@@ -381,16 +454,20 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            s = name.getText() + "_" + description.getText();
-            System.out.println(s);
-            dispose();
+            if(isEmpty(name.getText())) {
+                s = name.getText() + "_" + description.getText();
+                go.setDescrizione(s);
+                dispose();
+            }
         });
 
         return p;
     }
 
     public static void main(String[] args) {
-        AdvancedSpecs a = new AdvancedSpecs(PCParts.ALTRO);
+        GestoreOperazioni go = new GestoreOperazioni(new Piattaforma());
+        AdvancedSpecs a = new AdvancedSpecs(PCParts.CASE,
+                go, new InserimentoSpecifiche(go,"prova"));
     }
 
     private void setSpinnerNotWritable(JSpinner spinner) {
@@ -405,5 +482,20 @@ public class AdvancedSpecs extends JFrame {
 
     private void cancBtnListener(JButton btn) {
         btn.addActionListener(e -> dispose());
+    }
+
+    private JSpinner initializeSpinner(SpinnerNumberModel model){
+        JSpinner s = new JSpinner(model);
+        setSpinnerNotWritable(s);
+        return s;
+    }
+
+    private boolean isEmpty(String name){
+        if (!name.equals(""))
+            return true;
+        else {
+            JOptionPane.showMessageDialog(this, "Controlla di aver inserito tutto", "Errore", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 }

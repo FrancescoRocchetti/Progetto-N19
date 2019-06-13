@@ -154,15 +154,14 @@ public class InserimentoSpecifiche extends JFrame {
             // codice per la scrittura su DB
             if (go.insertComponent(
                     (PCParts) componente.getSelectedItem(),
-                    descrizione.getText().toUpperCase(),
                     (int) quantita.getValue(),
                     (int) prezzo.getValue(),
                     (int) valutazione.getValue())) {
                 Object[] options = {"YES", "NO"};
-                int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
+                int inserimento = JOptionPane.showOptionDialog(this, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
                 if (inserimento == 0) {
                     componente.setSelectedItem(PCParts.CASE);
-                    descrizione.setText("");
+                    go.setDescrizione(null);
                     quantita.setValue(1);
                     prezzo.setValue(1);
                     valutazione.setValue(1);
@@ -182,7 +181,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         advanced.addActionListener(e -> {
-            AdvancedSpecs adv = new AdvancedSpecs((PCParts) componente.getSelectedItem());
+            AdvancedSpecs adv = new AdvancedSpecs((PCParts) componente.getSelectedItem(),go,this);
         });
 
         data.add(component);
