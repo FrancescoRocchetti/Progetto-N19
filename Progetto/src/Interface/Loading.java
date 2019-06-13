@@ -31,5 +31,6 @@ public class Loading extends JFrame {
         setSize(200, 200);
         setResizable(false);
         setLocationRelativeTo(comp);
+        setVisible(true);
     }
 }
