@@ -9,10 +9,7 @@ import java.awt.*;
 
 public class AdvancedSpecs extends JFrame {
     private JButton okBtn;
-    private JButton cancBtn;
-    private JPanel bckg;
-    private JPanel compPanel;
-    private JPanel btnPanel;
+
     private GestoreOperazioni go;
 
     private JPanel p;
@@ -27,6 +24,10 @@ public class AdvancedSpecs extends JFrame {
     public AdvancedSpecs(PCParts part) {
         super(part.name());
         Container c = getContentPane();
+        JButton cancBtn;
+        JPanel bckg;
+        JPanel compPanel;
+        JPanel btnPanel;
         okBtn = new JButton("Conferma");
         cancBtn = new JButton("Annulla");
         bckg = new JPanel(new BorderLayout());
@@ -227,11 +228,9 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            String isLiquid;
+            String isLiquid = "N";
             if(liquid.isSelected())
                 isLiquid = "Y";
-            else
-                isLiquid = "N";
             s = name.getText() + "_" + isLiquid;
             System.out.println(s);
             dispose();
@@ -250,34 +249,23 @@ public class AdvancedSpecs extends JFrame {
         setSpinnerNotWritable(power);
         JLabel memtype = new JLabel("RAM type:");
         JComboBox ram = new JComboBox();
-        ram.addItem("DDR2");
-        ram.addItem("DDR3");
-        ram.addItem("DDR4");
+        String[] type = {"DDR2", "DDR3", "DDR4"};
+        for(String s : type)
+            ram.addItem(s);
         JLabel dimensione = new JLabel("Dimension (GB):");
         JComboBox dimension = new JComboBox();
-        dimension.addItem("2");
-        dimension.addItem("4");
-        dimension.addItem("8");
-        dimension.addItem("16");
+        int dim[] = {2, 4, 8, 16};
+        for(int i : dim)
+            dimension.addItem(i);
         JLabel frequenza = new JLabel("Frequency (MHz):");
         JComboBox frequency = new JComboBox();
-        frequency.addItem("800");
-        frequency.addItem("1066");
-        frequency.addItem("1600");
-        frequency.addItem("2133");
-        frequency.addItem("2400");
-        frequency.addItem("2666");
-        frequency.addItem("3000");
+        int freq[] = {800, 1066, 1600, 2133, 2400, 2666, 3000};
+        for(int i : freq)
+            frequency.addItem(i);
         JLabel nModuli = new JLabel("# of modules:");
         JComboBox modules = new JComboBox();
-        modules.addItem("1");
-        modules.addItem("2");
-        modules.addItem("3");
-        modules.addItem("4");
-        modules.addItem("5");
-        modules.addItem("6");
-        modules.addItem("7");
-        modules.addItem("8");
+        for(int i = 1; i <= 8; i++)
+            modules.addItem(i);
 
         Component[] cmp = {nome, name, watt, power, memtype, ram, dimensione, dimension, frequenza, frequency, nModuli, modules};
         addCmp(cmp, p);
@@ -305,13 +293,9 @@ public class AdvancedSpecs extends JFrame {
         dimension.addItem("SFX");
         JLabel certificazione = new JLabel("Certification:");
         JComboBox certification = new JComboBox();
-        certification.addItem("None");
-        certification.addItem("80+");
-        certification.addItem("80+ Bronze");
-        certification.addItem("80+ Silver");
-        certification.addItem("80+ Gold");
-        certification.addItem("80+ Platinum");
-        certification.addItem("80+ Titanium");
+        String[] cert = {"None", "80+", "80+ Bronze", "80+ Silver", "80+ Gold", "80+ Platinum", "80+ Titanium"};
+        for(String s : cert)
+            certification.addItem(s);
 
         Component[] cmp = {nome, name, watt, power, dimensione, dimension, certificazione, certification};
         addCmp(cmp, p);
@@ -335,11 +319,9 @@ public class AdvancedSpecs extends JFrame {
         dim.addItem("3.5");
         JLabel dimensione = new JLabel("Storage (GB):");
         JComboBox storage = new JComboBox();
-        storage.addItem("128");
-        storage.addItem("256");
-        storage.addItem("512");
-        storage.addItem("1024");
-        storage.addItem("2048");
+        int[] dimension = {128, 256, 512, 1024, 2048, 4096};
+        for(int i : dimension)
+            storage.addItem(i);
         watt = new JLabel("Watt:");
         SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
         power = new JSpinner(spinnerWattModel);
