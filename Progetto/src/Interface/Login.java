@@ -14,11 +14,9 @@ public class Login extends JFrame {
     private Toolkit kit;
     private Dimension dim;
     private GestoreOperazioni go;
-    private boolean loggedIn;
 
     public Login(Piattaforma p) {
         super("Login");
-        loggedIn = false;
         go = new GestoreOperazioni();
         p.setVisible(false);
         Container c = getContentPane();
