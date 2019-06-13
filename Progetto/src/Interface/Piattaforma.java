@@ -448,7 +448,7 @@ public class Piattaforma extends JFrame{
         });
     }
 
-    public Object[][] getCart() {
+    private Object[][] getCart() {
         ArrayList<AbstractComponent> comp = gs.getSelectedComponents();
         if (comp == null) {
             return null;

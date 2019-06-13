@@ -108,23 +108,4 @@ public class CompList extends JFrame {
             }
         });
     }
-
-    public Object[][] getString() {
-        ArrayList<AbstractComponent> comp = go.read(null);
-        if (comp == null) {
-            return null;
-        }
-        String[][] data = new String[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new String[5];
-            abs = comp.get(i);
-            data[i][0] = String.valueOf(abs.getID());
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = String.valueOf(abs.getQuantity());
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
-    }
 }

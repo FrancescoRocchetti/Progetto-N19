@@ -258,7 +258,7 @@ public class InserimentoSpecifiche extends JFrame {
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 
-    public Object[][] getString() {
+    private Object[][] getString() {
         ArrayList<AbstractComponent> comp = go.read(null);
         if (comp == null) {
             return null;
