@@ -3,7 +3,6 @@ package Interface;
 import Gestione.GestoreOperazioni;
 import InterfacingDB.PCParts;
 
-import javax.print.DocFlavor;
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
@@ -169,7 +168,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText()) && isEmpty(socket.getText())){
+            if(isNotEmpty(name.getText()) && isNotEmpty(socket.getText())){
                 String s = "N";
                 String t = "N";
 
@@ -225,7 +224,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
                 s = name.getText() + "_" + socket.getText() + "_" + nBanchi.getSelectedItem() + "_" + ram.getSelectedItem() + "_" + nPci16.getValue() + "_" + nPciE.getValue() + "_" + dimension.getSelectedItem() + "_" + nSata.getValue() + "_" + power.getValue();
                 go.setDescrizione(s);
                 dispose();
@@ -250,7 +249,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + cap.getDouble() + "_" + power.getValue();
                 go.setDescrizione(s);
                 dispose();
@@ -271,7 +270,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText())) {
                 String isLiquid = "N";
                 if (liquid.isSelected())
                     isLiquid = "Y";
@@ -316,7 +315,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + power.getValue() + "_" + ram.getSelectedItem() + "_" + dimension.getSelectedItem() + "_" + frequency.getSelectedItem() + "_" + modules.getSelectedItem();
                 go.setDescrizione(s);
                 dispose();
@@ -348,7 +347,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())){
+            if(isNotEmpty(name.getText())){
                 s = name.getText() + "_" + power.getValue() + "_" + dimension.getSelectedItem() + "_" + certification.getSelectedItem();
                 go.setDescrizione(s);
                 dispose();
@@ -379,7 +378,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + dim.getSelectedItem() + "_" + storage.getSelectedItem() + "_" + power.getValue();
                 go.setDescrizione(s);
                 dispose();
@@ -410,7 +409,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp,p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + dimension.getSelectedItem()+"_"+nSlot35.getValue()+"_"+nSlot25.getValue();
                 go.setDescrizione(s);
                 dispose();
@@ -433,7 +432,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + nBit.getSelectedItem();
                 go.setDescrizione(s);
                 dispose();
@@ -454,7 +453,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isEmpty(name.getText())) {
+            if(isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + description.getText();
                 go.setDescrizione(s);
                 dispose();
@@ -484,7 +483,7 @@ public class AdvancedSpecs extends JFrame {
         return s;
     }
 
-    private boolean isEmpty(String name){
+    private boolean isNotEmpty(String name){
         if (!name.contains("_")
                 && name.replace(" ","").length() != 0
                 && !name.trim().isEmpty())
