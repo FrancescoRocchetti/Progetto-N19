@@ -227,7 +227,7 @@ public class Piattaforma extends JFrame{
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
             if(ConsistencyConstraint.checkRes(gs.getScp())) {
-                CompList c = new CompList(this, getCart());
+                ConfirmList c = new ConfirmList(this, getCart());
             } else
                 JOptionPane.showMessageDialog(this, "Non hai ancora inserito tutti i componenti necessari.", "Errore", JOptionPane.ERROR_MESSAGE);
         });

@@ -7,16 +7,16 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class CompList extends JFrame {
+public class ConfirmList extends JFrame{
 
-    private GestoreOperazioni go;
-
-    public CompList(InserimentoSpecifiche ins, Object[][] data) {
+    public ConfirmList(Piattaforma p, Object[][] data) {
         super("Inventario");
 
+        GestoreOperazioni go = new GestoreOperazioni();
+
         Container c = getContentPane();
-        ins.setEnabled(false);
-        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        p.setEnabled(false);
+        p.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         if (data == null) {
             JOptionPane.showMessageDialog(null, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
             dispose();
@@ -33,21 +33,36 @@ public class CompList extends JFrame {
         table.setDefaultEditor(Object.class, null);
         JScrollPane sp = new JScrollPane(table);
         JPanel panel = new JPanel();
-        JButton btn = new JButton("Ok");
+        JButton btnOk = new JButton("Conferma");
+        JLabel label = new JLabel("Sicuro di voler effettuare questo ordine?");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        JButton btnCancel = new JButton("Annulla");
+        JPanel pnBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.add(sp);
         c.setLayout(new BorderLayout());
         c.add(sp, BorderLayout.CENTER);
-        c.add(btn, BorderLayout.SOUTH);
 
-        btn.addActionListener(e -> {
+        pnBtn.add(btnOk);
+        pnBtn.add(btnCancel);
+        c.add(label, BorderLayout.NORTH);
+        c.add(pnBtn, BorderLayout.SOUTH);
+
+        btnOk.addActionListener(e -> {
+            Loading l = new Loading(this);
+            int[] i = getCodesOfComps(data);
+            for(int cod : i){
+                go.updateComponent(cod, -1);
+            }
+            l.dispose();
+            JOptionPane.showMessageDialog(this, "Acquisto effettuato con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
+            p.newConfiguration();
+            p.refresh();
             dispose();
         });
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        pack();
-        setLocationRelativeTo(ins);
-        setVisible(true);
+        btnCancel.addActionListener(e -> {
+            dispose();
+        });
 
         addWindowListener(new WindowListener() {
             @Override
@@ -60,8 +75,8 @@ public class CompList extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                ins.setEnabled(true);
+                p.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                p.setEnabled(true);
             }
 
             @Override
@@ -80,5 +95,21 @@ public class CompList extends JFrame {
             public void windowDeactivated(WindowEvent e) {
             }
         });
+
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        pack();
+        setLocationRelativeTo(p);
+        setVisible(true);
+    }
+
+    private int[] getCodesOfComps(Object[][] obj){
+        int[] i = new int[obj.length];
+
+        for(int c = 0; c< obj.length; c++){
+            Object[] comp = obj[c];
+            i[c] = (int) comp[0];
+        }
+        return i;
     }
 }
