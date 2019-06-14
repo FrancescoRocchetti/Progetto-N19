@@ -484,9 +484,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private boolean isNotEmpty(String name){
-        if (!name.contains("_")
-                && name.replace(" ","").length() != 0
-                && !name.trim().isEmpty())
+        if (!name.contains("_") && !name.trim().isEmpty())
             return true;
         else {
             JOptionPane.showMessageDialog(this, "Controlla di aver inserito tutto", "Errore", JOptionPane.ERROR_MESSAGE);
