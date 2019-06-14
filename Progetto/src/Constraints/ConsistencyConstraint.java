@@ -2,7 +2,7 @@ package Constraints;
 
 import Constraints.DeprecatedClass.AbstractConstraint;
 import Gestione.SelectedComponents;
-import InterfacingDB.PCParts;
+import Components.PCParts;
 import Resources.*;
 
 public class ConsistencyConstraint implements AbstractConstraint {

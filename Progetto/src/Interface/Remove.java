@@ -2,7 +2,7 @@ package Interface;
 
 import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
-import InterfacingDB.PCParts;
+import Components.PCParts;
 
 import javax.swing.*;
 import java.awt.*;

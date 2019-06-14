@@ -4,7 +4,7 @@ import Components.AbstractComponent;
 import Constraints.AdaptabilityConstraint;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.ManagerDB;
-import InterfacingDB.PCParts;
+import Components.PCParts;
 
 import java.util.ArrayList;
 

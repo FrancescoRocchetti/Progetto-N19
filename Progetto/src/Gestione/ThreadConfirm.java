@@ -6,14 +6,14 @@ import InterfacingDB.ManagerDB;
 
 public class ThreadConfirm extends Thread {
     private ManagerDB mdb;
-    private ObserverConfirm go;
+    private ObserverGS gs;
     private int[] index;
     private boolean accept;
 
-    public ThreadConfirm(ObserverConfirm go) {
+    public ThreadConfirm(ObserverGS gs) {
         mdb = new ManagerDB();
         this.accept = true;
-        this.go = go;
+        this.gs = gs;
     }
 
     public synchronized void confirmOrder(int[] index) {
@@ -32,10 +32,10 @@ public class ThreadConfirm extends Thread {
                     throw new NoInternetException("");
                 for(int c: index)
                     mdb.update(c, -1);
-                go.orderSuccess();
+                gs.orderSuccess();
                 accept = true;
             } catch (Exception e) {
-                go.orderFailure();
+                gs.orderFailure();
                 accept = true;
             }
         }

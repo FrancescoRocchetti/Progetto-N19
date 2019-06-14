@@ -2,7 +2,6 @@ package Constraints;
 
 import Components.AbstractComponent;
 import Gestione.SelectedComponents;
-import InterfacingDB.PCParts;
 import Resources.Resource;
 import Resources.SommatoreRes;
 

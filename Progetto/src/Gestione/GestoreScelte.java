@@ -7,12 +7,12 @@ import Interface.ActiveComponents;
 import Interface.CompList;
 import Interface.ConfirmList;
 import Interface.Piattaforma;
-import InterfacingDB.PCParts;
+import Components.PCParts;
 import Components.AbstractComponent;
 
 import java.util.ArrayList;
 
-public class GestoreScelte implements ObserverGS, ObserverConfirm{
+public class GestoreScelte implements ObserverGS{
     private SelectedComponents scp;
     private ActiveComponents ac;
     private Piattaforma p;

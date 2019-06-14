@@ -1,6 +1,7 @@
 package InterfacingDB;
 
 import Components.AbstractComponent;
+import Components.PCParts;
 
 import java.util.ArrayList;
 

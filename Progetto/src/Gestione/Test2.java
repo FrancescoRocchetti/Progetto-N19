@@ -1,6 +1,6 @@
 package Gestione;
 
-import InterfacingDB.PCParts;
+import Components.PCParts;
 
 public class Test2 {
     public static void main(String[] args) {

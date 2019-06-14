@@ -1,7 +1,7 @@
 package Interface;
 
 import Gestione.GestoreOperazioni;
-import InterfacingDB.PCParts;
+import Components.PCParts;
 
 import javax.swing.*;
 

@@ -1,22 +1,32 @@
 package Gestione;
 
+import Components.PCParts;
+import Interface.InserimentoSpecifiche;
 import InterfacingDB.*;
 
 import java.util.ArrayList;
 
 import Components.AbstractComponent;
 
-public class GestoreOperazioni{
+public class GestoreOperazioni implements ObserverGO{
     private boolean modified;
     private boolean loggedIn;
     private ManagerDB mdb;
     private String descrizione;
+    private InserimentoSpecifiche ins;
+    private ThreadAdd ta;
 
     public GestoreOperazioni(){
         modified = false;
         loggedIn = false;
         mdb = new ManagerDB();
         descrizione = null;
+        ta = new ThreadAdd(this);
+        ta.start();
+    }
+
+    public void setIns(InserimentoSpecifiche ins){
+        this.ins = ins;
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp){
@@ -31,21 +41,17 @@ public class GestoreOperazioni{
         return false;
     }
 
-    public boolean insertComponent(PCParts componente, int quantita, int prezzo, int valutazione) {
-        String[] str = {"1",
+    public void insertComponent(PCParts componente, int quantita, int prezzo, int valutazione) {
+        String[] str = {
+                "1",
                 componente.name().toUpperCase(),
                 descrizione,
                 String.valueOf(quantita),
                 String.valueOf(prezzo),
                 String.valueOf(valutazione)};
         if (descrizione != null && checkValidation(str)) {
-            if(mdb.write(componente, descrizione, quantita, prezzo, valutazione)) {
-                modified = true;
-                return true;
-            }
-            return false;
+            ta.addComp(componente, descrizione, quantita,prezzo,valutazione);
         }
-        return false;
     }
 
     public boolean updateComponent(int index, int qty) {
@@ -82,5 +88,11 @@ public class GestoreOperazioni{
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    @Override
+    public void updateAddStatus(boolean status) {
+        modified = status;
+        ins.updateAdd(status);
     }
 }

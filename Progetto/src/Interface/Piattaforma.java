@@ -3,7 +3,7 @@ package Interface;
 import Components.AbstractComponent;
 import Constraints.ConsistencyConstraint;
 import Gestione.GestoreScelte;
-import InterfacingDB.PCParts;
+import Components.PCParts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

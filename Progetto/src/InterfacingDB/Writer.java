@@ -1,5 +1,7 @@
 package InterfacingDB;
 
+import Components.PCParts;
+
 import java.sql.*;
 
 public class Writer {

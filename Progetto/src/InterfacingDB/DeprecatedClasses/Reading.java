@@ -1,6 +1,6 @@
 package InterfacingDB.DeprecatedClasses;
 
-import InterfacingDB.PCParts;
+import Components.PCParts;
 
 import java.io.*;
 

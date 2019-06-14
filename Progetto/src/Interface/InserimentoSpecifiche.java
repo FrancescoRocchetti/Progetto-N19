@@ -2,7 +2,8 @@ package Interface;
 
 import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
-import InterfacingDB.PCParts;
+import Components.PCParts;
+import Gestione.GestoreScelte;
 import InterfacingDB.Reader;
 
 import javax.swing.*;
@@ -56,6 +57,7 @@ public class InserimentoSpecifiche extends JFrame {
     public InserimentoSpecifiche(Piattaforma p, GestoreOperazioni go, String user) {
         super("Pagina admin");
         this.go = go;
+        go.setIns(this);
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
         c = getContentPane();
@@ -75,21 +77,13 @@ public class InserimentoSpecifiche extends JFrame {
         data = new JPanel(new GridLayout(5, 2));
         component = new JLabel("Componente");
         componente = new JComboBox();
-        for (int i = 0; i < PCParts.values().length; i++) // length - 1 perchè non considero "ALTRO" per ora
+        for (int i = 0; i < PCParts.values().length; i++)
             componente.addItem(PCParts.valueOf(componentsName[i]));
         componente.setEditable(false);
         description = new JLabel("Descrizione");
-        /*howToDesc = new JLabel("(La descrizione varia con la componente)");
-        howToDesc.setFont(new Font("Arial", Font.ITALIC, 10));
-        howToDesc.setForeground(Color.RED);*/
         advanced = new JButton("Avanzate");
-        /*descrizione = new JTextField();
-        descrizione.setFont(new Font("Arial", Font.PLAIN, 10));
-        descrizione.setText("Rispettare il formato di inserimento proposto sotto");*/
         descPanel = new JPanel(new GridLayout(1, 1));
         descPanel.add(advanced);
-        /*descPanel.add(descrizione);
-        descPanel.add(howToDesc);*/
         quantity = new JLabel("Quantità");
         spinnerModel = new SpinnerNumberModel(1, 1, QTA, 1);
         quantita = new JSpinner(spinnerModel);
@@ -113,37 +107,12 @@ public class InserimentoSpecifiche extends JFrame {
         fourButtons = new JPanel(new GridLayout(3, 2));
         checkButton = new JPanel(new GridLayout(1, 1));
 
-        /*componente.addActionListener(e -> {
-            if (componente.getSelectedItem() == PCParts.CPU) {
-                howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
-                howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
-            } else if (componente.getSelectedItem() == PCParts.COOLER)
-                howToDesc.setText("NOME_LIQUIDO");
-            else if (componente.getSelectedItem() == PCParts.RAM)
-                howToDesc.setText("NOME_WATT_TIPO_GB_FREQUENZA_NMODULI");
-            else if (componente.getSelectedItem() == PCParts.PSU)
-                howToDesc.setText("NOME_WATT_DIMENSIONE_CERTIFICAZIONE");
-            else if (componente.getSelectedItem() == PCParts.GPU)
-                howToDesc.setText("NOME_GB_TDP");
-            else if (componente.getSelectedItem() == PCParts.MOBO) {
-                howToDesc.setText("NOME_CPUSOCKET_NBANCHI_RAMMODEL_NPCIE_NPCI_DIMENSIONE_NSATA_WATT");
-                howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
-            } else if (componente.getSelectedItem() == PCParts.STORAGE)
-                howToDesc.setText("NOME_DIMENSIONE_GB");
-            else if (componente.getSelectedItem() == PCParts.CASE)
-                howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSLOT325");
-            else if (componente.getSelectedItem() == PCParts.OS)
-                howToDesc.setText("NOME_BIT");
-            else if (componente.getSelectedItem() == PCParts.ALTRO)
-                howToDesc.setText("NOME_DESCRIZIONE");
-        });*/
-
         remove.addActionListener(e -> {
-                Remove comp = new Remove(this, go);
+            Remove comp = new Remove(this, go);
         });
 
         update.addActionListener(e -> {
-                Update update = new Update(this, go);
+            Update update = new Update(this, go);
         });
 
         goBack.addActionListener(e -> {
@@ -151,32 +120,17 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         confirm.addActionListener(e -> {
-            // codice per la scrittura su DB
-            if (go.insertComponent(
+            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+            confirm.setEnabled(false);
+            goBack.setEnabled(false);
+            go.insertComponent(
                     (PCParts) componente.getSelectedItem(),
                     (int) quantita.getValue(),
                     (int) prezzo.getValue(),
-                    (int) valutazione.getValue())) {
-                Object[] options = {"YES", "NO"};
-                int inserimento = JOptionPane.showOptionDialog(this, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
-                if (inserimento == 0) {
-                    componente.setSelectedItem(PCParts.CASE);
-                    go.setDescrizione(null);
-                    quantita.setValue(1);
-                    prezzo.setValue(1);
-                    valutazione.setValue(1);
-                } else {
-                    dispose();
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
-            }
+                    (int) valutazione.getValue());
         });
 
         check.addActionListener(e -> {
-            Reader reading = new Reader();
-            ArrayList<AbstractComponent> components;
-            String s = "";
             new CompList(this, getString());
         });
 
@@ -280,4 +234,25 @@ public class InserimentoSpecifiche extends JFrame {
     /*public static void main(String[] args) {
         InserimentoSpecifiche ins = new InserimentoSpecifiche(null, "prova");
     }*/
+
+    public void updateAdd(boolean status){
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        confirm.setEnabled(true);
+        goBack.setEnabled(true);
+        if(status){
+            Object[] options = {"YES", "NO"};
+            int inserimento = JOptionPane.showOptionDialog(this, "Inserito oggetto con successo\nNuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
+            if (inserimento == 0) {
+                componente.setSelectedItem(PCParts.CASE);
+                go.setDescrizione(null);
+                quantita.setValue(1);
+                prezzo.setValue(1);
+                valutazione.setValue(1);
+            } else {
+                dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

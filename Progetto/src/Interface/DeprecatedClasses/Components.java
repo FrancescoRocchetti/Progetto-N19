@@ -2,7 +2,6 @@ package Interface.DeprecatedClasses;
 
 import Gestione.GestoreOperazioni;
 import Interface.InserimentoSpecifiche;
-import InterfacingDB.PCParts;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +34,6 @@ public class Components extends JFrame {
         for (int i = 0; i < NCOMP - 1; i++) {
             btnarray[i] = new JButton(SCOMP[i]);
             gridpanel.add(btnarray[i]);
-            //addActionListenerBtnComp(btnarray[i]);
         }
         btnarray[NCOMP - 1] = new JButton(SCOMP[NCOMP - 1]);
         btnpanel.add(gridpanel, BorderLayout.CENTER);

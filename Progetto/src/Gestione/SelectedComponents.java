@@ -1,10 +1,9 @@
 package Gestione;
 
 import Components.*;
-import Constraints.NumericalConstraint;
 import Constraints.OtherConstraint;
 import Constraints.Warning;
-import InterfacingDB.PCParts;
+import Components.PCParts;
 import Resources.*;
 
 import java.util.ArrayList;
