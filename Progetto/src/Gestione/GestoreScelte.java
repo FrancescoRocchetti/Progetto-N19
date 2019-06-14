@@ -1,26 +1,34 @@
 package Gestione;
 
 import Constraints.AdaptabilityConstraint;
+import Constraints.ConsistencyConstraint;
 import Constraints.Warning;
 import Interface.ActiveComponents;
+import Interface.CompList;
+import Interface.ConfirmList;
 import Interface.Piattaforma;
 import InterfacingDB.PCParts;
 import Components.AbstractComponent;
 
 import java.util.ArrayList;
 
-public class GestoreScelte implements ObserverGS{
+public class GestoreScelte implements ObserverGS, ObserverConfirm{
     private SelectedComponents scp;
     private ActiveComponents ac;
     private Piattaforma p;
+    private CompList cl;
+    private ConfirmList cfl;
     private ThreadInventory t;
+    private ThreadConfirm tc;
 
     public GestoreScelte(Piattaforma p) {
         scp = new SelectedComponents();
         ac = new ActiveComponents();
         t = new ThreadInventory(this);
+        tc = new ThreadConfirm(this);
         this.p = p;
         t.start();
+        tc.start();
     }
 
     public void obtainParts(PCParts comp) {
@@ -64,9 +72,29 @@ public class GestoreScelte implements ObserverGS{
         } else p.updateListTable(null);
     }
 
-    public String getWarning() {
+    public String getWarningTxt() {
         Warning w = Warning.getwInstance();
         w.check(scp);
         return w.getInfo();
+    }
+
+    public boolean canOrder(){
+        Warning w = Warning.getwInstance();
+        return w.check(scp) && ConsistencyConstraint.checkRes(scp);
+    }
+
+    public void confirmOrder(ConfirmList cl) {
+        cfl = cl;
+        tc.confirmOrder(cl.getCodesOfComps());
+    }
+
+    @Override
+    public void orderSuccess() {
+        cfl.success();
+    }
+
+    @Override
+    public void orderFailure() {
+        cfl.failure();
     }
 }

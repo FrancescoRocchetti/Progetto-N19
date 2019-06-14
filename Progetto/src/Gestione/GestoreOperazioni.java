@@ -1,28 +1,22 @@
 package Gestione;
 
-import Gestione.Validation;
-import Interface.InserimentoSpecifiche;
-import Interface.Piattaforma;
 import InterfacingDB.*;
 
 import java.util.ArrayList;
 
 import Components.AbstractComponent;
 
-public class GestoreOperazioni implements ObserverGS{
+public class GestoreOperazioni{
     private boolean modified;
     private boolean loggedIn;
     private ManagerDB mdb;
     private String descrizione;
-    //private ThreadInventory t;
 
     public GestoreOperazioni(){
         modified = false;
         loggedIn = false;
         mdb = new ManagerDB();
         descrizione = null;
-        /*t = new ThreadInventory(this);
-        t.start();*/
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp){
@@ -88,10 +82,5 @@ public class GestoreOperazioni implements ObserverGS{
 
     public boolean isLoggedIn() {
         return loggedIn;
-    }
-
-    @Override
-    public void update(ArrayList<AbstractComponent> arr) {
-
     }
 }
