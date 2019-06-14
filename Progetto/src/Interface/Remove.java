@@ -97,6 +97,7 @@ public class Remove extends JFrame {
             ins.setVisible(true);
         });
 
+        // TODO: implementare in addItemToRmv per evitare errore nel caso di nessun componente scelto
         comp.addActionListener(e -> {
             if (comp.getSelectedItem() != null) {
                 //qta.removeAllItems();
