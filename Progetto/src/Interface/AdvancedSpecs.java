@@ -61,6 +61,7 @@ public class AdvancedSpecs extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
+                ins.enableConfirmButton();
                 ins.setEnabled(true);
                 ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             }
@@ -100,7 +101,6 @@ public class AdvancedSpecs extends JFrame {
             }
             case MOBO: {
                 return panelMOBO();
-
             }
             case GPU: {
                 return panelGPU();

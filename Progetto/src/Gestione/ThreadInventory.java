@@ -35,10 +35,10 @@ public class ThreadInventory extends Thread{
                 if (!CheckInternet.check())
                     throw new NoInternetException("");
                 ArrayList<AbstractComponent> arr = AdaptabilityConstraint.check(mdb.read(part), ((GestoreScelte) gs).getScp());
-                gs.update(arr);
+                gs.updateList(arr);
                 accept = true;
             } catch (Exception e) {
-                gs.update(null);
+                gs.updateList(null);
                 accept = true;
             }
         }

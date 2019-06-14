@@ -86,10 +86,6 @@ public class Remove extends JFrame {
                 JOptionPane.showMessageDialog(null, "Componente rimosso", "Rimozione", JOptionPane.INFORMATION_MESSAGE);
                 addItemToRmv(comp);
             }
-            /*if (!go.updateComponent(rmCod, -qtaRmv)) {
-                JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
-            } else
-                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);*/
         });
 
         close.addActionListener(e -> {
@@ -100,13 +96,10 @@ public class Remove extends JFrame {
         // TODO: implementare in addItemToRmv per evitare errore nel caso di nessun componente scelto
         comp.addActionListener(e -> {
             if (comp.getSelectedItem() != null) {
-                //qta.removeAllItems();
                 String item = (String) comp.getSelectedItem();
                 String[] id;
                 id = item.split(" ");
                 qtaToRmv = go.getQuantityByID(Integer.parseInt(id[0]));
-                /*for (int i = 1; i <= qtaToRmv; i++)
-                    qta.addItem(i);*/
             }
         });
 
@@ -142,8 +135,6 @@ public class Remove extends JFrame {
         });
 
         comboBoxPanel.add(comp);
-        //comboBoxPanel.add(new JLabel("Pieces to remove:"));
-        //comboBoxPanel.add(qta);
 
         choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
         southPanel.add(rmv);
@@ -155,16 +146,11 @@ public class Remove extends JFrame {
         c.add(bckg);
 
         setResizable(false);
-        //setSize(300,300);
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
-
-    /*public static void main(String[] args) throws SQLException {
-        Remove remove = new Remove();
-    }*/
 
     public void addItemToRmv(JComboBox c) {
         int i = 0;
@@ -172,9 +158,6 @@ public class Remove extends JFrame {
             b.setMargin(new Insets(10, 10, 10, 10));
             URL url = getClass().getResource("Imgs/" + imgs[i]);
             ImageIcon img = new ImageIcon(url);
-            /*Image image = img.getImage();
-            Image newImage = image.getScaledInstance(100,100, Image.SCALE_DEFAULT);
-            img = new ImageIcon(newImage);*/
             b.setIcon(img);
             b.setText(btnNames[i]);
             i++;
@@ -185,11 +168,8 @@ public class Remove extends JFrame {
                 found = false;
                 for (AbstractComponent x : str) {
                     s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
-                    //if(x.getType().equals(b.getText().toUpperCase())) {
                     c.addItem(s);
                     found = true;
-                    //}
-                    //s = "";
                 }
                 rmv.setEnabled(found);
                 if (!found)

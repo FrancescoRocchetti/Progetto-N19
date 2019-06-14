@@ -1,6 +1,8 @@
 package Gestione;
 
 import Components.PCParts;
+import Constraints.ConsistencyConstraint;
+import Constraints.Warning;
 import Interface.InserimentoSpecifiche;
 import InterfacingDB.*;
 
@@ -54,6 +56,10 @@ public class GestoreOperazioni implements ObserverGO{
         }
     }
 
+    public boolean canAdd(){
+        return descrizione!=null;
+    }
+
     public boolean updateComponent(int index, int qty) {
         modified = mdb.update(index, qty);
         return modified;
@@ -71,7 +77,6 @@ public class GestoreOperazioni implements ObserverGO{
 
     public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts) {
         return mdb.read(parts);
-
     }
 
     public boolean checkValidation(String[] str){

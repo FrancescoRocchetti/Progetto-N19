@@ -34,8 +34,6 @@ public class SelectedComponents {
         if (OtherConstraint.check(ac, this)) {
             sc.add(ac);
             w.check(this);
-            //System.err.println(NumericalConstraint.check2(this));
-            //System.err.println(w.getInfo());
         }
 
     }

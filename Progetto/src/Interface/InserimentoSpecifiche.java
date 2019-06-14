@@ -81,7 +81,7 @@ public class InserimentoSpecifiche extends JFrame {
             componente.addItem(PCParts.valueOf(componentsName[i]));
         componente.setEditable(false);
         description = new JLabel("Descrizione");
-        advanced = new JButton("Avanzate");
+        advanced = new JButton("Inserisci opzioni");
         descPanel = new JPanel(new GridLayout(1, 1));
         descPanel.add(advanced);
         quantity = new JLabel("Quantità");
@@ -100,6 +100,7 @@ public class InserimentoSpecifiche extends JFrame {
         goBack.setForeground(Color.RED);
         confirm = new JButton("Conferma");
         confirm.setForeground(Color.GREEN);
+        confirm.setEnabled(false);
         update = new JButton("Update component...");
         remove = new JButton("Remove component...");
         check = new JButton("Show stored components...");
@@ -231,14 +232,13 @@ public class InserimentoSpecifiche extends JFrame {
         return data;
     }
 
-    /*public static void main(String[] args) {
-        InserimentoSpecifiche ins = new InserimentoSpecifiche(null, "prova");
-    }*/
+    public void enableConfirmButton(){
+        Boolean t = go.canAdd();
+        confirm.setEnabled(t);
+    }
 
     public void updateAdd(boolean status){
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        confirm.setEnabled(true);
-        goBack.setEnabled(true);
         if(status){
             Object[] options = {"YES", "NO"};
             int inserimento = JOptionPane.showOptionDialog(this, "Inserito oggetto con successo\nNuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
@@ -254,5 +254,7 @@ public class InserimentoSpecifiche extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
         }
+        confirm.setEnabled(true);
+        goBack.setEnabled(true);
     }
 }

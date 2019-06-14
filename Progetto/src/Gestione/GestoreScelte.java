@@ -66,7 +66,7 @@ public class GestoreScelte implements ObserverGS{
     }
 
     @Override
-    public void update(ArrayList<AbstractComponent> arr) {
+    public void updateList(ArrayList<AbstractComponent> arr) {
         if (arr != null) {
             ac.buildList(AdaptabilityConstraint.check(arr, scp));
             p.updateListTable(ac.getAc());
