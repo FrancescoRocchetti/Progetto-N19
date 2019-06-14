@@ -39,7 +39,7 @@ public class OtherConstraint {
         return SommatoreRes.sum(temp);
     }
 
-    private static boolean difCheck(AbstractComponent ac, SelectedComponents sc, String p) {
+    private static boolean difCheck(AbstractComponent ac, SelectedComponents sc) {
         /*in questo metodo controllo se risorse che precedentemente avevano valore
          * strettamente positivo diventano < 0 */
         /*questa gestione dei vicoli è comunque dipendente dall'ordine di selezione dei
@@ -52,21 +52,22 @@ public class OtherConstraint {
 
         Resource before = initialCheck(sc);
         Resource after = sumResource(ac, sc);
+        Resource rAc = ac.getResource();
         boolean temp = true;
 
-        if (before.isOkCPU() && p.equalsIgnoreCase("components.cpu")) {
+        if (before.isOkCPU() && rAc.isOkCPU()) {
             temp = false;
         }
 
-        if (before.isOkMOBO() && p.equalsIgnoreCase("components.mobo")) {
+        if (before.isOkMOBO() && rAc.isOkMOBO()) {
             temp = false;
         }
 
-        if (before.isOkPSU() && p.equalsIgnoreCase("components.PSU")) {
+        if (before.isOkPSU() && rAc.isOkPSU()) {
             temp = false;
         }
 
-        if (before.isOkCase() && p.equalsIgnoreCase("components.case")) {
+        if (before.isOkCase() && rAc.isOkCase()) {
             temp = false;
         }
 
@@ -100,6 +101,6 @@ public class OtherConstraint {
 
     public static boolean check(AbstractComponent ac, SelectedComponents sc) {
         //System.out.println(ac.getClass().getName());
-        return difCheck(ac, sc, ac.getClass().getName());
+        return difCheck(ac, sc);
     }
 }

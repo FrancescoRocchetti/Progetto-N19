@@ -35,8 +35,8 @@ public class SelectedComponents {
         if (OtherConstraint.check(ac, this)) {
             sc.add(ac);
             w.check(this);
-            System.err.println(NumericalConstraint.check2(this));
-            System.err.println(w.getInfo());
+            //System.err.println(NumericalConstraint.check2(this));
+            //System.err.println(w.getInfo());
         }
 
     }
@@ -76,6 +76,7 @@ public class SelectedComponents {
     }
 
     // TODO: implementare metodo getWatt()
+    // NON è QUELLO GIUSTO
     public int getTotWatt() {
         int temp = 0;
         for(Resource r : getRes()) {

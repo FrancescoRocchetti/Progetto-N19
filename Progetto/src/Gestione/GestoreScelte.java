@@ -53,6 +53,7 @@ public class GestoreScelte implements ObserverGS{
     }
 
     public int getWatt(){
+
         return scp.getTotWatt();//
     }
 

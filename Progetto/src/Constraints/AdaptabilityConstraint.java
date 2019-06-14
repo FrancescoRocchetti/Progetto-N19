@@ -32,9 +32,10 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     }
 
     private static boolean checkMOBOCASE(MOBO m, CASE c) {
+
         return m == null || c == null
-                || m.getResource().getDimensionMOBO().equals(c.getResource().getDimensionCase());
-        //pls fix
+                || CaseSize.valueOf(m.getResource().getDimensionMOBO()).ordinal()>=CaseSize.valueOf(c.getResource().getDimensionCase()).ordinal();
+
     }
 
     //rimuove dall'arraylist in arrivo dal DB i componenti non compatibili
@@ -43,39 +44,38 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         ArrayList<AbstractComponent> ao = new ArrayList<>();
 
         for (AbstractComponent ac : al) {
-            switch (ac.getType().toLowerCase()) {
-                case "cpu":
-                    if (checkMOBOCPU((MOBO) sc.getType(PCParts.MOBO), (CPU) ac)
-                            && checkCPURAM((CPU) ac, (RAM) sc.getType(PCParts.RAM))
-                            && checkCPUOS((CPU) ac, (OS) sc.getType(PCParts.OS))) {
-                        ao.add(ac);
-                    }
-                    break;
-                case "mobo":
-                    if (checkMOBOCPU((MOBO) ac, (CPU) sc.getType(PCParts.CPU))
-                            && checkMOBORAM((MOBO) ac, (RAM) sc.getType(PCParts.RAM))
-                            && checkMOBOCASE((MOBO) ac, (CASE) sc.getType(PCParts.CASE))) {
-                        ao.add(ac);
-                    }
-                    break;
-                case "ram":
-                    if (checkMOBORAM((MOBO) sc.getType(PCParts.MOBO), (RAM) ac)
-                            && checkCPURAM((CPU) sc.getType(PCParts.CPU), (RAM) ac)) {
-                        ao.add(ac);
-                    }
-                    break;
-                case "case":
-                    if (checkMOBOCASE((MOBO) sc.getType(PCParts.MOBO), (CASE) ac)) {
-                        ao.add(ac);
-                    }
-                    break;
-                case "os":
-                    if (checkCPUOS((CPU) sc.getType(PCParts.CPU), (OS) ac)) {
-                        ao.add(ac);
-                    }
-                    break;
-                default:
+            if (ac.getResource().isOkCPU()) {
+                if (checkMOBOCPU((MOBO) sc.getType(PCParts.MOBO), (CPU) ac)
+                        && checkCPURAM((CPU) ac, (RAM) sc.getType(PCParts.RAM))
+                        && checkCPUOS((CPU) ac, (OS) sc.getType(PCParts.OS))) {
                     ao.add(ac);
+                }
+
+            } else if (ac.getResource().isOkMOBO()) {
+                if (checkMOBOCPU((MOBO) ac, (CPU) sc.getType(PCParts.CPU))
+                        && checkMOBORAM((MOBO) ac, (RAM) sc.getType(PCParts.RAM))
+                        && checkMOBOCASE((MOBO) ac, (CASE) sc.getType(PCParts.CASE))) {
+                    ao.add(ac);
+                }
+
+            } else if (ac.getResource().getModulesRAM()!=0) {
+                if (checkMOBORAM((MOBO) sc.getType(PCParts.MOBO), (RAM) ac)
+                        && checkCPURAM((CPU) sc.getType(PCParts.CPU), (RAM) ac)) {
+                    ao.add(ac);
+                }
+
+            } else if (ac.getResource().isOkCase()) {
+                if (checkMOBOCASE((MOBO) sc.getType(PCParts.MOBO), (CASE) ac)) {
+                    ao.add(ac);
+                }
+
+            } else if (ac.getResource().getnBit()!=0) {
+                if (checkCPUOS((CPU) sc.getType(PCParts.CPU), (OS) ac)) {
+                    ao.add(ac);
+                }
+
+            } else {
+                ao.add(ac);
             }
         }
 

@@ -11,6 +11,7 @@ public class CASE extends AbstractComponent {
                 .withokCase(true)
                 .withDimensionCase(caratteristiche[1]) //TODO: manca una enum per comparare le dimensioni
                 .withNSlot(Integer.parseInt(caratteristiche[3]))
+                //.withokPSU(caratteristiche[4].equalsIgnoreCase("Y"))
                 .build();
     }
     /*@Override
