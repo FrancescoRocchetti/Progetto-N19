@@ -92,6 +92,7 @@ public class Piattaforma extends JFrame{
         totPanel = new JPanel(new GridLayout(1, 2));
         wattPanel = new JPanel(new GridLayout(1, 2));
         confirmConfig = new JButton("Confirm configuration");
+        confirmConfig.setEnabled(false);
         btnpanel = new JPanel(new GridLayout(5, 1));
         add = new JButton("Add");
         rmv = new JButton("Remove");
@@ -227,7 +228,7 @@ public class Piattaforma extends JFrame{
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
             if(ConsistencyConstraint.checkRes(gs.getScp())) {
-                ConfirmList c = new ConfirmList(this, getCart());
+                ConfirmList c = new ConfirmList(this, getCart(), gs);
             } else
                 JOptionPane.showMessageDialog(this, "Non hai ancora inserito tutti i componenti necessari.", "Errore", JOptionPane.ERROR_MESSAGE);
         });
@@ -257,7 +258,8 @@ public class Piattaforma extends JFrame{
             }
             price.setText(gs.getPrice() + " €");
             watt.setText(gs.getWatt() + " W");
-            checkMessage.setText(gs.getWarning());
+            checkMessage.setText(gs.getWarningTxt());
+            confirmConfig.setEnabled(gs.canOrder());
         });
     }
 
@@ -272,7 +274,8 @@ public class Piattaforma extends JFrame{
             panels[components.getSelectedIndex()].revalidate();
             price.setText(gs.getPrice() + " €");
             watt.setText(gs.getWatt() + " W");
-            checkMessage.setText(gs.getWarning());
+            checkMessage.setText(gs.getWarningTxt());
+            confirmConfig.setEnabled(gs.canOrder());
         });
     }
 
@@ -296,7 +299,8 @@ public class Piattaforma extends JFrame{
         watt.setText("0 W");
         rmv.setEnabled(false);
         gs.newScp();
-        checkMessage.setText(gs.getWarning());
+        checkMessage.setText(gs.getWarningTxt());
+        confirmConfig.setEnabled(gs.canOrder());
     }
 
     private void rechargeListener() {

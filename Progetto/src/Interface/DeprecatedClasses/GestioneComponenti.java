@@ -22,7 +22,7 @@ public class GestioneComponenti extends JFrame {
         componentsName = new String[]{"CASE", "Cooler CPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "ALTRO"};
         background = new JPanel(new BorderLayout());
         logout = new JButton("Logout");
-        label = new JLabel("Choose the component to update...");
+        label = new JLabel("Choose the component to updateConfirm...");
         c = getContentPane();
         buttonsPanel = new JPanel(new GridLayout(5, 2));
         addButtonsToPanel(buttonsPanel);

@@ -23,7 +23,7 @@ public class TestDB {
         //System.out.println(r.getNumberOfRows());
         /*r.forceClose();
         w.write(PCParts.CPU,"BEPIS",5,999,5);
-        w.update(24,15);
+        w.updateConfirm(24,15);
         w.remove(24);
         */
     }
