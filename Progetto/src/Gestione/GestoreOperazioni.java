@@ -1,9 +1,9 @@
 package Gestione;
 
 import Components.PCParts;
-import Constraints.ConsistencyConstraint;
-import Constraints.Warning;
 import Interface.InserimentoSpecifiche;
+import Interface.Remove;
+import Interface.Update;
 import InterfacingDB.*;
 
 import java.util.ArrayList;
@@ -11,12 +11,21 @@ import java.util.ArrayList;
 import Components.AbstractComponent;
 
 public class GestoreOperazioni implements ObserverGO{
+    private static final String RMV = "RMV";
+    private static final String UPD = "UPD";
+    private static final String LST = "LST";
+
     private boolean modified;
     private boolean loggedIn;
     private ManagerDB mdb;
     private String descrizione;
     private InserimentoSpecifiche ins;
+    private Remove rmv;
+    private Update upd;
     private ThreadAdd ta;
+    private ThreadList tl;
+    private ThreadRemove tr;
+    private String mode; //RMV se si usa Remove, UPD se si usa Update e LST se si usa CompList
 
     public GestoreOperazioni(){
         modified = false;
@@ -25,10 +34,24 @@ public class GestoreOperazioni implements ObserverGO{
         descrizione = null;
         ta = new ThreadAdd(this);
         ta.start();
+        tl = new ThreadList(this);
+        tl.start();
+        tr = new ThreadRemove(this);
+        tr.start();
     }
 
     public void setIns(InserimentoSpecifiche ins){
         this.ins = ins;
+    }
+
+    public void setRemoveMode(Remove rmv){
+        mode = RMV;
+        this.rmv = rmv;
+    }
+
+    public void setUpdateMode(Update upd){
+        mode = UPD;
+        this.upd = upd;
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp){
@@ -65,14 +88,12 @@ public class GestoreOperazioni implements ObserverGO{
         return modified;
     }
 
-    public boolean remove(int id){
-        modified = mdb.remove(id);
-        return modified;
+    public void remove(int id){
+        tr.removeCompById(id);
     }
 
-    public int getQuantityByID(int id) {
-        return mdb.getQuantityByID(id);
-
+    public void getListComponents(){
+        tl.getListOf(null);
     }
 
     public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts) {
@@ -99,5 +120,24 @@ public class GestoreOperazioni implements ObserverGO{
     public void updateAddStatus(boolean status) {
         modified = status;
         ins.updateAdd(status);
+    }
+
+    public void updateList(ArrayList<AbstractComponent> arr) {
+        switch(mode) {
+            case RMV:{
+                if (arr != null) rmv.successList(arr);
+                else rmv.failureList();
+                break;
+            }
+            case UPD:{
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void remove(boolean status) {
+        if (status) rmv.successRemove();
+        else rmv.failureRemove();
     }
 }

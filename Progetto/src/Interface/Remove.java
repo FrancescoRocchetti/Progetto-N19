@@ -2,10 +2,13 @@ package Interface;
 
 import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
-import Components.PCParts;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.URL;
@@ -14,94 +17,38 @@ import java.util.ArrayList;
 public class Remove extends JFrame {
     private Container c;
     private JPanel bckg;
-    private JPanel btnPanel;
     private JPanel choosePanel;
-    private JPanel comboBoxPanel;
-    private JButton caseButton;
-    private JButton cooler;
-    private JButton cpu;
-    private JButton gpu;
-    private JButton mobo;
-    private JButton os;
-    private JButton psu;
-    private JButton ram;
-    private JButton storage;
-    private JButton other;
-    private JButton[] btnArray;
-    private JComboBox comp;
-    private JComboBox qta;
     private JButton rmv;
-    private String s = "";
-    private boolean found;
-    private int qtaToRmv = 0;
     private GestoreOperazioni go;
-    private String[] imgs;
-    private String[] btnNames;
     private JButton close;
     private JPanel southPanel;
+    private JPanel panel;
+
+    private int rowRmv;
+    private int idRmv;
 
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Remove component");
         ins.setVisible(false);
         this.go = go;
-        c = getContentPane();
+        this.go.setRemoveMode(this);
+        JLabel label = new JLabel("Seleziona il componente da rimuovere");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         bckg = new JPanel(new BorderLayout());
-        btnPanel = new JPanel(new GridLayout(2, 5));
+        obtainParts("Sto scaricando i dati...");
+        c = getContentPane();
         choosePanel = new JPanel(new BorderLayout());
-        comboBoxPanel = new JPanel(new GridLayout(1, 1));
-        caseButton = new JButton();
-        cooler = new JButton();
-        cpu = new JButton();
-        gpu = new JButton();
-        mobo = new JButton();
-        os = new JButton();
-        psu = new JButton();
-        ram = new JButton();
-        storage = new JButton();
-        other = new JButton();
-        btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
-        imgs = new String[]{"nav-case.png", "nav-cpucooler.png", "nav-cpu.png", "nav-videocard.png", "nav-motherboard.png", "nav-os.png", "nav-powersupply.png", "nav-memory.png", "nav-ssd.png", "nav-other.png"};
-        btnNames = new String[]{"CASE", "Cooler", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "Altro"};
-        comp = new JComboBox();
-        comp.addItem("No item selected...");
-        //qta = new JComboBox();
         rmv = new JButton("Remove");
         close = new JButton("Close");
         southPanel = new JPanel(new GridLayout(1,2));
         rmv.setEnabled(false);
-
-        addItemToRmv(comp);
-
-        rmv.addActionListener(e -> {
-            String item;
-            String[] cod;
-            int rmCod;
-            int qtaRmv;
-            item = (String) comp.getSelectedItem();
-            cod = item.split(" ");
-            rmCod = Integer.parseInt(String.valueOf(cod[0]));
-            //qtaRmv = (int) qta.getSelectedItem();
-            if(go.remove(rmCod)) {
-                JOptionPane.showMessageDialog(null, "Componente rimosso", "Rimozione", JOptionPane.INFORMATION_MESSAGE);
-                addItemToRmv(comp);
-            }
-        });
-
-        close.addActionListener(e -> {
-            dispose();
-            ins.setVisible(true);
-        });
-
-        // TODO: implementare in addItemToRmv per evitare errore nel caso di nessun componente scelto
-        comp.addActionListener(e -> {
-            if (comp.getSelectedItem() != null) {
-                String item = (String) comp.getSelectedItem();
-                String[] id;
-                id = item.split(" ");
-                qtaToRmv = go.getQuantityByID(Integer.parseInt(id[0]));
-            }
-        });
+        southPanel.add(rmv);
+        southPanel.add(close);
+        choosePanel.add(southPanel, BorderLayout.SOUTH);
+        bckg.add(label, BorderLayout.NORTH);
+        bckg.add(choosePanel, BorderLayout.SOUTH);
+        c.add(bckg);
 
         addWindowListener(new WindowListener() {
             @Override
@@ -134,47 +81,142 @@ public class Remove extends JFrame {
             }
         });
 
-        comboBoxPanel.add(comp);
+        //ActionListener che fa eliminare un componente e che fa partire ThreadRemove
+        rmv.addActionListener(e -> {
+            loading("Sto rimuovendo il componente selezionato...");
+            go.remove(idRmv);
+        });
 
-        choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
-        southPanel.add(rmv);
-        southPanel.add(close);
-        choosePanel.add(southPanel, BorderLayout.SOUTH);
-
-        bckg.add(btnPanel, BorderLayout.CENTER);
-        bckg.add(choosePanel, BorderLayout.SOUTH);
-        c.add(bckg);
+        close.addActionListener(e -> {
+            dispose();
+        });
 
         setResizable(false);
-        pack();
-        setLocationRelativeTo(null);
+        setSize(600,400);
+        setLocationRelativeTo(ins);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
-    public void addItemToRmv(JComboBox c) {
-        int i = 0;
-        for (JButton b : btnArray) {
-            b.setMargin(new Insets(10, 10, 10, 10));
-            URL url = getClass().getResource("Imgs/" + imgs[i]);
-            ImageIcon img = new ImageIcon(url);
-            b.setIcon(img);
-            b.setText(btnNames[i]);
-            i++;
-            btnPanel.add(b);
-            b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getAccessibleContext().getAccessibleName().toUpperCase()));
-                c.removeAllItems();
-                found = false;
-                for (AbstractComponent x : str) {
-                    s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
-                    c.addItem(s);
-                    found = true;
-                }
-                rmv.setEnabled(found);
-                if (!found)
-                    c.addItem("No items...");
-            });
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la rimozione col ThreadRemove è avvenuta correttamente
+    public void successRemove(){
+        JOptionPane.showMessageDialog(null, "Componente rimosso", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        bckg.remove(panel);
+        obtainParts("Sto scaricando i dati...");
+    }
+
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la rimozione col ThreadRemove non è avvenuta correttamente
+    public void failureRemove(){
+        JOptionPane.showMessageDialog(null, "Errore nella rimozione", "Fallito", JOptionPane.ERROR_MESSAGE);
+        bckg.remove(panel);
+        obtainParts("Sto scaricando i dati...");
+    }
+
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la generazione della lista col ThreadList è avvenuta correttamente
+    public void successList(ArrayList<AbstractComponent> arr){
+        Object[][] obj = getObjectFromComps(arr);
+        JTable table = createTable(obj);
+        JScrollPane pane = new JScrollPane(table);
+        bckg.remove(panel);
+        bckg.add(pane, BorderLayout.CENTER);
+        bckg.revalidate();
+    }
+
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la generazione della lista col ThreadList non è avvenuta correttamente
+    public void failureList(){
+        JOptionPane.showMessageDialog(null, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
+        dispose();
+    }
+
+    //Funzione che ottiene i componenti e che fa partire il ThreadList
+    private void obtainParts(String str) {
+        loading(str);
+        go.getListComponents();
+    }
+
+    private Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {
+        Object[][] data = new Object[comp.size()][];
+        AbstractComponent abs;
+        for (int i = 0; i < comp.size(); i++) {
+            data[i] = new Object[5];
+            abs = comp.get(i);
+            data[i][0] = abs.getID();
+            data[i][1] = abs.getType();
+            data[i][2] = abs.getName();
+            data[i][3] = abs.getQuantity();
+            data[i][4] = abs.getPrice() + " €";
         }
+        return data;
+    }
+
+    private JTable createTable(Object[][] data) {
+        DefaultTableModel dm = new DefaultTableModel();
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+
+        dm.setDataVector(data, column);
+        JTable table = new JTable(dm);
+        addListTableMouseListener(table);
+
+        int[] dim = {40,55,250,80,70};
+        for (int i = 0; i < dim.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(20);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+    private void addListTableMouseListener(JTable table){
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
+                    rmv.setEnabled(true);
+                    idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
+                } catch (ArrayIndexOutOfBoundsException o) {
+                    rmv.setEnabled(false);
+                    idRmv = -1;
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
+
+    private void loading(String str){
+        URL url = getClass().getResource("Resources/loading.gif");
+        ImageIcon img = new ImageIcon(url);
+        panel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel(img);
+        JLabel txt = new JLabel(str);
+        txt.setHorizontalAlignment(SwingConstants.CENTER);
+        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(txt, BorderLayout.SOUTH);
+        bckg.add(panel, BorderLayout.CENTER);
+        bckg.revalidate();
     }
 }
