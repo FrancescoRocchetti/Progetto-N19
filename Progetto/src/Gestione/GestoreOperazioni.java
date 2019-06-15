@@ -1,6 +1,7 @@
 package Gestione;
 
 import Components.PCParts;
+import Interface.CompList;
 import Interface.InserimentoSpecifiche;
 import Interface.Remove;
 import Interface.Update;
@@ -22,9 +23,11 @@ public class GestoreOperazioni implements ObserverGO{
     private InserimentoSpecifiche ins;
     private Remove rmv;
     private Update upd;
+    private CompList lst;
     private ThreadAdd ta;
     private ThreadList tl;
     private ThreadRemove tr;
+    private ThreadUpdate tu;
     private String mode; //RMV se si usa Remove, UPD se si usa Update e LST se si usa CompList
 
     public GestoreOperazioni(){
@@ -38,6 +41,8 @@ public class GestoreOperazioni implements ObserverGO{
         tl.start();
         tr = new ThreadRemove(this);
         tr.start();
+        tu = new ThreadUpdate(this);
+        tu.start();
     }
 
     public void setIns(InserimentoSpecifiche ins){
@@ -52,6 +57,11 @@ public class GestoreOperazioni implements ObserverGO{
     public void setUpdateMode(Update upd){
         mode = UPD;
         this.upd = upd;
+    }
+
+    public void setListMode(CompList lst){
+        mode = LST;
+        this.lst = lst;
     }
 
     public ArrayList<AbstractComponent> read(PCParts comp){
@@ -83,9 +93,8 @@ public class GestoreOperazioni implements ObserverGO{
         return descrizione!=null;
     }
 
-    public boolean updateComponent(int index, int qty) {
-        modified = mdb.update(index, qty);
-        return modified;
+    public void updateComponent(int index, int qty) {
+        tu.updateCompById(index, qty);
     }
 
     public void remove(int id){
@@ -130,6 +139,13 @@ public class GestoreOperazioni implements ObserverGO{
                 break;
             }
             case UPD:{
+                if (arr != null) upd.successList(arr);
+                else upd.failureList();
+                break;
+            }
+            case LST:{
+                if (arr != null) lst.successList(arr);
+                else lst.failureList();
                 break;
             }
         }
@@ -139,5 +155,11 @@ public class GestoreOperazioni implements ObserverGO{
     public void remove(boolean status) {
         if (status) rmv.successRemove();
         else rmv.failureRemove();
+    }
+
+    @Override
+    public void update(boolean status) {
+        if (status) upd.successUpdate();
+        else upd.failureUpdate();
     }
 }

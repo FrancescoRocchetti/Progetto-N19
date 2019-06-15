@@ -1,102 +1,59 @@
 package Interface;
 
+import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
-import Components.PCParts;
 
 import javax.swing.*;
-
-import Components.AbstractComponent;
-
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class Update extends JFrame {
-    private final static int QTA = 99;
-
     private Container c;
     private JPanel bckg;
-    private JPanel btnPanel;
     private JPanel choosePanel;
-    private JPanel comboBoxPanel;
-    private JButton caseButton;
-    private JButton cooler;
-    private JButton cpu;
-    private JButton gpu;
-    private JButton mobo;
-    private JButton os;
-    private JButton psu;
-    private JButton ram;
-    private JButton storage;
-    private JButton other;
-    private JButton[] btnArray;
-    private JComboBox comp;
-    private JSpinner qta;
-    private JButton up;
-    private String s = "";
-    private boolean found;
+    private JButton add;
     private GestoreOperazioni go;
-    private String[] imgs;
-    private String[] btnNames;
     private JButton close;
     private JPanel southPanel;
+    private JPanel panel;
+    private JSpinner spinner;
+    private JScrollPane pane;
+
+    private int rowAdd;
+    private int idAdd;
 
 
-    public Update(InserimentoSpecifiche ins, GestoreOperazioni go){
-        super("Aggiornamento");
+    public Update(InserimentoSpecifiche ins, GestoreOperazioni go) {
+        super("Update component");
         ins.setVisible(false);
         this.go = go;
-        Toolkit kit = Toolkit.getDefaultToolkit();
-        Dimension dim = kit.getScreenSize();
-        c = getContentPane();
+        this.go.setUpdateMode(this);
+        spinner = initializeSpinner();
+        JLabel label = new JLabel("Seleziona il componente da aggiornare");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         bckg = new JPanel(new BorderLayout());
-        btnPanel = new JPanel(new GridLayout(2, 5));
+        obtainParts("Sto scaricando i dati...");
+        c = getContentPane();
         choosePanel = new JPanel(new BorderLayout());
-        comboBoxPanel = new JPanel(new GridLayout(3, 1));
-        caseButton = new JButton("CASE");
-        cooler = new JButton("Cooler");
-        cpu = new JButton("CPU");
-        gpu = new JButton("GPU");
-        mobo = new JButton("MOBO");
-        os = new JButton("OS");
-        psu = new JButton("PSU");
-        ram = new JButton("RAM");
-        storage = new JButton("STORAGE");
-        other = new JButton("Altro");
-        btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
-        imgs = new String[]{"nav-case.png", "nav-cpucooler.png", "nav-cpu.png", "nav-videocard.png", "nav-motherboard.png", "nav-os.png", "nav-powersupply.png", "nav-memory.png", "nav-ssd.png", "nav-other.png"};
-        btnNames = new String[]{"CASE", "Cooler", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "Altro"};
-        comp = new JComboBox();
-        comp.addItem("No item selected...");
-        qta = new JSpinner(new SpinnerNumberModel(1, 1, null, 1));
-        setSpinnerNotWritable(qta);
-        up = new JButton("Update");
+        add = new JButton("Update");
         close = new JButton("Close");
-        southPanel = new JPanel(new GridLayout(1,2));
-        up.setEnabled(false);
-
-        addItemToUpdate(comp);
-
-        up.addActionListener(e -> {
-            String item;
-            String[] cod;
-            int upCod;
-            item = (String) comp.getSelectedItem();
-            cod = item.split(" ");
-            upCod = Integer.parseInt(String.valueOf(cod[0]));
-            if (!go.updateComponent(upCod, (int) qta.getValue())) {
-                JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
-            } else
-                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
-        });
-
-        close.addActionListener(e -> {
-            dispose();
-            ins.setVisible(true);
-        });
+        southPanel = new JPanel(new GridLayout(1,3));
+        add.setEnabled(false);
+        southPanel.add(add);
+        southPanel.add(close);
+        southPanel.add(spinner);
+        choosePanel.add(southPanel, BorderLayout.SOUTH);
+        bckg.add(label, BorderLayout.NORTH);
+        bckg.add(choosePanel, BorderLayout.SOUTH);
+        c.add(bckg);
 
         addWindowListener(new WindowListener() {
             @Override
@@ -129,24 +86,141 @@ public class Update extends JFrame {
             }
         });
 
-        comboBoxPanel.add(comp);
-        comboBoxPanel.add(new JLabel("Pieces to add:"));
-        comboBoxPanel.add(qta);
+        //ActionListener che aggiorna un componente e che fa partire ThreadUpdate
+        add.addActionListener(e -> {
+            loading("Sto aggiornando il componente selezionato...");
+            int qty = (int) spinner.getValue();
+            add.setEnabled(false);
+            close.setEnabled(false);
+            go.updateComponent(idAdd, qty);
+        });
 
-        choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
-        southPanel.add(up);
-        southPanel.add(close);
-        choosePanel.add(southPanel, BorderLayout.SOUTH);
+        close.addActionListener(e -> {
+            dispose();
+        });
 
-        bckg.add(btnPanel, BorderLayout.CENTER);
-        bckg.add(choosePanel, BorderLayout.SOUTH);
-        c.add(bckg);
-
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-        pack();
-        setLocationRelativeTo(null);
+        setSize(600,400);
+        setLocationRelativeTo(ins);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+    }
+
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la rimozione col ThreadUpdate è avvenuta correttamente
+    public void successUpdate(){
+        JOptionPane.showMessageDialog(null, "Componente aggiornato", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        bckg.remove(panel);
+        close.setEnabled(true);
+        obtainParts("Sto scaricando i dati...");
+    }
+
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la rimozione col ThreadUpdate non è avvenuta correttamente
+    public void failureUpdate(){
+        JOptionPane.showMessageDialog(null, "Errore nell'aggiornamento", "Fallito", JOptionPane.ERROR_MESSAGE);
+        bckg.remove(panel);
+        close.setEnabled(true);
+        obtainParts("Sto scaricando i dati...");
+    }
+
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la generazione della lista col ThreadList è avvenuta correttamente
+    public void successList(ArrayList<AbstractComponent> arr){
+        Object[][] obj = getObjectFromComps(arr);
+        JTable table = createTable(obj);
+        pane = new JScrollPane(table);
+        bckg.remove(panel);
+        bckg.add(pane, BorderLayout.CENTER);
+        bckg.revalidate();
+    }
+
+    //Funzione che viene richiamata da GestoreOperazioni quando
+    //la generazione della lista col ThreadList non è avvenuta correttamente
+    public void failureList(){
+        JOptionPane.showMessageDialog(null, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
+        dispose();
+    }
+
+    //Funzione che ottiene i componenti e che fa partire il ThreadList
+    private void obtainParts(String str) {
+        loading(str);
+        go.getListComponents();
+    }
+
+    private Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {
+        Object[][] data = new Object[comp.size()][];
+        AbstractComponent abs;
+        for (int i = 0; i < comp.size(); i++) {
+            data[i] = new Object[5];
+            abs = comp.get(i);
+            data[i][0] = abs.getID();
+            data[i][1] = abs.getType();
+            data[i][2] = abs.getName();
+            data[i][3] = abs.getQuantity();
+            data[i][4] = abs.getPrice() + " €";
+        }
+        return data;
+    }
+
+    private JTable createTable(Object[][] data) {
+        DefaultTableModel dm = new DefaultTableModel();
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+
+        dm.setDataVector(data, column);
+        JTable table = new JTable(dm);
+        addListTableMouseListener(table);
+
+        int[] dim = {40,55,250,80,70};
+        for (int i = 0; i < dim.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(20);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+    private void addListTableMouseListener(JTable table){
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    rowAdd = ((JTable) e.getSource()).getSelectedRow();
+                    add.setEnabled(true);
+                    idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
+                } catch (ArrayIndexOutOfBoundsException o) {
+                    add.setEnabled(false);
+                    idAdd = -1;
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
+
+    private JSpinner initializeSpinner(){
+        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, null, 1);
+        JSpinner s = new JSpinner(model);
+        setSpinnerNotWritable(s);
+        return s;
     }
 
     private void setSpinnerNotWritable(JSpinner spinner) {
@@ -154,38 +228,18 @@ public class Update extends JFrame {
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 
-    // TODO: usare GestoreComponenti
-    // FABIO: Fatto
-    public void addItemToUpdate(JComboBox c) {
-        int i = 0;
-        for (JButton b : btnArray) {
-            b.setMargin(new Insets(10, 10, 10, 10));
-            URL url = getClass().getResource("Imgs/" + imgs[i]);
-            ImageIcon img = new ImageIcon(url);
-            /*Image image = img.getImage();
-            Image newImage = image.getScaledInstance(100,100, Image.SCALE_DEFAULT);
-            img = new ImageIcon(newImage);*/
-            b.setIcon(img);
-            b.setText(btnNames[i]);
-            i++;
-            btnPanel.add(b);
-            b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getAccessibleContext().getAccessibleName().toUpperCase()));
-                c.removeAllItems();
-                found = false;
-                for (AbstractComponent x : str) {
-                    s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
-                    //if(x.getType().equals(b.getText().toUpperCase())) {
-                    c.addItem(s);
-                    found = true;
-                    //}
-                    //s = "";
-                }
-                up.setEnabled(found);
-                if (!found) {
-                    JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
-        }
+    private void loading(String str){
+        if (pane != null) bckg.remove(pane);
+        URL url = getClass().getResource("Resources/loading.gif");
+        ImageIcon img = new ImageIcon(url);
+        panel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel(img);
+        JLabel txt = new JLabel(str);
+        txt.setHorizontalAlignment(SwingConstants.CENTER);
+        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(txt, BorderLayout.SOUTH);
+        bckg.add(panel, BorderLayout.CENTER);
+        bckg.revalidate();
     }
 }

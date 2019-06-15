@@ -1,16 +1,12 @@
 package Interface;
 
-import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
 import Components.PCParts;
-import Gestione.GestoreScelte;
-import InterfacingDB.Reader;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class InserimentoSpecifiche extends JFrame {
     private Container c;
@@ -23,13 +19,11 @@ public class InserimentoSpecifiche extends JFrame {
     private JLabel title;
     private JLabel component;
     private JLabel description;
-    private JLabel howToDesc;
     private JLabel quantity;
     private JLabel price;
     private JLabel ranking;
     private JLabel loggedAs;
 
-    private JTextField descrizione;
     private JComboBox componente;
     private JSpinner quantita;
     private SpinnerNumberModel spinnerModel;
@@ -132,7 +126,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         check.addActionListener(e -> {
-            new CompList(this, getString());
+            new CompList(this, go);
         });
 
         advanced.addActionListener(e -> {
@@ -211,25 +205,6 @@ public class InserimentoSpecifiche extends JFrame {
     private void setSpinnerNotWritable(JSpinner spinner) {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
-    }
-
-    private Object[][] getString() {
-        ArrayList<AbstractComponent> comp = go.read(null);
-        if (comp == null) {
-            return null;
-        }
-        String[][] data = new String[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new String[5];
-            abs = comp.get(i);
-            data[i][0] = String.valueOf(abs.getID());
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = String.valueOf(abs.getQuantity());
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
     }
 
     public void enableConfirmButton(){

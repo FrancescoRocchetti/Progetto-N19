@@ -23,6 +23,7 @@ public class Remove extends JFrame {
     private JButton close;
     private JPanel southPanel;
     private JPanel panel;
+    private JScrollPane pane;
 
     private int rowRmv;
     private int idRmv;
@@ -84,6 +85,8 @@ public class Remove extends JFrame {
         //ActionListener che fa eliminare un componente e che fa partire ThreadRemove
         rmv.addActionListener(e -> {
             loading("Sto rimuovendo il componente selezionato...");
+            rmv.setEnabled(false);
+            close.setEnabled(false);
             go.remove(idRmv);
         });
 
@@ -103,6 +106,7 @@ public class Remove extends JFrame {
     public void successRemove(){
         JOptionPane.showMessageDialog(null, "Componente rimosso", "Successo", JOptionPane.INFORMATION_MESSAGE);
         bckg.remove(panel);
+        close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
     }
 
@@ -111,6 +115,7 @@ public class Remove extends JFrame {
     public void failureRemove(){
         JOptionPane.showMessageDialog(null, "Errore nella rimozione", "Fallito", JOptionPane.ERROR_MESSAGE);
         bckg.remove(panel);
+        close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
     }
 
@@ -119,7 +124,7 @@ public class Remove extends JFrame {
     public void successList(ArrayList<AbstractComponent> arr){
         Object[][] obj = getObjectFromComps(arr);
         JTable table = createTable(obj);
-        JScrollPane pane = new JScrollPane(table);
+        pane = new JScrollPane(table);
         bckg.remove(panel);
         bckg.add(pane, BorderLayout.CENTER);
         bckg.revalidate();
@@ -207,6 +212,7 @@ public class Remove extends JFrame {
     }
 
     private void loading(String str){
+        if (pane != null) bckg.remove(pane);
         URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
         panel = new JPanel(new BorderLayout());
