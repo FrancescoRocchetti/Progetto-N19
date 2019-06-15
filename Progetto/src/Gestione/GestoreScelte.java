@@ -16,7 +16,6 @@ public class GestoreScelte implements ObserverGS{
     private SelectedComponents scp;
     private ActiveComponents ac;
     private Piattaforma p;
-    private CompList cl;
     private ConfirmList cfl;
     private ThreadInventory t;
     private ThreadConfirm tc;
