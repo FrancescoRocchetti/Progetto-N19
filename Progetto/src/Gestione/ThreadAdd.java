@@ -37,10 +37,10 @@ public class ThreadAdd extends Thread{
                 accept = false;
                 if (!CheckInternet.check())
                     throw new NoInternetException("");
-                go.updateAddStatus(mdb.write(PCParts.valueOf(str[0]), str[1], Integer.parseInt(str[2]), Integer.parseInt(str[3]),Integer.parseInt(str[4])));
+                go.addStatus(mdb.write(PCParts.valueOf(str[0]), str[1], Integer.parseInt(str[2]), Integer.parseInt(str[3]),Integer.parseInt(str[4])));
                 accept = true;
             } catch (Exception e) {
-                go.updateAddStatus(false);
+                go.addStatus(false);
                 accept = true;
             }
         }
@@ -51,7 +51,7 @@ public class ThreadAdd extends Thread{
             try {
                 wait();
             } catch (InterruptedException e) {
-                go.updateAddStatus(false);
+                go.addStatus(false);
             }
         }
     }

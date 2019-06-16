@@ -230,7 +230,6 @@ public class InserimentoSpecifiche extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
         }
-        confirm.setEnabled(true);
         goBack.setEnabled(true);
     }
 }

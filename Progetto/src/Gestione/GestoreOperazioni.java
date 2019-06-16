@@ -121,7 +121,7 @@ public class GestoreOperazioni implements ObserverGO{
     }
 
     @Override
-    public void updateAddStatus(boolean status) {
+    public void addStatus(boolean status) {
         modified = status;
         ins.updateAdd(status);
     }
@@ -148,12 +148,14 @@ public class GestoreOperazioni implements ObserverGO{
 
     @Override
     public void remove(boolean status) {
+        modified = status;
         if (status) rmv.successRemove();
         else rmv.failureRemove();
     }
 
     @Override
     public void update(boolean status) {
+        modified = status;
         if (status) upd.successUpdate();
         else upd.failureUpdate();
     }
