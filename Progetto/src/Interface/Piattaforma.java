@@ -302,6 +302,7 @@ public class Piattaforma extends JFrame{
         gs.newScp();
         checkMessage.setText(gs.getWarningTxt());
         confirmConfig.setEnabled(gs.canOrder());
+        components.setSelectedIndex(0);
     }
 
     private void rechargeListener() {
