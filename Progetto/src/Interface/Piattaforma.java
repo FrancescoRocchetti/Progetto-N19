@@ -434,8 +434,8 @@ public class Piattaforma extends JFrame{
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
                         add.setEnabled(false);
-                        //checkMessage.setForeground(Color.RED);
-                        checkMessage.setText(checkMessage.getText()+"\nDisponibilità insufficiente");
+                        checkMessage.setForeground(Color.RED);
+                        checkMessage.setText(checkMessage.getText()+"Disponibilità insufficiente");
                     }
                 } catch (ArrayIndexOutOfBoundsException o) {
                     add.setEnabled(false);
