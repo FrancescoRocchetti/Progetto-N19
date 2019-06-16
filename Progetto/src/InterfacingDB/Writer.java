@@ -67,7 +67,7 @@ public class Writer {
             ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
             rs.next();
             int q = rs.getInt("q");
-            q += quantità;
+            q = quantità;
 
             String query = "UPDATE INVENTARIO SET QUANTITA = " + q + " WHERE CODICE = ?;";
 
