@@ -218,7 +218,7 @@ public class Update extends JFrame {
     }
 
     private JSpinner initializeSpinner(){
-        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, null, 1);
+        SpinnerNumberModel model = new SpinnerNumberModel(0, 0, null, 1);
         JSpinner s = new JSpinner(model);
         setSpinnerNotWritable(s);
         return s;
