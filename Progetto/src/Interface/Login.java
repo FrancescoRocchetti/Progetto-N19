@@ -8,21 +8,26 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.URL;
 
 
 public class Login extends JFrame {
-    private Toolkit kit;
-    private Dimension dim;
     private GestoreOperazioni go;
+    private Piattaforma p;
+    private JPanel background;
+    private JTextField username;
+    private JPanel loginPanel;
+    private JPanel loadingPanel;
+
 
     public Login(Piattaforma p) {
         super("Login");
         go = new GestoreOperazioni();
+        this.p = p;
         p.setVisible(false);
+        go.setLogin(this);
         Container c = getContentPane();
-        kit = Toolkit.getDefaultToolkit();
-        dim = kit.getScreenSize();
-        JPanel background = new JPanel(new BorderLayout());
+        background = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
         JPanel formPanel = new JPanel(new GridLayout(2, 1));
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -30,7 +35,8 @@ public class Login extends JFrame {
         JButton cancel = new JButton("Annulla");
         JLabel user = new JLabel("Username");
         JLabel psw = new JLabel("Password");
-        JTextField username = new JTextField();
+        username = new JTextField();
+        loginPanel = new JPanel(new BorderLayout());
         JPasswordField password = new JPasswordField();
         formPanel.add(username);
         formPanel.add(password);
@@ -38,19 +44,18 @@ public class Login extends JFrame {
         labelPanel.add(psw);
         buttonPanel.add(cancel);
         buttonPanel.add(access);
-        background.add(buttonPanel, BorderLayout.SOUTH);
-        background.add(labelPanel, BorderLayout.WEST);
-        background.add(formPanel, BorderLayout.CENTER);
+        loginPanel.add(buttonPanel, BorderLayout.SOUTH);
+        loginPanel.add(labelPanel, BorderLayout.WEST);
+        loginPanel.add(formPanel, BorderLayout.CENTER);
+        background.add(loginPanel, BorderLayout.CENTER);
         background.setBorder(new EmptyBorder(5,5,5,5));
         c.add(background);
 
         ActionListener accesso = e -> {
-            if (!go.accessToDB(username.getText(), String.valueOf(password.getPassword())))
-                JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
-            else {
-                InserimentoSpecifiche ins = new InserimentoSpecifiche(p, go, username.getText());
-                dispose();
-            }
+            loading();
+            String userStr = username.getText();
+            String passwordStr = String.valueOf(password.getPassword());
+            go.accessToDB(userStr, passwordStr);
         };
 
         access.addActionListener(accesso);
@@ -99,10 +104,38 @@ public class Login extends JFrame {
 
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        //setSize(250, 125);
-        pack();
-        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+        setSize(250, 125);
+        setLocation(p.getLocation());
         setVisible(true);
     }
 
+    public void successLogin(){
+        InserimentoSpecifiche ins = new InserimentoSpecifiche(p, go, username.getText());
+        ins.setLocation(this.getLocation());
+        dispose();
+    }
+
+    public void failureLogin() {
+        JOptionPane.showMessageDialog(this, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
+        background.remove(loadingPanel);
+        background.add(loginPanel);
+        background.repaint();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    private void loading(){
+        background.remove(loginPanel);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        URL url = getClass().getResource("Resources/loading.gif");
+        ImageIcon img = new ImageIcon(url);
+        loadingPanel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel(img);
+        JLabel txt = new JLabel("Sto effettuando l'accesso...");
+        txt.setHorizontalAlignment(SwingConstants.CENTER);
+        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
+        loadingPanel.add(label, BorderLayout.CENTER);
+        loadingPanel.add(txt, BorderLayout.SOUTH);
+        background.add(loadingPanel, BorderLayout.CENTER);
+        background.revalidate();
+    }
 }

@@ -9,4 +9,5 @@ public interface ObserverGO {
     void updateList(ArrayList<AbstractComponent> arr);
     void remove(boolean status);
     void update(boolean status);
+    void login(boolean status);
 }

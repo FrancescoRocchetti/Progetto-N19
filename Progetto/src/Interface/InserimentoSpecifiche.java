@@ -173,6 +173,7 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
+                p.setLocation(InserimentoSpecifiche.super.getLocation());
                 p.setVisible(true);
                 if (go.isModified())
                     p.refresh();
@@ -198,7 +199,7 @@ public class InserimentoSpecifiche extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(600, 380);
         setResizable(false);
-        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+        setLocationRelativeTo(p);
         setVisible(true);
     }
 

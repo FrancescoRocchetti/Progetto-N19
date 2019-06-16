@@ -90,7 +90,7 @@ public class AdvancedSpecs extends JFrame {
         pack();
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(this);
+        setLocationRelativeTo(ins);
         setVisible(true);
     }
 
@@ -279,7 +279,6 @@ public class AdvancedSpecs extends JFrame {
                 dispose();
             }
         });
-
         return p;
     }
 

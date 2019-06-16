@@ -19,16 +19,14 @@ public class CompList extends JFrame {
     private JPanel panel;
     private JScrollPane pane;
 
-    public CompList(InserimentoSpecifiche ins,GestoreOperazioni go) {
+    public CompList(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Inventario");
         this.go = go;
         go.setListMode(this);
         Container c = getContentPane();
-        ins.setEnabled(false);
-        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        ins.setVisible(false);
         bckg = new JPanel(new BorderLayout());
         obtainParts("Sto scaricando i dati...");
-        JPanel panel = new JPanel();
         JButton btn = new JButton("Ok");
         bckg.add(btn, BorderLayout.SOUTH);
         c.add(bckg);
@@ -40,7 +38,7 @@ public class CompList extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         setSize(600,400);
-        setLocationRelativeTo(ins);
+        setLocation(ins.getLocation());
         setVisible(true);
 
         addWindowListener(new WindowListener() {
@@ -54,8 +52,8 @@ public class CompList extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                ins.setEnabled(true);
+                ins.setLocation(CompList.super.getLocation());
+                ins.setVisible(true);
             }
 
             @Override

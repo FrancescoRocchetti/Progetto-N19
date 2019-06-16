@@ -282,7 +282,6 @@ public class Piattaforma extends JFrame{
     private void loginListener() {
         logAdmin.addActionListener(e -> {
             Login l = new Login(this);
-            l.setLocationRelativeTo(this);
         });
     }
 

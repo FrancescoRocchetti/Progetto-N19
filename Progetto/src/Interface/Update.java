@@ -23,9 +23,9 @@ public class Update extends JFrame {
     private GestoreOperazioni go;
     private JButton close;
     private JPanel southPanel;
-    private JPanel panel;
+    private JPanel loadingPanel;
     private JSpinner spinner;
-    private JScrollPane pane;
+    private JScrollPane tablePane;
 
     private int rowAdd;
     private int idAdd;
@@ -66,6 +66,7 @@ public class Update extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
+                ins.setLocation(Update.super.getLocation());
                 ins.setVisible(true);
             }
 
@@ -101,7 +102,7 @@ public class Update extends JFrame {
 
         setResizable(false);
         setSize(600,400);
-        setLocationRelativeTo(ins);
+        setLocation(ins.getLocation());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
@@ -110,7 +111,7 @@ public class Update extends JFrame {
     //la rimozione col ThreadUpdate è avvenuta correttamente
     public void successUpdate(){
         JOptionPane.showMessageDialog(null, "Componente aggiornato", "Successo", JOptionPane.INFORMATION_MESSAGE);
-        bckg.remove(panel);
+        bckg.remove(loadingPanel);
         close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
     }
@@ -119,7 +120,7 @@ public class Update extends JFrame {
     //la rimozione col ThreadUpdate non è avvenuta correttamente
     public void failureUpdate(){
         JOptionPane.showMessageDialog(null, "Errore nell'aggiornamento", "Fallito", JOptionPane.ERROR_MESSAGE);
-        bckg.remove(panel);
+        bckg.remove(loadingPanel);
         close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
     }
@@ -129,9 +130,9 @@ public class Update extends JFrame {
     public void successList(ArrayList<AbstractComponent> arr){
         Object[][] obj = getObjectFromComps(arr);
         JTable table = createTable(obj);
-        pane = new JScrollPane(table);
-        bckg.remove(panel);
-        bckg.add(pane, BorderLayout.CENTER);
+        tablePane = new JScrollPane(table);
+        bckg.remove(loadingPanel);
+        bckg.add(tablePane, BorderLayout.CENTER);
         bckg.revalidate();
     }
 
@@ -229,17 +230,17 @@ public class Update extends JFrame {
     }
 
     private void loading(String str){
-        if (pane != null) bckg.remove(pane);
+        if (tablePane != null) bckg.remove(tablePane);
         URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
-        panel = new JPanel(new BorderLayout());
+        loadingPanel = new JPanel(new BorderLayout());
         JLabel label = new JLabel(img);
         JLabel txt = new JLabel(str);
         txt.setHorizontalAlignment(SwingConstants.CENTER);
         txt.setBorder(new EmptyBorder(0, 0, 30, 0));
-        panel.add(label, BorderLayout.CENTER);
-        panel.add(txt, BorderLayout.SOUTH);
-        bckg.add(panel, BorderLayout.CENTER);
+        loadingPanel.add(label, BorderLayout.CENTER);
+        loadingPanel.add(txt, BorderLayout.SOUTH);
+        bckg.add(loadingPanel, BorderLayout.CENTER);
         bckg.revalidate();
     }
 }

@@ -5,6 +5,7 @@ import Interface.CompList;
 import Interface.InserimentoSpecifiche;
 import Interface.Remove;
 import Interface.Update;
+import Interface.Login;
 import InterfacingDB.*;
 
 import java.util.ArrayList;
@@ -18,12 +19,13 @@ public class GestoreOperazioni implements ObserverGO{
 
     private boolean modified;
     private boolean loggedIn;
-    private ManagerDB mdb;
     private String descrizione;
     private InserimentoSpecifiche ins;
+    private Login l;
     private Remove rmv;
     private Update upd;
     private CompList lst;
+    private ThreadLogin tlog;
     private ThreadAdd ta;
     private ThreadList tl;
     private ThreadRemove tr;
@@ -33,8 +35,9 @@ public class GestoreOperazioni implements ObserverGO{
     public GestoreOperazioni(){
         modified = false;
         loggedIn = false;
-        mdb = new ManagerDB();
         descrizione = null;
+        tlog = new ThreadLogin(this);
+        tlog.start();
         ta = new ThreadAdd(this);
         ta.start();
         tl = new ThreadList(this);
@@ -47,6 +50,10 @@ public class GestoreOperazioni implements ObserverGO{
 
     public void setIns(InserimentoSpecifiche ins){
         this.ins = ins;
+    }
+
+    public void setLogin(Login l){
+        this.l = l;
     }
 
     public void setRemoveMode(Remove rmv){
@@ -64,16 +71,8 @@ public class GestoreOperazioni implements ObserverGO{
         this.lst = lst;
     }
 
-    public ArrayList<AbstractComponent> read(PCParts comp){
-        return mdb.read(comp);
-    }
-
-    public boolean accessToDB(String username, String password) {
-        if (mdb.login(username, password)) {
-            loggedIn = true;
-            return true;
-        }
-        return false;
+    public void accessToDB(String username, String password) {
+        tlog.login(username, password);
     }
 
     public void insertComponent(PCParts componente, int quantita, int prezzo, int valutazione) {
@@ -103,10 +102,6 @@ public class GestoreOperazioni implements ObserverGO{
 
     public void getListComponents(){
         tl.getListOf(null);
-    }
-
-    public ArrayList<AbstractComponent> getComponentsFromDB(PCParts parts) {
-        return mdb.read(parts);
     }
 
     public boolean checkValidation(String[] str){
@@ -161,5 +156,12 @@ public class GestoreOperazioni implements ObserverGO{
     public void update(boolean status) {
         if (status) upd.successUpdate();
         else upd.failureUpdate();
+    }
+
+    @Override
+    public void login(boolean status) {
+        loggedIn = status;
+        if (status) l.successLogin();
+        else l.failureLogin();
     }
 }
