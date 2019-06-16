@@ -14,6 +14,7 @@ public class ThreadList extends Thread{
     private boolean accept;
 
     public ThreadList(ObserverGO go) {
+        super("ThreadList");
         mdb = new ManagerDB();
         this.accept = true;
         this.go = go;
@@ -27,30 +28,30 @@ public class ThreadList extends Thread{
 
     @Override
     public void run() {
-        while(true) {
-            try {
+        try {
+            while(true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
-                    throw new NoInternetException("");
-                ArrayList<AbstractComponent> arr = mdb.read(part);
-                go.updateList(arr);
-                accept = true;
-            } catch (Exception e) {
-                go.updateList(null);
+                    go.updateList(null);
+                else {
+                    ArrayList<AbstractComponent> arr = mdb.read(part);
+                    go.updateList(arr);
+                }
                 accept = true;
             }
+        } catch (InterruptedException e) {
+            System.out.println(this.getName()+" terminato");
         }
     }
 
-    private synchronized void checkAccept(){
+    private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(10);
-            }
+            wait();
         }
+    }
+
+    public void stopThread(){
+        interrupt();
     }
 }

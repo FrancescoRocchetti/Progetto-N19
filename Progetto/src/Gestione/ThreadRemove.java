@@ -11,6 +11,7 @@ public class ThreadRemove extends Thread {
     private boolean accept;
 
     public ThreadRemove(ObserverGO go) {
+        super("ThreadRemove");
         mdb = new ManagerDB();
         this.accept = true;
         this.go = go;
@@ -24,31 +25,28 @@ public class ThreadRemove extends Thread {
 
     @Override
     public void run() {
-        while(true) {
-            try {
+        try {
+            while(true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
-                    throw new NoInternetException("");
-                mdb.remove(id);
-                go.remove(true);
-                accept = true;
-            } catch (Exception e) {
-                go.remove(false);
+                    go.remove(false);
+                else
+                    go.remove(mdb.remove(id));
                 accept = true;
             }
+        } catch (InterruptedException e) {
+            System.out.println(this.getName()+" terminato");
         }
     }
 
-    private synchronized void checkAccept(){
+    private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-            try {
                 wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(10);
-            }
         }
     }
 
+    public void stopThread(){
+        interrupt();
+    }
 }

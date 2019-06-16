@@ -78,7 +78,10 @@ public class Login extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                if (!go.isLoggedIn()) p.setVisible(true);
+                if (!go.isLoggedIn()) {
+                    go.stopThreads();
+                    p.setVisible(true);
+                }
             }
 
             @Override

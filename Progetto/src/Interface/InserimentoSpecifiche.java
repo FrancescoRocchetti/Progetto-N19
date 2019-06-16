@@ -173,6 +173,7 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
+                go.stopThreads();
                 p.setLocation(InserimentoSpecifiche.super.getLocation());
                 p.setVisible(true);
                 if (go.isModified())

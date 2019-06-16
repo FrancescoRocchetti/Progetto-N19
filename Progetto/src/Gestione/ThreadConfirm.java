@@ -11,6 +11,7 @@ public class ThreadConfirm extends Thread {
     private boolean accept;
 
     public ThreadConfirm(ObserverGS gs) {
+        super("ThreadConfirm");
         mdb = new ManagerDB();
         this.accept = true;
         this.gs = gs;
@@ -24,31 +25,27 @@ public class ThreadConfirm extends Thread {
 
     @Override
     public void run() {
-        while(true) {
-            try {
+        try{
+            while(true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
-                    throw new NoInternetException("");
-                for(int c: index)
-                    mdb.update(c, -1);
-                gs.orderSuccess();
-                accept = true;
-            } catch (Exception e) {
-                gs.orderFailure();
+                    gs.orderFailure();
+                else {
+                    for(int c: index)
+                        mdb.update(c, -1);
+                    gs.orderSuccess();
+                }
                 accept = true;
             }
+        } catch (InterruptedException e) {
+            System.out.println(this.getName()+" terminato");
         }
     }
 
-    private synchronized void checkAccept(){
+    private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(10);
-            }
+            wait();
         }
     }
 }

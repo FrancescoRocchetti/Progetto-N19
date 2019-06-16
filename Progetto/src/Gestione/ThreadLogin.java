@@ -11,6 +11,7 @@ public class ThreadLogin extends Thread{
     private boolean accept;
 
     public ThreadLogin(ObserverGO go) {
+        super("ThreadLogin");
         mdb = new ManagerDB();
         this.accept = true;
         this.go = go;
@@ -25,30 +26,30 @@ public class ThreadLogin extends Thread{
 
     @Override
     public void run() {
-        while(true) {
-            try {
+        try {
+            while(true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
-                    throw new NoInternetException("");
-                boolean status = mdb.login(user,password);
-                go.login(status);
-                accept = true;
-            } catch (Exception e) {
-                go.login(false);
+                    go.login(false);
+                else {
+                    boolean status = mdb.login(user, password);
+                    go.login(status);
+                }
                 accept = true;
             }
+        } catch (InterruptedException e) {
+            System.out.println(this.getName()+" terminato");
         }
     }
 
-    private synchronized void checkAccept(){
+    private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(10);
-            }
+            wait();
         }
+    }
+
+    public void stopThread(){
+        interrupt();
     }
 }

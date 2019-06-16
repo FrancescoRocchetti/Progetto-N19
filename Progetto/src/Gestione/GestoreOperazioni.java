@@ -6,7 +6,6 @@ import Interface.InserimentoSpecifiche;
 import Interface.Remove;
 import Interface.Update;
 import Interface.Login;
-import InterfacingDB.*;
 
 import java.util.ArrayList;
 
@@ -165,5 +164,13 @@ public class GestoreOperazioni implements ObserverGO{
         loggedIn = status;
         if (status) l.successLogin();
         else l.failureLogin();
+    }
+
+    public void stopThreads(){
+        tlog.stopThread();
+        ta.stopThread();
+        tl.stopThread();
+        tr.stopThread();
+        tu.stopThread();
     }
 }

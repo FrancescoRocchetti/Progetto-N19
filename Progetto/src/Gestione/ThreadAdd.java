@@ -12,6 +12,7 @@ public class ThreadAdd extends Thread{
     private String[] str;
 
     public ThreadAdd(ObserverGO go) {
+        super("ThreadAdd");
         mdb = new ManagerDB();
         accept = true;
         this.go = go;
@@ -31,29 +32,28 @@ public class ThreadAdd extends Thread{
 
     @Override
     public void run() {
-        while(true) {
-            try {
+        try{
+            while(true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
-                    throw new NoInternetException("");
-                go.addStatus(mdb.write(PCParts.valueOf(str[0]), str[1], Integer.parseInt(str[2]), Integer.parseInt(str[3]),Integer.parseInt(str[4])));
-                accept = true;
-            } catch (Exception e) {
-                go.addStatus(false);
+                    go.addStatus(false);
+                else go.addStatus(mdb.write(PCParts.valueOf(str[0]), str[1], Integer.parseInt(str[2]), Integer.parseInt(str[3]),Integer.parseInt(str[4])));
                 accept = true;
             }
+        } catch (InterruptedException e) {
+            System.out.println(this.getName()+" terminato");
         }
     }
 
-    private synchronized void checkAccept(){
+    private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                go.addStatus(false);
-            }
+            wait();
         }
+    }
+
+    public void stopThread(){
+        interrupt();
     }
 
 }

@@ -11,6 +11,7 @@ public class ThreadUpdate extends Thread{
     private boolean accept;
 
     public ThreadUpdate(ObserverGO go) {
+        super("ThreadUpdate");
         mdb = new ManagerDB();
         this.accept = true;
         this.go = go;
@@ -25,30 +26,28 @@ public synchronized void updateCompById(int id, int quantity) {
 
     @Override
     public void run() {
-        while(true) {
-            try {
+        try{
+            while(true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
-                    throw new NoInternetException("");
-                mdb.update(id, quantity);
-                go.update(true);
-                accept = true;
-            } catch (Exception e) {
-                go.update(false);
+                    go.update(false);
+                else
+                    go.update(mdb.update(id, quantity));
                 accept = true;
             }
+        } catch (InterruptedException e) {
+            System.out.println(this.getName()+" terminato");
         }
     }
 
-    private synchronized void checkAccept(){
+    private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(10);
-            }
+            wait();
         }
+    }
+
+    public void stopThread(){
+        interrupt();
     }
 }

@@ -15,6 +15,7 @@ public class ThreadInventory extends Thread{
     private boolean accept;
 
     public ThreadInventory(ObserverGS gs) {
+        super("ThreadInventory");
         mdb = new ManagerDB();
         this.accept = true;
         this.gs = gs;
@@ -28,30 +29,26 @@ public class ThreadInventory extends Thread{
 
     @Override
     public void run() {
-        while(true) {
-            try {
+        try{
+            while (true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
-                    throw new NoInternetException("");
-                ArrayList<AbstractComponent> arr = AdaptabilityConstraint.check(mdb.read(part), ((GestoreScelte) gs).getScp());
-                gs.updateList(arr);
-                accept = true;
-            } catch (Exception e) {
-                gs.updateList(null);
+                    gs.updateList(null);
+                else {
+                    ArrayList<AbstractComponent> arr = AdaptabilityConstraint.check(mdb.read(part), ((GestoreScelte) gs).getScp());
+                    gs.updateList(arr);
+                }
                 accept = true;
             }
+        } catch (InterruptedException e) {
+            System.out.println(this.getName()+" terminato");
         }
     }
 
-    private synchronized void checkAccept(){
+    private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(10);
-            }
+            wait();
         }
     }
 }
