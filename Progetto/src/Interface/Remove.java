@@ -105,7 +105,7 @@ public class Remove extends JFrame {
     //Funzione che viene richiamata da GestoreOperazioni quando
     //la rimozione col ThreadRemove è avvenuta correttamente
     public void successRemove(){
-        JOptionPane.showMessageDialog(null, "Componente rimosso", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Componente rimosso", "Successo", JOptionPane.INFORMATION_MESSAGE);
         bckg.remove(loadingPanel);
         close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
@@ -114,7 +114,7 @@ public class Remove extends JFrame {
     //Funzione che viene richiamata da GestoreOperazioni quando
     //la rimozione col ThreadRemove non è avvenuta correttamente
     public void failureRemove(){
-        JOptionPane.showMessageDialog(null, "Errore nella rimozione", "Fallito", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Errore nella rimozione", "Fallito", JOptionPane.ERROR_MESSAGE);
         bckg.remove(loadingPanel);
         close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
@@ -134,7 +134,7 @@ public class Remove extends JFrame {
     //Funzione che viene richiamata da GestoreOperazioni quando
     //la generazione della lista col ThreadList non è avvenuta correttamente
     public void failureList(){
-        JOptionPane.showMessageDialog(null, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
         dispose();
     }
 

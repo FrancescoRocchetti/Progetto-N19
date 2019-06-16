@@ -133,6 +133,11 @@ public class InserimentoSpecifiche extends JFrame {
             AdvancedSpecs adv = new AdvancedSpecs((PCParts) componente.getSelectedItem(),go,this);
         });
 
+        componente.addActionListener(e -> {
+            confirm.setEnabled(false);
+            go.setDescrizione(null);
+        });
+
         data.add(component);
         data.add(componente);
         data.add(description);
@@ -229,7 +234,7 @@ public class InserimentoSpecifiche extends JFrame {
                 dispose();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
         }
         goBack.setEnabled(true);
     }

@@ -86,7 +86,7 @@ public class CompList extends JFrame {
     //Funzione che viene richiamata da GestoreOperazioni quando
     //la generazione della lista col ThreadList non è avvenuta correttamente
     public void failureList(){
-        JOptionPane.showMessageDialog(null, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
         dispose();
     }
 

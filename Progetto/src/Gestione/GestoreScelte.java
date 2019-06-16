@@ -3,7 +3,6 @@ package Gestione;
 import Constraints.AdaptabilityConstraint;
 import Constraints.ConsistencyConstraint;
 import Constraints.Warning;
-import Interface.ActiveComponents;
 import Interface.ConfirmList;
 import Interface.Piattaforma;
 import Components.PCParts;

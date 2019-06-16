@@ -110,7 +110,7 @@ public class Update extends JFrame {
     //Funzione che viene richiamata da GestoreOperazioni quando
     //la rimozione col ThreadUpdate è avvenuta correttamente
     public void successUpdate(){
-        JOptionPane.showMessageDialog(null, "Componente aggiornato", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Componente aggiornato", "Successo", JOptionPane.INFORMATION_MESSAGE);
         bckg.remove(loadingPanel);
         close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
@@ -119,7 +119,7 @@ public class Update extends JFrame {
     //Funzione che viene richiamata da GestoreOperazioni quando
     //la rimozione col ThreadUpdate non è avvenuta correttamente
     public void failureUpdate(){
-        JOptionPane.showMessageDialog(null, "Errore nell'aggiornamento", "Fallito", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Errore nell'aggiornamento", "Fallito", JOptionPane.ERROR_MESSAGE);
         bckg.remove(loadingPanel);
         close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");
@@ -139,7 +139,7 @@ public class Update extends JFrame {
     //Funzione che viene richiamata da GestoreOperazioni quando
     //la generazione della lista col ThreadList non è avvenuta correttamente
     public void failureList(){
-        JOptionPane.showMessageDialog(null, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
         dispose();
     }
 

@@ -30,7 +30,7 @@ public class ConfirmList extends JFrame{
         p.setEnabled(false);
         p.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         if (data == null) {
-            JOptionPane.showMessageDialog(null, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
             dispose();
         }
         table = createTable();
