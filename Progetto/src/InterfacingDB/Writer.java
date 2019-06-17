@@ -62,14 +62,7 @@ public class Writer {
     public boolean update(int cod, int quantità){
         try{
             conn = DriverManager.getConnection(url, user, password);
-
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
-            rs.next();
-            int q = rs.getInt("q");
-            q = quantità;
-
-            String query = "UPDATE INVENTARIO SET QUANTITA = " + q + " WHERE CODICE = ?;";
+            String query = "UPDATE INVENTARIO SET QUANTITA = " + quantità + " WHERE CODICE = ?;";
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, cod);

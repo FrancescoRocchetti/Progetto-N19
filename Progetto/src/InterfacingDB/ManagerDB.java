@@ -38,12 +38,4 @@ public class ManagerDB {
     public ArrayList<AbstractComponent> read(PCParts comp) {
         return r.read(comp);
     }
-
-    public int getQuantityByID(int id) {
-        return r.getQuantityByID(id);
-    }
-
-    public AbstractComponent getCompByID(int id) {
-            return r.getCompByID(id);
-    }
 }

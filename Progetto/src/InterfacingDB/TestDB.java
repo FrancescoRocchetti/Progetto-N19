@@ -3,12 +3,10 @@ package InterfacingDB;
 import Components.AbstractComponent;
 import Components.PCParts;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TestDB {
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) {
         Reader r = new Reader();
         //Writing w = new Writing();
         Login l = new Login();

@@ -42,16 +42,6 @@ public class Reader {
         }
     }
 
-    /*public ArrayList<Integer> getNumberOfRows() throws SQLException {
-        ArrayList<Integer> cods = new ArrayList<>();
-        connectToDB();
-        rs = stmt.executeQuery("SELECT CODICE AS cod from INVENTARIO");
-        while(rs.next())
-            cods.add(rs.getInt("cod"));
-        conn.close();
-        return cods;
-    }*/
-
     private void connectToDB() throws SQLException{
         conn = DriverManager.getConnection(url, user, password);
         stmt = conn.createStatement();
@@ -64,38 +54,6 @@ public class Reader {
             System.err.println("Già chiuso.");
         }
     }
-
-    public int getQuantityByID(int id){
-       try{
-            int quantity;
-            connectToDB();
-            rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + id + "'");
-            rs.next();
-            quantity = rs.getInt("q");
-            conn.close();
-            return quantity;
-        } catch (SQLException e) {
-            forceClose();
-            return -1;
-        }
-    }
-
-    public AbstractComponent getCompByID(int id) {
-        try{
-            connectToDB();
-            rs = stmt.executeQuery("SELECT * FROM INVENTARIO WHERE CODICE = '" + id + "'");
-            String[] str = new String[ELEMENTS];
-            rs.next();
-            for (int i = 1; i < ELEMENTS + 1; i++)
-                str[i - 1] = rs.getString(i);
-            conn.close();
-            return getComponent(str);
-        } catch (SQLException e) {
-            forceClose();
-            return null;
-        }
-    }
-
 
     private AbstractComponent getComponent(String[] str) {
         switch (str[1].toUpperCase()) {
