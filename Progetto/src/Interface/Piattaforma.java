@@ -295,6 +295,7 @@ public class Piattaforma extends JFrame{
         checkMessage.setText(gs.getWarningTxt());
         confirmConfig.setEnabled(gs.canOrder());
         components.setSelectedIndex(0);
+        gs.obtainParts(CMP[index]);
     }
 
     private void rechargeListener() {
@@ -427,7 +428,7 @@ public class Piattaforma extends JFrame{
                     } else {
                         add.setEnabled(false);
                         checkMessage.setForeground(Color.RED);
-                        checkMessage.setText(checkMessage.getText()+"Disponibilità insufficiente");
+                        checkMessage.setText("Disponibilità insufficiente");
                     }
                 } catch (ArrayIndexOutOfBoundsException o) {
                     add.setEnabled(false);
