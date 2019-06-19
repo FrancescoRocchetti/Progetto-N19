@@ -77,6 +77,32 @@ public class Writer {
         }
     }
 
+    public boolean buy(int cod){
+        try{
+            conn = DriverManager.getConnection(url, user, password);
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT QUANTITA AS q FROM INVENTARIO WHERE CODICE = '" + cod + "'");
+            rs.next();
+            int q = rs.getInt("q");
+
+            String query = "UPDATE INVENTARIO SET QUANTITA = " + (q-1) + " WHERE CODICE = ?;";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, cod);
+
+            preparedStmt.execute();
+
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            forceClose();
+            return false;
+        }
+    }
+
+
+
     public void forceClose() {
         try {
             conn.close();

@@ -17,9 +17,12 @@ public class ManagerDB {
 
     }
 
+    public boolean buy(int cod){
+        return w.buy(cod);
+    }
+
     public boolean login(String user, String password) {
         return l.login(user, password);
-
     }
 
     public boolean write(PCParts part, String d, int q, int p, int r) {

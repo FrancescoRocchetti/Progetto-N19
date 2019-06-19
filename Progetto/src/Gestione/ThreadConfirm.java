@@ -33,7 +33,7 @@ public class ThreadConfirm extends Thread {
                     gs.orderFailure();
                 else {
                     for(int c: index)
-                        mdb.update(c, -1);
+                        mdb.buy(c);
                     gs.orderSuccess();
                 }
                 accept = true;
