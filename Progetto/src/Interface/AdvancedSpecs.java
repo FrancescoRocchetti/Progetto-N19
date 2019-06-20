@@ -260,21 +260,23 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelCooler() {
-        p = new JPanel(new GridLayout(2,2));
+        p = new JPanel(new GridLayout(3,2));
         nome = new JLabel("Name:");
         name = new JTextField();
         JLabel liquido = new JLabel("Liquid:");
         JCheckBox liquid = new JCheckBox();
+        sock = new JLabel("Socket :");
+        socket = new HintTextField("se multi-socket, separare con ';'");
 
-        Component[] cmp = {nome, name, liquido, liquid};
+        Component[] cmp = {nome, name, liquido, liquid, sock, socket};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
+            if(isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
                 String isLiquid = "N";
                 if (liquid.isSelected())
                     isLiquid = "Y";
-                s = name.getText() + "_" + isLiquid;
+                s = name.getText() + "_" + isLiquid+"_"+socket.getText();
                 go.setDescrizione(s);
                 dispose();
             }
