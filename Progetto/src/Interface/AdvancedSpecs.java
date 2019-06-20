@@ -276,7 +276,7 @@ public class AdvancedSpecs extends JFrame {
                 String isLiquid = "N";
                 if (liquid.isSelected())
                     isLiquid = "Y";
-                s = name.getText() + "_" + isLiquid+"_"+socket.getText();
+                s = name.getText() + "_" + isLiquid+"_"+socket.getText().trim();
                 go.setDescrizione(s);
                 dispose();
             }
