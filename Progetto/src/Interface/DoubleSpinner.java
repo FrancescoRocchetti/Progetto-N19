@@ -3,6 +3,15 @@ package Interface;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+/**
+ * Classe che eredita JSpinner che permette di gestire
+ * i numeri in virgola mobile
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class DoubleSpinner extends JSpinner {
 
     private static final long serialVersionUID = 1L;
@@ -12,14 +21,10 @@ public class DoubleSpinner extends JSpinner {
 
     public DoubleSpinner(double val, double min, double max) {
         super();
-        // Model setup
         model = new SpinnerNumberModel(val, min, max, 0.1);
         this.setModel(model);
     }
 
-    /**
-     * Returns the current value as a Double
-     */
     public Double getDouble() {
         return (Double)getValue();
     }

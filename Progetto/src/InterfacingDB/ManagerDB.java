@@ -5,6 +5,13 @@ import Components.PCParts;
 
 import java.util.ArrayList;
 
+/**
+ * Gestore delle classi Login, Writer e Reader
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ManagerDB {
     private Login l;
     private Writer w;

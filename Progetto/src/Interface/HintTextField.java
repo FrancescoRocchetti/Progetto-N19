@@ -5,6 +5,15 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+/**
+ * Classe che eredita JTextField e che implementa FocusListener
+ * che permette di avere il testo "fantasma" nella TextField
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class HintTextField extends JTextField implements FocusListener {
 
     private final String hint;

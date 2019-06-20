@@ -3,6 +3,13 @@ package Gestione;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.ManagerDB;
 
+/**
+ * Thread usato per ottenere la lista dei
+ * componenti e visualizzarla su ConfirmList
+ *
+ * @author Fabio Riganti
+ *
+ */
 
 public class ThreadConfirm extends Thread {
     private ManagerDB mdb;

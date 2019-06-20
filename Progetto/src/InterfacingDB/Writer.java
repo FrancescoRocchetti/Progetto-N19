@@ -4,6 +4,13 @@ import Components.PCParts;
 
 import java.sql.*;
 
+/**
+ * Classe che permette di manipolare il DB
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class Writer {
     private String url;
     private String user;

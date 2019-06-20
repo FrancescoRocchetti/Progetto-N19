@@ -9,6 +9,15 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.URL;
 
+/**
+ * Interfaccia che permette di confermare e procedere
+ * con l'ordine
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class ConfirmList extends JFrame{
 
     private Object[][] data;

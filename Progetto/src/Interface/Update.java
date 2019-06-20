@@ -15,6 +15,15 @@ import java.awt.event.WindowListener;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Interfaccia usata per effettuare aggiornamenti
+ * sulla quantità di un componente nell'inventario
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class Update extends JFrame {
     private Container c;
     private JPanel bckg;

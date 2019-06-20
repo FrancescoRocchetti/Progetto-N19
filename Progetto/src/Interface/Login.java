@@ -11,6 +11,15 @@ import java.awt.event.WindowListener;
 import java.net.URL;
 
 
+/**
+ * Interfaccia usata per effettuare il login alla
+ * pagina della'Admin
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class Login extends JFrame {
     private GestoreOperazioni go;
     private Piattaforma p;

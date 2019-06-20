@@ -3,6 +3,14 @@ package Gestione;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.ManagerDB;
 
+/**
+ * Thread usato per effettuare il login alla
+ * pagina admin
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ThreadLogin extends Thread{
     private ManagerDB mdb;
     private ObserverGO go;

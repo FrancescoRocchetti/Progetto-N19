@@ -11,6 +11,14 @@ import java.util.ArrayList;
 
 import Components.AbstractComponent;
 
+/**
+ * Manager usato per gestire le operazioni effettuate con
+ * InserimentoSpecifiche, Update, Remove e CompList
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class GestoreOperazioni implements ObserverGO{
     private static final String RMV = "RMV";
     private static final String UPD = "UPD";
