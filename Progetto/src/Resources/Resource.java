@@ -22,6 +22,7 @@ public class Resource {
     private boolean okCase;
     private boolean okCooler;
     private boolean okPSU;
+    private String[] supportedSocketC;
 
     /**
      * Bisogna inizializzare tutti gli attributi a 0/NULL/Valore standard.
@@ -50,7 +51,12 @@ public class Resource {
         private boolean okCase;
         private boolean okCooler;
         private boolean okPSU;
+        private String[] supportedSocketC;
 
+        public Builder withSpportedSocketC(String[] supportedSocketC){
+            this.supportedSocketC = supportedSocketC;
+            return this;
+        }
 
         public Builder withTypeRAM(String typeRAM) {
             this.typeRAM = typeRAM;
@@ -180,6 +186,7 @@ public class Resource {
             risorsa.okCase = this.okCase;
             risorsa.okCooler = this.okCooler;
             risorsa.okPSU = this.okPSU;
+            risorsa.supportedSocketC = this.supportedSocketC;
             return risorsa;
         }
     }
@@ -265,6 +272,10 @@ public class Resource {
 
     public boolean isOkPSU() {
         return okPSU;
+    }
+
+    public String[] getSupportedSocketC() {
+        return supportedSocketC;
     }
 
     @Override
