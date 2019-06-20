@@ -118,11 +118,16 @@ public class InserimentoSpecifiche extends JFrame {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
             confirm.setEnabled(false);
             goBack.setEnabled(false);
-            go.insertComponent(
+            if(!go.insertComponent(
                     (PCParts) componente.getSelectedItem(),
                     (int) quantita.getValue(),
                     (int) prezzo.getValue(),
-                    (int) valutazione.getValue());
+                    (int) valutazione.getValue())) {
+                JOptionPane.showMessageDialog(this, "Errore inserimento oggetto", "Errore", JOptionPane.ERROR_MESSAGE);
+                setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                go.setDescrizione(null);
+                goBack.setEnabled(true);
+            }
         });
 
         check.addActionListener(e -> {
@@ -234,7 +239,7 @@ public class InserimentoSpecifiche extends JFrame {
                 dispose();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Errore inserimento specifiche", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Errore inserimento oggetto", "Errore", JOptionPane.ERROR_MESSAGE);
         }
         goBack.setEnabled(true);
     }

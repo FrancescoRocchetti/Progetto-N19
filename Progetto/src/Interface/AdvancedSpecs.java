@@ -488,7 +488,7 @@ public class AdvancedSpecs extends JFrame {
         if (!name.contains("_") && !name.trim().isEmpty())
             return true;
         else {
-            JOptionPane.showMessageDialog(this, "Controlla di aver inserito tutto", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Controlla di aver inserito tutto correttamente", "Errore", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

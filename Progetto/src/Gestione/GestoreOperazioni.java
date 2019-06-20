@@ -74,7 +74,7 @@ public class GestoreOperazioni implements ObserverGO{
         tlog.login(username, password);
     }
 
-    public void insertComponent(PCParts componente, int quantita, int prezzo, int valutazione) {
+    public boolean insertComponent(PCParts componente, int quantita, int prezzo, int valutazione) {
         String[] str = {
                 "1",
                 componente.name().toUpperCase(),
@@ -84,7 +84,9 @@ public class GestoreOperazioni implements ObserverGO{
                 String.valueOf(valutazione)};
         if (descrizione != null && checkValidation(str)) {
             ta.addComp(componente, descrizione, quantita,prezzo,valutazione);
+            return true;
         }
+        return false;
     }
 
     public boolean canAdd(){
