@@ -4,7 +4,7 @@ import Components.AbstractComponent;
 import Components.PCParts;
 import Constraints.AdaptabilityConstraint;
 import Gestione.SelectedComponents;
-import InterfacingDB.ManagerDB;
+import Gestione.ManagerDB;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,7 +1,6 @@
 package Gestione;
 
 import InterfacingDB.CheckInternet;
-import InterfacingDB.ManagerDB;
 
 /**
  * Thread usato per rimuovere i componenti dall'inventario

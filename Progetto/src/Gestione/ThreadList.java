@@ -3,7 +3,6 @@ package Gestione;
 import Components.AbstractComponent;
 import Components.PCParts;
 import InterfacingDB.CheckInternet;
-import InterfacingDB.ManagerDB;
 
 import java.util.ArrayList;
 
