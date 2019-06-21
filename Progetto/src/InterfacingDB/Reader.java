@@ -5,6 +5,13 @@ import Components.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Classe che permette di leggere il DB
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class Reader {
     private static final int ELEMENTS = 6;
     private Connection conn;

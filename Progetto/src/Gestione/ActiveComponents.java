@@ -4,6 +4,14 @@ import Components.AbstractComponent;
 
 import java.util.ArrayList;
 
+/**
+ * Classe usata per mantenere in memoria i componenti
+ * scaricati da DB attraverso la interfaccia Piattaforma
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ActiveComponents {
     private ArrayList<AbstractComponent> ac;
 

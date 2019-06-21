@@ -15,6 +15,14 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Interfaccia principale che ti permette di scegliere i componenti
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class Piattaforma extends JFrame{
 
     private static final int CATEGORIES = 10;

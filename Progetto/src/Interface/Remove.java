@@ -14,6 +14,15 @@ import java.awt.event.WindowListener;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Interfaccia usata per rimuovere i componenti
+ * dall'inventario
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class Remove extends JFrame {
     private Container c;
     private JPanel bckg;

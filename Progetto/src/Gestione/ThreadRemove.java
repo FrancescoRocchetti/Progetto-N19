@@ -3,6 +3,12 @@ package Gestione;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.ManagerDB;
 
+/**
+ * Thread usato per rimuovere i componenti dall'inventario
+ *
+ * @author Fabio Riganti
+ *
+ */
 
 public class ThreadRemove extends Thread {
     private ManagerDB mdb;

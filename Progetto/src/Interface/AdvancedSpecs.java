@@ -9,6 +9,16 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * Interfaccia usata per assegnare le specifiche
+ * particolari ai componenti che si vogliono aggiungere
+ * al DB
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class AdvancedSpecs extends JFrame {
     private JButton okBtn;
 

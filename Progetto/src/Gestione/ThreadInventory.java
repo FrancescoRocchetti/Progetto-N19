@@ -8,6 +8,14 @@ import Components.PCParts;
 
 import java.util.ArrayList;
 
+/**
+ * Thread usato per ottenere la lista dei
+ * componenti e visualizzarla su Piattaforma
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ThreadInventory extends Thread{
     private ManagerDB mdb;
     private ObserverGS gs;

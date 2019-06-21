@@ -8,6 +8,15 @@ import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Interfaccia che ti permette di effettuare modifiche
+ * all'inventario
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class InserimentoSpecifiche extends JFrame {
     private Container c;
     private JPanel background;
