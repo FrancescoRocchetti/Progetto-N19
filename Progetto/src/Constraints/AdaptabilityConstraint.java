@@ -13,19 +13,19 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     //questi sono i vincoli applicati ai componenti che arrivano dal DB
 
     private static boolean checkMOBOCOOLER(MOBO m,COOLER c){
-        /*
+
         return m == null || c == null
-                || Arrays.asList(m.getResource().getSupportedSocketC()).contains(c.getSocket());
-        */
-        return true;
+                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket());
+
+        //return true;
     }
 
     private static boolean checkCPUCOOLER(CPU m,COOLER c){
-        /*
+
         return m == null || c == null
-                || Arrays.asList(m.getResource().getSupportedSocketC()).contains(c.getSocket());
-        */
-        return true;
+                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket());
+
+        //return true;
     }
 
     private static boolean checkMOBOCPU(MOBO m, CPU c) {
