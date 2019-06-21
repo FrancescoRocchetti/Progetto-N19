@@ -70,6 +70,10 @@ public class GestoreScelte implements ObserverGS{
         return scp.getTotWatt();//
     }
 
+    public AbstractComponent getCompByID(int index){
+        return ac.getCompByID(index);
+    }
+
     @Override
     public void updateList(ArrayList<AbstractComponent> arr) {
         if (arr != null) {

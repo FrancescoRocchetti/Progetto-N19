@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
@@ -46,6 +48,7 @@ public class Piattaforma extends JFrame{
     private JButton confirmConfig;
     private JButton add;
     private JButton rmv;
+    private JButton show;
 
     private JPanel[] panels;
 
@@ -99,12 +102,14 @@ public class Piattaforma extends JFrame{
         wattPanel = new JPanel(new GridLayout(1, 2));
         confirmConfig = new JButton("Confirm configuration");
         confirmConfig.setEnabled(false);
-        btnpanel = new JPanel(new GridLayout(5, 1));
+        btnpanel = new JPanel(new GridLayout(6, 1));
         add = new JButton("Add");
         rmv = new JButton("Remove");
+        show = new JButton("Show info");
         panel = new JPanel(new BorderLayout());
         add.setEnabled(false);
         rmv.setEnabled(false);
+        show.setEnabled(false);
         total = new JLabel("Totale:");
         price = new JTextField();
         power = new JLabel("Power:");
@@ -162,12 +167,18 @@ public class Piattaforma extends JFrame{
             obtainParts(components.getSelectedIndex());
         });
 
+        show.addActionListener(e -> {
+            AbstractComponent abs = gs.getCompByID(idAdd);
+            new SpecsList(abs, gs,this);
+        });
+
         totPanel.add(total);
         totPanel.add(price);
         wattPanel.add(power);
         wattPanel.add(watt);
         btnpanel.add(add);
         btnpanel.add(rmv);
+        btnpanel.add(show);
         btnpanel.add(noBudgetConfig);
         btnpanel.add(budgetConfig);
         btnpanel.add(confirmConfig);
@@ -394,9 +405,10 @@ public class Piattaforma extends JFrame{
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                add.setEnabled(false);
+                show.setEnabled(false);
                 try {
                     rmv.setEnabled(true);
-                    add.setEnabled(false);
                     rowRmv = ((JTable) e.getSource()).getSelectedRow();
                     idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
@@ -427,16 +439,17 @@ public class Piattaforma extends JFrame{
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                rmv.setEnabled(false);
                 try {
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
                     if((int) table.getValueAt(rowAdd, 2) > 0) {
                         add.setEnabled(true);
-                        rmv.setEnabled(false);
+                        show.setEnabled(true);
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
                         add.setEnabled(false);
+                        show.setEnabled(false);
                         checkMessage.setForeground(Color.RED);
-                        checkMessage.setText("Disponibilità insufficiente");
                     }
                 } catch (ArrayIndexOutOfBoundsException o) {
                     add.setEnabled(false);
