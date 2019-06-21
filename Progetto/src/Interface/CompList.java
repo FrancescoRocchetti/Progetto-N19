@@ -12,6 +12,15 @@ import java.awt.event.WindowListener;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Interfaccia usata per semplicemente visualizzare
+ * l'inventario con una tabella
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class CompList extends JFrame {
 
     private GestoreOperazioni go;

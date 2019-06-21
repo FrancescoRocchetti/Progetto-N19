@@ -4,6 +4,13 @@ import Components.PCParts;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.ManagerDB;
 
+/**
+ * Thread usato per aggiungere componenti al DB
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ThreadAdd extends Thread{
 
     private ManagerDB mdb;

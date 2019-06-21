@@ -6,10 +6,27 @@ import Gestione.SelectedComponents;
 import Components.PCParts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AdaptabilityConstraint implements AbstractConstraint {
 
     //questi sono i vincoli applicati ai componenti che arrivano dal DB
+
+    private static boolean checkMOBOCOOLER(MOBO m,COOLER c){
+
+        return m == null || c == null
+                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket());
+
+        //return true;
+    }
+
+    private static boolean checkCPUCOOLER(CPU m,COOLER c){
+
+        return m == null || c == null
+                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket());
+
+        //return true;
+    }
 
     private static boolean checkMOBOCPU(MOBO m, CPU c) {
         return m == null || c == null
@@ -47,14 +64,16 @@ public class AdaptabilityConstraint implements AbstractConstraint {
             if (ac.getResource().isOkCPU()) {
                 if (checkMOBOCPU((MOBO) sc.getType(PCParts.MOBO), (CPU) ac)
                         && checkCPURAM((CPU) ac, (RAM) sc.getType(PCParts.RAM))
-                        && checkCPUOS((CPU) ac, (OS) sc.getType(PCParts.OS))) {
+                        && checkCPUOS((CPU) ac, (OS) sc.getType(PCParts.OS))
+                        && checkCPUCOOLER((CPU) ac,(COOLER) sc.getType(PCParts.COOLER))) {
                     ao.add(ac);
                 }
 
             } else if (ac.getResource().isOkMOBO()) {
                 if (checkMOBOCPU((MOBO) ac, (CPU) sc.getType(PCParts.CPU))
                         && checkMOBORAM((MOBO) ac, (RAM) sc.getType(PCParts.RAM))
-                        && checkMOBOCASE((MOBO) ac, (CASE) sc.getType(PCParts.CASE))) {
+                        && checkMOBOCASE((MOBO) ac, (CASE) sc.getType(PCParts.CASE))
+                        && checkMOBOCOOLER((MOBO) ac,(COOLER) sc.getType(PCParts.COOLER))) {
                     ao.add(ac);
                 }
 
@@ -66,6 +85,11 @@ public class AdaptabilityConstraint implements AbstractConstraint {
 
             } else if (ac.getResource().isOkCase()) {
                 if (checkMOBOCASE((MOBO) sc.getType(PCParts.MOBO), (CASE) ac)) {
+                    ao.add(ac);
+                }
+            } else if (ac.getResource().isOkCooler() && !ac.getResource().isOkCPU()){
+                if (checkCPUCOOLER((CPU) sc.getType(PCParts.CPU),(COOLER) ac)
+                        && checkMOBOCOOLER((MOBO) sc.getType(PCParts.MOBO),(COOLER) ac)) {
                     ao.add(ac);
                 }
 

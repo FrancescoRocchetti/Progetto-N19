@@ -3,6 +3,14 @@ package Gestione;
 import InterfacingDB.CheckInternet;
 import InterfacingDB.ManagerDB;
 
+/**
+ * Thread usato per aggiornare la quantità
+ * di un componente
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ThreadUpdate extends Thread{
     private ManagerDB mdb;
     private ObserverGO go;

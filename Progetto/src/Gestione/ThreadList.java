@@ -7,6 +7,15 @@ import InterfacingDB.ManagerDB;
 
 import java.util.ArrayList;
 
+/**
+ * Thread usato per ottenere la lista dei
+ * componenti e visualizzarla su Update,
+ * su Remove e su CompList
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ThreadList extends Thread{
     private ManagerDB mdb;
     private ObserverGO go;

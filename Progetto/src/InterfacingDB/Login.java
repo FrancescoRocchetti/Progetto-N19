@@ -4,6 +4,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.*;
 
+/**
+ * Classe usata per effettuare il accedere alla sezione
+ * Admin del programma
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class Login {
     private String url;
     private String user;

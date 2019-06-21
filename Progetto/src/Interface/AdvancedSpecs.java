@@ -9,6 +9,16 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * Interfaccia usata per assegnare le specifiche
+ * particolari ai componenti che si vogliono aggiungere
+ * al DB
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ */
+
 public class AdvancedSpecs extends JFrame {
     private JButton okBtn;
 
@@ -177,7 +187,7 @@ public class AdvancedSpecs extends JFrame {
                 if (cooler.isSelected())
                     t = "Y";
 
-                s = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" + ram.getSelectedItem() + "_" + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
+                s = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" /*+ ram.getSelectedItem() + "_"*/ + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
                 go.setDescrizione(s);
                 dispose();
             }
@@ -260,21 +270,23 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelCooler() {
-        p = new JPanel(new GridLayout(2,2));
+        p = new JPanel(new GridLayout(3,2));
         nome = new JLabel("Name:");
         name = new JTextField();
         JLabel liquido = new JLabel("Liquid:");
         JCheckBox liquid = new JCheckBox();
+        sock = new JLabel("Socket :");
+        socket = new HintTextField("se multi-socket, separare con ';'");
 
-        Component[] cmp = {nome, name, liquido, liquid};
+        Component[] cmp = {nome, name, liquido, liquid, sock, socket};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
+            if(isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
                 String isLiquid = "N";
                 if (liquid.isSelected())
                     isLiquid = "Y";
-                s = name.getText() + "_" + isLiquid;
+                s = name.getText() + "_" + isLiquid+"_"+socket.getText().trim();
                 go.setDescrizione(s);
                 dispose();
             }
@@ -486,7 +498,7 @@ public class AdvancedSpecs extends JFrame {
         if (!name.contains("_") && !name.trim().isEmpty())
             return true;
         else {
-            JOptionPane.showMessageDialog(this, "Controlla di aver inserito tutto", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Controlla di aver inserito tutto correttamente", "Errore", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

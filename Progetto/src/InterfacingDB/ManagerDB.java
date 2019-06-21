@@ -5,6 +5,13 @@ import Components.PCParts;
 
 import java.util.ArrayList;
 
+/**
+ * Gestore delle classi Login, Writer e Reader
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class ManagerDB {
     private Login l;
     private Writer w;
@@ -17,9 +24,12 @@ public class ManagerDB {
 
     }
 
+    public boolean buy(int cod){
+        return w.buy(cod);
+    }
+
     public boolean login(String user, String password) {
         return l.login(user, password);
-
     }
 
     public boolean write(PCParts part, String d, int q, int p, int r) {

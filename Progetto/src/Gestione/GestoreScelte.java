@@ -10,6 +10,14 @@ import Components.AbstractComponent;
 
 import java.util.ArrayList;
 
+/**
+ * Manager che gestisce le scelte effettuate tramite
+ * l'interfaccia Piattaforma
+ *
+ * @author Fabio Riganti
+ *
+ */
+
 public class GestoreScelte implements ObserverGS{
     private SelectedComponents scp;
     private ActiveComponents ac;
