@@ -1,7 +1,6 @@
 package Gestione;
 
 import InterfacingDB.CheckInternet;
-import InterfacingDB.ManagerDB;
 
 /**
  * Thread usato per effettuare il login alla

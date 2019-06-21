@@ -3,7 +3,6 @@ package Gestione;
 import Components.AbstractComponent;
 import Constraints.AdaptabilityConstraint;
 import InterfacingDB.CheckInternet;
-import InterfacingDB.ManagerDB;
 import Components.PCParts;
 
 import java.util.ArrayList;
