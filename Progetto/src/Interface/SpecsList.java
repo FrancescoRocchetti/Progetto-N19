@@ -62,7 +62,7 @@ public class SpecsList extends JFrame{
             @Override
             public void windowClosed(WindowEvent e) {
                 p.setEnabled(true);
-                p.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                p.setDefaultCloseOperation(EXIT_ON_CLOSE);
             }
 
             @Override
