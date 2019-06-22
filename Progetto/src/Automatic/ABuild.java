@@ -9,6 +9,14 @@ import Gestione.ManagerDB;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Classe che consente di ottenere una configurazione automatica
+ * senza dover scegliere i componenti manualmente
+ *
+ * @author Francesco Rocchetti
+ *
+ */
+
 public class ABuild {
     private SelectedComponents sc;
     private int budget;
