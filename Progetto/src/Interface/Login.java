@@ -70,9 +70,7 @@ public class Login extends JFrame {
         access.addActionListener(accesso);
         password.addActionListener(accesso);
 
-        cancel.addActionListener(e -> {
-            dispose();
-        });
+        cancel.addActionListener(e -> dispose());
 
         addWindowListener(new WindowListener() {
             @Override
@@ -117,7 +115,7 @@ public class Login extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(250, 125);
-        setLocation(p.getLocation());
+        setLocationRelativeTo(c);
         setVisible(true);
     }
 
