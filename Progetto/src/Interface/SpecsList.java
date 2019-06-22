@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Arrays;
 
 public class SpecsList extends JFrame{
     private static final String NOSUPPORT = "Not supported yet";
@@ -131,29 +132,30 @@ public class SpecsList extends JFrame{
 
     private JPanel panelCPU() {
         CPU c = (CPU) comp;
+        String[] car = c.getCaratteristiche();
         p = new JPanel(new GridLayout(10, 2));
         nome = new JLabel("Name:");
         name = createJTextField(c.getName());
         JLabel freq = new JLabel("Frequency (GHz):");
-        JTextField frequency = createJTextField(NOSUPPORT);
+        JTextField frequency = createJTextField(car[1]);
         JLabel core = new JLabel("Core:");
-        JTextField nCore = createJTextField(NOSUPPORT);
+        JTextField nCore = createJTextField(car[2]);
         JLabel thrd = new JLabel("Thread:");
-        JTextField thread = createJTextField(NOSUPPORT);
+        JTextField thread = createJTextField(car[3]);
         JLabel memtype = new JLabel("RAM type:");
-        JTextField ram = createJTextField(c.getTypeRAM());
+        JTextField ram = createJTextField(NOSUPPORT);
         watt = new JLabel("TDP:");
         int pw = c.getResource().getPower();
-        JTextField power = createJTextField(String.valueOf(pw));
+        JTextField power = createJTextField(car[4]);
         JLabel bit = new JLabel("Bit:");
         int b = c.getResource().getnBit();
-        JTextField nBit = createJTextField(String.valueOf(b));
+        JTextField nBit = createJTextField(car[5]);
         JLabel gpu = new JLabel("Integrated GPU:");
-        JTextField hasGpu  = createJTextField(NOSUPPORT);
+        JTextField hasGpu  = createJTextField(car[6]);
         sock = new JLabel("Socket:");
-        socket = createJTextField(c.getSocket());
+        socket = createJTextField(car[7]);
         JLabel cool = new JLabel("Cooler:");
-        JTextField cooler = createJTextField(NOSUPPORT);
+        JTextField cooler = createJTextField(car[8]);
 
         Component[] cmp = {nome, name, freq, frequency, core, nCore, thrd, thread, memtype, ram, watt, power, bit, nBit, gpu, hasGpu, sock, socket, cool, cooler};
         hasGpu.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -165,31 +167,32 @@ public class SpecsList extends JFrame{
 
     private JPanel panelMOBO() {
         MOBO m = (MOBO) comp;
+        String[] car = m.getCaratteristiche();
         p = new JPanel(new GridLayout(9, 2));
         nome = new JLabel("Name:");
         name = createJTextField(m.getName());
         sock = new JLabel("Socket:");
-        socket = createJTextField(m.getSocket());
+        socket = createJTextField(car[1]);
         JLabel banchi = new JLabel("Slot RAM:");
         int b = m.getResource().getModulesRAM();
-        JTextField nBanchi = createJTextField(String.valueOf(b));
+        JTextField nBanchi = createJTextField(car[2]);
         JLabel memtype = new JLabel("RAM type:");
-        JTextField ram = createJTextField(m.getTypeRAM());
+        JTextField ram = createJTextField(car[3]);
         JLabel pciE16 = new JLabel("Slot PCIE16x:");
         int np16 = m.getResource().getnPcie();
-        JTextField nPci16 = createJTextField(String.valueOf(np16));
+        JTextField nPci16 = createJTextField(car[4]);
         JLabel pciE = new JLabel("Slot PCIE:");
         int np = m.getResource().getnPci();
-        JTextField nPciE = createJTextField(String.valueOf(np));
+        JTextField nPciE = createJTextField(car[5]);
         JLabel dim = new JLabel("Dimension:");
         String dimMobo = m.getResource().getDimensionMOBO();
-        JTextField dimension = createJTextField(dimMobo);
+        JTextField dimension = createJTextField(car[6]);
         JLabel sata = new JLabel("Slot SATA:");
         int ns = m.getResource().getnSATA();
-        JTextField nSata = createJTextField(String.valueOf(ns));
+        JTextField nSata = createJTextField(car[7]);
         watt = new JLabel("Power:");
         int pw = m.getResource().getPower();
-        power = createJTextField(String.valueOf(pw));
+        power = createJTextField(car[8]);
 
         Component[] cmp = {nome, name, sock, socket, banchi, nBanchi, memtype, ram, pciE16, nPci16, pciE, nPciE, dim, dimension, sata, nSata, watt, power};
         addCmp(cmp, p);
@@ -199,14 +202,15 @@ public class SpecsList extends JFrame{
 
     private JPanel panelGPU(){
         GPU g = (GPU) comp;
+        String[] car = g.getCaratteristiche();
         p = new JPanel(new GridLayout(3, 2));
         nome = new JLabel("Name:");
         name = createJTextField(g.getName());
         JLabel capacity = new JLabel("Capacità GB:");
-        JTextField cap = createJTextField(NOSUPPORT);
+        JTextField cap = createJTextField(car[1]);
         watt = new JLabel("TDP:");
         int pw = g.getResource().getPower();
-        power = createJTextField(String.valueOf(pw));
+        power = createJTextField(car[2]);
 
         Component[] cmp = {nome, name, capacity, cap, watt, power};
         addCmp(cmp, p);
@@ -216,14 +220,15 @@ public class SpecsList extends JFrame{
 
     private JPanel panelCooler() {
         COOLER c = (COOLER) comp;
+        String[] car = c.getCaratteristiche();
         p = new JPanel(new GridLayout(3,2));
         nome = new JLabel("Name:");
         name = createJTextField(c.getName());
         JLabel liquido = new JLabel("Liquid:");
-        JTextField liquid = createJTextField(NOSUPPORT);
+        JTextField liquid = createJTextField(car[1]);
         sock = new JLabel("Socket :");
         String[] scks = c.getResource().getSupportedSocketC();
-        String str = getStringFromArray(scks);
+        String str = getStringFromArray(car[2].split(";"));
         socket = createJTextField(str);
 
         Component[] cmp = {nome, name, liquido, liquid, sock, socket};
@@ -234,22 +239,23 @@ public class SpecsList extends JFrame{
 
     private JPanel panelRAM() {
         RAM r = (RAM) comp;
+        String[] car = r.getCaratteristiche();
         p = new JPanel(new GridLayout(6,2));
         nome = new JLabel("Nome:");
         name = createJTextField(r.getName());
         watt = new JLabel("Watt:");
         int pw = r.getResource().getPower();
-        power = createJTextField(String.valueOf(pw));
+        power = createJTextField(car[1]);
         JLabel memtype = new JLabel("RAM type:");
-        JTextField ram = createJTextField(r.getTypeRAM());
+        JTextField ram = createJTextField(car[2]);
         JLabel dimensione = new JLabel("Dimension (GB):");
         int dm = r.getResource().getAmountRAM();
-        JTextField dimension = createJTextField(String.valueOf(dm));
+        JTextField dimension = createJTextField(car[3]);
         JLabel frequenza = new JLabel("Frequency (MHz):");
-        JTextField frequency = createJTextField(NOSUPPORT);
+        JTextField frequency = createJTextField(car[4]);
         JLabel nModuli = new JLabel("# of modules:");
         int mod = r.getResource().getModulesRAM();
-        JTextField modules = createJTextField(String.valueOf(mod));
+        JTextField modules = createJTextField(car[5]);
 
         Component[] cmp = {nome, name, watt, power, memtype, ram, dimensione, dimension, frequenza, frequency, nModuli, modules};
         addCmp(cmp, p);
@@ -259,16 +265,17 @@ public class SpecsList extends JFrame{
 
     private JPanel panelPSU() {
         PSU psu = (PSU) comp;
+        String[] car = psu.getCaratteristiche();
         p = new JPanel(new GridLayout(4,2));
         nome = new JLabel("Nome:");
-        name = new JTextField(psu.getName());
+        name = createJTextField(psu.getName());
         watt = new JLabel("Watt:");
         int pw = psu.getResource().getPower();
-        power = createJTextField(String.valueOf(pw));
+        power = createJTextField(car[1]);
         JLabel dimensione = new JLabel("Dimensione:");
-        JTextField dimension = createJTextField(NOSUPPORT);
+        JTextField dimension = createJTextField(car[2]);
         JLabel certificazione = new JLabel("Certification:");
-        JTextField certification = createJTextField(NOSUPPORT);
+        JTextField certification = createJTextField(car[3]);
 
         Component[] cmp = {nome, name, watt, power, dimensione, dimension, certificazione, certification};
         addCmp(cmp, p);
@@ -278,16 +285,18 @@ public class SpecsList extends JFrame{
 
     private JPanel panelStorage() {
         STORAGE s = (STORAGE) comp;
+        String[] car = s.getCaratteristiche();
         p = new JPanel(new GridLayout(4,2));
         nome = new JLabel("Nome:");
-        name = new JTextField();
+        name = createJTextField(s.getName());
         JLabel size = new JLabel("Size:");
-        JTextField dim = createJTextField(NOSUPPORT);
+        JTextField dim = createJTextField(car[1]);
         JLabel dimensione = new JLabel("Storage (GB):");
-        JTextField storage = createJTextField(NOSUPPORT);
+        JTextField storage = createJTextField(car[2]);
         int pw = s.getResource().getPower();
         watt = new JLabel("Watt:");
-        power = createJTextField(String.valueOf(pw));
+        power = createJTextField(NOSUPPORT);
+
 
         Component[] cmp = {nome, name, size, dim, dimensione, storage, watt, power};
         addCmp(cmp, p);
@@ -297,17 +306,18 @@ public class SpecsList extends JFrame{
 
     private JPanel panelCASE() {
         CASE c = (CASE) comp;
+        String[] car = c.getCaratteristiche();
         p = new JPanel(new GridLayout(4,2));
         nome = new JLabel("Nome:");
         name = createJTextField(c.getName());
         JLabel dimensione = new JLabel("Size:");
         String d = c.getCaseDim();
-        JTextField dimension = createJTextField(d);
+        JTextField dimension = createJTextField(car[1]);
         JLabel slot35 = new JLabel("# slot 3.5:");
         int ns35 = c.getResource().getnSlot325();
-        JTextField nSlot35 = createJTextField(String.valueOf(ns35));
+        JTextField nSlot35 = createJTextField(car[2]);
         JLabel slot25 = new JLabel("# slot 2.5:");
-        JTextField nSlot25 = createJTextField(NOSUPPORT);
+        JTextField nSlot25 = createJTextField(car[3]);
 
         Component[] cmp = {nome, name, dimensione, dimension, slot35, nSlot35, slot25, nSlot25};
 
@@ -318,11 +328,12 @@ public class SpecsList extends JFrame{
 
     private JPanel panelOS() {
         OS o = (OS) comp;
+        String[] car = o.getCaratteristiche();
         p = new JPanel(new GridLayout(2,2));
         nome = new JLabel("Nome:");
         name = createJTextField(o.getName());
         JLabel bit = new JLabel("Bit:");
-        JTextField nBit = createJTextField(String.valueOf(o.getBit()));
+        JTextField nBit = createJTextField(car[1]);
 
         Component[] cmp = {nome, name, bit, nBit};
         addCmp(cmp, p);
@@ -332,6 +343,7 @@ public class SpecsList extends JFrame{
 
     private JPanel panelALTRO() {
         ALTRO a = (ALTRO) comp;
+        String[] car = a.getCaratteristiche();
         p = new JPanel(new GridLayout(2,2));
         nome = new JLabel("Nome:");
         name = createJTextField(a.getName());

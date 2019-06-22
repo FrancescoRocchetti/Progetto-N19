@@ -84,6 +84,10 @@ public abstract class AbstractComponent implements Comparable {
         return resource.getDimensionCase();
     }
 
+    public String[] getCaratteristiche() {
+        return caratteristiche;
+    }
+
     @Override
     public String toString() {
         return "{" +
