@@ -20,6 +20,7 @@ public class SommatoreRes {
                     .withokCooler(temp.isOkCooler() || r.isOkCooler())
                     .withokStorage(temp.isOkStorage() || r.isOkStorage())
 
+
                     .withPower(temp.getPower() + r.getPower())
                     .withNSATA(temp.getnSATA() + r.getnSATA())
                     .withNSlot(temp.getnSlot325() + r.getnSlot325())

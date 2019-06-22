@@ -2,7 +2,6 @@ package Gestione;
 
 import Components.PCParts;
 import InterfacingDB.CheckInternet;
-import InterfacingDB.ManagerDB;
 
 /**
  * Thread usato per aggiungere componenti al DB

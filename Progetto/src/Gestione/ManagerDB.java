@@ -1,7 +1,10 @@
-package InterfacingDB;
+package Gestione;
 
 import Components.AbstractComponent;
 import Components.PCParts;
+import InterfacingDB.Login;
+import InterfacingDB.Reader;
+import InterfacingDB.Writer;
 
 import java.util.ArrayList;
 
