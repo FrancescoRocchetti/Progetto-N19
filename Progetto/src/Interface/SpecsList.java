@@ -291,7 +291,7 @@ public class SpecsList extends JFrame{
         JLabel dimensione = new JLabel("Storage (GB):");
         JTextField storage = createJTextField(car[2]);
         watt = new JLabel("Watt:");
-        power = createJTextField(NOSUPPORT);
+        power = createJTextField(car[3]);
 
 
         Component[] cmp = {nome, name, size, dim, dimensione, storage, watt, power};
@@ -337,11 +337,12 @@ public class SpecsList extends JFrame{
 
     private JPanel panelALTRO() {
         ALTRO a = (ALTRO) comp;
+        String[] car = a.getCaratteristiche();
         p = new JPanel(new GridLayout(2,2));
         nome = new JLabel("Nome:");
         name = createJTextField(a.getName());
         JLabel descrizione = new JLabel("Description:");
-        JTextField description = createJTextField(NOSUPPORT);
+        JTextField description = createJTextField(car[1]);
 
         Component[] cmp = {nome, name, descrizione, description};
         addCmp(cmp, p);
