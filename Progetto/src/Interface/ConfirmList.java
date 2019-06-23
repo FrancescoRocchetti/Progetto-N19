@@ -112,6 +112,12 @@ public class ConfirmList extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Restituisce i codici prodotto del carrello
+     * in un vettore di interi
+     *
+     * @return int[]
+     */
     public int[] getCodesOfComps(){
         int[] i = new int[data.length];
 
@@ -122,6 +128,11 @@ public class ConfirmList extends JFrame{
         return i;
     }
 
+    /**
+     * Restituisce il carrello come una tabella
+     *
+     * @return JTable
+     */
     public JTable createTable(){
         String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
         JTable table = new JTable(data, column);
@@ -136,6 +147,10 @@ public class ConfirmList extends JFrame{
         return table;
     }
 
+    /**
+     * Funzione che viene richiamata da GestoreScelte quando
+     * l'acquisto è andato a buon fine
+     */
     public void success(){
         JOptionPane.showMessageDialog(this, "Acquisto effettuato con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
         p.newConfiguration();
@@ -143,8 +158,12 @@ public class ConfirmList extends JFrame{
         dispose();
     }
 
+    /**
+     * Funzione che viene richiamata da GestoreScelte quando
+     * l'acquisto è andato male
+     */
     public void failure(){
-        JOptionPane.showMessageDialog(this, "Errore durante l'acquisto dell'ordine", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Errore durante l'acquisto dell'ordine. Riprovare più tardi", "Fallimento", JOptionPane.INFORMATION_MESSAGE);
         label.setText("Sicuro di voler effettuare questo ordine?");
         panel.removeAll();
         panel.setLayout(new GridLayout());

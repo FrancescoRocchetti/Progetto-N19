@@ -28,6 +28,15 @@ public class Reader {
         password = "dmHj8vdaCo";
     }
 
+    /**
+     * Restituisce in una lista i componenti del DB in base al tipo di
+     * componente interessato
+     *
+     * @param comp: se nullo, restituisce tutti i componenti
+     *
+     * @return Lista di AbstractComponent se la lettura è andata a buon fine,
+     * altrimenti nullo
+     */
     public ArrayList<AbstractComponent> read(PCParts comp){
         try{
             connectToDB();
@@ -49,11 +58,12 @@ public class Reader {
         }
     }
 
-    private void connectToDB() throws SQLException{
-        conn = DriverManager.getConnection(url, user, password);
-        stmt = conn.createStatement();
-    }
-
+    /**
+     * Consente di forzare la chiusura della connessione in caso di errore
+     * durante la comunicazione
+     *
+     * @exception SQLException: vuol dire che la connessione è già terminata
+     */
     public void forceClose() {
         try {
             conn.close();
@@ -61,6 +71,13 @@ public class Reader {
             System.err.println("Già chiuso.");
         }
     }
+
+    private void connectToDB() throws SQLException{
+        conn = DriverManager.getConnection(url, user, password);
+        stmt = conn.createStatement();
+    }
+
+
 
     private AbstractComponent getComponent(String[] str) {
         switch (str[1].toUpperCase()) {

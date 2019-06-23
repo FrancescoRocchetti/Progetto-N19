@@ -214,6 +214,52 @@ public class Piattaforma extends JFrame{
         setVisible(true);
 
     }
+    /**
+     * Permette di partire di nuovo da zero con la configurazione
+     */
+    public void newConfiguration(){
+        for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
+            ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
+        price.setText("0 €");
+        watt.setText("0 W");
+        rmv.setEnabled(false);
+        gs.newScp();
+        checkMessage.setText(gs.getWarningTxt());
+        confirmConfig.setEnabled(gs.canOrder());
+        components.setSelectedIndex(0);
+        gs.obtainParts(CMP[index]);
+    }
+
+    /**
+     * Aggiorna la tabella dei componenti attuale
+     */
+    public void refresh() {
+        obtainParts(components.getSelectedIndex());
+    }
+
+    /**
+     * Permette di notificare Piattaforma di un tentato aggiornamento
+     * della tabella
+     *
+     * @param arr
+     */
+    public void updateListTable(ArrayList<AbstractComponent> arr) {
+        if (arr == null) {
+            JOptionPane.showMessageDialog(this, "Errore lettura componenti.", "Errore", JOptionPane.ERROR_MESSAGE);
+            panels[index].removeAll();
+            components.setEnabled(true);
+            return;
+        }
+        compTable = createTable(arr);
+        JScrollPane scroll = new JScrollPane(
+                compTable,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        panels[index].removeAll();
+        panels[index].add(scroll);
+        panels[index].setLayout(new GridLayout());
+        components.setEnabled(true);
+    }
 
     private void addComp(int id) {
         gs.addComp(id);
@@ -240,7 +286,7 @@ public class Piattaforma extends JFrame{
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
             if(ConsistencyConstraint.checkRes(gs.getScp())) {
-                ConfirmList c = new ConfirmList(this, getCart(), gs);
+                new ConfirmList(this, getCart(), gs);
             } else
                 JOptionPane.showMessageDialog(this, "Non hai ancora inserito tutti i componenti necessari.", "Errore", JOptionPane.ERROR_MESSAGE);
         });
@@ -249,7 +295,7 @@ public class Piattaforma extends JFrame{
     private void budgetConfigListener(JButton btn) {
         btn.addActionListener(e -> {
             int budget = Integer.parseInt(JOptionPane.showInputDialog("Budget:"));
-            BudgetConfig b = new BudgetConfig(budget);
+            new BudgetConfig(budget);
         });
     }
 
@@ -293,7 +339,7 @@ public class Piattaforma extends JFrame{
 
     private void loginListener() {
         logAdmin.addActionListener(e -> {
-            Login l = new Login(this);
+            new Login(this);
         });
     }
 
@@ -303,18 +349,7 @@ public class Piattaforma extends JFrame{
         });
     }
 
-    public void newConfiguration(){
-        for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
-            ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
-        price.setText("0 €");
-        watt.setText("0 W");
-        rmv.setEnabled(false);
-        gs.newScp();
-        checkMessage.setText(gs.getWarningTxt());
-        confirmConfig.setEnabled(gs.canOrder());
-        components.setSelectedIndex(0);
-        gs.obtainParts(CMP[index]);
-    }
+
 
     private void rechargeListener() {
         recharge.addActionListener(e -> refresh());
@@ -324,9 +359,7 @@ public class Piattaforma extends JFrame{
         exit.addActionListener(e -> System.exit(0));
     }
 
-    public void refresh() {
-        obtainParts(components.getSelectedIndex());
-    }
+
 
     private JTable createTable(ArrayList<AbstractComponent> arr) {
         DefaultTableModel dm = new DefaultTableModel();
@@ -382,23 +415,7 @@ public class Piattaforma extends JFrame{
     }
 
 
-    public void updateListTable(ArrayList<AbstractComponent> arr) {
-        if (arr == null) {
-            JOptionPane.showMessageDialog(this, "Errore lettura componenti.", "Errore", JOptionPane.ERROR_MESSAGE);
-            panels[index].removeAll();
-            components.setEnabled(true);
-            return;
-        }
-        compTable = createTable(arr);
-        JScrollPane scroll = new JScrollPane(
-                compTable,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        panels[index].removeAll();
-        panels[index].add(scroll);
-        panels[index].setLayout(new GridLayout());
-        components.setEnabled(true);
-    }
+
 
     private void addCartTableMouseListener(JTable table){
         table.addMouseListener(new MouseListener() {

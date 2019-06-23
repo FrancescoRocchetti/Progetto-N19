@@ -25,6 +25,13 @@ public class Login {
         password = "dmHj8vdaCo";
     }
 
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni per
+     * effettuare il login alla piattaforma come Admin
+     *
+     * @param user
+     * @param password
+     */
     public boolean login(String user, String password){
         try{
             conn = DriverManager.getConnection(url, this.user, this.password);
@@ -40,6 +47,20 @@ public class Login {
         } catch (SQLException e) {
             forceClose();
             return false;
+        }
+    }
+
+    /**
+     * Consente di forzare la chiusura della connessione in caso di errore
+     * durante la comunicazione
+     *
+     * @exception SQLException: vuol dire che la connessione è già terminata
+     */
+    public void forceClose() {
+        try {
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Già chiuso.");
         }
     }
 
@@ -61,11 +82,5 @@ public class Login {
         }
     }
 
-    public void forceClose() {
-        try {
-            conn.close();
-        } catch (Exception e) {
-            System.err.println("Già chiuso.");
-        }
-    }
+
 }

@@ -118,26 +118,30 @@ public class Update extends JFrame {
         setVisible(true);
     }
 
-    //Funzione che viene richiamata da GestoreOperazioni quando
-    //la rimozione col ThreadUpdate è avvenuta correttamente
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * l'aggiornamento è avvenuta correttamente
+     */
     public void successUpdate(){
         JOptionPane.showMessageDialog(this, "Componente aggiornato", "Successo", JOptionPane.INFORMATION_MESSAGE);
-        bckg.remove(loadingPanel);
-        close.setEnabled(true);
-        obtainParts("Sto scaricando i dati...");
+        reload();
     }
 
-    //Funzione che viene richiamata da GestoreOperazioni quando
-    //la rimozione col ThreadUpdate non è avvenuta correttamente
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * l'aggiornamento non è avvenuta correttamente
+     */
     public void failureUpdate(){
         JOptionPane.showMessageDialog(this, "Errore nell'aggiornamento", "Fallito", JOptionPane.ERROR_MESSAGE);
-        bckg.remove(loadingPanel);
-        close.setEnabled(true);
-        obtainParts("Sto scaricando i dati...");
+        reload();
     }
 
-    //Funzione che viene richiamata da GestoreOperazioni quando
-    //la generazione della lista col ThreadList è avvenuta correttamente
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista è avvenuta correttamente
+     *
+     * @param arr
+     */
     public void successList(ArrayList<AbstractComponent> arr){
         Object[][] obj = getObjectFromComps(arr);
         JTable table = createTable(obj);
@@ -147,8 +151,10 @@ public class Update extends JFrame {
         bckg.revalidate();
     }
 
-    //Funzione che viene richiamata da GestoreOperazioni quando
-    //la generazione della lista col ThreadList non è avvenuta correttamente
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista col ThreadList non è avvenuta correttamente
+     */
     public void failureList(){
         JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
         dispose();
@@ -253,5 +259,11 @@ public class Update extends JFrame {
         loadingPanel.add(txt, BorderLayout.SOUTH);
         bckg.add(loadingPanel, BorderLayout.CENTER);
         bckg.revalidate();
+    }
+
+    private void reload(){
+        bckg.remove(loadingPanel);
+        close.setEnabled(true);
+        obtainParts("Sto scaricando i dati...");
     }
 }

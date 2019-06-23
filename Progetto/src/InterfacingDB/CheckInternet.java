@@ -1,5 +1,6 @@
 package InterfacingDB;
 
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -16,13 +17,21 @@ import java.net.URLConnection;
 
 public class CheckInternet {
 
+    /**
+     * Permette di verificare se è possibile connettersi al DB
+     * effettuando un test di connessione al sito che ci fornisce
+     * il Server SQL
+     *
+     * @exception java.io.IOException: Non è stato possibile connettersi
+     * al Server SQL
+     */
     public static boolean check() {
         try {
             URL url = new URL("https://remotemysql.com/");
             URLConnection connection = url.openConnection();
             connection.connect();
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             return false;
         }
     }

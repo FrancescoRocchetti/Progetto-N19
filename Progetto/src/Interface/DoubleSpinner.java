@@ -24,7 +24,11 @@ public class DoubleSpinner extends JSpinner {
         model = new SpinnerNumberModel(val, min, max, 0.1);
         this.setModel(model);
     }
-
+    /**
+     * Restituisce il valore all'interno del JSpinner
+     *
+     * @return double
+     */
     public Double getDouble() {
         return (Double)getValue();
     }

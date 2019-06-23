@@ -122,12 +122,20 @@ public class Login extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Funzione richiamata da GestoreOperazioni che indica quando
+     * la procedura di login ha avuto successo
+     */
     public void successLogin(){
         InserimentoSpecifiche ins = new InserimentoSpecifiche(p, go, username.getText());
         ins.setLocation(this.getLocation());
         dispose();
     }
 
+    /**
+     * Funzione richiamata da GestoreOperazioni che indica quando
+     * la procedura di login non ha avuto successo
+     */
     public void failureLogin() {
         JOptionPane.showMessageDialog(this, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
         background.remove(loadingPanel);

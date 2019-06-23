@@ -96,6 +96,15 @@ public class SpecsList extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Costruisce il pannello in base al
+     * componente che si vuole aggiungere
+     * al DB
+     *
+     * @param part
+     *
+     * @return JPanel
+     */
     private JPanel buildPanel(PCParts part) {
         switch(part){
             case CPU: {

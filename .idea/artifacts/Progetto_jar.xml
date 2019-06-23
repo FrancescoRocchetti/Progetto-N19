@@ -3,8 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Progetto_jar</output-path>
     <root id="archive" name="Progetto.jar">
       <element id="module-output" name="Progetto" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.16/mysql-connector-java-8.0.16.jar" path-in-jar="/" />
+      <element id="library" level="project" name="mysql:mysql-connector-java:8.0.16" />
     </root>
   </artifact>
 </component>

@@ -231,16 +231,23 @@ public class InserimentoSpecifiche extends JFrame {
         setVisible(true);
     }
 
-    private void setSpinnerNotWritable(JSpinner spinner) {
-        JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
-        ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
-    }
 
+    /**
+     * Attiva tutti i bottoni se la descrizione
+     * della specifica è corretta
+     */
     public void enableConfirmButton(){
         Boolean t = go.canAdd();
         confirm.setEnabled(t);
     }
 
+    /**
+     * Funzione richiamata da GestoreOperazione quando
+     * c'è stato un tentativo di aggiunta di componenti
+     * al DB
+     *
+     * @param status
+     */
     public void updateAdd(boolean status){
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         if(status){
@@ -278,4 +285,8 @@ public class InserimentoSpecifiche extends JFrame {
         background.revalidate();
     }
 
+    private void setSpinnerNotWritable(JSpinner spinner) {
+        JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
+        ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
+    }
 }

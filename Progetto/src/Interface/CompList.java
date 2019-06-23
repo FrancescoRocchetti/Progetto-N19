@@ -86,6 +86,12 @@ public class CompList extends JFrame {
         });
     }
 
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista è avvenuta correttamente
+     *
+     * @param arr
+     */
     public void successList(ArrayList<AbstractComponent> arr){
         Object[][] obj = getObjectFromComps(arr);
         JTable table = createTable(obj);
@@ -95,8 +101,10 @@ public class CompList extends JFrame {
         bckg.revalidate();
     }
 
-    //Funzione che viene richiamata da GestoreOperazioni quando
-    //la generazione della lista col ThreadList non è avvenuta correttamente
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista non è avvenuta correttamente
+     */
     public void failureList(){
         JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
         dispose();
