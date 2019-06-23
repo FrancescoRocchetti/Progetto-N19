@@ -74,6 +74,8 @@ public class AdvancedSpecs extends JFrame {
                 ins.enableConfirmButton();
                 ins.setEnabled(true);
                 ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                ins.toFront();
+                ins.requestFocus();
             }
 
             @Override

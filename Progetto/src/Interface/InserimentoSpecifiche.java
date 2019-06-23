@@ -4,9 +4,11 @@ import Gestione.GestoreOperazioni;
 import Components.PCParts;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
 
 /**
  * Interfaccia che ti permette di effettuare modifiche
@@ -20,6 +22,8 @@ import java.awt.event.*;
 public class InserimentoSpecifiche extends JFrame {
     private Container c;
     private JPanel background;
+    private JPanel loadingPanel;
+    private JPanel compsInterface;
     private JPanel data;
     private JPanel descPanel;
     private Toolkit kit;
@@ -65,6 +69,7 @@ public class InserimentoSpecifiche extends JFrame {
         dim = kit.getScreenSize();
         c = getContentPane();
         componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS", "ALTRO"};
+        compsInterface = new JPanel(new BorderLayout());
         background = new JPanel(new BorderLayout());
         title = new JLabel("Inserisci le informazioni richieste");
         title.setFont(new Font("Arial", Font.BOLD, 20));
@@ -112,11 +117,11 @@ public class InserimentoSpecifiche extends JFrame {
         checkButton = new JPanel(new GridLayout(1, 1));
 
         remove.addActionListener(e -> {
-            Remove comp = new Remove(this, go);
+            new Remove(this, go);
         });
 
         update.addActionListener(e -> {
-            Update update = new Update(this, go);
+            new Update(this, go);
         });
 
         goBack.addActionListener(e -> {
@@ -125,8 +130,7 @@ public class InserimentoSpecifiche extends JFrame {
 
         confirm.addActionListener(e -> {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-            confirm.setEnabled(false);
-            goBack.setEnabled(false);
+            loading("Sto aggiungendo il componente al DB...");
             if(!go.insertComponent(
                     (PCParts) componente.getSelectedItem(),
                     (int) quantita.getValue(),
@@ -144,7 +148,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         advanced.addActionListener(e -> {
-            AdvancedSpecs adv = new AdvancedSpecs((PCParts) componente.getSelectedItem(),go,this);
+            new AdvancedSpecs((PCParts) componente.getSelectedItem(), go,this);
         });
 
         componente.addActionListener(e -> {
@@ -175,9 +179,11 @@ public class InserimentoSpecifiche extends JFrame {
         btnPanel.add(fourButtons, BorderLayout.NORTH);
         btnPanel.add(checkButton, BorderLayout.SOUTH);
 
-        background.add(northPanel, BorderLayout.NORTH);
-        background.add(data, BorderLayout.CENTER);
-        background.add(btnPanel, BorderLayout.SOUTH);
+        compsInterface.add(northPanel, BorderLayout.NORTH);
+        compsInterface.add(data, BorderLayout.CENTER);
+        compsInterface.add(btnPanel, BorderLayout.SOUTH);
+
+        background.add(compsInterface, BorderLayout.CENTER);
 
         c.add(background);
 
@@ -195,6 +201,8 @@ public class InserimentoSpecifiche extends JFrame {
                 go.stopThreads();
                 p.setLocation(InserimentoSpecifiche.super.getLocation());
                 p.setVisible(true);
+                p.toFront();
+                p.requestFocus();
                 if (go.isModified())
                     p.refresh();
             }
@@ -250,6 +258,24 @@ public class InserimentoSpecifiche extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Errore inserimento oggetto", "Errore", JOptionPane.ERROR_MESSAGE);
         }
-        goBack.setEnabled(true);
+        background.remove(loadingPanel);
+        background.add(compsInterface, BorderLayout.CENTER);
+        background.repaint();
     }
+
+    private void loading(String str){
+        background.remove(compsInterface);
+        URL url = getClass().getResource("Resources/loading.gif");
+        ImageIcon img = new ImageIcon(url);
+        loadingPanel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel(img);
+        JLabel txt = new JLabel(str);
+        txt.setHorizontalAlignment(SwingConstants.CENTER);
+        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
+        loadingPanel.add(label, BorderLayout.CENTER);
+        loadingPanel.add(txt, BorderLayout.SOUTH);
+        background.add(loadingPanel, BorderLayout.CENTER);
+        background.revalidate();
+    }
+
 }

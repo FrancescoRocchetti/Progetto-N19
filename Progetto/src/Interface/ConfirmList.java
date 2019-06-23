@@ -84,6 +84,8 @@ public class ConfirmList extends JFrame{
             public void windowClosed(WindowEvent e) {
                 p.setDefaultCloseOperation(EXIT_ON_CLOSE);
                 p.setEnabled(true);
+                p.toFront();
+                p.requestFocus();
             }
 
             @Override

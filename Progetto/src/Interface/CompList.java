@@ -63,6 +63,9 @@ public class CompList extends JFrame {
             public void windowClosed(WindowEvent e) {
                 ins.setLocation(CompList.super.getLocation());
                 ins.setVisible(true);
+                ins.toFront();
+                ins.requestFocus();
+
             }
 
             @Override

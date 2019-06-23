@@ -87,7 +87,10 @@ public class Login extends JFrame {
             public void windowClosed(WindowEvent e) {
                 if (!go.isLoggedIn()) {
                     go.stopThreads();
+                    p.setLocation(Login.super.getLocation());
                     p.setVisible(true);
+                    p.toFront();
+                    p.requestFocus();
                 }
             }
 
@@ -115,7 +118,7 @@ public class Login extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(250, 125);
-        setLocationRelativeTo(c);
+        setLocation(p.getLocation());
         setVisible(true);
     }
 
@@ -142,7 +145,6 @@ public class Login extends JFrame {
         JLabel label = new JLabel(img);
         JLabel txt = new JLabel("Sto effettuando l'accesso...");
         txt.setHorizontalAlignment(SwingConstants.CENTER);
-        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
         loadingPanel.add(label, BorderLayout.CENTER);
         loadingPanel.add(txt, BorderLayout.SOUTH);
         background.add(loadingPanel, BorderLayout.CENTER);

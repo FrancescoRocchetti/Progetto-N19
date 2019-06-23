@@ -77,6 +77,8 @@ public class Update extends JFrame {
             public void windowClosed(WindowEvent e) {
                 ins.setLocation(Update.super.getLocation());
                 ins.setVisible(true);
+                ins.toFront();
+                ins.requestFocus();
             }
 
             @Override
