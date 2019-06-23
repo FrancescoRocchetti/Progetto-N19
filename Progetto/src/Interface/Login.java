@@ -68,6 +68,7 @@ public class Login extends JFrame {
         };
 
         access.addActionListener(accesso);
+        username.addActionListener(accesso);
         password.addActionListener(accesso);
 
         cancel.addActionListener(e -> dispose());
