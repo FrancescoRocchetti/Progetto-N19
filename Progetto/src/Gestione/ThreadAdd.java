@@ -7,7 +7,6 @@ import InterfacingDB.CheckInternet;
  * Thread usato per aggiungere componenti al DB
  *
  * @author Fabio Riganti
- *
  */
 
 public class ThreadAdd extends Thread{

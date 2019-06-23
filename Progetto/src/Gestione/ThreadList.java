@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * su Remove e su CompList
  *
  * @author Fabio Riganti
- *
  */
 
 public class ThreadList extends Thread{

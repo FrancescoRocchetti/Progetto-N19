@@ -7,7 +7,6 @@ import InterfacingDB.CheckInternet;
  * di un componente
  *
  * @author Fabio Riganti
- *
  */
 
 public class ThreadUpdate extends Thread{

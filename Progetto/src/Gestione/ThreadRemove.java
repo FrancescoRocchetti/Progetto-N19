@@ -6,7 +6,6 @@ import InterfacingDB.CheckInternet;
  * Thread usato per rimuovere i componenti dall'inventario
  *
  * @author Fabio Riganti
- *
  */
 
 public class ThreadRemove extends Thread {

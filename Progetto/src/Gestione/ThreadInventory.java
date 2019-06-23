@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * componenti e visualizzarla su Piattaforma
  *
  * @author Fabio Riganti
- *
  */
 
 public class ThreadInventory extends Thread{

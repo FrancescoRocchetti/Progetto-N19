@@ -3,8 +3,7 @@ package Gestione;
 import InterfacingDB.CheckInternet;
 
 /**
- * Thread usato per ottenere la lista dei
- * componenti e visualizzarla su ConfirmList
+ * Thread usato per confermare l'ordine
  *
  * @author Fabio Riganti
  *

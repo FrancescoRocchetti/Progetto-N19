@@ -7,7 +7,6 @@ import InterfacingDB.CheckInternet;
  * pagina admin
  *
  * @author Fabio Riganti
- *
  */
 
 public class ThreadLogin extends Thread{

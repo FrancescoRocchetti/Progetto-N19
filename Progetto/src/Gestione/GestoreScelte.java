@@ -36,19 +36,37 @@ public class GestoreScelte implements ObserverGS{
         tc.start();
     }
 
+    /**
+     * Permette di ottenere la lista dei componenti
+     *
+     * @param comp
+     */
     public void obtainParts(PCParts comp) {
         t.getListOf(comp);
     }
 
+    /**
+     * Permette di aggiungere un componente al carrello
+     *
+     * @param id
+     */
     public void addComp(int id) {
         AbstractComponent abs = ac.getCompByID(id);
         scp.addCList(abs);
     }
 
+    /**
+     * Permette di rimuovere un componente dal carrello
+     *
+     * @param id
+     */
     public void rmvComp(int id) {
         scp.rmvCList(id);
     }
 
+    /**
+     * Resetta la configurazione attuale, liberando il carrello
+     */
     public void newScp() {
         scp = new SelectedComponents();
     }
@@ -66,8 +84,7 @@ public class GestoreScelte implements ObserverGS{
     }
 
     public int getWatt(){
-
-        return scp.getTotWatt();//
+        return scp.getTotWatt();
     }
 
     public AbstractComponent getCompByID(int index){
@@ -82,17 +99,32 @@ public class GestoreScelte implements ObserverGS{
         } else p.updateListTable(null);
     }
 
+    /**
+     * Permette di ottenere la lista dei Warning
+     *
+     * @return String
+     */
     public String getWarningTxt() {
         Warning w = Warning.getwInstance();
         w.check(scp);
         return w.getInfo();
     }
 
+    /**
+     * Permette verificare se è possibile effettuare l'ordine
+     *
+     * @return boolean
+     */
     public boolean canOrder(){
         Warning w = Warning.getwInstance();
         return w.check(scp) && ConsistencyConstraint.checkRes(scp);
     }
 
+    /**
+     * Permette di confermare l'ordine
+     *
+     * @param cl
+     */
     public void confirmOrder(ConfirmList cl) {
         cfl = cl;
         tc.confirmOrder(cl.getCodesOfComps());
