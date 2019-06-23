@@ -162,6 +162,7 @@ public class Piattaforma extends JFrame{
 
         components.addChangeListener(e -> {
             add.setEnabled(false);
+            show.setEnabled(false);
             rowAdd = -1;
             obtainParts(components.getSelectedIndex());
         });
@@ -175,6 +176,7 @@ public class Piattaforma extends JFrame{
         totPanel.add(price);
         wattPanel.add(power);
         wattPanel.add(watt);
+        // TODO: per auto config creare un menù invece dei bottoni
         btnpanel.add(add);
         btnpanel.add(rmv);
         btnpanel.add(show);
@@ -464,7 +466,7 @@ public class Piattaforma extends JFrame{
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
                         add.setEnabled(false);
-                        show.setEnabled(false);
+                        //show.setEnabled(false);
                         checkMessage.setForeground(Color.RED);
                     }
                 } catch (ArrayIndexOutOfBoundsException o) {
