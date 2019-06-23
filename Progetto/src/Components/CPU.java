@@ -13,10 +13,12 @@ public class CPU extends AbstractComponent {
 
         resource = new Resource.Builder()
                 .withokCPU(true)
-                .withokGPU(caratteristiche[6].equalsIgnoreCase("Y"))
-                .withSocket(caratteristiche[7])
-                .withnBit(Integer.parseInt(caratteristiche[5]))
-                .withPower(0 - Integer.parseInt(caratteristiche[4]))
+                .withokGPU(caratteristiche[7].equalsIgnoreCase("Y"))
+                .withSocket(caratteristiche[8])
+                .withnBit(Integer.parseInt(caratteristiche[6]))
+                .withPower(0 - Integer.parseInt(caratteristiche[5]))
+                .withTypeRAM(caratteristiche[4])
+                .withokCooler(caratteristiche[9].equalsIgnoreCase("Y"))
                 .build();
 
         clock = Double.parseDouble(caratteristiche[1]);
