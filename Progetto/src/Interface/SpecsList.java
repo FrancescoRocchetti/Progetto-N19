@@ -9,6 +9,17 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Arrays;
 
+/**
+ * Interfaccia usata per assegnare le specifiche
+ * particolari ai componenti che si vogliono aggiungere
+ * al DB
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ * @author Francesco Rocchetti
+ *
+ */
+
 public class SpecsList extends JFrame{
     private static final String NOSUPPORT = "Not supported yet";
 
