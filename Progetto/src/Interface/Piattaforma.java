@@ -93,7 +93,6 @@ public class Piattaforma extends JFrame{
         }
         infoBox = new JPanel(new GridLayout(2, 1));
         listItem = new JPanel(new BorderLayout());
-        //compTable = new JTable();
         chooseTable = createTable();
         scroll = new JScrollPane(chooseTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getVerticalScrollBar().setUnitIncrement(10);
