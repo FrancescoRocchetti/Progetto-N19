@@ -140,6 +140,9 @@ public class InserimentoSpecifiche extends JFrame {
                 setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 go.setDescrizione(null);
                 goBack.setEnabled(true);
+                background.remove(loadingPanel);
+                background.add(compsInterface, BorderLayout.CENTER);
+                background.repaint();
             }
         });
 
