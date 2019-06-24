@@ -72,9 +72,9 @@ public class Piattaforma extends JFrame{
 
     private int index;
     private int rowAdd;
-    private int rowRmv;
+    private int[] rowRmv;
     private int idAdd;
-    private int idRmv;
+    private int[] idRmv;
 
     public Piattaforma() {
         super("Configuratore di PC");
@@ -253,13 +253,22 @@ public class Piattaforma extends JFrame{
             return;
         }
         compTable = createTable(arr);
-        JScrollPane scroll = new JScrollPane(
-                compTable,
-                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        panels[index].removeAll();
-        panels[index].add(scroll);
-        panels[index].setLayout(new GridLayout());
+
+        if(compTable.getRowCount() > 0){
+            JScrollPane scroll = new JScrollPane(
+                    compTable,
+                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            panels[index].removeAll();
+            panels[index].add(scroll);
+            panels[index].setLayout(new GridLayout());
+        } else {
+            JLabel label = new JLabel("No available components for this configuration.");
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            panels[index].removeAll();
+            panels[index].setLayout(new BorderLayout());
+            panels[index].add(label, BorderLayout.CENTER);
+        }
         components.setEnabled(true);
     }
 
@@ -296,13 +305,16 @@ public class Piattaforma extends JFrame{
 
     private void budgetConfigListener(JButton btn) {
         btn.addActionListener(e -> {
+            /*
             int budget = Integer.parseInt(JOptionPane.showInputDialog("Budget:"));
-            new BudgetConfig(budget);
+            new BudgetConfig(budget);*/
+            JOptionPane.showMessageDialog(this, "Non supportato ancora.", "Informazione", JOptionPane.INFORMATION_MESSAGE);
         });
     }
 
     private void noBudgetConfigListener(JButton btn) {
         btn.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Non supportato ancora.", "Informazione", JOptionPane.INFORMATION_MESSAGE);
         });
     }
 
@@ -328,8 +340,10 @@ public class Piattaforma extends JFrame{
             btn.setEnabled(false);
             gs.rmvComp(idRmv);
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
-            int index = chooseTable.getSelectedRow();
-            model.removeRow(index);
+            for(int z = 0; z < rowRmv.length; z++) {
+                int i = chooseTable.getSelectedRow();
+                model.removeRow(i);
+            }
             obtainParts(components.getSelectedIndex());
             panels[components.getSelectedIndex()].revalidate();
             price.setText(gs.getPrice() + " €");
@@ -387,6 +401,8 @@ public class Piattaforma extends JFrame{
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
+
+        table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowHeight(20);
@@ -410,8 +426,9 @@ public class Piattaforma extends JFrame{
 
         addCartTableMouseListener(table);
 
+        table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDefaultEditor(Object.class, null);
         return table;
     }
@@ -427,11 +444,13 @@ public class Piattaforma extends JFrame{
                 show.setEnabled(false);
                 try {
                     rmv.setEnabled(true);
-                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
-                    idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
+                    rowRmv = ((JTable) e.getSource()).getSelectedRows();
+                    idRmv = new int[rowRmv.length];
+                    for(int i = 0; i < rowRmv.length; i++)
+                        idRmv[i] = (int) ((JTable) e.getSource()).getValueAt(rowRmv[i], 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
                     rmv.setEnabled(false);
-                    rowRmv = -1;
+                    rowRmv = null;
                 }
             }
 
