@@ -10,6 +10,7 @@ public class STORAGE extends AbstractComponent {
                 .withokStorage(true)
                 .withNSATA(-1)
                 .withNSlot(-1)
+                .withPower(0-Integer.parseInt(caratteristiche[3]))
                 .build();
     }
 
