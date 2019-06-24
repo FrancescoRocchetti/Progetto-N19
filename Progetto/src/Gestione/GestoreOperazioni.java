@@ -87,7 +87,7 @@ public class GestoreOperazioni implements ObserverGO{
     }
 
     /**
-     * Imposta la modalità update e con quale Update
+     * Imposta la modalità updateQuantity e con quale Update
      * GestoreOperazioni deve comunicare
      *
      * @param upd
@@ -160,8 +160,12 @@ public class GestoreOperazioni implements ObserverGO{
      * @param index
      * @param qty
      */
-    public void updateComponent(int[] index, int qty) {
-        tu.updateCompById(index, qty);
+    public void updateQuantity(int[] index, int qty) {
+        tu.updateQuantityById(index, qty);
+    }
+
+    public void updatePrice(int[] index, int price) {
+        tu.updatePriceById(index, price);
     }
 
     /**

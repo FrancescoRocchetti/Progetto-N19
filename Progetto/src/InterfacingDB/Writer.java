@@ -100,10 +100,28 @@ public class Writer {
      *
      * @exception SQLException: aggiornamento andato a male
      */
-    public boolean update(int cod, int quantità){
+    public boolean updateQuantity(int cod, int quantità){
         try{
             conn = DriverManager.getConnection(url, user, password);
             String query = "UPDATE INVENTARIO SET QUANTITA = " + quantità + " WHERE CODICE = ?;";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, cod);
+
+            preparedStmt.execute();
+
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            forceClose();
+            return false;
+        }
+    }
+
+    public boolean updatePrice(int cod, int price){
+        try{
+            conn = DriverManager.getConnection(url, user, password);
+            String query = "UPDATE INVENTARIO SET PREZZO = " + price + " WHERE CODICE = ?;";
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, cod);

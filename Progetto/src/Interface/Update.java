@@ -5,6 +5,7 @@ import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
@@ -23,17 +24,20 @@ import java.util.ArrayList;
  * @author Fabio Riganti
  *
  */
-
 public class Update extends JFrame {
     private Container c;
     private JPanel bckg;
     private JPanel choosePanel;
-    private JButton add;
+    private JPanel panelQuantity;
+    private JPanel panelPrice;
+    private JButton updateQuantity;
+    private JButton updatePrice;
     private GestoreOperazioni go;
     private JButton close;
     private JPanel southPanel;
     private JPanel loadingPanel;
-    private JSpinner spinner;
+    private JSpinner spinnerQuantity;
+    private JSpinner spinnerPrice;
     private JScrollPane tablePane;
 
     private int[] rowAdd;
@@ -45,20 +49,32 @@ public class Update extends JFrame {
         ins.setVisible(false);
         this.go = go;
         this.go.setUpdateMode(this);
-        spinner = initializeSpinner();
+        spinnerQuantity = initializeSpinner();
+        spinnerPrice = initializeSpinner();
+        panelQuantity = new JPanel(new GridLayout());
+        panelQuantity.setBorder(new TitledBorder("Quantità"));
+        panelPrice = new JPanel(new GridLayout());
+        panelPrice.setBorder(new TitledBorder("Prezzo"));
         JLabel label = new JLabel("Seleziona il/i componente/i da aggiornare");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         bckg = new JPanel(new BorderLayout());
         obtainParts("Sto scaricando i dati...");
         c = getContentPane();
         choosePanel = new JPanel(new BorderLayout());
-        add = new JButton("Update");
+        updateQuantity = new JButton("Update quantity");
+        updatePrice = new JButton("Update price");
         close = new JButton("Close");
-        southPanel = new JPanel(new GridLayout(1,3));
-        add.setEnabled(false);
-        southPanel.add(add);
+        southPanel = new JPanel(new GridLayout(1,5));
+        updateQuantity.setEnabled(false);
+        updatePrice.setEnabled(false);
+
+        panelQuantity.add(spinnerQuantity);
+        panelPrice.add(spinnerPrice);
+        southPanel.add(updateQuantity);
+        southPanel.add(updatePrice);
         southPanel.add(close);
-        southPanel.add(spinner);
+        southPanel.add(panelQuantity);
+        southPanel.add(panelPrice);
         choosePanel.add(southPanel, BorderLayout.SOUTH);
         bckg.add(label, BorderLayout.NORTH);
         bckg.add(choosePanel, BorderLayout.SOUTH);
@@ -99,12 +115,22 @@ public class Update extends JFrame {
         });
 
         //ActionListener che aggiorna un componente e che fa partire ThreadUpdate
-        add.addActionListener(e -> {
+        updateQuantity.addActionListener(e -> {
             loading("Sto aggiornando il/i componente/i selezionato/i...");
-            int qty = (int) spinner.getValue();
-            add.setEnabled(false);
+            int qty = (int) spinnerQuantity.getValue();
+            updateQuantity.setEnabled(false);
+            updatePrice.setEnabled(false);
             close.setEnabled(false);
-            go.updateComponent(idAdd, qty);
+            go.updateQuantity(idAdd, qty);
+        });
+
+        updatePrice.addActionListener(e -> {
+            loading("Sto aggiornando il/i componente/i selezionato/i...");
+            int price = (int) spinnerPrice.getValue();
+            updateQuantity.setEnabled(false);
+            updatePrice.setEnabled(false);
+            close.setEnabled(false);
+            go.updatePrice(idAdd, price);
         });
 
         close.addActionListener(e -> {
@@ -207,14 +233,16 @@ public class Update extends JFrame {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
-                    add.setEnabled(true);
-                    rowAdd = ((JTable) e.getSource()).getSelectedRows();
+                int[] rowAdd = ((JTable) e.getSource()).getSelectedRows();
+                if(rowAdd.length != 0){
+                    updateQuantity.setEnabled(true);
+                    updatePrice.setEnabled(true);
                     idAdd = new int[rowAdd.length];
                     for(int i = 0; i < rowAdd.length; i++)
                         idAdd[i] = (int) ((JTable) e.getSource()).getValueAt(rowAdd[i], 0);
-                } catch (ArrayIndexOutOfBoundsException o) {
-                    add.setEnabled(false);
+                } else {
+                    updateQuantity.setEnabled(false);
+                    updatePrice.setEnabled(false);
                     idAdd = null;
                 }
             }

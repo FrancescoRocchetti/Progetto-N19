@@ -199,13 +199,13 @@ public class Remove extends JFrame {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
+                rowRmv = ((JTable) e.getSource()).getSelectedRows();
+                if(rowRmv.length != 0) {
                     rmv.setEnabled(true);
-                    rowRmv = ((JTable) e.getSource()).getSelectedRows();
                     idRmv = new int[rowRmv.length];
                     for(int i = 0; i < rowRmv.length; i++)
                         idRmv[i] = (int) ((JTable) e.getSource()).getValueAt(rowRmv[i], 0);
-                } catch (ArrayIndexOutOfBoundsException o) {
+                } else {
                     rmv.setEnabled(false);
                     idRmv = null;
                 }

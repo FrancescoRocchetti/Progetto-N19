@@ -6,7 +6,6 @@ import InterfacingDB.Login;
 import InterfacingDB.Reader;
 import InterfacingDB.Writer;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -78,8 +77,13 @@ public class ManagerDB {
      * @return true se l'aggiornamento della quantità è andata a buon fine,
      * altrimenti false
      */
-    public boolean update(int cod, int quantità) {
-        return w.update(cod, quantità);
+    public boolean updateQuantity(int cod, int quantità) {
+        return w.updateQuantity(cod, quantità);
+
+    }
+
+    public boolean updatePrice(int cod, int price) {
+        return w.updatePrice(cod, price);
 
     }
 

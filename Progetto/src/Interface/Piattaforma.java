@@ -448,13 +448,14 @@ public class Piattaforma extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 add.setEnabled(false);
                 show.setEnabled(false);
-                try {
+                rowRmv = ((JTable) e.getSource()).getSelectedRows();
+                if(rowRmv.length != 0) {
                     rmv.setEnabled(true);
                     rowRmv = ((JTable) e.getSource()).getSelectedRows();
                     idRmv = new int[rowRmv.length];
                     for(int i = 0; i < rowRmv.length; i++)
                         idRmv[i] = (int) ((JTable) e.getSource()).getValueAt(rowRmv[i], 0);
-                } catch (ArrayIndexOutOfBoundsException o) {
+                } else {
                     rmv.setEnabled(false);
                     rowRmv = null;
                 }
