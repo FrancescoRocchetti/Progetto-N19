@@ -198,7 +198,7 @@ public class AdvancedSpecs extends JFrame {
                 if (cooler.isSelected())
                     t = "Y";
 
-                s = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" /*+ ram.getSelectedItem() + "_"*/ + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
+                s = name.getText() + "_" + frequency.getValue() + "_" + nCore.getValue() + "_" + thread.getValue() + "_" + ram.getSelectedItem() + "_" + power.getValue() + "_" + nBit.getSelectedItem() + "_" + s + "_" + socket.getText() + "_" + t;
                 go.setDescrizione(s);
                 dispose();
             }
