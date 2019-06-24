@@ -234,7 +234,7 @@ public class SpecsList extends JFrame{
     private JPanel panelCooler() {
         COOLER c = (COOLER) comp;
         String[] car = c.getCaratteristiche();
-        p = new JPanel(new GridLayout(3,2));
+        p = new JPanel(new GridLayout(4,2));
         nome = new JLabel("Name:");
         name = createJTextField(c.getName());
         JLabel liquido = new JLabel("Liquid:");
@@ -242,8 +242,10 @@ public class SpecsList extends JFrame{
         sock = new JLabel("Socket :");
         String str = getStringFromArray(car[2].split(";"));
         socket = createJTextField(str);
+        watt = new JLabel("Watt:");
+        power = createJTextField(car[3]);
 
-        Component[] cmp = {nome, name, liquido, liquid, sock, socket};
+        Component[] cmp = {nome, name, liquido, liquid, sock, socket, watt, power};
         addCmp(cmp, p);
 
         return p;
