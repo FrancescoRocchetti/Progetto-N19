@@ -160,7 +160,7 @@ public class GestoreOperazioni implements ObserverGO{
      * @param index
      * @param qty
      */
-    public void updateComponent(int index, int qty) {
+    public void updateComponent(int[] index, int qty) {
         tu.updateCompById(index, qty);
     }
 
@@ -169,7 +169,7 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param id
      */
-    public void remove(int id){
+    public void remove(int[] id){
         tr.removeCompById(id);
     }
 

@@ -34,8 +34,8 @@ public class Remove extends JFrame {
     private JPanel loadingPanel;
     private JScrollPane tablePane;
 
-    private int rowRmv;
-    private int idRmv;
+    private int[] rowRmv;
+    private int idRmv[];
 
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) {
@@ -43,7 +43,7 @@ public class Remove extends JFrame {
         ins.setVisible(false);
         this.go = go;
         this.go.setRemoveMode(this);
-        JLabel label = new JLabel("Seleziona il componente da rimuovere");
+        JLabel label = new JLabel("Seleziona il/i componente/i da rimuovere");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         bckg = new JPanel(new BorderLayout());
         obtainParts("Sto scaricando i dati...");
@@ -96,7 +96,7 @@ public class Remove extends JFrame {
 
         //ActionListener che fa eliminare un componente e che fa partire ThreadRemove
         rmv.addActionListener(e -> {
-            loading("Sto rimuovendo il componente selezionato...");
+            loading("Sto rimuovendo il/i componente/i selezionato/i...");
             rmv.setEnabled(false);
             close.setEnabled(false);
             go.remove(idRmv);
@@ -118,7 +118,7 @@ public class Remove extends JFrame {
      * la rimozione col ThreadRemove è avvenuta correttamente
      */
     public void successRemove(){
-        JOptionPane.showMessageDialog(this, "Componente rimosso", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Componente/i rimosso/i", "Successo", JOptionPane.INFORMATION_MESSAGE);
         reload();
     }
     /**
@@ -189,7 +189,7 @@ public class Remove extends JFrame {
 
         table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowHeight(20);
         table.setDefaultEditor(Object.class, null);
         return table;
@@ -200,12 +200,14 @@ public class Remove extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    rowRmv = ((JTable) e.getSource()).getSelectedRow();
                     rmv.setEnabled(true);
-                    idRmv = (int) ((JTable) e.getSource()).getValueAt(rowRmv, 0);
+                    rowRmv = ((JTable) e.getSource()).getSelectedRows();
+                    idRmv = new int[rowRmv.length];
+                    for(int i = 0; i < rowRmv.length; i++)
+                        idRmv[i] = (int) ((JTable) e.getSource()).getValueAt(rowRmv[i], 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
                     rmv.setEnabled(false);
-                    idRmv = -1;
+                    idRmv = null;
                 }
             }
 
