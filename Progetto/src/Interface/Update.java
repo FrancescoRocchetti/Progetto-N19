@@ -233,7 +233,7 @@ public class Update extends JFrame {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int[] rowAdd = ((JTable) e.getSource()).getSelectedRows();
+                rowAdd = ((JTable) e.getSource()).getSelectedRows();
                 if(rowAdd.length != 0){
                     updateQuantity.setEnabled(true);
                     updatePrice.setEnabled(true);
