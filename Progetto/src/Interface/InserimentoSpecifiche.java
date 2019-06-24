@@ -5,6 +5,7 @@ import Components.PCParts;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
@@ -29,7 +30,6 @@ public class InserimentoSpecifiche extends JFrame {
     private Toolkit kit;
     private Dimension dim;
 
-    private JLabel title;
     private JLabel component;
     private JLabel description;
     private JLabel quantity;
@@ -51,9 +51,7 @@ public class InserimentoSpecifiche extends JFrame {
     private JButton update;
     private JButton remove;
     private JButton check;
-    private JPanel fourButtons;
-    private JPanel checkButton;
-    private JLabel title1;
+    private JPanel threeButtons;
     private JButton advanced;
 
     private String[] componentsName;
@@ -70,18 +68,13 @@ public class InserimentoSpecifiche extends JFrame {
         componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS", "ALTRO"};
         compsInterface = new JPanel(new BorderLayout());
         background = new JPanel(new BorderLayout());
-        title = new JLabel("Inserisci le informazioni richieste");
-        title.setFont(new Font("Arial", Font.BOLD, 20));
         loggedAs = new JLabel("Accesso effettuato come: " + user);
-        loggedAs.setFont(new Font("Arial", Font.BOLD, 14));
-        loggedAs.setForeground(Color.GRAY);
-        title1 = new JLabel("Aggiungi nuovo componente");
-        title1.setFont(new Font("Arial", Font.BOLD, 16));
-        northPanel = new JPanel(new GridLayout(3, 1));
-        northPanel.add(title);
+        loggedAs.setFont(new Font("Arial", Font.BOLD, 20));
+        northPanel = new JPanel(new GridLayout());
         northPanel.add(loggedAs);
-        northPanel.add(title1);
-        data = new JPanel(new GridLayout(5, 2));
+        northPanel.setBorder(new EmptyBorder(5,5,5,5));
+        data = new JPanel(new GridLayout(6, 2));
+        data.setBorder(new TitledBorder("Aggiungi un componente"));
         component = new JLabel("Componente");
         componente = new JComboBox();
         for (int i = 0; i < PCParts.values().length; i++)
@@ -104,16 +97,14 @@ public class InserimentoSpecifiche extends JFrame {
         valutazione = new JSpinner(spinnerRankModel);
         setSpinnerNotWritable(valutazione);
         goBack = new JButton("Logout");
-        goBack.setForeground(Color.RED);
         confirm = new JButton("Conferma");
-        confirm.setForeground(Color.GREEN);
         confirm.setEnabled(false);
-        update = new JButton("Update component...");
-        remove = new JButton("Remove component...");
-        check = new JButton("Show stored components...");
+        update = new JButton("Update component");
+        remove = new JButton("Remove component");
+        check = new JButton("Show stored components");
         btnPanel = new JPanel(new BorderLayout());
-        fourButtons = new JPanel(new GridLayout(3, 2));
-        checkButton = new JPanel(new GridLayout(1, 1));
+        btnPanel.setBorder(new TitledBorder("Altre opzioni"));
+        threeButtons = new JPanel(new GridLayout(3, 1));
 
         remove.addActionListener(e -> {
             new Remove(this, go);
@@ -168,18 +159,14 @@ public class InserimentoSpecifiche extends JFrame {
         data.add(prezzo);
         data.add(ranking);
         data.add(valutazione);
+        data.add(goBack);
+        data.add(confirm);
 
-        fourButtons.add(goBack);
-        fourButtons.add(confirm);
-        fourButtons.add(new JLabel("Aggiornamento componenti"));
-        fourButtons.add(new JLabel());
-        fourButtons.add(remove);
-        fourButtons.add(update);
+        threeButtons.add(remove);
+        threeButtons.add(update);
+        threeButtons.add(check);
 
-        checkButton.add(check);
-
-        btnPanel.add(fourButtons, BorderLayout.NORTH);
-        btnPanel.add(checkButton, BorderLayout.SOUTH);
+        btnPanel.add(threeButtons, BorderLayout.NORTH);
 
         compsInterface.add(northPanel, BorderLayout.NORTH);
         compsInterface.add(data, BorderLayout.CENTER);
