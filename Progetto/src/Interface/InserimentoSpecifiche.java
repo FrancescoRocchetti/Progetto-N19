@@ -4,6 +4,7 @@ import Gestione.GestoreOperazioni;
 import Components.PCParts;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
@@ -51,7 +52,9 @@ public class InserimentoSpecifiche extends JFrame {
     private JButton update;
     private JButton remove;
     private JButton check;
-    private JPanel threeButtons;
+    private JPanel panelForConferma;
+    private JPanel fourButtons;
+    private JPanel panelDataConferma;
     private JButton advanced;
 
     private String[] componentsName;
@@ -68,13 +71,12 @@ public class InserimentoSpecifiche extends JFrame {
         componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS", "ALTRO"};
         compsInterface = new JPanel(new BorderLayout());
         background = new JPanel(new BorderLayout());
-        loggedAs = new JLabel("Accesso effettuato come: " + user);
+        loggedAs = new JLabel("Connesso come: " + user);
         loggedAs.setFont(new Font("Arial", Font.BOLD, 20));
         northPanel = new JPanel(new GridLayout());
         northPanel.add(loggedAs);
         northPanel.setBorder(new EmptyBorder(5,5,5,5));
-        data = new JPanel(new GridLayout(6, 2));
-        data.setBorder(new TitledBorder("Aggiungi un componente"));
+        data = new JPanel(new GridLayout(5, 2));
         component = new JLabel("Componente");
         componente = new JComboBox();
         for (int i = 0; i < PCParts.values().length; i++)
@@ -104,7 +106,10 @@ public class InserimentoSpecifiche extends JFrame {
         check = new JButton("Show stored components");
         btnPanel = new JPanel(new BorderLayout());
         btnPanel.setBorder(new TitledBorder("Altre opzioni"));
-        threeButtons = new JPanel(new GridLayout(3, 1));
+        fourButtons = new JPanel(new GridLayout(4, 1));
+        panelDataConferma = new JPanel(new BorderLayout());
+        panelForConferma = new JPanel(new GridLayout());
+        panelDataConferma.setBorder(new TitledBorder("Aggiungi un componente"));
 
         remove.addActionListener(e -> {
             new Remove(this, go);
@@ -159,17 +164,19 @@ public class InserimentoSpecifiche extends JFrame {
         data.add(prezzo);
         data.add(ranking);
         data.add(valutazione);
-        data.add(goBack);
-        data.add(confirm);
+        panelForConferma.add(confirm);
+        panelDataConferma.add(data, BorderLayout.CENTER);
+        panelDataConferma.add(panelForConferma, BorderLayout.SOUTH);
 
-        threeButtons.add(remove);
-        threeButtons.add(update);
-        threeButtons.add(check);
+        fourButtons.add(remove);
+        fourButtons.add(update);
+        fourButtons.add(check);
+        fourButtons.add(goBack);
 
-        btnPanel.add(threeButtons, BorderLayout.NORTH);
+        btnPanel.add(fourButtons, BorderLayout.NORTH);
 
         compsInterface.add(northPanel, BorderLayout.NORTH);
-        compsInterface.add(data, BorderLayout.CENTER);
+        compsInterface.add(panelDataConferma, BorderLayout.CENTER);
         compsInterface.add(btnPanel, BorderLayout.SOUTH);
 
         background.add(compsInterface, BorderLayout.CENTER);
@@ -214,7 +221,7 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(600, 380);
+        pack();
         setResizable(false);
         setLocationRelativeTo(p);
         setVisible(true);
