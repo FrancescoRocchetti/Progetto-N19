@@ -38,10 +38,13 @@ public class Piattaforma extends JFrame{
     private JMenuBar menuBar;
     private JMenu file;
     private JMenu updateDB;
+    private JMenu autoConfig;
     private JMenuItem newConfig;
     private JMenuItem exit;
     private JMenuItem logAdmin;
     private JMenuItem recharge;
+    private JMenuItem noBudget;
+    private JMenuItem wBudget;
     private JPanel bckg;
     private JPanel panel;
     private JPanel btnpanel;
@@ -65,8 +68,6 @@ public class Piattaforma extends JFrame{
     private JTable chooseTable;
     private JTable compTable;
     private JPanel wattPanel;
-    private JButton noBudgetConfig;
-    private JButton budgetConfig;
 
     private GestoreScelte gs;
 
@@ -101,7 +102,7 @@ public class Piattaforma extends JFrame{
         wattPanel = new JPanel(new GridLayout(1, 2));
         confirmConfig = new JButton("Confirm configuration");
         confirmConfig.setEnabled(false);
-        btnpanel = new JPanel(new GridLayout(6, 1));
+        btnpanel = new JPanel(new GridLayout(4, 1));
         add = new JButton("Add");
         rmv = new JButton("Remove");
         show = new JButton("Show info");
@@ -129,8 +130,6 @@ public class Piattaforma extends JFrame{
         checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
         checkMessage.setBackground(Color.LIGHT_GRAY);
-        noBudgetConfig = new JButton("Configuration without budget");
-        budgetConfig = new JButton("Configuration with budget");
         checkMessage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         menuBar = new JMenuBar();
         file = new JMenu("File");
@@ -139,17 +138,26 @@ public class Piattaforma extends JFrame{
         exit = new JMenuItem("Exit");
         logAdmin = new JMenuItem("Login as administrator");
         recharge = new JMenuItem("Refresh inventory");
-        confirmConfigListener(confirmConfig);
+        autoConfig = new JMenu("Auto configuration");
+        noBudget = new JMenuItem("Without budget");
+        wBudget = new JMenuItem("With budget");
 
         // Aggiunta componenti
         file.add(newConfig);
         file.add(exit);
         updateDB.add(logAdmin);
         updateDB.add(recharge);
+        autoConfig.add(noBudget);
+        autoConfig.add(wBudget);
         menuBar.add(file);
         menuBar.add(updateDB);
+        menuBar.add(autoConfig);
 
-        components.addTab("Mother Board", panels[0]);
+        String[] names = {"Mother Board", "CPU", "RAM", "Storage", "GPU", "Power Supply", "Cooler CPU", "Operating System", "Case", "Other"};
+        for(int i = 0; i < names.length; i++)
+            components.addTab(names[i], panels[i]);
+
+        /*components.addTab("Mother Board", panels[0]);
         components.addTab("CPU", panels[1]);
         components.addTab("RAM", panels[2]);
         components.addTab("Storage", panels[3]);
@@ -158,7 +166,7 @@ public class Piattaforma extends JFrame{
         components.addTab("Cooler CPU", panels[6]);
         components.addTab("Operating System", panels[7]);
         components.addTab("Case", panels[8]);
-        components.addTab("Other", panels[9]);
+        components.addTab("Other", panels[9]);*/
 
         components.addChangeListener(e -> {
             add.setEnabled(false);
@@ -176,12 +184,9 @@ public class Piattaforma extends JFrame{
         totPanel.add(price);
         wattPanel.add(power);
         wattPanel.add(watt);
-        // TODO: per auto config creare un menù invece dei bottoni
         btnpanel.add(add);
         btnpanel.add(rmv);
         btnpanel.add(show);
-        btnpanel.add(noBudgetConfig);
-        btnpanel.add(budgetConfig);
         btnpanel.add(confirmConfig);
         panel.add(totPanel, BorderLayout.NORTH);
         panel.add(wattPanel, BorderLayout.SOUTH);
@@ -200,8 +205,9 @@ public class Piattaforma extends JFrame{
 
         addButtonListener(add);
         rmvButtonListener(rmv);
-        budgetConfigListener(budgetConfig);
-        noBudgetConfigListener(noBudgetConfig);
+        budgetConfigListener(wBudget);
+        noBudgetConfigListener(noBudget);
+        confirmConfigListener(confirmConfig);
         loginListener();
         newConfigListener();
         rechargeListener();
@@ -303,8 +309,8 @@ public class Piattaforma extends JFrame{
         });
     }
 
-    private void budgetConfigListener(JButton btn) {
-        btn.addActionListener(e -> {
+    private void budgetConfigListener(JMenuItem item) {
+        item.addActionListener(e -> {
             /*
             int budget = Integer.parseInt(JOptionPane.showInputDialog("Budget:"));
             new BudgetConfig(budget);*/
@@ -312,8 +318,8 @@ public class Piattaforma extends JFrame{
         });
     }
 
-    private void noBudgetConfigListener(JButton btn) {
-        btn.addActionListener(e -> {
+    private void noBudgetConfigListener(JMenuItem item) {
+        item.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Non supportato ancora.", "Informazione", JOptionPane.INFORMATION_MESSAGE);
         });
     }
