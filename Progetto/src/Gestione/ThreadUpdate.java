@@ -12,7 +12,7 @@ import InterfacingDB.CheckInternet;
 public class ThreadUpdate extends Thread{
     private ManagerDB mdb;
     private ObserverGO go;
-    private int id;
+    private int[] id;
     private int quantity;
     private boolean accept;
 
@@ -23,7 +23,7 @@ public class ThreadUpdate extends Thread{
         this.go = go;
     }
 
-public synchronized void updateCompById(int id, int quantity) {
+public synchronized void updateCompById(int[] id, int quantity) {
         this.id = id;
         this.quantity = quantity;
         accept = false;
@@ -38,8 +38,15 @@ public synchronized void updateCompById(int id, int quantity) {
                 accept = false;
                 if (!CheckInternet.check())
                     go.update(false);
-                else
-                    go.update(mdb.update(id, quantity));
+                else{
+                    boolean status = true;
+                    for (int i = 0; i < id.length || status != true; i++) {
+                        if (!mdb.update(id[i], quantity)) {
+                            status = false;
+                        }
+                    }
+                    go.update(status);
+                }
                 accept = true;
             }
         } catch (InterruptedException e) {

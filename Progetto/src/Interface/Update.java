@@ -36,8 +36,8 @@ public class Update extends JFrame {
     private JSpinner spinner;
     private JScrollPane tablePane;
 
-    private int rowAdd;
-    private int idAdd;
+    private int[] rowAdd;
+    private int[] idAdd;
 
 
     public Update(InserimentoSpecifiche ins, GestoreOperazioni go) {
@@ -46,7 +46,7 @@ public class Update extends JFrame {
         this.go = go;
         this.go.setUpdateMode(this);
         spinner = initializeSpinner();
-        JLabel label = new JLabel("Seleziona il componente da aggiornare");
+        JLabel label = new JLabel("Seleziona il/i componente/i da aggiornare");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         bckg = new JPanel(new BorderLayout());
         obtainParts("Sto scaricando i dati...");
@@ -100,7 +100,7 @@ public class Update extends JFrame {
 
         //ActionListener che aggiorna un componente e che fa partire ThreadUpdate
         add.addActionListener(e -> {
-            loading("Sto aggiornando il componente selezionato...");
+            loading("Sto aggiornando il/i componente/i selezionato/i...");
             int qty = (int) spinner.getValue();
             add.setEnabled(false);
             close.setEnabled(false);
@@ -123,7 +123,7 @@ public class Update extends JFrame {
      * l'aggiornamento è avvenuta correttamente
      */
     public void successUpdate(){
-        JOptionPane.showMessageDialog(this, "Componente aggiornato", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Componente/i aggiornato/i", "Successo", JOptionPane.INFORMATION_MESSAGE);
         reload();
     }
 
@@ -194,8 +194,10 @@ public class Update extends JFrame {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
+
+        table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowHeight(20);
         table.setDefaultEditor(Object.class, null);
         return table;
@@ -206,12 +208,14 @@ public class Update extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    rowAdd = ((JTable) e.getSource()).getSelectedRow();
                     add.setEnabled(true);
-                    idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
+                    rowAdd = ((JTable) e.getSource()).getSelectedRows();
+                    idAdd = new int[rowAdd.length];
+                    for(int i = 0; i < rowAdd.length; i++)
+                        idAdd[i] = (int) ((JTable) e.getSource()).getValueAt(rowAdd[i], 0);
                 } catch (ArrayIndexOutOfBoundsException o) {
                     add.setEnabled(false);
-                    idAdd = -1;
+                    idAdd = null;
                 }
             }
 

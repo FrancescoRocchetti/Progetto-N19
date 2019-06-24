@@ -11,7 +11,7 @@ import InterfacingDB.CheckInternet;
 public class ThreadRemove extends Thread {
     private ManagerDB mdb;
     private ObserverGO go;
-    private int id;
+    private int[] id;
     private boolean accept;
 
     public ThreadRemove(ObserverGO go) {
@@ -21,7 +21,7 @@ public class ThreadRemove extends Thread {
         this.go = go;
     }
 
-    public synchronized void removeCompById(int id) {
+    public synchronized void removeCompById(int[] id) {
         this.id = id;
         accept = false;
         notify();
@@ -35,8 +35,15 @@ public class ThreadRemove extends Thread {
                 accept = false;
                 if (!CheckInternet.check())
                     go.remove(false);
-                else
-                    go.remove(mdb.remove(id));
+                else {
+                    boolean status = true;
+                    for (int i = 0; i < id.length || status != true; i++) {
+                        if (!mdb.remove(id[i])) {
+                            status = false;
+                        }
+                    }
+                    go.remove(status);
+                }
                 accept = true;
             }
         } catch (InterruptedException e) {
@@ -46,7 +53,7 @@ public class ThreadRemove extends Thread {
 
     private synchronized void checkAccept() throws InterruptedException {
         while(accept){
-                wait();
+            wait();
         }
     }
 

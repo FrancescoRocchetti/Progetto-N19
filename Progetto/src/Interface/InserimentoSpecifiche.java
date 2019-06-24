@@ -58,7 +58,6 @@ public class InserimentoSpecifiche extends JFrame {
 
     private String[] componentsName;
 
-    private final static int QTA = 99;
     private GestoreOperazioni go;
 
     public InserimentoSpecifiche(Piattaforma p, GestoreOperazioni go, String user) {
@@ -93,7 +92,7 @@ public class InserimentoSpecifiche extends JFrame {
         descPanel = new JPanel(new GridLayout(1, 1));
         descPanel.add(advanced);
         quantity = new JLabel("Quantità");
-        spinnerModel = new SpinnerNumberModel(1, 1, QTA, 1);
+        spinnerModel = new SpinnerNumberModel(1, 1, null, 1);
         quantita = new JSpinner(spinnerModel);
         setSpinnerNotWritable(quantita);
         price = new JLabel("Prezzo");
@@ -140,6 +139,9 @@ public class InserimentoSpecifiche extends JFrame {
                 setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 go.setDescrizione(null);
                 goBack.setEnabled(true);
+                background.remove(loadingPanel);
+                background.add(compsInterface, BorderLayout.CENTER);
+                background.repaint();
             }
         });
 
