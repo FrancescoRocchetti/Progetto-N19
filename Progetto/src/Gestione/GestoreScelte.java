@@ -56,12 +56,13 @@ public class GestoreScelte implements ObserverGS{
     }
 
     /**
-     * Permette di rimuovere un componente dal carrello
+     * Permette di rimuovere uno o più componenti dal carrello
      *
      * @param id
      */
-    public void rmvComp(int id) {
-        scp.rmvCList(id);
+    public void rmvComp(int[] id) {
+        for(int i: id)
+            scp.rmvCList(i);
     }
 
     /**
