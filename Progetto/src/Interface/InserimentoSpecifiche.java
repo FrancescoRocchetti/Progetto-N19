@@ -101,9 +101,9 @@ public class InserimentoSpecifiche extends JFrame {
         goBack = new JButton("Logout");
         confirm = new JButton("Conferma");
         confirm.setEnabled(false);
-        update = new JButton("Update component");
-        remove = new JButton("Remove component");
-        check = new JButton("Show stored components");
+        update = new JButton("Update components");
+        remove = new JButton("Remove components");
+        check = new JButton("Show inventory");
         btnPanel = new JPanel(new BorderLayout());
         btnPanel.setBorder(new TitledBorder("Altre opzioni"));
         fourButtons = new JPanel(new GridLayout(4, 1));

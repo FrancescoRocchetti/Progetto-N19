@@ -325,7 +325,7 @@ public class AdvancedSpecs extends JFrame {
             dimension.addItem(i);
         JLabel frequenza = new JLabel("Frequency (MHz):");
         JComboBox frequency = new JComboBox();
-        int freq[] = {800, 1066, 1600, 2133, 2400, 2666, 3000};
+        int freq[] = {800, 1066, 1333, 1600, 2133, 2400, 2666, 3000};
         for(int i : freq)
             frequency.addItem(i);
         JLabel nModuli = new JLabel("# of modules:");
