@@ -33,7 +33,7 @@ public class ABuild {
     private double cCase = 0.1;
     private double cStorage = 0.1;
     /**
-     * assegno percentuali di prezzo arbitrarie ad ogi componente
+     * assegno percentuali di prezzo arbitrarie ad ogni componente
      *
      * TODO:sistemare questo casino
      */
@@ -79,6 +79,8 @@ public class ABuild {
             i++;
         }
 
+        //scelta del Cooler
+
         if (!sc.getTotRes().isOkCooler()) {
             AbstractComponent temp = find(PCParts.COOLER,(int)cCooler* budget);
             if(temp != null){
@@ -86,6 +88,8 @@ public class ABuild {
             } else
                 allOk = false;
         }
+
+        //scelta della GPU
 
         if (!sc.getTotRes().isOkGPU() || (budget >500 && usedMoney< budget *(1-cGpu))) {
             AbstractComponent temp = find(PCParts.GPU,(int)cGpu* budget);
@@ -104,7 +108,7 @@ public class ABuild {
      *
      * @param p tipo di componente
      * @param c costo
-     * @return
+     * @return null
      */
     private AbstractComponent find(PCParts p, int c){
         ArrayList<AbstractComponent> temp = segment(p,c);
@@ -117,11 +121,11 @@ public class ABuild {
     }
 
 
-    /**trovo le componenti(compatibili) nel range di prezzo giusto
+    /**trovo le componenti (compatibili) nel range di prezzo stabilito in precedenza
      *
      * @param p tipo di componente
      * @param c costo (usato come centro dell'intorno di ricerca)
-     * @return
+     * @return seg lista delle componenti corrette
      */
     private ArrayList<AbstractComponent> segment(PCParts p, int c){
         ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p),sc);
