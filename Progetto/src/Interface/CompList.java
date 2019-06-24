@@ -44,12 +44,6 @@ public class CompList extends JFrame {
             dispose();
         });
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        setSize(600,400);
-        setLocation(ins.getLocation());
-        setVisible(true);
-
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -61,7 +55,7 @@ public class CompList extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setLocation(CompList.super.getLocation());
+                ins.setLocationRelativeTo(CompList.this);
                 ins.setVisible(true);
                 ins.toFront();
                 ins.requestFocus();
@@ -84,6 +78,12 @@ public class CompList extends JFrame {
             public void windowDeactivated(WindowEvent e) {
             }
         });
+
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        setSize(600,400);
+        setLocationRelativeTo(ins);
+        setVisible(true);
     }
 
     /**

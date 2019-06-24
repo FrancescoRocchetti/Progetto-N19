@@ -88,7 +88,7 @@ public class Login extends JFrame {
             public void windowClosed(WindowEvent e) {
                 if (!go.isLoggedIn()) {
                     go.stopThreads();
-                    p.setLocation(Login.super.getLocation());
+                    p.setLocationRelativeTo(Login.this);
                     p.setVisible(true);
                     p.toFront();
                     p.requestFocus();
@@ -119,7 +119,7 @@ public class Login extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(250, 125);
-        setLocation(p.getLocation());
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -128,8 +128,7 @@ public class Login extends JFrame {
      * la procedura di login ha avuto successo
      */
     public void successLogin(){
-        InserimentoSpecifiche ins = new InserimentoSpecifiche(p, go, username.getText());
-        ins.setLocation(this.getLocation());
+        new InserimentoSpecifiche(p, go, username.getText());
         dispose();
     }
 
