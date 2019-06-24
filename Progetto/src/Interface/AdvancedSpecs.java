@@ -281,15 +281,19 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelCooler() {
-        p = new JPanel(new GridLayout(3,2));
+        p = new JPanel(new GridLayout(4,2));
         nome = new JLabel("Name:");
         name = new JTextField();
         JLabel liquido = new JLabel("Liquid:");
         JCheckBox liquid = new JCheckBox();
         sock = new JLabel("Socket :");
         socket = new HintTextField("se multi-socket, separare con ';'");
+        watt = new JLabel("Watt:");
+        SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
+        power = new JSpinner(spinnerWattModel);
+        setSpinnerNotWritable(power);
 
-        Component[] cmp = {nome, name, liquido, liquid, sock, socket};
+        Component[] cmp = {nome, name, liquido, liquid, sock, socket, watt, power};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
@@ -297,7 +301,7 @@ public class AdvancedSpecs extends JFrame {
                 String isLiquid = "N";
                 if (liquid.isSelected())
                     isLiquid = "Y";
-                s = name.getText() + "_" + isLiquid+"_"+socket.getText().trim();
+                s = name.getText() + "_" + isLiquid+ "_" + socket.getText().trim() + power.getValue();
                 go.setDescrizione(s);
                 dispose();
             }
