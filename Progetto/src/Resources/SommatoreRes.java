@@ -19,6 +19,7 @@ public class SommatoreRes {
                     .withokGPU(temp.isOkGPU() || r.isOkGPU())
                     .withokCooler(temp.isOkCooler() || r.isOkCooler())
                     .withokStorage(temp.isOkStorage() || r.isOkStorage())
+                    .withokCoolerI(temp.isOkCoolerI() || r.isOkCoolerI())
 
 
                     .withPower(temp.getPower() + r.getPower())

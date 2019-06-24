@@ -71,9 +71,11 @@ public class ABuild {
         db = new ManagerDB();
         int i = 0;
         for (PCParts p : lista) {
-            AbstractComponent temp = find(p,(int)costi[i]* budget);
+
+            AbstractComponent temp = find(p,(int)(costi[i]* budget));
             if(temp != null){
                 sc.addCList(temp);
+                //System.err.println(temp);
             } else
                 allOk = false;
             i++;
@@ -82,7 +84,7 @@ public class ABuild {
         //scelta del Cooler
 
         if (!sc.getTotRes().isOkCooler()) {
-            AbstractComponent temp = find(PCParts.COOLER,(int)cCooler* budget);
+            AbstractComponent temp = find(PCParts.COOLER,(int)(cCooler* budget));
             if(temp != null){
                 sc.addCList(temp);
             } else
@@ -92,7 +94,7 @@ public class ABuild {
         //scelta della GPU
 
         if (!sc.getTotRes().isOkGPU() || (budget >500 && usedMoney< budget *(1-cGpu))) {
-            AbstractComponent temp = find(PCParts.GPU,(int)cGpu* budget);
+            AbstractComponent temp = find(PCParts.GPU,(int)(cGpu* budget));
             if(temp != null){
                 sc.addCList(temp);
             } else
@@ -111,8 +113,10 @@ public class ABuild {
      * @return null
      */
     private AbstractComponent find(PCParts p, int c){
+        //System.err.println(c);
         ArrayList<AbstractComponent> temp = segment(p,c);
         Collections.sort(temp);
+        System.err.println(temp);
 
         if (temp.size()>0){
             return temp.get(0);
@@ -131,14 +135,18 @@ public class ABuild {
         ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p),sc);
         ArrayList<AbstractComponent> seg = new ArrayList<>();
         for(AbstractComponent ac : temp){
-            if (ac.getPrice()>(int)0.75*c && ac.getPrice()<(int)1.25*c){
+            if (ac.getPrice()<(int)1.8*c){
                seg.add(ac);
+               //System.err.println("x"+ac);
             }
         }
         return seg;
     }
 
     public SelectedComponents getSc() {
-        return sc;
+        if (allOk)
+            return sc;
+        else
+            return null;
     }
 }

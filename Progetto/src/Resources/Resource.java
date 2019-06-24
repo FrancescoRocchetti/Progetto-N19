@@ -22,6 +22,7 @@ public class Resource {
     private boolean okCase;
     private boolean okCooler;
     private boolean okPSU;
+    private boolean okCoolerI;
     private String[] supportedSocketC;
 
     /**
@@ -51,6 +52,7 @@ public class Resource {
         private boolean okCase;
         private boolean okCooler;
         private boolean okPSU;
+        private boolean okCoolerI;
         private String[] supportedSocketC;
 
         public Builder withSpportedSocketC(String[] supportedSocketC){
@@ -153,6 +155,11 @@ public class Resource {
             return this;
         }
 
+        public Builder withokCoolerI(boolean okCoolerI) {
+            this.okCoolerI = okCoolerI;
+            return this;
+        }
+
         public Builder withokPSU(boolean okPSU) {
             this.okPSU = okPSU;
             return this;
@@ -185,6 +192,7 @@ public class Resource {
             risorsa.okGPU = this.okGPU;
             risorsa.okCase = this.okCase;
             risorsa.okCooler = this.okCooler;
+            risorsa.okCoolerI = this.okCoolerI;
             risorsa.okPSU = this.okPSU;
             risorsa.supportedSocketC = this.supportedSocketC;
             return risorsa;
@@ -268,6 +276,10 @@ public class Resource {
 
     public boolean isOkCooler() {
         return okCooler;
+    }
+
+    public boolean isOkCoolerI() {
+        return okCoolerI;
     }
 
     public boolean isOkPSU() {

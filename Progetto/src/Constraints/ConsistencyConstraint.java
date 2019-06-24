@@ -17,7 +17,7 @@ public class ConsistencyConstraint implements AbstractConstraint {
 
         return (r.isOkCPU() && r.isOkMOBO() && r.isOkRAM()
                 && r.isOkGPU() && r.isOkPSU() && r.isOkCase()
-                && r.isOkStorage() && r.isOkCooler() && NumericalConstraint.check(sc));
+                && r.isOkStorage() && (r.isOkCooler() || r.isOkCoolerI()) && NumericalConstraint.check(sc));
     }
 
 

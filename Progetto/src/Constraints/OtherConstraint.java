@@ -95,7 +95,9 @@ public class OtherConstraint {
             temp = false;
         }
 
-        //if (before)
+        if (before.isOkCooler() && rAc.isOkCooler()){
+            temp = false;
+        }
 
         return temp;
     }

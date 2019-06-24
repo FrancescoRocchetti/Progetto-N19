@@ -18,7 +18,7 @@ public class CPU extends AbstractComponent {
                 .withnBit(Integer.parseInt(caratteristiche[6]))
                 .withPower(0 - Integer.parseInt(caratteristiche[5]))
                 .withTypeRAM(caratteristiche[4])
-                .withokCooler(caratteristiche[9].equalsIgnoreCase("Y"))
+                .withokCoolerI(caratteristiche[9].equalsIgnoreCase("Y"))
                 .build();
 
         clock = Double.parseDouble(caratteristiche[1]);
