@@ -12,6 +12,7 @@ public class COOLER extends AbstractComponent {
         resource = new Resource.Builder()
                 .withokCooler(true)
                 .withSpportedSocketC(caratteristiche[2].split(";"))
+                .withPower(0-Integer.parseInt(caratteristiche[3]))
                 .build();
 
         SupportedSocketC = caratteristiche[2].split(";");
