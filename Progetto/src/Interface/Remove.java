@@ -71,7 +71,7 @@ public class Remove extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setLocation(Remove.super.getLocation());
+                ins.setLocationRelativeTo(Remove.this);
                 ins.setVisible(true);
                 ins.toFront();
                 ins.requestFocus();
@@ -108,7 +108,7 @@ public class Remove extends JFrame {
 
         setResizable(false);
         setSize(600,400);
-        setLocation(ins.getLocation());
+        setLocationRelativeTo(ins);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }

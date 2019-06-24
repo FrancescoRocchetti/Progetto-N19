@@ -91,7 +91,7 @@ public class Update extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setLocation(Update.super.getLocation());
+                ins.setLocationRelativeTo(Update.this);
                 ins.setVisible(true);
                 ins.toFront();
                 ins.requestFocus();
@@ -139,7 +139,7 @@ public class Update extends JFrame {
 
         setResizable(false);
         setSize(600,400);
-        setLocation(ins.getLocation());
+        setLocationRelativeTo(ins);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }

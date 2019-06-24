@@ -118,6 +118,17 @@ public class Writer {
         }
     }
 
+    /**
+     * Aggiorna il prezzo dei componenti nel DB
+     *
+     * @param cod: codice prodotto
+     * @param price
+     *
+     * @return true se l'aggiornamento è andato a buon fine,
+     * altrimenti false
+     *
+     * @exception SQLException: aggiornamento andato a male
+     */
     public boolean updatePrice(int cod, int price){
         try{
             conn = DriverManager.getConnection(url, user, password);
