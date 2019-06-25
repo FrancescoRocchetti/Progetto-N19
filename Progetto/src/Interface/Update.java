@@ -205,18 +205,7 @@ public class Update extends JFrame {
     }
 
     private Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {
-        Object[][] data = new Object[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new Object[5];
-            abs = comp.get(i);
-            data[i][0] = abs.getID();
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = abs.getQuantity();
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
+        return go.getObject(comp);
     }
 
     private JTable createTable(Object[][] data) {

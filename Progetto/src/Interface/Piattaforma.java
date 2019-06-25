@@ -2,6 +2,7 @@ package Interface;
 
 import Components.AbstractComponent;
 import Constraints.ConsistencyConstraint;
+import Gestione.GestoreOperazioni;
 import Gestione.GestoreScelte;
 import Components.PCParts;
 
@@ -70,6 +71,7 @@ public class Piattaforma extends JFrame{
     private JPanel wattPanel;
 
     private GestoreScelte gs;
+    private GestoreOperazioni go;
 
     private int index;
     private int rowAdd;
@@ -80,6 +82,7 @@ public class Piattaforma extends JFrame{
     public Piattaforma() {
         super("Configuratore di PC");
         gs = new GestoreScelte(this);
+        go = new GestoreOperazioni();
 
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
@@ -525,18 +528,7 @@ public class Piattaforma extends JFrame{
         if (comp == null) {
             return null;
         }
-        Object[][] data = new Object[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new Object[5];
-            abs = comp.get(i);
-            data[i][0] = abs.getID();
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = abs.getQuantity();
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
+        return go.getObject(comp);
     }
 }
 
