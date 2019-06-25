@@ -39,6 +39,8 @@ public class Update extends JFrame {
     private JSpinner spinnerQuantity;
     private JSpinner spinnerPrice;
     private JScrollPane tablePane;
+    private JPanel btnPanel;
+    private JPanel fieldPanel;
 
     private int[] rowAdd;
     private int[] idAdd;
@@ -64,17 +66,23 @@ public class Update extends JFrame {
         updateQuantity = new JButton("Update quantity");
         updatePrice = new JButton("Update price");
         close = new JButton("Close");
-        southPanel = new JPanel(new GridLayout(1,5));
+        southPanel = new JPanel(new BorderLayout());
+        btnPanel = new JPanel(new GridLayout(1,3));
+        fieldPanel = new JPanel(new GridLayout(2,2));
         updateQuantity.setEnabled(false);
         updatePrice.setEnabled(false);
 
         panelQuantity.add(spinnerQuantity);
         panelPrice.add(spinnerPrice);
-        southPanel.add(updateQuantity);
-        southPanel.add(updatePrice);
-        southPanel.add(close);
-        southPanel.add(panelQuantity);
-        southPanel.add(panelPrice);
+        btnPanel.add(updateQuantity);
+        btnPanel.add(updatePrice);
+        btnPanel.add(close);
+        southPanel.add(btnPanel, BorderLayout.SOUTH);
+        fieldPanel.add(new JLabel("Quantità"));
+        fieldPanel.add(new JLabel("Prezzo"));
+        fieldPanel.add(spinnerQuantity);
+        fieldPanel.add(spinnerPrice);
+        southPanel.add(fieldPanel, BorderLayout.NORTH);
         choosePanel.add(southPanel, BorderLayout.SOUTH);
         bckg.add(label, BorderLayout.NORTH);
         bckg.add(choosePanel, BorderLayout.SOUTH);
@@ -150,6 +158,8 @@ public class Update extends JFrame {
      */
     public void successUpdate(){
         JOptionPane.showMessageDialog(this, "Componente/i aggiornato/i", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        spinnerPrice.setValue(0);
+        spinnerQuantity.setValue(0);
         reload();
     }
 
@@ -159,6 +169,8 @@ public class Update extends JFrame {
      */
     public void failureUpdate(){
         JOptionPane.showMessageDialog(this, "Errore nell'aggiornamento", "Fallito", JOptionPane.ERROR_MESSAGE);
+        spinnerPrice.setValue(0);
+        spinnerQuantity.setValue(0);
         reload();
     }
 
