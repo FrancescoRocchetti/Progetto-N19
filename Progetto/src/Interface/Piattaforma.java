@@ -427,7 +427,7 @@ public class Piattaforma extends JFrame{
         TableColumn col = table.getColumnModel().getColumn(3);
         table.removeColumn(col);
 
-        int[] dim = {1, 7, 110, 5};
+        int[] dim = {1, 7, 90, 15};
         for (int i = 0; i < dim.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
