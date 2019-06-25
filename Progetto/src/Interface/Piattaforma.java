@@ -235,7 +235,7 @@ public class Piattaforma extends JFrame{
         watt.setText("0 W");
         rmv.setEnabled(false);
         gs.newScp();
-        checkMessage.setText(gs.getWarningTxt());
+        //checkMessage.setText(gs.getWarningTxt());
         confirmConfig.setEnabled(gs.canOrder());
         components.setSelectedIndex(0);
         gs.obtainParts(CMP[index]);
