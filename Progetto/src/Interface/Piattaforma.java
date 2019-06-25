@@ -490,6 +490,7 @@ public class Piattaforma extends JFrame{
                 try {
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
                     if((int) table.getValueAt(rowAdd, 2) > 0) {
+                        checkMessage.setText("");
                         add.setEnabled(true);
                         show.setEnabled(true);
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
@@ -497,6 +498,7 @@ public class Piattaforma extends JFrame{
                         add.setEnabled(false);
                         //show.setEnabled(false);
                         checkMessage.setForeground(Color.RED);
+                        checkMessage.setText("Attualmente non disponibile");
                     }
                 } catch (ArrayIndexOutOfBoundsException o) {
                     add.setEnabled(false);
