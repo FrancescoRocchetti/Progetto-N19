@@ -21,18 +21,18 @@ import java.net.URL;
  */
 
 public class Login extends JFrame {
-    private GestoreOperazioni go;
     private Piattaforma p;
     private JPanel background;
     private JTextField username;
     private JPanel loginPanel;
     private JPanel loadingPanel;
+    private GestoreOperazioni go;
 
 
-    public Login(Piattaforma p) {
+    public Login(Piattaforma p, GestoreOperazioni go) {
         super("Login");
-        go = new GestoreOperazioni();
         this.p = p;
+        this.go = go;
         p.setVisible(false);
         go.setLogin(this);
         Container c = getContentPane();
@@ -87,7 +87,6 @@ public class Login extends JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 if (!go.isLoggedIn()) {
-                    go.stopThreads();
                     p.setLocationRelativeTo(Login.this);
                     p.setVisible(true);
                     p.toFront();

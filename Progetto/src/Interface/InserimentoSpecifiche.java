@@ -4,7 +4,6 @@ import Gestione.GestoreOperazioni;
 import Components.PCParts;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
@@ -40,7 +39,7 @@ public class InserimentoSpecifiche extends JFrame {
 
     private JComboBox componente;
     private JSpinner quantita;
-    private SpinnerNumberModel spinnerModel;
+    private SpinnerNumberModel spinnerQuantityModel;
     private JSpinner prezzo;
     private SpinnerNumberModel spinnerPriceModel;
     private JSpinner valutazione;
@@ -87,8 +86,8 @@ public class InserimentoSpecifiche extends JFrame {
         descPanel = new JPanel(new GridLayout(1, 1));
         descPanel.add(advanced);
         quantity = new JLabel("Quantità");
-        spinnerModel = new SpinnerNumberModel(1, 1, null, 1);
-        quantita = new JSpinner(spinnerModel);
+        spinnerQuantityModel = new SpinnerNumberModel(0, 0, null, 1);
+        quantita = new JSpinner(spinnerQuantityModel);
         setSpinnerNotWritable(quantita);
         price = new JLabel("Prezzo");
         spinnerPriceModel = new SpinnerNumberModel(1, 1, null, 1);
@@ -194,7 +193,6 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                go.stopThreads();
                 p.setLocationRelativeTo(InserimentoSpecifiche.this);
                 p.setVisible(true);
                 p.toFront();

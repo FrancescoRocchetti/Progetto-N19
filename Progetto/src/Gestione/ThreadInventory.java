@@ -27,7 +27,7 @@ public class ThreadInventory extends Thread{
         this.gs = gs;
     }
 
-    public synchronized void getListOf(PCParts part) {
+    public synchronized void getInventoryOf(PCParts part) {
         this.part = part;
         accept = false;
         notify();

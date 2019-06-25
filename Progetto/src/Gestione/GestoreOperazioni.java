@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import Components.AbstractComponent;
 
 /**
- * Manager usato per gestire le operazioni effettuate con
+ * Gestione.Manager usato per gestire le operazioni effettuate con
  * InserimentoSpecifiche, Update, Remove e CompList
  *
  * @author Fabio Riganti
@@ -32,27 +32,14 @@ public class GestoreOperazioni implements ObserverGO{
     private Remove rmv;
     private Update upd;
     private CompList lst;
-    private ThreadLogin tlog;
-    private ThreadAdd ta;
-    private ThreadList tl;
-    private ThreadRemove tr;
-    private ThreadUpdate tu;
+    private Manager m;
     private String mode; //RMV se si usa Remove, UPD se si usa Update e LST se si usa CompList
 
-    public GestoreOperazioni(){
+    public GestoreOperazioni(Manager m){
+        this.m = m;
         modified = false;
         loggedIn = false;
         descrizione = null;
-        tlog = new ThreadLogin(this);
-        tlog.start();
-        ta = new ThreadAdd(this);
-        ta.start();
-        tl = new ThreadList(this);
-        tl.start();
-        tr = new ThreadRemove(this);
-        tr.start();
-        tu = new ThreadUpdate(this);
-        tu.start();
     }
 
     /**
@@ -109,14 +96,13 @@ public class GestoreOperazioni implements ObserverGO{
     }
 
     /**
-     * Imposta la modalità list e con quale List
-     * GestoreOperazioni deve comunicare
+     * Permette di accedere al DB
      *
      * @param username
      * @param password
      */
     public void accessToDB(String username, String password) {
-        tlog.login(username, password);
+        m.login(username, password);
     }
 
     /**
@@ -138,7 +124,7 @@ public class GestoreOperazioni implements ObserverGO{
                 String.valueOf(prezzo),
                 String.valueOf(valutazione)};
         if (descrizione != null && checkValidation(str)) {
-            ta.addComp(componente, descrizione, quantita,prezzo,valutazione);
+            m.addComp(componente, descrizione, quantita,prezzo,valutazione);
             return true;
         }
         return false;
@@ -155,48 +141,39 @@ public class GestoreOperazioni implements ObserverGO{
     }
 
     /**
-     * Aggiorna la quantità di un componente
+     * Aggiorna la quantità di uno o più componenti
      *
      * @param index
      * @param qty
      */
     public void updateQuantity(int[] index, int qty) {
-        tu.updateQuantityById(index, qty);
-    }
-
-    public void updatePrice(int[] index, int price) {
-        tu.updatePriceById(index, price);
-    }
-
-    public Object[][] getObject(ArrayList<AbstractComponent> comp) {
-        Object[][] data = new Object[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new Object[5];
-            abs = comp.get(i);
-            data[i][0] = abs.getID();
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = abs.getQuantity();
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
+        m.updateQuantityById(index, qty);
     }
 
     /**
-     * Rimuove un componente
+     * Aggiorna il prezzo di uno o più componenti
+     *
+     * @param index
+     * @param price
+     */
+    public void updatePrice(int[] index, int price) {
+        m.updatePriceById(index, price);
+    }
+
+    /**
+     * Rimuove uno o piò componenti
      *
      * @param id
      */
     public void remove(int[] id){
-        tr.removeCompById(id);
+        m.removeCompById(id);
     }
 
     /**
      * Permette di ottenere la lista dei componenti
      */
     public void getListComponents(){
-        tl.getListOf(null);
+        m.getListOf(null);
     }
 
     /**
@@ -272,11 +249,15 @@ public class GestoreOperazioni implements ObserverGO{
         else l.failureLogin();
     }
 
-    public void stopThreads(){
-        tlog.stopThread();
-        ta.stopThread();
-        tl.stopThread();
-        tr.stopThread();
-        tu.stopThread();
+    /**
+     * Permette di ottenere una matrice di Object
+     * a partire da una lista di AbstractComponent
+     *
+     * @param comp
+     *
+     * @return Object[][]
+     */
+    public Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp){
+        return m.getObjectFromComps(comp);
     }
 }

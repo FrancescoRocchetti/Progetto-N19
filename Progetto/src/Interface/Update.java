@@ -45,14 +45,13 @@ public class Update extends JFrame {
     private int[] rowAdd;
     private int[] idAdd;
 
-
     public Update(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Update component");
         ins.setVisible(false);
         this.go = go;
         this.go.setUpdateMode(this);
-        spinnerQuantity = initializeSpinner();
-        spinnerPrice = initializeSpinner();
+        spinnerQuantity = initializeSpinner(0);
+        spinnerPrice = initializeSpinner(1);
         panelQuantity = new JPanel(new GridLayout());
         panelQuantity.setBorder(new TitledBorder("Quantità"));
         panelPrice = new JPanel(new GridLayout());
@@ -205,7 +204,7 @@ public class Update extends JFrame {
     }
 
     private Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {
-        return go.getObject(comp);
+        return go.getObjectFromComps(comp);
     }
 
     private JTable createTable(Object[][] data) {
@@ -267,8 +266,8 @@ public class Update extends JFrame {
         });
     }
 
-    private JSpinner initializeSpinner(){
-        SpinnerNumberModel model = new SpinnerNumberModel(0, 0, null, 1);
+    private JSpinner initializeSpinner(int min){
+        SpinnerNumberModel model = new SpinnerNumberModel(min, min, null, 1);
         JSpinner s = new JSpinner(model);
         setSpinnerNotWritable(s);
         return s;

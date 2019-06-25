@@ -5,6 +5,7 @@ import Constraints.ConsistencyConstraint;
 import Gestione.GestoreOperazioni;
 import Gestione.GestoreScelte;
 import Components.PCParts;
+import Gestione.ManagerDB;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -33,8 +34,6 @@ public class Piattaforma extends JFrame{
     private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE, PCParts.ALTRO};
 
     private Container c;
-    private Toolkit kit;
-    private Dimension dim;
     private JTabbedPane components;
     private JMenuBar menuBar;
     private JMenu file;
@@ -71,7 +70,6 @@ public class Piattaforma extends JFrame{
     private JPanel wattPanel;
 
     private GestoreScelte gs;
-    private GestoreOperazioni go;
 
     private int index;
     private int rowAdd;
@@ -79,13 +77,10 @@ public class Piattaforma extends JFrame{
     private int idAdd;
     private int[] idRmv;
 
-    public Piattaforma() {
+    public Piattaforma(GestoreScelte gs) {
         super("Configuratore di PC");
-        gs = new GestoreScelte(this);
-        go = new GestoreOperazioni();
-
-        kit = Toolkit.getDefaultToolkit();
-        dim = kit.getScreenSize();
+        this.gs = gs;
+        gs.setPiattaforma(this);
 
         // Inizializzazione
         c = getContentPane();
@@ -129,6 +124,8 @@ public class Piattaforma extends JFrame{
         checkPane = new JPanel(new BorderLayout());
         checkMessage = new JTextArea();
         checkMessage.setEditable(false);
+        checkMessage.setForeground(Color.RED);
+        checkMessage.setText(gs.getWarningTxt());
         checkPane.setPreferredSize(new Dimension(300, getHeight() / 2));
         checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
@@ -364,7 +361,7 @@ public class Piattaforma extends JFrame{
 
     private void loginListener() {
         logAdmin.addActionListener(e -> {
-            new Login(this);
+            gs.createLogin(this);
         });
     }
 
@@ -374,8 +371,6 @@ public class Piattaforma extends JFrame{
         });
     }
 
-
-
     private void rechargeListener() {
         recharge.addActionListener(e -> refresh());
     }
@@ -383,8 +378,6 @@ public class Piattaforma extends JFrame{
     private void exitListener() {
         exit.addActionListener(e -> System.exit(0));
     }
-
-
 
     private JTable createTable(ArrayList<AbstractComponent> arr) {
         DefaultTableModel dm = new DefaultTableModel();
@@ -442,9 +435,6 @@ public class Piattaforma extends JFrame{
         return table;
     }
 
-
-
-
     private void addCartTableMouseListener(JTable table){
         table.addMouseListener(new MouseListener() {
             @Override
@@ -490,17 +480,17 @@ public class Piattaforma extends JFrame{
                 try {
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
                     if((int) table.getValueAt(rowAdd, 2) > 0) {
-                        checkMessage.setText("");
+                        checkMessage.setText(gs.getWarningTxt());
                         add.setEnabled(true);
                         show.setEnabled(true);
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
                         add.setEnabled(false);
                         //show.setEnabled(false);
-                        checkMessage.setForeground(Color.RED);
-                        checkMessage.setText("Attualmente non disponibile");
+                        checkMessage.setText(gs.getWarningTxt()+"\nOggetto selezionato non disponibile");
                     }
-                } catch (ArrayIndexOutOfBoundsException o) {
+                } catch (Exception o) {
+                    checkMessage.setText(gs.getWarningTxt());
                     add.setEnabled(false);
                     rowAdd = -1;
                 }
@@ -530,7 +520,6 @@ public class Piattaforma extends JFrame{
         if (comp == null) {
             return null;
         }
-        return go.getObject(comp);
+        return gs.getObjectFromComps(comp);
     }
 }
-

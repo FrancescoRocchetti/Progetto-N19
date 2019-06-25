@@ -11,7 +11,7 @@ import Components.AbstractComponent;
 import java.util.ArrayList;
 
 /**
- * Manager che gestisce le scelte effettuate tramite
+ * Gestione.Manager che gestisce le scelte effettuate tramite
  * l'interfaccia Piattaforma
  *
  * @author Fabio Riganti
@@ -21,19 +21,14 @@ import java.util.ArrayList;
 public class GestoreScelte implements ObserverGS{
     private SelectedComponents scp;
     private ActiveComponents ac;
-    private Piattaforma p;
     private ConfirmList cfl;
-    private ThreadInventory t;
-    private ThreadConfirm tc;
+    private Piattaforma p;
+    private Manager m;
 
-    public GestoreScelte(Piattaforma p) {
+    public GestoreScelte(Manager m) {
+        this.m = m;
         scp = new SelectedComponents();
         ac = new ActiveComponents();
-        t = new ThreadInventory(this);
-        tc = new ThreadConfirm(this);
-        this.p = p;
-        t.start();
-        tc.start();
     }
 
     /**
@@ -42,7 +37,11 @@ public class GestoreScelte implements ObserverGS{
      * @param comp
      */
     public void obtainParts(PCParts comp) {
-        t.getListOf(comp);
+        m.getInventoryOf(comp);
+    }//t
+
+    public void setPiattaforma(Piattaforma p){
+        this.p = p;
     }
 
     /**
@@ -128,7 +127,7 @@ public class GestoreScelte implements ObserverGS{
      */
     public void confirmOrder(ConfirmList cl) {
         cfl = cl;
-        tc.confirmOrder(cl.getCodesOfComps());
+        m.confirmOrder(cl.getCodesOfComps());//tc
     }
 
     @Override
@@ -139,5 +138,21 @@ public class GestoreScelte implements ObserverGS{
     @Override
     public void orderFailure() {
         cfl.failure();
+    }
+
+    public void createLogin(Piattaforma p){
+        m.createLogin(p);
+    }
+
+    /**
+     * Permette di ottenere una matrice di Object
+     * a partire da una lista di AbstractComponent
+     *
+     * @param comp
+     *
+     * @return Object[][]
+     */
+    public Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp){
+        return m.getObjectFromComps(comp);
     }
 }
