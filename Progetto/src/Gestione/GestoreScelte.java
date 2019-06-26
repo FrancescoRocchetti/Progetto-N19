@@ -107,7 +107,8 @@ public class GestoreScelte implements ObserverGS{
     public String getWarningTxt() {
         Warning w = Warning.getwInstance();
         w.check(scp);
-        return w.getInfo();
+        ArrayList<String> list = w.getInfo();
+        return arrayToString(list);
     }
 
     /**
@@ -154,5 +155,14 @@ public class GestoreScelte implements ObserverGS{
      */
     public Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp){
         return m.getObjectFromComps(comp);
+    }
+
+    private String arrayToString(ArrayList<String> list){
+        StringBuilder str = new StringBuilder();
+
+        for(String s : list)
+            str.append(s+"\n");
+
+        return str.toString();
     }
 }

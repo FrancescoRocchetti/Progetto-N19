@@ -483,7 +483,7 @@ public class Piattaforma extends JFrame{
                     } else {
                         add.setEnabled(false);
                         //show.setEnabled(false);
-                        checkMessage.setText(gs.getWarningTxt()+"\nOggetto selezionato non disponibile");
+                        checkMessage.setText(gs.getWarningTxt()+"Oggetto selezionato non disponibile");
                     }
                 } catch (Exception o) {
                     checkMessage.setText(gs.getWarningTxt());
