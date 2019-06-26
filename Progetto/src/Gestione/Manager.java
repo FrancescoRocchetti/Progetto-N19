@@ -29,6 +29,17 @@ public class Manager {
     private ThreadUpdate tu;
 
     public Manager(){
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         gs = new GestoreScelte(this);
         go = new GestoreOperazioni(this);
         t = new ThreadInventory(gs);
@@ -46,21 +57,6 @@ public class Manager {
         tu = new ThreadUpdate(go);
         tu.start();
         new Piattaforma(gs);
-    }
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-        new Manager();
     }
 
     /**
