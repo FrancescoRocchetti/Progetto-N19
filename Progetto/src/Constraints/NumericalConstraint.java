@@ -1,6 +1,5 @@
 package Constraints;
 
-import Constraints.DeprecatedClass.AbstractConstraint;
 import Gestione.SelectedComponents;
 import Components.PCParts;
 import Resources.Resource;
