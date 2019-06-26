@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -165,8 +166,6 @@ public class Piattaforma extends JFrame{
         components.addTab("Other", panels[9]);*/
 
         components.addChangeListener(e -> {
-            add.setEnabled(false);
-            show.setEnabled(false);
             rowAdd = -1;
             obtainParts(components.getSelectedIndex());
         });
@@ -231,7 +230,7 @@ public class Piattaforma extends JFrame{
         //checkMessage.setText(gs.getWarningTxt());
         confirmConfig.setEnabled(gs.canOrder());
         components.setSelectedIndex(0);
-        gs.obtainParts(CMP[index]);
+        obtainParts(0);
     }
 
     /**
@@ -273,6 +272,22 @@ public class Piattaforma extends JFrame{
         }
         components.setEnabled(true);
     }
+    /**
+     * Permette di notificare Piattaforma dell'esito di una
+     * configurazione automatica
+     *
+     * @param status
+     */
+    public void setAutoBuild(boolean status) {
+        if(status){
+            JOptionPane.showMessageDialog(this, "Configurazione trovata", "Informazione", JOptionPane.INFORMATION_MESSAGE);
+            updateCartList();
+        } else {
+            JOptionPane.showMessageDialog(this, "Configurazione non trovata", "Informazione", JOptionPane.INFORMATION_MESSAGE);
+            confirmConfig.setEnabled(gs.canOrder());
+        }
+        obtainParts(components.getSelectedIndex());
+    }
 
     private void addComp(int id) {
         gs.addComp(id);
@@ -280,20 +295,27 @@ public class Piattaforma extends JFrame{
 
     private void obtainParts(int i) {
         index = i;
+        loading(index, "Sto scaricando i dati...");
+        gs.obtainParts(CMP[index]);
+    }
+
+    private void loading(int index, String str){
+        add.setEnabled(false);
+        show.setEnabled(false);
+        rmv.setEnabled(false);
         components.setEnabled(false);
         panels[index].removeAll();
         URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel(img);
-        JLabel txt = new JLabel("Sto scaricando i dati...");
+        JLabel txt = new JLabel(str);
         txt.setHorizontalAlignment(SwingConstants.CENTER);
         txt.setBorder(new EmptyBorder(0, 0, 30, 0));
         panel.add(label, BorderLayout.CENTER);
         panel.add(txt, BorderLayout.SOUTH);
         panels[index].add(panel);
         panels[index].setLayout(new GridLayout());
-        gs.obtainParts(CMP[index]);
     }
 
     private void confirmConfigListener(JButton btn) {
@@ -307,16 +329,21 @@ public class Piattaforma extends JFrame{
 
     private void budgetConfigListener(JMenuItem item) {
         item.addActionListener(e -> {
-            /*
-            int budget = Integer.parseInt(JOptionPane.showInputDialog("Budget:"));
-            new BudgetConfig(budget);*/
-            JOptionPane.showMessageDialog(this, "Non supportato ancora.", "Informazione", JOptionPane.INFORMATION_MESSAGE);
+            JSpinner spinner = initializeSpinner(1);
+            int option = JOptionPane.showOptionDialog(this, spinner, "Inserisci un prezzo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,null, null);
+            if (option != JOptionPane.CANCEL_OPTION) {
+                confirmConfig.setEnabled(false);
+                loading(components.getSelectedIndex(), "Sto calcolando la tua configurazione...");
+                gs.getAutoBuild((int) spinner.getValue());
+            }
         });
     }
 
     private void noBudgetConfigListener(JMenuItem item) {
         item.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Non supportato ancora.", "Informazione", JOptionPane.INFORMATION_MESSAGE);
+            confirmConfig.setEnabled(false);
+            loading(components.getSelectedIndex(),"Sto calcolando la tua configurazione...");
+            gs.getAutoBuild(-1);
         });
     }
 
@@ -324,17 +351,21 @@ public class Piattaforma extends JFrame{
         btn.addActionListener(e -> {
             rmv.setEnabled(false);
             addComp(idAdd);
-            Object[][] data = getCart();
-            DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
-            model.setRowCount(0);
-            for (Object[] str : data) {
-                model.addRow(str);
-            }
-            price.setText(gs.getPrice() + " €");
-            watt.setText(gs.getWatt() + " W");
-            checkMessage.setText(gs.getWarningTxt());
-            confirmConfig.setEnabled(gs.canOrder());
+            updateCartList();
         });
+    }
+
+    private void updateCartList(){
+        Object[][] data = getCart();
+        DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
+        model.setRowCount(0);
+        for (Object[] str : data) {
+            model.addRow(str);
+        }
+        price.setText(gs.getPrice() + " €");
+        watt.setText(gs.getWatt() + " W");
+        checkMessage.setText(gs.getWarningTxt());
+        confirmConfig.setEnabled(gs.canOrder());
     }
 
     private void rmvButtonListener(JButton btn) {
@@ -517,5 +548,17 @@ public class Piattaforma extends JFrame{
             return null;
         }
         return gs.getObjectFromComps(comp);
+    }
+
+    private JSpinner initializeSpinner(int min){
+        SpinnerNumberModel model = new SpinnerNumberModel(min, min, null, 1);
+        JSpinner s = new JSpinner(model);
+        setSpinnerNotWritable(s);
+        return s;
+    }
+
+    private void setSpinnerNotWritable(JSpinner spinner) {
+        JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
+        ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 }

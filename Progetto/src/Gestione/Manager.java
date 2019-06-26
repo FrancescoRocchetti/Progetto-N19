@@ -22,6 +22,7 @@ public class Manager {
     private GestoreOperazioni go;
     private ThreadInventory t;
     private ThreadConfirm tc;
+    private ThreadAutoBuild tab;
     private ThreadLogin tlog;
     private ThreadAdd ta;
     private ThreadList tl;
@@ -46,6 +47,8 @@ public class Manager {
         t.start();
         tc = new ThreadConfirm(gs);
         tc.start();
+        tab = new ThreadAutoBuild(gs);
+        tab.start();
         tlog = new ThreadLogin(go);
         tlog.start();
         ta = new ThreadAdd(go);
@@ -56,6 +59,7 @@ public class Manager {
         tr.start();
         tu = new ThreadUpdate(go);
         tu.start();
+
         new Piattaforma(gs);
     }
 
@@ -146,6 +150,15 @@ public class Manager {
      */
     public void confirmOrder(int[] codesOfComps) {
         tc.confirmOrder(codesOfComps);
+    }
+
+    /**
+     * Permette di effettuare l'autoconfigurazione
+     *
+     * @param budget
+     */
+    public void getAutoBuild(int budget) {
+        tab.setAutoBuild(budget);
     }
 
     /**

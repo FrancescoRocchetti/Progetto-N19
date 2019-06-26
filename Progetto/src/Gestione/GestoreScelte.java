@@ -71,6 +71,13 @@ public class GestoreScelte implements ObserverGS{
         scp = new SelectedComponents();
     }
 
+    /**
+     * Permette di ottenere una configurazione generata automaticamente
+     */
+    public void getAutoBuild(int budget){
+        m.getAutoBuild(budget);
+    }
+
     public int getPrice() {
         return scp.getTotPrice();
     }
@@ -97,6 +104,15 @@ public class GestoreScelte implements ObserverGS{
             ac.buildList(AdaptabilityConstraint.check(arr, scp));
             p.updateListTable(ac.getAc());
         } else p.updateListTable(null);
+    }
+
+    @Override
+    public void setAutoBuild(SelectedComponents scp) {
+        if(scp != null){
+            this.scp = scp;
+            p.setAutoBuild(true);
+        } else
+            p.setAutoBuild(false);
     }
 
     /**

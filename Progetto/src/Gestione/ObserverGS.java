@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public interface ObserverGS {
     void updateList(ArrayList<AbstractComponent> arr);
+    void setAutoBuild(SelectedComponents scp);
     void orderSuccess();
     void orderFailure();
 }
