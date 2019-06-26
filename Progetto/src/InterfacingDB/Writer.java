@@ -43,7 +43,7 @@ public class Writer {
         try{
             Reader rd = new Reader();
             ArrayList<AbstractComponent> abs = rd.read(part);
-            if (isComplreadyIn(abs, d.split("_")[0]))
+            if (isCompAlreadyIn(abs, d.split("_")[0]))
                 return false;
 
             conn = DriverManager.getConnection(url, user, password);
@@ -203,7 +203,7 @@ public class Writer {
         }
     }
 
-    private boolean isComplreadyIn(ArrayList<AbstractComponent> abs, String name){
+    private boolean isCompAlreadyIn(ArrayList<AbstractComponent> abs, String name){
         for(AbstractComponent a: abs){
             if (a.getName().equals(name))
                 return true;
