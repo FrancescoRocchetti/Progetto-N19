@@ -25,13 +25,14 @@ public class ABuild {
     private ManagerDB db;
 
     private double cCpu = 0.2;
-    private double cGpu = 0.25;
+    private double cGpu = 0.4;
     private double cMobo = 0.15;
     private double cRam = 0.075;
     private double cPsu = 0.075;
-    private double cCooler = 0.05;
+    private double cCooler = 0.1;
     private double cCase = 0.1;
     private double cStorage = 0.1;
+    private int sf = 1;
     /**
      * assegno percentuali di prezzo arbitrarie ad ogni componente
      *
@@ -39,7 +40,7 @@ public class ABuild {
      */
     private PCParts[] lista = {PCParts.MOBO,PCParts.CPU,PCParts.RAM,
                                  PCParts.PSU,PCParts.STORAGE,PCParts.CASE};
-    private double[] costi = {0.15,0.2,0.08,0.08,0.1,0.1};
+    private double[] costi = {0.1,0.25,0.1,0.1,0.1,0.1};
 
 
     public ABuild(int maxCost) {
@@ -59,6 +60,7 @@ public class ABuild {
         usedMoney = 0;
         sc = new SelectedComponents();
         allOk = true;
+        sf = 0;
         start();
     }
 
@@ -76,29 +78,36 @@ public class ABuild {
             if(temp != null){
                 sc.addCList(temp);
                 //System.err.println(temp);
-            } else
+            } else {
                 allOk = false;
+                System.err.println(p);
+            }
             i++;
         }
 
         //scelta del Cooler
 
-        if (!sc.getTotRes().isOkCooler()) {
-            AbstractComponent temp = find(PCParts.COOLER,(int)(cCooler* budget));
+        if (!sc.getTotRes().isOkCoolerI()  || budget> 800) {
+            AbstractComponent temp = find(PCParts.COOLER,(int)(cCooler* (double)budget));
             if(temp != null){
                 sc.addCList(temp);
-            } else
+            } else{
                 allOk = false;
+                System.err.println("COOLER");
+            }
         }
 
         //scelta della GPU
 
-        if (!sc.getTotRes().isOkGPU() || (budget >500 && usedMoney< budget *(1-cGpu))) {
-            AbstractComponent temp = find(PCParts.GPU,(int)(cGpu* budget));
+        if (!sc.getTotRes().isOkGPU() || budget> 500 ) {
+            AbstractComponent temp = find(PCParts.GPU,(int)(cGpu* (double)budget));
             if(temp != null){
                 sc.addCList(temp);
             } else
+                if (!sc.getTotRes().isOkGPU()){
                 allOk = false;
+                System.err.println("GPU");
+            }
         }
 
     }
@@ -116,11 +125,14 @@ public class ABuild {
         //System.err.println(c);
         ArrayList<AbstractComponent> temp = segment(p,c);
         Collections.sort(temp);
-        System.err.println(temp);
+        //System.err.println(temp);
 
         if (temp.size()>0){
-            return temp.get(0);
-        } else
+            for(AbstractComponent ac : temp){
+                if (superCheck(ac))
+                    return ac;
+            }
+        }
         return null;
     }
 
@@ -135,7 +147,7 @@ public class ABuild {
         ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p),sc);
         ArrayList<AbstractComponent> seg = new ArrayList<>();
         for(AbstractComponent ac : temp){
-            if (ac.getPrice()<(int)1.8*c){
+            if (ac.getPrice()<(int)(1.2*c) ){
                seg.add(ac);
                //System.err.println("x"+ac);
             }
@@ -148,5 +160,31 @@ public class ABuild {
             return sc;
         else
             return null;
+    }
+
+    private boolean superCheck(AbstractComponent c){
+        boolean cc=false;
+        boolean cm=false;
+        boolean cr=false;
+        SelectedComponents t = new SelectedComponents();
+        t.addCList(c);
+
+        ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(null),t);
+
+        for(AbstractComponent ac : temp){
+            if(ac.getType().equalsIgnoreCase("CPU"))
+                cc=true;
+            if(ac.getType().equalsIgnoreCase("MOBO"))
+                cm=true;
+            if(ac.getType().equalsIgnoreCase("RAM"))
+                cr=true;
+        }
+
+        return cc&&cm&&cr;
+    }
+
+    @Override
+    public String toString() {
+        return sc.toString();
     }
 }
