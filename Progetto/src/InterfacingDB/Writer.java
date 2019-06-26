@@ -1,8 +1,10 @@
 package InterfacingDB;
 
+import Components.AbstractComponent;
 import Components.PCParts;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Classe che permette di manipolare il DB
@@ -39,6 +41,11 @@ public class Writer {
      */
     public boolean write(PCParts part, String d, int q, int p, int r){
         try{
+            Reader rd = new Reader();
+            ArrayList<AbstractComponent> abs = rd.read(part);
+            if (isComplreadyIn(abs, d.split("_")[0]))
+                return false;
+
             conn = DriverManager.getConnection(url, user, password);
             String query = "INSERT INTO `INVENTARIO` (`TIPO`, `DESCRIZIONE`, `QUANTITA`, `PREZZO`, `RANK`) " +
                     "VALUES (?,?,?,?,?);";
@@ -194,5 +201,13 @@ public class Writer {
         } catch (Exception e) {
             System.err.println("Già chiuso.");
         }
+    }
+
+    private boolean isComplreadyIn(ArrayList<AbstractComponent> abs, String name){
+        for(AbstractComponent a: abs){
+            if (a.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 }

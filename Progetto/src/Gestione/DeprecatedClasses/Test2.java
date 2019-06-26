@@ -1,4 +1,4 @@
-package Gestione;
+package Gestione.DeprecatedClasses;
 
 import Components.PCParts;
 

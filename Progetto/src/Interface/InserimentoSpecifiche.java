@@ -247,18 +247,17 @@ public class InserimentoSpecifiche extends JFrame {
         if(status){
             Object[] options = {"YES", "NO"};
             int inserimento = JOptionPane.showOptionDialog(this, "Inserito oggetto con successo\nNuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
-            if (inserimento == 0) {
-                componente.setSelectedItem(PCParts.CASE);
-                go.setDescrizione(null);
-                quantita.setValue(1);
-                prezzo.setValue(1);
-                valutazione.setValue(1);
-            } else {
+            if (inserimento != 0)
                 dispose();
-            }
         } else {
             JOptionPane.showMessageDialog(this, "Errore inserimento oggetto", "Errore", JOptionPane.ERROR_MESSAGE);
         }
+        componente.setSelectedItem(PCParts.CASE);
+        go.setDescrizione(null);
+        quantita.setValue(0);
+        prezzo.setValue(1);
+        valutazione.setValue(1);
+        confirm.setEnabled(false);
         background.remove(loadingPanel);
         background.add(compsInterface, BorderLayout.CENTER);
         background.repaint();

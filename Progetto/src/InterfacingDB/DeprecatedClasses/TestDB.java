@@ -1,7 +1,9 @@
-package InterfacingDB;
+package InterfacingDB.DeprecatedClasses;
 
 import Components.AbstractComponent;
 import Components.PCParts;
+import InterfacingDB.Login;
+import InterfacingDB.Reader;
 
 import java.util.ArrayList;
 

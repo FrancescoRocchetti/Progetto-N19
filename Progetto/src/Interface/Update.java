@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Interfaccia usata per effettuare aggiornamenti
- * sulla quantità di un componente nell'inventario
+ * sulla quantità e sul prezzo di un componente nell'inventario
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
