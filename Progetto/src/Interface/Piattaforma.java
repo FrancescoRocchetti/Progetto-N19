@@ -23,7 +23,6 @@ import java.util.ArrayList;
  * @author Fabio Riganti
  *
  */
-
 public class Piattaforma extends JFrame{
 
     private static final int CATEGORIES = 10;
@@ -154,17 +153,6 @@ public class Piattaforma extends JFrame{
         for(int i = 0; i < names.length; i++)
             components.addTab(names[i], panels[i]);
 
-        /*components.addTab("Mother Board", panels[0]);
-        components.addTab("CPU", panels[1]);
-        components.addTab("RAM", panels[2]);
-        components.addTab("Storage", panels[3]);
-        components.addTab("GPU", panels[4]);
-        components.addTab("Power Supply", panels[5]);
-        components.addTab("Cooler CPU", panels[6]);
-        components.addTab("Operating System", panels[7]);
-        components.addTab("Case", panels[8]);
-        components.addTab("Other", panels[9]);*/
-
         components.addChangeListener(e -> {
             rowAdd = -1;
             obtainParts(components.getSelectedIndex());
@@ -286,6 +274,12 @@ public class Piattaforma extends JFrame{
             JOptionPane.showMessageDialog(this, "Configurazione non trovata", "Informazione", JOptionPane.INFORMATION_MESSAGE);
             confirmConfig.setEnabled(gs.canOrder());
         }
+        confirmConfig.setEnabled(true);
+        file.setEnabled(true);
+        updateDB.setEnabled(true);
+        autoConfig.setEnabled(true);
+        chooseTable.setEnabled(true);
+        chooseTable.clearSelection();
         obtainParts(components.getSelectedIndex());
     }
 
@@ -332,19 +326,26 @@ public class Piattaforma extends JFrame{
             JSpinner spinner = initializeSpinner(1);
             int option = JOptionPane.showOptionDialog(this, spinner, "Inserisci un prezzo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,null, null);
             if (option != JOptionPane.CANCEL_OPTION) {
-                confirmConfig.setEnabled(false);
-                loading(components.getSelectedIndex(), "Sto calcolando la tua configurazione...");
-                gs.getAutoBuild((int) spinner.getValue());
+                startAutoBuild((int) spinner.getValue());
             }
         });
     }
 
     private void noBudgetConfigListener(JMenuItem item) {
         item.addActionListener(e -> {
-            confirmConfig.setEnabled(false);
-            loading(components.getSelectedIndex(),"Sto calcolando la tua configurazione...");
-            gs.getAutoBuild(-1);
+            startAutoBuild(-1);
         });
+    }
+
+    private void startAutoBuild(int budget){
+        confirmConfig.setEnabled(false);
+        file.setEnabled(false);
+        updateDB.setEnabled(false);
+        autoConfig.setEnabled(false);
+        chooseTable.setEnabled(false);
+        chooseTable.clearSelection();
+        loading(components.getSelectedIndex(), "Sto calcolando la tua configurazione...");
+        gs.getAutoBuild(budget);
     }
 
     private void addButtonListener(JButton btn) {
@@ -457,7 +458,6 @@ public class Piattaforma extends JFrame{
 
         table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
-        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDefaultEditor(Object.class, null);
         return table;
     }
@@ -513,7 +513,6 @@ public class Piattaforma extends JFrame{
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
                         add.setEnabled(false);
-                        //show.setEnabled(false);
                         checkMessage.setText(gs.getWarningTxt()+"Oggetto selezionato non disponibile");
                     }
                 } catch (Exception o) {
