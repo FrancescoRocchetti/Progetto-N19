@@ -110,17 +110,11 @@ public class InserimentoSpecifiche extends JFrame {
         panelForConferma = new JPanel(new GridLayout());
         panelDataConferma.setBorder(new TitledBorder("Aggiungi un componente"));
 
-        remove.addActionListener(e -> {
-            new Remove(this, go);
-        });
+        remove.addActionListener(e -> new Remove(this, go));
 
-        update.addActionListener(e -> {
-            new Update(this, go);
-        });
+        update.addActionListener(e -> new Update(this, go));
 
-        goBack.addActionListener(e -> {
-            dispose();
-        });
+        goBack.addActionListener(e -> dispose());
 
         confirm.addActionListener(e -> {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -140,13 +134,9 @@ public class InserimentoSpecifiche extends JFrame {
             }
         });
 
-        check.addActionListener(e -> {
-            new CompList(this, go);
-        });
+        check.addActionListener(e -> new CompList(this, go));
 
-        advanced.addActionListener(e -> {
-            new AdvancedSpecs((PCParts) componente.getSelectedItem(), go,this);
-        });
+        advanced.addActionListener(e -> new AdvancedSpecs((PCParts) componente.getSelectedItem(), go,this));
 
         componente.addActionListener(e -> {
             confirm.setEnabled(false);

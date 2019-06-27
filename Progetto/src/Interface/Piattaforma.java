@@ -331,9 +331,7 @@ public class Piattaforma extends JFrame{
     }
 
     private void noBudgetConfigListener(JMenuItem item) {
-        item.addActionListener(e -> {
-            startAutoBuild(-1);
-        });
+        item.addActionListener(e -> startAutoBuild(-1));
     }
 
     private void startAutoBuild(int budget){
@@ -387,15 +385,11 @@ public class Piattaforma extends JFrame{
     }
 
     private void loginListener() {
-        logAdmin.addActionListener(e -> {
-            gs.createLogin(this);
-        });
+        logAdmin.addActionListener(e -> gs.createLogin(this));
     }
 
     private void newConfigListener() {
-        newConfig.addActionListener(e -> {
-            newConfiguration();
-        });
+        newConfig.addActionListener(e -> newConfiguration());
     }
 
     private void rechargeListener() {

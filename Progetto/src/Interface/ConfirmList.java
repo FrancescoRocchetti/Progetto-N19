@@ -67,9 +67,7 @@ public class ConfirmList extends JFrame{
             gs.confirmOrder(this);
         });
 
-        btnCancel.addActionListener(e -> {
-            dispose();
-        });
+        btnCancel.addActionListener(e -> dispose());
 
         addWindowListener(new WindowListener() {
             @Override

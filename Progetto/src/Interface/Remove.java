@@ -102,9 +102,7 @@ public class Remove extends JFrame {
             go.remove(idRmv);
         });
 
-        close.addActionListener(e -> {
-            dispose();
-        });
+        close.addActionListener(e -> dispose());
 
         setResizable(false);
         setSize(600,400);

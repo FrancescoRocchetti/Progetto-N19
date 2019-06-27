@@ -140,9 +140,7 @@ public class Update extends JFrame {
             go.updatePrice(idAdd, price);
         });
 
-        close.addActionListener(e -> {
-            dispose();
-        });
+        close.addActionListener(e -> dispose());
 
         setResizable(false);
         setSize(600,400);

@@ -40,9 +40,7 @@ public class CompList extends JFrame {
         bckg.add(btn, BorderLayout.SOUTH);
         c.add(bckg);
 
-        btn.addActionListener(e -> {
-            dispose();
-        });
+        btn.addActionListener(e -> dispose());
 
         addWindowListener(new WindowListener() {
             @Override
