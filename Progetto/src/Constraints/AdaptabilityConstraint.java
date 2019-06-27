@@ -22,7 +22,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     private static boolean checkCPUCOOLER(CPU m,COOLER c){
 
         return m == null || c == null
-                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket());
+                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket().split("-")[0]);
 
         //return true;
     }
