@@ -313,10 +313,10 @@ public class Piattaforma extends JFrame{
 
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
-            if(ConsistencyConstraint.checkRes(gs.getScp())) {
+            if(gs.canOrder()) {
                 new ConfirmList(this, getCart(), gs);
             } else
-                JOptionPane.showMessageDialog(this, "Non hai ancora inserito tutti i componenti necessari.", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Non sono stati soddisfatti tutti i requisiti per effettuare l'acquisto.", "Errore", JOptionPane.ERROR_MESSAGE);
         });
     }
 
