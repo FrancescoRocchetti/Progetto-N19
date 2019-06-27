@@ -41,12 +41,12 @@ public class Writer {
      */
     public boolean write(PCParts part, String d, int q, int p, int r){
         try{
-            Reader rd = new Reader();
-            ArrayList<AbstractComponent> abs = rd.read(part);
-            if (isCompAlreadyIn(abs, d.split("_")[0]))
-                return false;
 
             conn = DriverManager.getConnection(url, user, password);
+
+            if (isCompAlreadyIn(d.split("_")[0]))
+                return false;
+
             String query = "INSERT INTO `INVENTARIO` (`TIPO`, `DESCRIZIONE`, `QUANTITA`, `PREZZO`, `RANK`) " +
                     "VALUES (?,?,?,?,?);";
 
@@ -203,11 +203,9 @@ public class Writer {
         }
     }
 
-    private boolean isCompAlreadyIn(ArrayList<AbstractComponent> abs, String name){
-        for(AbstractComponent a: abs){
-            if (a.getName().equals(name))
-                return true;
-        }
-        return false;
+    private boolean isCompAlreadyIn(String name) throws SQLException {
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM INVENTARIO WHERE DESCRIZIONE LIKE '"+name+"%'");
+        return rs.next();
     }
 }
