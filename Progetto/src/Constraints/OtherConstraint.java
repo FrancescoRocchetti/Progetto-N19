@@ -85,6 +85,11 @@ public class OtherConstraint {
             temp = false;
         }
 
+        if (before.isOkCase() && (after.getnSlot250() < 0) && (before.getnSlot250() >= 0)) {
+            //(checkCASESTORAGE)
+            temp = false;
+        }
+
         if (before.isOkMOBO() && (after.getModulesRAM() < 0) && (before.getModulesRAM() >= 0)) {
             //(nram)
             temp = false;
