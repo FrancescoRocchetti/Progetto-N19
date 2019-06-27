@@ -14,7 +14,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     private static boolean checkMOBOCOOLER(MOBO m,COOLER c){
 
         return m == null || c == null
-                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket().split("-")[0]);
+                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getResource().getTypeSocket().split("-")[0]);
 
         //return true;
     }
@@ -22,29 +22,29 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     private static boolean checkCPUCOOLER(CPU m,COOLER c){
 
         return m == null || c == null
-                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getSocket().split("-")[0]);
+                || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getResource().getTypeSocket().split("-")[0]);
 
         //return true;
     }
 
     private static boolean checkMOBOCPU(MOBO m, CPU c) {
         return m == null || c == null
-                || c.getSocket().equals(m.getSocket());
+                || c.getResource().getTypeSocket().equals(m.getResource().getTypeSocket());
     }
 
     private static boolean checkMOBORAM(MOBO m, RAM r) {
         return m == null || r == null
-                || r.getTypeRAM().equals(m.getTypeRAM());
+                || r.getResource().getTypeRAM().equals(m.getResource().getTypeRAM());
     }
 
     private static boolean checkCPURAM(CPU c, RAM r) {
-        return true/*c == null || r == null
-                || r.getTypeRAM().equals(c.getTypeRAM())  */;
+        return c == null || r == null
+                || r.getResource().getTypeRAM().equals(c.getResource().getTypeRAM());
     }
 
     private static boolean checkCPUOS(CPU c, OS o) {
         return c == null || o == null
-                || o.getBit() <= c.getBit();
+                || o.getResource().getnBit() <= c.getResource().getnBit();
     }
 
     private static boolean checkMOBOCASE(MOBO m, CASE c) {

@@ -80,7 +80,7 @@ public class OtherConstraint {
             temp = false;
         }
 
-        if (before.isOkCase() && (after.getnSlot325() < 0) && (before.getnSlot325() >= 0)) {
+        if (before.isOkCase() && (after.getnSlot350() < 0) && (before.getnSlot350() >= 0)) {
             //(checkCASESTORAGE)
             temp = false;
         }

@@ -68,7 +68,7 @@ public abstract class AbstractComponent implements Comparable {
         return name;
     }
 
-    public String getSocket() {
+    /*public String getSocket() {
         return resource.getTypeSocket();
     }
 
@@ -82,7 +82,7 @@ public abstract class AbstractComponent implements Comparable {
 
     public String getCaseDim() {
         return resource.getDimensionCase();
-    }
+    }*/
 
     public String[] getCaratteristiche() {
         return caratteristiche;

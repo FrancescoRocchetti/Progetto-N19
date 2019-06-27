@@ -12,7 +12,8 @@ public class Resource {
     private int nPcie;
     private int nSATA;
     private int nBit;
-    private int nSlot325;
+    private int nSlot350;
+    private int nSlot250;
     private String typeRAM;
     private boolean okCPU; //attributi ok valutano se ci sono i pezzi fondamentali
     private boolean okMOBO;
@@ -42,7 +43,8 @@ public class Resource {
         private int nPcie;
         private int nSATA;
         private int nBit;
-        private int nSlot325;
+        private int nSlot350;
+        private int nSlot250;
         private String typeRAM;
         private boolean okCPU;
         private boolean okMOBO;
@@ -75,8 +77,13 @@ public class Resource {
             return this;
         }
 
-        public Builder withNSlot(int nSlot325) {
-            this.nSlot325 = nSlot325;
+        public Builder withNSlot350(int nSlot350) {
+            this.nSlot350 = nSlot350;
+            return this;
+        }
+
+        public Builder withNSlot250(int nSlot250) {
+            this.nSlot250 = nSlot250;
             return this;
         }
 
@@ -184,7 +191,8 @@ public class Resource {
             risorsa.typeRAM = this.typeRAM;
             risorsa.dimensionCase = this.dimensionCase;
             risorsa.dimensionMOBO = this.dimensionMOBO;
-            risorsa.nSlot325 = this.nSlot325;
+            risorsa.nSlot350 = this.nSlot350;
+            risorsa.nSlot250 = this.nSlot250;
             risorsa.okCPU = this.okCPU;
             risorsa.okMOBO = this.okMOBO;
             risorsa.okRAM = this.okRAM;
@@ -234,8 +242,12 @@ public class Resource {
         return nBit;
     }
 
-    public int getnSlot325() {
-        return nSlot325;
+    public int getnSlot350() {
+        return nSlot350;
+    }
+
+    public int getnSlot250() {
+        return nSlot250;
     }
 
     public String getDimensionCase() {

@@ -13,7 +13,8 @@ public class CASE extends AbstractComponent {
         resource = new Resource.Builder()
                 .withokCase(true)
                 .withDimensionCase(caratteristiche[1])
-                .withNSlot(Integer.parseInt(caratteristiche[3]))
+                .withNSlot350(Integer.parseInt(caratteristiche[3]))
+                .withNSlot250(Integer.parseInt(caratteristiche[2]))
                 //.withokPSU(caratteristiche[4].equalsIgnoreCase("Y"))
                 .build();
 

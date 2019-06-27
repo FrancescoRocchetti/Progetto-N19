@@ -26,8 +26,13 @@ public class Warning {
         ok = true;
         Resource r = sc.getTotRes();
 
-        if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot325() < 0)) {
+        if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot350() < 0)) {
             info.add("too many HDDs ");
+            ok = false;
+        }
+
+        if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot250() < 0)) {
+            info.add("too many SSDs ");
             ok = false;
         }
 
