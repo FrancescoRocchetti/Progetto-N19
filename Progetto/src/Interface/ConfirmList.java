@@ -142,7 +142,7 @@ public class ConfirmList extends JFrame{
             table.getColumnModel().getColumn(i).setResizable(false);
         }
 
-        table.setAutoCreateRowSorter(true);
+        //table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.getTableHeader().setReorderingAllowed(false);
         table.setDefaultEditor(Object.class, null);

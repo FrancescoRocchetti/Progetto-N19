@@ -215,7 +215,6 @@ public class Piattaforma extends JFrame{
         watt.setText("0 W");
         rmv.setEnabled(false);
         gs.newScp();
-        //checkMessage.setText(gs.getWarningTxt());
         confirmConfig.setEnabled(gs.canOrder());
         components.setSelectedIndex(0);
         obtainParts(0);
@@ -432,7 +431,7 @@ public class Piattaforma extends JFrame{
             table.getColumnModel().getColumn(i).setResizable(false);
         }
 
-        table.setAutoCreateRowSorter(true);
+        //table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowHeight(20);
@@ -456,7 +455,7 @@ public class Piattaforma extends JFrame{
 
         addCartTableMouseListener(table);
 
-        table.setAutoCreateRowSorter(true);
+        //table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
         table.setDefaultEditor(Object.class, null);
         return table;

@@ -144,7 +144,7 @@ public class CompList extends JFrame {
             table.getColumnModel().getColumn(i).setResizable(false);
         }
 
-        table.setAutoCreateRowSorter(true);
+        //table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowHeight(20);

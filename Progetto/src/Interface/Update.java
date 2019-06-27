@@ -221,9 +221,8 @@ public class Update extends JFrame {
             table.getColumnModel().getColumn(i).setResizable(false);
         }
 
-        table.setAutoCreateRowSorter(true);
+        //table.setAutoCreateRowSorter(true);
         table.getTableHeader().setReorderingAllowed(false);
-        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setRowHeight(20);
         table.setDefaultEditor(Object.class, null);
         return table;

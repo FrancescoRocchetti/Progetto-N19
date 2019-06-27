@@ -21,8 +21,6 @@ import java.util.Arrays;
  */
 
 public class SpecsList extends JFrame{
-    private static final String NOSUPPORT = "Not supported yet";
-
     private JButton okBtn;
 
     private GestoreScelte gs;
