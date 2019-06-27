@@ -44,8 +44,10 @@ public class Writer {
 
             conn = DriverManager.getConnection(url, user, password);
 
-            if (isCompAlreadyIn(d.split("_")[0]))
+            if (isCompAlreadyIn(d.split("_")[0])){
+                conn.close();
                 return false;
+            }
 
             String query = "INSERT INTO `INVENTARIO` (`TIPO`, `DESCRIZIONE`, `QUANTITA`, `PREZZO`, `RANK`) " +
                     "VALUES (?,?,?,?,?);";
