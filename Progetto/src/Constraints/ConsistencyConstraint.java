@@ -4,13 +4,20 @@ import Gestione.SelectedComponents;
 import Components.PCParts;
 import Resources.*;
 
+/**
+ * @author Francesco Rocchetti
+ */
+
 public class ConsistencyConstraint implements AbstractConstraint {
 
-    //si può fare in un altro modo (con le risorse)
     //questi sono i vincoli richiamati quando si vuole ultimare una configurazione
 
 
-    //MODO ALTERNATIVO
+    /** verifica la completezza di una build
+     *
+     * @param sc componenti selezionati
+     * @return
+     */
     public static boolean checkRes(SelectedComponents sc) {
         Resource r = SommatoreRes.sum(sc.getRes());
 
@@ -20,8 +27,8 @@ public class ConsistencyConstraint implements AbstractConstraint {
     }
 
 
-    //QUESTA PARTE è INUTILE
-    private static boolean checkCPU(SelectedComponents sc) {
+    //vecchio metodo
+    /*private static boolean checkCPU(SelectedComponents sc) {
         return !(sc.getType(PCParts.CPU) == null);
     }
 
@@ -55,5 +62,5 @@ public class ConsistencyConstraint implements AbstractConstraint {
         return (checkCPU(sc) && checkMOBO(sc) && checkRAM(sc)
                 && checkGRAPHIC(sc) && checkPSU(sc)
                 && checkSTORAGE(sc) && checkCOOLER(sc));
-    }
+    }*/
 }

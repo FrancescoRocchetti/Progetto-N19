@@ -5,6 +5,9 @@ import Resources.Resource;
 
 import java.util.ArrayList;
 
+/**
+ * @author Francesco Rocchetti
+ */
 public class Warning {
     private static Warning wInstance = null;
     private ArrayList<String> info ;
@@ -21,6 +24,14 @@ public class Warning {
         return wInstance;
     }
 
+    /** controllo della lista dei componenti selezionati per errori
+     * questi errori sono causati da una selezione disordinata dei componenti
+     * Per esempio selezionare lo storage prima del case può portare
+     * a non avere lo spazio materiale per inserirli tutti
+     *
+     * @param sc componenti selezionati
+     * @return
+     */
     public boolean check(SelectedComponents sc) {
         info.clear();
         ok = true;

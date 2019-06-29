@@ -7,6 +7,9 @@ import Resources.SommatoreRes;
 
 import java.util.ArrayList;
 
+/**
+ * @author Francesco Rocchetti
+ */
 public class OtherConstraint {
 
     /**
@@ -107,6 +110,13 @@ public class OtherConstraint {
         return temp;
     }
 
+
+    /**
+     *
+     * @param ac componente che si vuole inserire
+     * @param sc componenti già inseriti
+     * @return
+     */
     public static boolean check(AbstractComponent ac, SelectedComponents sc) {
         //System.out.println(ac.getClass().getName());
         return difCheck(ac, sc);

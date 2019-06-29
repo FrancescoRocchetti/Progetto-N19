@@ -7,6 +7,11 @@ import Components.PCParts;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ *
+ * @author Francesco Rocchetti
+ */
+
 public class AdaptabilityConstraint implements AbstractConstraint {
 
     //questi sono i vincoli applicati ai componenti che arrivano dal DB
@@ -54,7 +59,14 @@ public class AdaptabilityConstraint implements AbstractConstraint {
 
     }
 
-    //rimuove dall'arraylist in arrivo dal DB i componenti non compatibili
+
+    /**
+     * rimuove dall'arraylist in arrivo dal DB i componenti non compatibili
+     *
+     * @param al componenti in arrivo dal db
+     * @param sc componeneti già selezionati
+     * @return ArrayList di componenti compatibili con quelli gia selezionati
+     */
     public static ArrayList<AbstractComponent> check(ArrayList<AbstractComponent> al, SelectedComponents sc) {
 
         ArrayList<AbstractComponent> ao = new ArrayList<>();
