@@ -9,7 +9,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
 
 /**
  * Interfaccia che ti permette di effettuare modifiche
@@ -20,10 +19,8 @@ import java.net.URL;
  *
  */
 
-public class InserimentoSpecifiche extends JFrame {
+public class InserimentoSpecifiche extends AbstractInterface {
     private Container c;
-    private JPanel background;
-    private JPanel loadingPanel;
     private JPanel compsInterface;
     private JPanel data;
     private JPanel descPanel;
@@ -69,7 +66,7 @@ public class InserimentoSpecifiche extends JFrame {
         c = getContentPane();
         componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS", "ALTRO"};
         compsInterface = new JPanel(new BorderLayout());
-        background = new JPanel(new BorderLayout());
+        bckg = new JPanel(new BorderLayout());
         loggedAs = new JLabel("Connesso come: " + user);
         loggedAs.setFont(new Font("Arial", Font.BOLD, 20));
         northPanel = new JPanel(new GridLayout());
@@ -118,7 +115,7 @@ public class InserimentoSpecifiche extends JFrame {
 
         confirm.addActionListener(e -> {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-            loading("Sto aggiungendo il componente al DB...");
+            loadTime("Sto aggiungendo il componente al DB...");
             if(!go.insertComponent(
                     (PCParts) componente.getSelectedItem(),
                     (int) quantita.getValue(),
@@ -128,9 +125,9 @@ public class InserimentoSpecifiche extends JFrame {
                 setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 go.setDescrizione(null);
                 goBack.setEnabled(true);
-                background.remove(loadingPanel);
-                background.add(compsInterface, BorderLayout.CENTER);
-                background.repaint();
+                bckg.remove(loadingPanel);
+                bckg.add(compsInterface, BorderLayout.CENTER);
+                bckg.repaint();
             }
         });
 
@@ -168,9 +165,9 @@ public class InserimentoSpecifiche extends JFrame {
         compsInterface.add(panelDataConferma, BorderLayout.CENTER);
         compsInterface.add(btnPanel, BorderLayout.SOUTH);
 
-        background.add(compsInterface, BorderLayout.CENTER);
+        bckg.add(compsInterface, BorderLayout.CENTER);
 
-        c.add(background);
+        c.add(bckg);
 
         addWindowListener(new WindowListener() {
             @Override
@@ -248,24 +245,14 @@ public class InserimentoSpecifiche extends JFrame {
         prezzo.setValue(1);
         valutazione.setValue(1);
         confirm.setEnabled(false);
-        background.remove(loadingPanel);
-        background.add(compsInterface, BorderLayout.CENTER);
-        background.repaint();
+        bckg.remove(loadingPanel);
+        bckg.add(compsInterface, BorderLayout.CENTER);
+        bckg.repaint();
     }
 
-    private void loading(String str){
-        background.remove(compsInterface);
-        URL url = getClass().getResource("Resources/loading.gif");
-        ImageIcon img = new ImageIcon(url);
-        loadingPanel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel(img);
-        JLabel txt = new JLabel(str);
-        txt.setHorizontalAlignment(SwingConstants.CENTER);
-        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
-        loadingPanel.add(label, BorderLayout.CENTER);
-        loadingPanel.add(txt, BorderLayout.SOUTH);
-        background.add(loadingPanel, BorderLayout.CENTER);
-        background.revalidate();
+    private void loadTime(String str){
+        bckg.remove(compsInterface);
+        super.loading(str);
     }
 
     private void setSpinnerNotWritable(JSpinner spinner) {

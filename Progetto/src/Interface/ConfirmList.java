@@ -3,11 +3,9 @@ package Interface;
 import Gestione.GestoreScelte;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.URL;
 
 /**
  * Interfaccia che permette di confermare e procedere
@@ -18,14 +16,13 @@ import java.net.URL;
  *
  */
 
-public class ConfirmList extends JFrame{
+public class ConfirmList extends AbstractInterface {
 
     private Object[][] data;
     private Piattaforma p;
     private JButton btnOk;
     private JButton btnCancel;
     private JTable table;
-    private JPanel panel;
     private JScrollPane sp;
     private JLabel label;
 
@@ -44,16 +41,16 @@ public class ConfirmList extends JFrame{
         }
         table = createTable();
         sp = new JScrollPane(table);
-        panel = new JPanel(new GridLayout());
+        this.bckg = new JPanel(new GridLayout());
         btnOk = new JButton("Conferma");
         label = new JLabel("Sicuro di voler effettuare questo ordine?");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         btnCancel = new JButton("Annulla");
         JPanel pnBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panel.add(sp);
+        this.bckg.add(sp);
         pnBtn.add(btnOk);
         pnBtn.add(btnCancel);
-        bckg.add(panel, BorderLayout.CENTER);
+        bckg.add(this.bckg, BorderLayout.CENTER);
         bckg.add(label, BorderLayout.NORTH);
         bckg.add(pnBtn, BorderLayout.SOUTH);
         c.add(bckg);
@@ -165,26 +162,17 @@ public class ConfirmList extends JFrame{
     public void failure(){
         JOptionPane.showMessageDialog(this, "Errore durante l'acquisto dell'ordine. Riprovare più tardi", "Fallimento", JOptionPane.INFORMATION_MESSAGE);
         label.setText("Sicuro di voler effettuare questo ordine?");
-        panel.removeAll();
-        panel.setLayout(new GridLayout());
-        panel.add(sp);
+        bckg.removeAll();
+        bckg.setLayout(new GridLayout());
+        bckg.add(sp);
         btnOk.setEnabled(true);
         btnCancel.setEnabled(true);
-        panel.revalidate();
+        bckg.revalidate();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private void loading(){
-        panel.removeAll();
-        panel.setLayout(new BorderLayout());
-        URL url = getClass().getResource("Resources/loading.gif");
-        ImageIcon img = new ImageIcon(url);
-        JLabel label = new JLabel(img);
-        JLabel txt = new JLabel("Sto effettuando l'ordine...");
-        txt.setHorizontalAlignment(SwingConstants.CENTER);
-        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
-        panel.add(label, BorderLayout.CENTER);
-        panel.add(txt, BorderLayout.SOUTH);
-        panel.revalidate();
+        bckg.removeAll();
+        super.loading("Sto effettuando l'ordine...");
     }
 }

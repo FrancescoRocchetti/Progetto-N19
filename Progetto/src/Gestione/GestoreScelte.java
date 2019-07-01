@@ -161,18 +161,6 @@ public class GestoreScelte implements ObserverGS{
         m.createLogin(p);
     }
 
-    /**
-     * Permette di ottenere una matrice di Object
-     * a partire da una lista di AbstractComponent
-     *
-     * @param comp
-     *
-     * @return Object[][]
-     */
-    public Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp){
-        return m.getObjectFromComps(comp);
-    }
-
     private String arrayToString(ArrayList<String> list){
         StringBuilder str = new StringBuilder();
 

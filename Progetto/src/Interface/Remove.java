@@ -4,14 +4,12 @@ import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -23,15 +21,13 @@ import java.util.ArrayList;
  *
  */
 
-public class Remove extends JFrame {
+public class Remove extends AbstractInterface {
     private Container c;
-    private JPanel bckg;
     private JPanel choosePanel;
     private JButton rmv;
     private GestoreOperazioni go;
     private JButton close;
     private JPanel southPanel;
-    private JPanel loadingPanel;
     private JScrollPane tablePane;
 
     private int[] rowRmv;
@@ -96,7 +92,7 @@ public class Remove extends JFrame {
 
         //ActionListener che fa eliminare un componente e che fa partire ThreadRemove
         rmv.addActionListener(e -> {
-            loading("Sto rimuovendo il/i componente/i selezionato/i...");
+            loadTime("Sto rimuovendo il/i componente/i selezionato/i...");
             rmv.setEnabled(false);
             close.setEnabled(false);
             go.remove(idRmv);
@@ -133,7 +129,7 @@ public class Remove extends JFrame {
     * la generazione della lista col ThreadList è avvenuta correttamente
     */
     public void successList(ArrayList<AbstractComponent> arr){
-        Object[][] obj = getObjectFromComps(arr);
+        Object[][] obj = getObject(arr);
         JTable table = createTable(obj);
         tablePane = new JScrollPane(table);
         bckg.remove(loadingPanel);
@@ -152,23 +148,12 @@ public class Remove extends JFrame {
 
     //Funzione che ottiene i componenti e che fa partire il ThreadList
     private void obtainParts(String str) {
-        loading(str);
+        loadTime(str);
         go.getListComponents();
     }
 
-    private Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {
-        Object[][] data = new Object[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new Object[5];
-            abs = comp.get(i);
-            data[i][0] = abs.getID();
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = abs.getQuantity();
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
+    private Object[][] getObject(ArrayList<AbstractComponent> comp) {
+        return super.getObjectFromComps(comp);
     }
 
     private JTable createTable(Object[][] data) {
@@ -228,19 +213,9 @@ public class Remove extends JFrame {
         });
     }
 
-    private void loading(String str){
+    private void loadTime(String str){
         if (tablePane != null) bckg.remove(tablePane);
-        URL url = getClass().getResource("Resources/loading.gif");
-        ImageIcon img = new ImageIcon(url);
-        loadingPanel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel(img);
-        JLabel txt = new JLabel(str);
-        txt.setHorizontalAlignment(SwingConstants.CENTER);
-        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
-        loadingPanel.add(label, BorderLayout.CENTER);
-        loadingPanel.add(txt, BorderLayout.SOUTH);
-        bckg.add(loadingPanel, BorderLayout.CENTER);
-        bckg.revalidate();
+        super.loading(str);
     }
 
     private void reload(){

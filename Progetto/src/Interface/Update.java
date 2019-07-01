@@ -4,7 +4,6 @@ import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
@@ -13,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -24,9 +22,8 @@ import java.util.ArrayList;
  * @author Fabio Riganti
  *
  */
-public class Update extends JFrame {
+public class Update extends AbstractInterface {
     private Container c;
-    private JPanel bckg;
     private JPanel choosePanel;
     private JPanel panelQuantity;
     private JPanel panelPrice;
@@ -35,7 +32,6 @@ public class Update extends JFrame {
     private GestoreOperazioni go;
     private JButton close;
     private JPanel southPanel;
-    private JPanel loadingPanel;
     private JSpinner spinnerQuantity;
     private JSpinner spinnerPrice;
     private JScrollPane tablePane;
@@ -123,7 +119,7 @@ public class Update extends JFrame {
 
         //ActionListener che aggiorna un componente e che fa partire ThreadUpdate
         updateQuantity.addActionListener(e -> {
-            loading("Sto aggiornando il/i componente/i selezionato/i...");
+            loadTime("Sto aggiornando il/i componente/i selezionato/i...");
             int qty = (int) spinnerQuantity.getValue();
             updateQuantity.setEnabled(false);
             updatePrice.setEnabled(false);
@@ -132,7 +128,7 @@ public class Update extends JFrame {
         });
 
         updatePrice.addActionListener(e -> {
-            loading("Sto aggiornando il/i componente/i selezionato/i...");
+            loadTime("Sto aggiornando il/i componente/i selezionato/i...");
             int price = (int) spinnerPrice.getValue();
             updateQuantity.setEnabled(false);
             updatePrice.setEnabled(false);
@@ -178,7 +174,7 @@ public class Update extends JFrame {
      * @param arr
      */
     public void successList(ArrayList<AbstractComponent> arr){
-        Object[][] obj = getObjectFromComps(arr);
+        Object[][] obj = getObjects(arr);
         JTable table = createTable(obj);
         tablePane = new JScrollPane(table);
         bckg.remove(loadingPanel);
@@ -197,12 +193,12 @@ public class Update extends JFrame {
 
     //Funzione che ottiene i componenti e che fa partire il ThreadList
     private void obtainParts(String str) {
-        loading(str);
+        loadTime(str);
         go.getListComponents();
     }
 
-    private Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {
-        return go.getObjectFromComps(comp);
+    private Object[][] getObjects(ArrayList<AbstractComponent> comp) {
+        return super.getObjectFromComps(comp);
     }
 
     private JTable createTable(Object[][] data) {
@@ -275,19 +271,9 @@ public class Update extends JFrame {
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 
-    private void loading(String str){
+    private void loadTime(String str){
         if (tablePane != null) bckg.remove(tablePane);
-        URL url = getClass().getResource("Resources/loading.gif");
-        ImageIcon img = new ImageIcon(url);
-        loadingPanel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel(img);
-        JLabel txt = new JLabel(str);
-        txt.setHorizontalAlignment(SwingConstants.CENTER);
-        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
-        loadingPanel.add(label, BorderLayout.CENTER);
-        loadingPanel.add(txt, BorderLayout.SOUTH);
-        bckg.add(loadingPanel, BorderLayout.CENTER);
-        bckg.revalidate();
+        super.loading(str);
     }
 
     private void reload(){

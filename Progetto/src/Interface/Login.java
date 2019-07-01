@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.URL;
 
 
 /**
@@ -20,12 +19,10 @@ import java.net.URL;
  *
  */
 
-public class Login extends JFrame {
+public class Login extends AbstractInterface {
     private Piattaforma p;
-    private JPanel background;
     private JTextField username;
     private JPanel loginPanel;
-    private JPanel loadingPanel;
     private GestoreOperazioni go;
 
 
@@ -36,7 +33,7 @@ public class Login extends JFrame {
         p.setVisible(false);
         go.setLogin(this);
         Container c = getContentPane();
-        background = new JPanel(new BorderLayout());
+        bckg = new JPanel(new BorderLayout());
         JPanel labelPanel = new JPanel(new GridLayout(2, 1));
         JPanel formPanel = new JPanel(new GridLayout(2, 1));
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -56,9 +53,9 @@ public class Login extends JFrame {
         loginPanel.add(buttonPanel, BorderLayout.SOUTH);
         loginPanel.add(labelPanel, BorderLayout.WEST);
         loginPanel.add(formPanel, BorderLayout.CENTER);
-        background.add(loginPanel, BorderLayout.CENTER);
-        background.setBorder(new EmptyBorder(5,5,5,5));
-        c.add(background);
+        bckg.add(loginPanel, BorderLayout.CENTER);
+        bckg.setBorder(new EmptyBorder(5,5,5,5));
+        c.add(bckg);
 
         ActionListener accesso = e -> {
             loading();
@@ -137,24 +134,14 @@ public class Login extends JFrame {
      */
     public void failureLogin() {
         JOptionPane.showMessageDialog(this, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
-        background.remove(loadingPanel);
-        background.add(loginPanel);
-        background.repaint();
+        bckg.remove(loadingPanel);
+        bckg.add(loginPanel);
+        bckg.repaint();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private void loading(){
-        background.remove(loginPanel);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        URL url = getClass().getResource("Resources/loading.gif");
-        ImageIcon img = new ImageIcon(url);
-        loadingPanel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel(img);
-        JLabel txt = new JLabel("Sto effettuando l'accesso...");
-        txt.setHorizontalAlignment(SwingConstants.CENTER);
-        loadingPanel.add(label, BorderLayout.CENTER);
-        loadingPanel.add(txt, BorderLayout.SOUTH);
-        background.add(loadingPanel, BorderLayout.CENTER);
-        background.revalidate();
+        bckg.remove(loginPanel);
+        super.loading("Sto effettuando l'accesso...");
     }
 }

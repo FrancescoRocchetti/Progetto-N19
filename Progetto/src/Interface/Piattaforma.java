@@ -1,7 +1,6 @@
 package Interface;
 
 import Components.AbstractComponent;
-import Constraints.ConsistencyConstraint;
 import Gestione.GestoreScelte;
 import Components.PCParts;
 
@@ -23,7 +22,7 @@ import java.util.ArrayList;
  * @author Fabio Riganti
  *
  */
-public class Piattaforma extends JFrame{
+public class Piattaforma extends AbstractInterface {
 
     private static final int CATEGORIES = 10;
     private static final int COLUMNS = 5;
@@ -539,7 +538,7 @@ public class Piattaforma extends JFrame{
         if (comp == null) {
             return null;
         }
-        return gs.getObjectFromComps(comp);
+        return super.getObjectFromComps(comp);
     }
 
     private JSpinner initializeSpinner(int min){

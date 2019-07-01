@@ -248,16 +248,4 @@ public class GestoreOperazioni implements ObserverGO{
         if (status) l.successLogin();
         else l.failureLogin();
     }
-
-    /**
-     * Permette di ottenere una matrice di Object
-     * a partire da una lista di AbstractComponent
-     *
-     * @param comp
-     *
-     * @return Object[][]
-     */
-    public Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp){
-        return m.getObjectFromComps(comp);
-    }
 }

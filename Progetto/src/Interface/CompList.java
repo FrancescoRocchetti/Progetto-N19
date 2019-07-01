@@ -4,12 +4,10 @@ import Components.AbstractComponent;
 import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +18,9 @@ import java.util.ArrayList;
  * @author Fabio Riganti
  *
  */
-
-public class CompList extends JFrame {
+public class CompList extends AbstractInterface {
 
     private GestoreOperazioni go;
-    private JPanel bckg;
-    private JPanel panel;
     private JScrollPane pane;
 
     public CompList(InserimentoSpecifiche ins, GestoreOperazioni go) {
@@ -91,10 +86,10 @@ public class CompList extends JFrame {
      * @param arr
      */
     public void successList(ArrayList<AbstractComponent> arr){
-        Object[][] obj = getObjectFromComps(arr);
+        Object[][] obj = getObjects(arr);
         JTable table = createTable(obj);
         pane = new JScrollPane(table);
-        bckg.remove(panel);
+        bckg.remove(loadingPanel);
         bckg.add(pane, BorderLayout.CENTER);
         bckg.revalidate();
     }
@@ -110,23 +105,12 @@ public class CompList extends JFrame {
 
     //Funzione che ottiene i componenti e che fa partire il ThreadList
     private void obtainParts(String str) {
-        loading(str);
+        loadTime(str);
         go.getListComponents();
     }
 
-    private Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {
-        Object[][] data = new Object[comp.size()][];
-        AbstractComponent abs;
-        for (int i = 0; i < comp.size(); i++) {
-            data[i] = new Object[5];
-            abs = comp.get(i);
-            data[i][0] = abs.getID();
-            data[i][1] = abs.getType();
-            data[i][2] = abs.getName();
-            data[i][3] = abs.getQuantity();
-            data[i][4] = abs.getPrice() + " €";
-        }
-        return data;
+    private Object[][] getObjects(ArrayList<AbstractComponent> comp) {
+        return super.getObjectFromComps(comp);
     }
 
     private JTable createTable(Object[][] data) {
@@ -150,18 +134,8 @@ public class CompList extends JFrame {
         return table;
     }
 
-    private void loading(String str){
+    private void loadTime(String str){
         if (pane != null) bckg.remove(pane);
-        URL url = getClass().getResource("Resources/loading.gif");
-        ImageIcon img = new ImageIcon(url);
-        panel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel(img);
-        JLabel txt = new JLabel(str);
-        txt.setHorizontalAlignment(SwingConstants.CENTER);
-        txt.setBorder(new EmptyBorder(0, 0, 30, 0));
-        panel.add(label, BorderLayout.CENTER);
-        panel.add(txt, BorderLayout.SOUTH);
-        bckg.add(panel, BorderLayout.CENTER);
-        bckg.revalidate();
+        super.loading(str);
     }
 }
