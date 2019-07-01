@@ -1,9 +1,9 @@
 package Gestione;
 
 import Components.AbstractComponent;
+import Components.PCParts;
 import Constraints.AdaptabilityConstraint;
 import InterfacingDB.CheckInternet;
-import Components.PCParts;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Fabio Riganti
  */
 
-public class ThreadInventory extends Thread{
+public class ThreadInventory extends Thread {
     private ManagerDB mdb;
     private ObserverGS gs;
     private PCParts part;
@@ -35,7 +35,7 @@ public class ThreadInventory extends Thread{
 
     @Override
     public void run() {
-        try{
+        try {
             while (true) {
                 checkAccept();
                 accept = false;
@@ -48,12 +48,12 @@ public class ThreadInventory extends Thread{
                 accept = true;
             }
         } catch (InterruptedException e) {
-            System.out.println(this.getName()+" terminato");
+            System.out.println(this.getName() + " terminato");
         }
     }
 
     private synchronized void checkAccept() throws InterruptedException {
-        while(accept){
+        while (accept) {
             wait();
         }
     }

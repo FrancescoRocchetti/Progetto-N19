@@ -1,10 +1,11 @@
 package Gestione;
 
-import Components.*;
+import Components.AbstractComponent;
+import Components.PCParts;
 import Constraints.OtherConstraint;
 import Constraints.Warning;
-import Components.PCParts;
-import Resources.*;
+import Resources.Resource;
+import Resources.SommatoreRes;
 
 import java.util.ArrayList;
 
@@ -76,8 +77,8 @@ public class SelectedComponents {
     // NON è QUELLO GIUSTO
     public int getTotWatt() {
         int temp = 0;
-        for(Resource r : getRes()) {
-            if(r.getPower()<0){
+        for (Resource r : getRes()) {
+            if (r.getPower() < 0) {
                 temp += Math.abs(r.getPower());
             }
         }
@@ -113,7 +114,7 @@ public class SelectedComponents {
         return s.toString();
     }
 
-    public int getPower(){
+    public int getPower() {
         return getTotRes().getPower();
     }
 

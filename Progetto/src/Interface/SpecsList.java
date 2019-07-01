@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Arrays;
 
 /**
  * Interfaccia usata per assegnare le specifiche
@@ -17,10 +16,9 @@ import java.util.Arrays;
  * @author Matteo Lucchini
  * @author Fabio Riganti
  * @author Francesco Rocchetti
- *
  */
 
-public class SpecsList extends JFrame{
+public class SpecsList extends JFrame {
     private JButton okBtn;
 
     private GestoreScelte gs;
@@ -111,11 +109,10 @@ public class SpecsList extends JFrame{
      * al DB
      *
      * @param part
-     *
      * @return JPanel
      */
     private JPanel buildPanel(PCParts part) {
-        switch(part){
+        switch (part) {
             case CPU: {
                 return panelCPU();
             }
@@ -146,7 +143,8 @@ public class SpecsList extends JFrame{
             case ALTRO: {
                 return panelALTRO();
             }
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -169,7 +167,7 @@ public class SpecsList extends JFrame{
         JLabel bit = new JLabel("Bit:");
         JTextField nBit = createJTextField(car[6]);
         JLabel gpu = new JLabel("Integrated GPU:");
-        JTextField hasGpu  = createJTextField(car[7]);
+        JTextField hasGpu = createJTextField(car[7]);
         sock = new JLabel("Socket:");
         socket = createJTextField(car[8]);
         JLabel cool = new JLabel("Cooler:");
@@ -212,7 +210,7 @@ public class SpecsList extends JFrame{
         return p;
     }
 
-    private JPanel panelGPU(){
+    private JPanel panelGPU() {
         GPU g = (GPU) comp;
         String[] car = g.getCaratteristiche();
         p = new JPanel(new GridLayout(3, 2));
@@ -232,7 +230,7 @@ public class SpecsList extends JFrame{
     private JPanel panelCooler() {
         COOLER c = (COOLER) comp;
         String[] car = c.getCaratteristiche();
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Name:");
         name = createJTextField(c.getName());
         JLabel liquido = new JLabel("Liquid:");
@@ -252,7 +250,7 @@ public class SpecsList extends JFrame{
     private JPanel panelRAM() {
         RAM r = (RAM) comp;
         String[] car = r.getCaratteristiche();
-        p = new JPanel(new GridLayout(6,2));
+        p = new JPanel(new GridLayout(6, 2));
         nome = new JLabel("Nome:");
         name = createJTextField(r.getName());
         watt = new JLabel("Watt:");
@@ -275,7 +273,7 @@ public class SpecsList extends JFrame{
     private JPanel panelPSU() {
         PSU psu = (PSU) comp;
         String[] car = psu.getCaratteristiche();
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Nome:");
         name = createJTextField(psu.getName());
         watt = new JLabel("Watt:");
@@ -294,7 +292,7 @@ public class SpecsList extends JFrame{
     private JPanel panelStorage() {
         STORAGE s = (STORAGE) comp;
         String[] car = s.getCaratteristiche();
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Nome:");
         name = createJTextField(s.getName());
         JLabel size = new JLabel("Size:");
@@ -314,7 +312,7 @@ public class SpecsList extends JFrame{
     private JPanel panelCASE() {
         CASE c = (CASE) comp;
         String[] car = c.getCaratteristiche();
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Nome:");
         name = createJTextField(c.getName());
         JLabel dimensione = new JLabel("Size:");
@@ -326,7 +324,7 @@ public class SpecsList extends JFrame{
 
         Component[] cmp = {nome, name, dimensione, dimension, slot35, nSlot35, slot25, nSlot25};
 
-        addCmp(cmp,p);
+        addCmp(cmp, p);
 
         return p;
     }
@@ -334,7 +332,7 @@ public class SpecsList extends JFrame{
     private JPanel panelOS() {
         OS o = (OS) comp;
         String[] car = o.getCaratteristiche();
-        p = new JPanel(new GridLayout(2,2));
+        p = new JPanel(new GridLayout(2, 2));
         nome = new JLabel("Nome:");
         name = createJTextField(o.getName());
         JLabel bit = new JLabel("Bit:");
@@ -349,7 +347,7 @@ public class SpecsList extends JFrame{
     private JPanel panelALTRO() {
         ALTRO a = (ALTRO) comp;
         String[] car = a.getCaratteristiche();
-        p = new JPanel(new GridLayout(2,2));
+        p = new JPanel(new GridLayout(2, 2));
         nome = new JLabel("Nome:");
         name = createJTextField(a.getName());
         JLabel descrizione = new JLabel("Description:");
@@ -361,11 +359,11 @@ public class SpecsList extends JFrame{
     }
 
     private void addCmp(Component[] arr, JPanel pan) {
-        for(Component c : arr)
+        for (Component c : arr)
             pan.add(c);
     }
 
-    private JTextField createJTextField(String s){
+    private JTextField createJTextField(String s) {
         JTextField txt = new JTextField(s);
         txt.setEditable(false);
         return txt;
@@ -374,7 +372,7 @@ public class SpecsList extends JFrame{
     private String getStringFromArray(String[] scks) {
         StringBuilder str = new StringBuilder();
         for (String s : scks)
-            str.append(s+" ");
+            str.append(s + " ");
         return str.toString();
     }
 

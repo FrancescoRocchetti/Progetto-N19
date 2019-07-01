@@ -103,7 +103,7 @@ public class OtherConstraint {
             temp = false;
         }
 
-        if (before.isOkCooler() && rAc.isOkCooler()){
+        if (before.isOkCooler() && rAc.isOkCooler()) {
             temp = false;
         }
 
@@ -112,7 +112,6 @@ public class OtherConstraint {
 
 
     /**
-     *
      * @param ac componente che si vuole inserire
      * @param sc componenti già inseriti
      * @return

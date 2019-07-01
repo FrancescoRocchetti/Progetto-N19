@@ -1,25 +1,19 @@
 package Gestione;
 
+import Components.AbstractComponent;
 import Components.PCParts;
-import Interface.CompList;
-import Interface.InserimentoSpecifiche;
-import Interface.Remove;
-import Interface.Update;
-import Interface.Login;
+import Interface.*;
 
 import java.util.ArrayList;
-
-import Components.AbstractComponent;
 
 /**
  * Gestione.Manager usato per gestire le operazioni effettuate con
  * InserimentoSpecifiche, Update, Remove e CompList
  *
  * @author Fabio Riganti
- *
  */
 
-public class GestoreOperazioni implements ObserverGO{
+public class GestoreOperazioni implements ObserverGO {
     private static final String RMV = "RMV";
     private static final String UPD = "UPD";
     private static final String LST = "LST";
@@ -35,7 +29,7 @@ public class GestoreOperazioni implements ObserverGO{
     private Manager m;
     private String mode; //RMV se si usa Remove, UPD se si usa Update e LST se si usa CompList
 
-    public GestoreOperazioni(Manager m){
+    public GestoreOperazioni(Manager m) {
         this.m = m;
         modified = false;
         loggedIn = false;
@@ -48,7 +42,7 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param ins
      */
-    public void setIns(InserimentoSpecifiche ins){
+    public void setIns(InserimentoSpecifiche ins) {
         this.ins = ins;
     }
 
@@ -58,7 +52,7 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param l
      */
-    public void setLogin(Login l){
+    public void setLogin(Login l) {
         this.l = l;
     }
 
@@ -68,7 +62,7 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param rmv
      */
-    public void setRemoveMode(Remove rmv){
+    public void setRemoveMode(Remove rmv) {
         mode = RMV;
         this.rmv = rmv;
     }
@@ -79,7 +73,7 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param upd
      */
-    public void setUpdateMode(Update upd){
+    public void setUpdateMode(Update upd) {
         mode = UPD;
         this.upd = upd;
     }
@@ -90,7 +84,7 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param lst
      */
-    public void setListMode(CompList lst){
+    public void setListMode(CompList lst) {
         mode = LST;
         this.lst = lst;
     }
@@ -112,7 +106,6 @@ public class GestoreOperazioni implements ObserverGO{
      * @param quantita
      * @param prezzo
      * @param valutazione
-     *
      * @return true se si può inserire il componente nel DB, altrimenti falso
      */
     public boolean insertComponent(PCParts componente, int quantita, int prezzo, int valutazione) {
@@ -124,7 +117,7 @@ public class GestoreOperazioni implements ObserverGO{
                 String.valueOf(prezzo),
                 String.valueOf(valutazione)};
         if (descrizione != null && checkValidation(str)) {
-            m.addComp(componente, descrizione, quantita,prezzo,valutazione);
+            m.addComp(componente, descrizione, quantita, prezzo, valutazione);
             return true;
         }
         return false;
@@ -136,8 +129,8 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @return true se si può inserire il componente nel DB, altrimenti falso
      */
-    public boolean canAdd(){
-        return descrizione!=null;
+    public boolean canAdd() {
+        return descrizione != null;
     }
 
     /**
@@ -165,14 +158,14 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param id
      */
-    public void remove(int[] id){
+    public void remove(int[] id) {
         m.removeCompById(id);
     }
 
     /**
      * Permette di ottenere la lista dei componenti
      */
-    public void getListComponents(){
+    public void getListComponents() {
         m.getListOf(null);
     }
 
@@ -181,7 +174,7 @@ public class GestoreOperazioni implements ObserverGO{
      *
      * @param str
      */
-    public boolean checkValidation(String[] str){
+    public boolean checkValidation(String[] str) {
         return Validation.check(str);
     }
 
@@ -209,18 +202,18 @@ public class GestoreOperazioni implements ObserverGO{
     }
 
     public void updateList(ArrayList<AbstractComponent> arr) {
-        switch(mode) {
-            case RMV:{
+        switch (mode) {
+            case RMV: {
                 if (arr != null) rmv.successList(arr);
                 else rmv.failureList();
                 break;
             }
-            case UPD:{
+            case UPD: {
                 if (arr != null) upd.successList(arr);
                 else upd.failureList();
                 break;
             }
-            case LST:{
+            case LST: {
                 if (arr != null) lst.successList(arr);
                 else lst.failureList();
                 break;

@@ -1,7 +1,7 @@
 package Interface;
 
-import Gestione.GestoreOperazioni;
 import Components.PCParts;
+import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
@@ -16,7 +16,6 @@ import java.awt.event.WindowListener;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 
 public class AdvancedSpecs extends JFrame {
@@ -48,7 +47,7 @@ public class AdvancedSpecs extends JFrame {
         cancBtn = new JButton("Annulla");
         bckg = new JPanel(new BorderLayout());
         compPanel = buildPanel(part);
-        btnPanel = new JPanel(new GridLayout(1,2));
+        btnPanel = new JPanel(new GridLayout(1, 2));
         btnPanel.add(cancBtn);
         btnPanel.add(okBtn);
         bckg.add(compPanel, BorderLayout.CENTER);
@@ -112,11 +111,10 @@ public class AdvancedSpecs extends JFrame {
      * al DB
      *
      * @param part
-     *
      * @return JPanel
      */
     private JPanel buildPanel(PCParts part) {
-        switch(part){
+        switch (part) {
             case CPU: {
                 return panelCPU();
             }
@@ -147,7 +145,8 @@ public class AdvancedSpecs extends JFrame {
             case ALTRO: {
                 return panelALTRO();
             }
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -156,7 +155,7 @@ public class AdvancedSpecs extends JFrame {
         nome = new JLabel("Name:");
         name = new JTextField();
         JLabel freq = new JLabel("Frequency (GHz):");
-        DoubleSpinner frequency = new DoubleSpinner(3,1, 6);
+        DoubleSpinner frequency = new DoubleSpinner(3, 1, 6);
         setSpinnerNotWritable(frequency);
         JLabel core = new JLabel("Core:");
         SpinnerNumberModel spinnerCoreModel = new SpinnerNumberModel(1, 1, 18, 1);
@@ -170,14 +169,14 @@ public class AdvancedSpecs extends JFrame {
         ram.addItem("DDR3");
         ram.addItem("DDR4");
         watt = new JLabel("TDP:");
-        SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,300,1);
+        SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1, 1, 300, 1);
         power = initializeSpinner(spinnerPowerModel);
         JLabel bit = new JLabel("Bit:");
         JComboBox nBit = new JComboBox();
         nBit.addItem("32");
         nBit.addItem("64");
         JLabel gpu = new JLabel("Integrated GPU:");
-        JCheckBox hasGpu  =new JCheckBox();
+        JCheckBox hasGpu = new JCheckBox();
         sock = new JLabel("Socket:");
         socket = new JTextField();
         JLabel cool = new JLabel("Cooler:");
@@ -189,11 +188,11 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText()) && isNotEmpty(socket.getText())){
+            if (isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
                 String s = "N";
                 String t = "N";
 
-                if(hasGpu.isSelected())
+                if (hasGpu.isSelected())
                     s = "Y";
                 if (cooler.isSelected())
                     t = "Y";
@@ -224,28 +223,28 @@ public class AdvancedSpecs extends JFrame {
         ram.addItem("DDR3");
         ram.addItem("DDR4");
         JLabel pciE16 = new JLabel("Slot PCIE16x:");
-        SpinnerNumberModel spinnerPCIE16Model = new SpinnerNumberModel(1,0,null,1);
+        SpinnerNumberModel spinnerPCIE16Model = new SpinnerNumberModel(1, 0, null, 1);
         JSpinner nPci16 = initializeSpinner(spinnerPCIE16Model);
         JLabel pciE = new JLabel("Slot PCIE:");
-        SpinnerNumberModel spinnerPCIEModel = new SpinnerNumberModel(1,0,null,1);
+        SpinnerNumberModel spinnerPCIEModel = new SpinnerNumberModel(1, 0, null, 1);
         JSpinner nPciE = initializeSpinner(spinnerPCIEModel);
         JLabel dim = new JLabel("Dimension:");
         JComboBox dimension = new JComboBox();
         String[] str = {"EATX", "ATX", "MICROATX", "MINIITX"};
-        for(String i : str)
+        for (String i : str)
             dimension.addItem(i);
         JLabel sata = new JLabel("Slot SATA:");
-        SpinnerNumberModel spinnerSataModel = new SpinnerNumberModel(1,1,6,1);
+        SpinnerNumberModel spinnerSataModel = new SpinnerNumberModel(1, 1, 6, 1);
         JSpinner nSata = initializeSpinner(spinnerSataModel);
         watt = new JLabel("Power:");
-        SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1,1,null,1);
+        SpinnerNumberModel spinnerPowerModel = new SpinnerNumberModel(1, 1, null, 1);
         power = initializeSpinner(spinnerPowerModel);
 
         Component[] cmp = {nome, name, sock, socket, banchi, nBanchi, memtype, ram, pciE16, nPci16, pciE, nPciE, dim, dimension, sata, nSata, watt, power};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
+            if (isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
                 s = name.getText() + "_" + socket.getText() + "_" + nBanchi.getSelectedItem() + "_" + ram.getSelectedItem() + "_" + nPci16.getValue() + "_" + nPciE.getValue() + "_" + dimension.getSelectedItem() + "_" + nSata.getValue() + "_" + power.getValue();
                 go.setDescrizione(s);
                 dispose();
@@ -255,12 +254,12 @@ public class AdvancedSpecs extends JFrame {
         return p;
     }
 
-    private JPanel panelGPU(){
+    private JPanel panelGPU() {
         p = new JPanel(new GridLayout(3, 2));
         nome = new JLabel("Name:");
         name = new JTextField();
         JLabel capacity = new JLabel("Capacità GB:");
-        DoubleSpinner cap = new DoubleSpinner(4,0, 16);
+        DoubleSpinner cap = new DoubleSpinner(4, 0, 16);
         setSpinnerNotWritable(cap);
         watt = new JLabel("TDP:");
         SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
@@ -270,7 +269,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
+            if (isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + cap.getDouble() + "_" + power.getValue();
                 go.setDescrizione(s);
                 dispose();
@@ -281,7 +280,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelCooler() {
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Name:");
         name = new JTextField();
         JLabel liquido = new JLabel("Liquid:");
@@ -297,11 +296,11 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
+            if (isNotEmpty(name.getText()) && isNotEmpty(socket.getText())) {
                 String isLiquid = "N";
                 if (liquid.isSelected())
                     isLiquid = "Y";
-                s = name.getText() + "_" + isLiquid+ "_" + socket.getText().trim() + power.getValue();
+                s = name.getText() + "_" + isLiquid + "_" + socket.getText().trim() + power.getValue();
                 go.setDescrizione(s);
                 dispose();
             }
@@ -310,7 +309,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelRAM() {
-        p = new JPanel(new GridLayout(6,2));
+        p = new JPanel(new GridLayout(6, 2));
         nome = new JLabel("Nome:");
         name = new JTextField();
         watt = new JLabel("Watt:");
@@ -320,28 +319,28 @@ public class AdvancedSpecs extends JFrame {
         JLabel memtype = new JLabel("RAM type:");
         JComboBox ram = new JComboBox();
         String[] type = {"DDR2", "DDR3", "DDR4"};
-        for(String s : type)
+        for (String s : type)
             ram.addItem(s);
         JLabel dimensione = new JLabel("Dimension (GB):");
         JComboBox dimension = new JComboBox();
-        int dim[] = {2, 4, 8, 16};
-        for(int i : dim)
+        int[] dim = {2, 4, 8, 16};
+        for (int i : dim)
             dimension.addItem(i);
         JLabel frequenza = new JLabel("Frequency (MHz):");
         JComboBox frequency = new JComboBox();
-        int freq[] = {800, 1066, 1333, 1600, 2133, 2400, 2666, 3000};
-        for(int i : freq)
+        int[] freq = {800, 1066, 1333, 1600, 2133, 2400, 2666, 3000};
+        for (int i : freq)
             frequency.addItem(i);
         JLabel nModuli = new JLabel("# of modules:");
         JComboBox modules = new JComboBox();
-        for(int i = 1; i <= 8; i++)
+        for (int i = 1; i <= 8; i++)
             modules.addItem(i);
 
         Component[] cmp = {nome, name, watt, power, memtype, ram, dimensione, dimension, frequenza, frequency, nModuli, modules};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
+            if (isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + power.getValue() + "_" + ram.getSelectedItem() + "_" + dimension.getSelectedItem() + "_" + frequency.getSelectedItem() + "_" + modules.getSelectedItem();
                 go.setDescrizione(s);
                 dispose();
@@ -352,7 +351,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelPSU() {
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Nome:");
         name = new JTextField();
         watt = new JLabel("Watt:");
@@ -366,14 +365,14 @@ public class AdvancedSpecs extends JFrame {
         JLabel certificazione = new JLabel("Certification:");
         JComboBox certification = new JComboBox();
         String[] cert = {"None", "80+", "80+ Bronze", "80+ Silver", "80+ Gold", "80+ Platinum", "80+ Titanium"};
-        for(String s : cert)
+        for (String s : cert)
             certification.addItem(s);
 
         Component[] cmp = {nome, name, watt, power, dimensione, dimension, certificazione, certification};
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())){
+            if (isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + power.getValue() + "_" + dimension.getSelectedItem() + "_" + certification.getSelectedItem();
                 go.setDescrizione(s);
                 dispose();
@@ -384,7 +383,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelStorage() {
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Nome:");
         name = new JTextField();
         JLabel size = new JLabel("Size:");
@@ -394,7 +393,7 @@ public class AdvancedSpecs extends JFrame {
         JLabel dimensione = new JLabel("Storage (GB):");
         JComboBox storage = new JComboBox();
         int[] dimension = {128, 256, 512, 1024, 2048, 4096};
-        for(int i : dimension)
+        for (int i : dimension)
             storage.addItem(i);
         watt = new JLabel("Watt:");
         SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
@@ -404,7 +403,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
+            if (isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + dim.getSelectedItem() + "_" + storage.getSelectedItem() + "_" + power.getValue();
                 go.setDescrizione(s);
                 dispose();
@@ -415,13 +414,13 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelCASE() {
-        p = new JPanel(new GridLayout(4,2));
+        p = new JPanel(new GridLayout(4, 2));
         nome = new JLabel("Nome:");
         name = new JTextField();
         JLabel dimensione = new JLabel("Size:");
         JComboBox dimension = new JComboBox();
         String[] str = {"EATX", "ATX", "MICROATX", "MINIITX"};
-        for(String i : str)
+        for (String i : str)
             dimension.addItem(i);
         JLabel slot35 = new JLabel("# slot 3.5:");
         SpinnerNumberModel spinnerNSlot35Model = new SpinnerNumberModel(1, 0, 20, 1);
@@ -432,11 +431,11 @@ public class AdvancedSpecs extends JFrame {
 
         Component[] cmp = {nome, name, dimensione, dimension, slot35, nSlot35, slot25, nSlot25};
 
-        addCmp(cmp,p);
+        addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
-                s = name.getText() + "_" + dimension.getSelectedItem()+"_"+nSlot35.getValue()+"_"+nSlot25.getValue();
+            if (isNotEmpty(name.getText())) {
+                s = name.getText() + "_" + dimension.getSelectedItem() + "_" + nSlot35.getValue() + "_" + nSlot25.getValue();
                 go.setDescrizione(s);
                 dispose();
             }
@@ -446,7 +445,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelOS() {
-        p = new JPanel(new GridLayout(2,2));
+        p = new JPanel(new GridLayout(2, 2));
         nome = new JLabel("Nome:");
         name = new JTextField();
         JLabel bit = new JLabel("Bit:");
@@ -458,7 +457,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
+            if (isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + nBit.getSelectedItem();
                 go.setDescrizione(s);
                 dispose();
@@ -469,7 +468,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private JPanel panelALTRO() {
-        p = new JPanel(new GridLayout(2,2));
+        p = new JPanel(new GridLayout(2, 2));
         nome = new JLabel("Nome:");
         name = new JTextField();
         JLabel descrizione = new JLabel("Description:");
@@ -479,7 +478,7 @@ public class AdvancedSpecs extends JFrame {
         addCmp(cmp, p);
 
         okBtn.addActionListener(e -> {
-            if(isNotEmpty(name.getText())) {
+            if (isNotEmpty(name.getText())) {
                 s = name.getText() + "_" + description.getText();
                 go.setDescrizione(s);
                 dispose();
@@ -495,7 +494,7 @@ public class AdvancedSpecs extends JFrame {
     }
 
     private void addCmp(Component[] arr, JPanel pan) {
-        for(Component c : arr)
+        for (Component c : arr)
             pan.add(c);
     }
 
@@ -503,13 +502,13 @@ public class AdvancedSpecs extends JFrame {
         btn.addActionListener(e -> dispose());
     }
 
-    private JSpinner initializeSpinner(SpinnerNumberModel model){
+    private JSpinner initializeSpinner(SpinnerNumberModel model) {
         JSpinner s = new JSpinner(model);
         setSpinnerNotWritable(s);
         return s;
     }
 
-    private boolean isNotEmpty(String name){
+    private boolean isNotEmpty(String name) {
         if (!name.contains("_") && !name.trim().isEmpty())
             return true;
         else {

@@ -2,13 +2,11 @@ package Constraints;
 
 import Components.*;
 import Gestione.SelectedComponents;
-import Components.PCParts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
  * @author Francesco Rocchetti
  */
 
@@ -16,7 +14,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
 
     //questi sono i vincoli applicati ai componenti che arrivano dal DB
 
-    private static boolean checkMOBOCOOLER(MOBO m,COOLER c){
+    private static boolean checkMOBOCOOLER(MOBO m, COOLER c) {
 
         return m == null || c == null
                 || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getResource().getTypeSocket().split("-")[0]);
@@ -24,7 +22,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         //return true;
     }
 
-    private static boolean checkCPUCOOLER(CPU m,COOLER c){
+    private static boolean checkCPUCOOLER(CPU m, COOLER c) {
 
         return m == null || c == null
                 || Arrays.asList(c.getResource().getSupportedSocketC()).contains(m.getResource().getTypeSocket().split("-")[0]);
@@ -55,7 +53,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
     private static boolean checkMOBOCASE(MOBO m, CASE c) {
 
         return m == null || c == null
-                || CaseSize.valueOf(m.getResource().getDimensionMOBO()).ordinal()>=CaseSize.valueOf(c.getResource().getDimensionCase()).ordinal();
+                || CaseSize.valueOf(m.getResource().getDimensionMOBO()).ordinal() >= CaseSize.valueOf(c.getResource().getDimensionCase()).ordinal();
 
     }
 
@@ -76,7 +74,7 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                 if (checkMOBOCPU((MOBO) sc.getType(PCParts.MOBO), (CPU) ac)
                         && checkCPURAM((CPU) ac, (RAM) sc.getType(PCParts.RAM))
                         && checkCPUOS((CPU) ac, (OS) sc.getType(PCParts.OS))
-                        && checkCPUCOOLER((CPU) ac,(COOLER) sc.getType(PCParts.COOLER))) {
+                        && checkCPUCOOLER((CPU) ac, (COOLER) sc.getType(PCParts.COOLER))) {
                     ao.add(ac);
                 }
 
@@ -84,11 +82,11 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                 if (checkMOBOCPU((MOBO) ac, (CPU) sc.getType(PCParts.CPU))
                         && checkMOBORAM((MOBO) ac, (RAM) sc.getType(PCParts.RAM))
                         && checkMOBOCASE((MOBO) ac, (CASE) sc.getType(PCParts.CASE))
-                        && checkMOBOCOOLER((MOBO) ac,(COOLER) sc.getType(PCParts.COOLER))) {
+                        && checkMOBOCOOLER((MOBO) ac, (COOLER) sc.getType(PCParts.COOLER))) {
                     ao.add(ac);
                 }
 
-            } else if (ac.getResource().getModulesRAM()!=0) {
+            } else if (ac.getResource().getModulesRAM() != 0) {
                 if (checkMOBORAM((MOBO) sc.getType(PCParts.MOBO), (RAM) ac)
                         && checkCPURAM((CPU) sc.getType(PCParts.CPU), (RAM) ac)) {
                     ao.add(ac);
@@ -98,13 +96,13 @@ public class AdaptabilityConstraint implements AbstractConstraint {
                 if (checkMOBOCASE((MOBO) sc.getType(PCParts.MOBO), (CASE) ac)) {
                     ao.add(ac);
                 }
-            } else if (ac.getResource().isOkCooler() && !ac.getResource().isOkCPU()){
-                if (checkCPUCOOLER((CPU) sc.getType(PCParts.CPU),(COOLER) ac)
-                        && checkMOBOCOOLER((MOBO) sc.getType(PCParts.MOBO),(COOLER) ac)) {
+            } else if (ac.getResource().isOkCooler() && !ac.getResource().isOkCPU()) {
+                if (checkCPUCOOLER((CPU) sc.getType(PCParts.CPU), (COOLER) ac)
+                        && checkMOBOCOOLER((MOBO) sc.getType(PCParts.MOBO), (COOLER) ac)) {
                     ao.add(ac);
                 }
 
-            } else if (ac.getResource().getnBit()!=0) {
+            } else if (ac.getResource().getnBit() != 0) {
                 if (checkCPUOS((CPU) sc.getType(PCParts.CPU), (OS) ac)) {
                     ao.add(ac);
                 }

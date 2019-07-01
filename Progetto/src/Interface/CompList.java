@@ -16,7 +16,6 @@ import java.util.ArrayList;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 public class CompList extends AbstractInterface {
 
@@ -74,7 +73,7 @@ public class CompList extends AbstractInterface {
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-        setSize(600,400);
+        setSize(600, 400);
         setLocationRelativeTo(ins);
         setVisible(true);
     }
@@ -85,7 +84,7 @@ public class CompList extends AbstractInterface {
      *
      * @param arr
      */
-    public void successList(ArrayList<AbstractComponent> arr){
+    public void successList(ArrayList<AbstractComponent> arr) {
         Object[][] obj = getObjects(arr);
         JTable table = createTable(obj);
         pane = new JScrollPane(table);
@@ -98,7 +97,7 @@ public class CompList extends AbstractInterface {
      * Funzione che viene richiamata da GestoreOperazioni quando
      * la generazione della lista non è avvenuta correttamente
      */
-    public void failureList(){
+    public void failureList() {
         JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
         dispose();
     }
@@ -120,7 +119,7 @@ public class CompList extends AbstractInterface {
         dm.setDataVector(data, column);
         JTable table = new JTable(dm);
 
-        int[] dim = {40,55,250,80,70};
+        int[] dim = {40, 55, 250, 80, 70};
         for (int i = 0; i < dim.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
@@ -134,7 +133,7 @@ public class CompList extends AbstractInterface {
         return table;
     }
 
-    private void loadTime(String str){
+    private void loadTime(String str) {
         if (pane != null) bckg.remove(pane);
         super.loading(str);
     }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 
 public class Remove extends AbstractInterface {
@@ -31,7 +30,7 @@ public class Remove extends AbstractInterface {
     private JScrollPane tablePane;
 
     private int[] rowRmv;
-    private int idRmv[];
+    private int[] idRmv;
 
 
     public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) {
@@ -47,7 +46,7 @@ public class Remove extends AbstractInterface {
         choosePanel = new JPanel(new BorderLayout());
         rmv = new JButton("Remove");
         close = new JButton("Close");
-        southPanel = new JPanel(new GridLayout(1,2));
+        southPanel = new JPanel(new GridLayout(1, 2));
         rmv.setEnabled(false);
         southPanel.add(rmv);
         southPanel.add(close);
@@ -101,7 +100,7 @@ public class Remove extends AbstractInterface {
         close.addActionListener(e -> dispose());
 
         setResizable(false);
-        setSize(600,400);
+        setSize(600, 400);
         setLocationRelativeTo(ins);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -111,24 +110,25 @@ public class Remove extends AbstractInterface {
      * Funzione che viene richiamata da GestoreOperazioni quando
      * la rimozione col ThreadRemove è avvenuta correttamente
      */
-    public void successRemove(){
+    public void successRemove() {
         JOptionPane.showMessageDialog(this, "Componente/i rimosso/i", "Successo", JOptionPane.INFORMATION_MESSAGE);
         reload();
     }
+
     /**
-    * Funzione che viene richiamata da GestoreOperazioni quando
-    * la rimozione col ThreadRemove non è avvenuta correttamente
-    */
-    public void failureRemove(){
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la rimozione col ThreadRemove non è avvenuta correttamente
+     */
+    public void failureRemove() {
         JOptionPane.showMessageDialog(this, "Errore nella rimozione", "Fallito", JOptionPane.ERROR_MESSAGE);
         reload();
     }
 
     /**
-    * Funzione che viene richiamata da GestoreOperazioni quando
-    * la generazione della lista col ThreadList è avvenuta correttamente
-    */
-    public void successList(ArrayList<AbstractComponent> arr){
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista col ThreadList è avvenuta correttamente
+     */
+    public void successList(ArrayList<AbstractComponent> arr) {
         Object[][] obj = getObject(arr);
         JTable table = createTable(obj);
         tablePane = new JScrollPane(table);
@@ -138,10 +138,10 @@ public class Remove extends AbstractInterface {
     }
 
     /**
-    * Funzione che viene richiamata da GestoreOperazioni quando
-    * la generazione della lista col ThreadList non è avvenuta correttamente
-    */
-    public void failureList(){
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista col ThreadList non è avvenuta correttamente
+     */
+    public void failureList() {
         JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
         dispose();
     }
@@ -164,7 +164,7 @@ public class Remove extends AbstractInterface {
         JTable table = new JTable(dm);
         addListTableMouseListener(table);
 
-        int[] dim = {40,55,250,80,70};
+        int[] dim = {40, 55, 250, 80, 70};
         for (int i = 0; i < dim.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
@@ -178,15 +178,15 @@ public class Remove extends AbstractInterface {
         return table;
     }
 
-    private void addListTableMouseListener(JTable table){
+    private void addListTableMouseListener(JTable table) {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 rowRmv = ((JTable) e.getSource()).getSelectedRows();
-                if(rowRmv.length != 0) {
+                if (rowRmv.length != 0) {
                     rmv.setEnabled(true);
                     idRmv = new int[rowRmv.length];
-                    for(int i = 0; i < rowRmv.length; i++)
+                    for (int i = 0; i < rowRmv.length; i++)
                         idRmv[i] = (int) ((JTable) e.getSource()).getValueAt(rowRmv[i], 0);
                 } else {
                     rmv.setEnabled(false);
@@ -213,12 +213,12 @@ public class Remove extends AbstractInterface {
         });
     }
 
-    private void loadTime(String str){
+    private void loadTime(String str) {
         if (tablePane != null) bckg.remove(tablePane);
         super.loading(str);
     }
 
-    private void reload(){
+    private void reload() {
         bckg.remove(loadingPanel);
         close.setEnabled(true);
         obtainParts("Sto scaricando i dati...");

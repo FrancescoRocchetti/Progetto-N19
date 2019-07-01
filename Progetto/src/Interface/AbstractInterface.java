@@ -14,13 +14,13 @@ import java.util.ArrayList;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 public abstract class AbstractInterface extends JFrame {
 
     JPanel loadingPanel;
     JPanel bckg;
-    public AbstractInterface(String str){
+
+    public AbstractInterface(String str) {
         super(str);
         loadingPanel = new JPanel();
         bckg = new JPanel();
@@ -32,9 +32,8 @@ public abstract class AbstractInterface extends JFrame {
      * una schermata di caricamento
      *
      * @param str
-     *
      */
-    protected void loading(String str){
+    protected void loading(String str) {
         URL url = getClass().getResource("Resources/loading.gif");
         ImageIcon img = new ImageIcon(url);
         loadingPanel = new JPanel(new BorderLayout());
@@ -53,7 +52,6 @@ public abstract class AbstractInterface extends JFrame {
      * a partire da una lista di AbstractComponent
      *
      * @param comp
-     *
      * @return Object[][]
      */
     protected Object[][] getObjectFromComps(ArrayList<AbstractComponent> comp) {

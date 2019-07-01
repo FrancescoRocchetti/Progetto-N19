@@ -1,12 +1,10 @@
 package Gestione;
 
-import Components.AbstractComponent;
 import Components.PCParts;
 import Interface.Login;
 import Interface.Piattaforma;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 /**
  * Manager che sta dietro tutta la logica del programma
@@ -14,7 +12,6 @@ import java.util.ArrayList;
  * GestoreOperazioni
  *
  * @author Fabio Riganti
- *
  */
 
 public class Manager {
@@ -29,7 +26,7 @@ public class Manager {
     private ThreadRemove tr;
     private ThreadUpdate tu;
 
-    public Manager(){
+    public Manager() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException e) {
@@ -67,9 +64,8 @@ public class Manager {
      * Instanzia una JFrame Login
      *
      * @param p
-     *
      */
-    public void createLogin(Piattaforma p){
+    public void createLogin(Piattaforma p) {
         new Login(p, go);
     }
 
@@ -91,11 +87,10 @@ public class Manager {
      * @param quantita
      * @param prezzo
      * @param valutazione
-     *
      * @return true se si può inserire il componente nel DB, altrimenti falso
      */
     public void addComp(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
-        ta.addComp(componente,descrizione,quantita,prezzo,valutazione);
+        ta.addComp(componente, descrizione, quantita, prezzo, valutazione);
     }
 
     /**

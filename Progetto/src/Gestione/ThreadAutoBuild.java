@@ -4,7 +4,7 @@ import Automatic.ABuild;
 import InterfacingDB.CheckInternet;
 
 
-public class ThreadAutoBuild extends Thread{
+public class ThreadAutoBuild extends Thread {
     private ObserverGS gs;
     private boolean accept;
     private int budget;
@@ -24,7 +24,7 @@ public class ThreadAutoBuild extends Thread{
 
     @Override
     public void run() {
-        try{
+        try {
             while (true) {
                 checkAccept();
                 accept = false;
@@ -41,12 +41,12 @@ public class ThreadAutoBuild extends Thread{
                 accept = true;
             }
         } catch (InterruptedException e) {
-            System.out.println(this.getName()+" terminato");
+            System.out.println(this.getName() + " terminato");
         }
     }
 
     private synchronized void checkAccept() throws InterruptedException {
-        while(accept){
+        while (accept) {
             wait();
         }
     }

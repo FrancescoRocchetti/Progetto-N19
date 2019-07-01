@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ReaderTest {
     @Test
-    public void testReadFromDB(){
+    public void testReadFromDB() {
         Reader r = new Reader();
         ArrayList<AbstractComponent> abs = r.read(null);
         abs.get(0);

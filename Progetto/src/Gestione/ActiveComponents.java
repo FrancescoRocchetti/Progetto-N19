@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * scaricati da DB attraverso la interfaccia Piattaforma
  *
  * @author Fabio Riganti
- *
  */
 
 public class ActiveComponents {
@@ -25,7 +24,7 @@ public class ActiveComponents {
      *
      * @param list
      */
-    public void buildList(ArrayList<AbstractComponent> list){
+    public void buildList(ArrayList<AbstractComponent> list) {
         ac = list;
     }
 
@@ -42,13 +41,12 @@ public class ActiveComponents {
      * Restituisce un componente in base all codice prodotto
      *
      * @param id
-     *
      * @return AbstractComponent
      */
-    public AbstractComponent getCompByID(int id){
-        for(AbstractComponent abs: ac) {
-           if(abs.getID() == id)
-               return abs;
+    public AbstractComponent getCompByID(int id) {
+        for (AbstractComponent abs : ac) {
+            if (abs.getID() == id)
+                return abs;
         }
         return null;
     }

@@ -26,6 +26,117 @@ public class Resource {
     private boolean okCoolerI;
     private String[] supportedSocketC;
 
+    private Resource() { //costruttore di default reso privato
+    }
+
+    public String getTypeSocket() {
+        return typeSocket;
+    }
+
+    public int getModulesRAM() {
+        return modulesRAM;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public int getAmountRAM() {
+        return amountRAM;
+    }
+
+    public int getnPci() {
+        return nPci;
+    }
+
+    public int getnPcie() {
+        return nPcie;
+    }
+
+    public int getnSATA() {
+        return nSATA;
+    }
+
+    public int getnBit() {
+        return nBit;
+    }
+
+    public int getnSlot350() {
+        return nSlot350;
+    }
+
+    public int getnSlot250() {
+        return nSlot250;
+    }
+
+    public String getDimensionCase() {
+        return dimensionCase;
+    }
+
+    public String getDimensionMOBO() {
+        return dimensionMOBO;
+    }
+
+    public String getTypeRAM() {
+        return typeRAM;
+    }
+
+    public boolean isOkCPU() {
+        return okCPU;
+    }
+
+    public boolean isOkMOBO() {
+        return okMOBO;
+    }
+
+    public boolean isOkRAM() {
+        return okRAM;
+    }
+
+    public boolean isOkStorage() {
+        return okStorage;
+    }
+
+    public boolean isOkGPU() {
+        return okGPU;
+    }
+
+    public boolean isOkCase() {
+        return okCase;
+    }
+
+    public boolean isOkCooler() {
+        return okCooler;
+    }
+
+    public boolean isOkCoolerI() {
+        return okCoolerI;
+    }
+
+    public boolean isOkPSU() {
+        return okPSU;
+    }
+
+    public String[] getSupportedSocketC() {
+        return supportedSocketC;
+    }
+
+    @Override
+    //toString aggiunto solo per test
+    public String toString() {
+        return "Resource{" +
+                "okCPU=" + okCPU +
+                ", okMOBO=" + okMOBO +
+                ", okRAM=" + okRAM +
+                ", okStorage=" + okStorage +
+                ", okGPU=" + okGPU +
+                ", okCase=" + okCase +
+                ", okCooler=" + okCooler +
+                ", okPSU=" + okPSU +
+                ", npci=" + nPci +
+                '}';
+    }
+
     /**
      * Bisogna inizializzare tutti gli attributi a 0/NULL/Valore standard.
      * Ciò perchè quando aggiungo o tolgo una componente (ad esempio la CPU)
@@ -57,7 +168,7 @@ public class Resource {
         private boolean okCoolerI;
         private String[] supportedSocketC;
 
-        public Builder withSpportedSocketC(String[] supportedSocketC){
+        public Builder withSpportedSocketC(String[] supportedSocketC) {
             this.supportedSocketC = supportedSocketC;
             return this;
         }
@@ -205,116 +316,5 @@ public class Resource {
             risorsa.supportedSocketC = this.supportedSocketC;
             return risorsa;
         }
-    }
-
-    private Resource() { //costruttore di default reso privato
-    }
-
-    public String getTypeSocket() {
-        return typeSocket;
-    }
-
-    public int getModulesRAM() {
-        return modulesRAM;
-    }
-
-    public int getPower() {
-        return power;
-    }
-
-    public int getAmountRAM() {
-        return amountRAM;
-    }
-
-    public int getnPci() {
-        return nPci;
-    }
-
-    public int getnPcie() {
-        return nPcie;
-    }
-
-    public int getnSATA() {
-        return nSATA;
-    }
-
-    public int getnBit() {
-        return nBit;
-    }
-
-    public int getnSlot350() {
-        return nSlot350;
-    }
-
-    public int getnSlot250() {
-        return nSlot250;
-    }
-
-    public String getDimensionCase() {
-        return dimensionCase;
-    }
-
-    public String getDimensionMOBO() {
-        return dimensionMOBO;
-    }
-
-    public String getTypeRAM() {
-        return typeRAM;
-    }
-
-    public boolean isOkCPU() {
-        return okCPU;
-    }
-
-    public boolean isOkMOBO() {
-        return okMOBO;
-    }
-
-    public boolean isOkRAM() {
-        return okRAM;
-    }
-
-    public boolean isOkStorage() {
-        return okStorage;
-    }
-
-    public boolean isOkGPU() {
-        return okGPU;
-    }
-
-    public boolean isOkCase() {
-        return okCase;
-    }
-
-    public boolean isOkCooler() {
-        return okCooler;
-    }
-
-    public boolean isOkCoolerI() {
-        return okCoolerI;
-    }
-
-    public boolean isOkPSU() {
-        return okPSU;
-    }
-
-    public String[] getSupportedSocketC() {
-        return supportedSocketC;
-    }
-
-    @Override
-    //toString aggiunto solo per test
-    public String toString() {
-        return "Resource{" +
-                "okCPU=" + okCPU +
-                ", okMOBO=" + okMOBO +
-                ", okRAM=" + okRAM +
-                ", okStorage=" + okStorage +
-                ", okGPU=" + okGPU +
-                ", okCase=" + okCase +
-                ", okCooler=" + okCooler +
-                ", okPSU=" + okPSU +
-                ", npci=" + nPci +
-                '}';
     }
 }

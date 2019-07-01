@@ -1,6 +1,6 @@
 package Gestione;
 
-import Components.*;
+import Components.AbstractComponent;
 
 import java.lang.reflect.Constructor;
 

@@ -1,14 +1,15 @@
 package Interface;
 
-import Gestione.GestoreOperazioni;
 import Components.PCParts;
+import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  * Interfaccia che ti permette di effettuare modifiche
@@ -16,7 +17,6 @@ import java.awt.event.*;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 
 public class InserimentoSpecifiche extends AbstractInterface {
@@ -71,7 +71,7 @@ public class InserimentoSpecifiche extends AbstractInterface {
         loggedAs.setFont(new Font("Arial", Font.BOLD, 20));
         northPanel = new JPanel(new GridLayout());
         northPanel.add(loggedAs);
-        northPanel.setBorder(new EmptyBorder(5,5,5,5));
+        northPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         data = new JPanel(new GridLayout(5, 2));
         component = new JLabel("Componente");
         componente = new JComboBox();
@@ -116,7 +116,7 @@ public class InserimentoSpecifiche extends AbstractInterface {
         confirm.addActionListener(e -> {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
             loadTime("Sto aggiungendo il componente al DB...");
-            if(!go.insertComponent(
+            if (!go.insertComponent(
                     (PCParts) componente.getSelectedItem(),
                     (int) quantita.getValue(),
                     (int) prezzo.getValue(),
@@ -133,7 +133,7 @@ public class InserimentoSpecifiche extends AbstractInterface {
 
         check.addActionListener(e -> new CompList(this, go));
 
-        advanced.addActionListener(e -> new AdvancedSpecs((PCParts) componente.getSelectedItem(), go,this));
+        advanced.addActionListener(e -> new AdvancedSpecs((PCParts) componente.getSelectedItem(), go, this));
 
         componente.addActionListener(e -> {
             confirm.setEnabled(false);
@@ -217,7 +217,7 @@ public class InserimentoSpecifiche extends AbstractInterface {
      * Attiva tutti i bottoni se la descrizione
      * della specifica è corretta
      */
-    public void enableConfirmButton(){
+    public void enableConfirmButton() {
         Boolean t = go.canAdd();
         confirm.setEnabled(t);
     }
@@ -229,9 +229,9 @@ public class InserimentoSpecifiche extends AbstractInterface {
      *
      * @param status
      */
-    public void updateAdd(boolean status){
+    public void updateAdd(boolean status) {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        if(status){
+        if (status) {
             Object[] options = {"YES", "NO"};
             int inserimento = JOptionPane.showOptionDialog(this, "Inserito oggetto con successo\nNuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
             if (inserimento != 0)
@@ -250,7 +250,7 @@ public class InserimentoSpecifiche extends AbstractInterface {
         bckg.repaint();
     }
 
-    private void loadTime(String str){
+    private void loadTime(String str) {
         bckg.remove(compsInterface);
         super.loading(str);
     }

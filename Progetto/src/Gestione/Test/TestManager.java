@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TestManager {
 
     @Test
-    public void testCreateLogin(){
+    public void testCreateLogin() {
         Manager m = new Manager();
 
         assertThrows(NullPointerException.class, () -> {

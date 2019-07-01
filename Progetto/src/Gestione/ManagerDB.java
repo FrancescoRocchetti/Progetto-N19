@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * Gestore delle classi Login, Writer e Reader
  *
  * @author Fabio Riganti
- *
  */
 
 public class ManagerDB {
@@ -31,11 +30,10 @@ public class ManagerDB {
      * Permette di aggiungere un componente al carrello
      *
      * @param cod
-     *
      * @return true se l'acquisto è avvenuto correttamente,
      * altrimenti false
      */
-    public boolean buy(int cod){
+    public boolean buy(int cod) {
         return w.buy(cod);
     }
 
@@ -44,7 +42,6 @@ public class ManagerDB {
      *
      * @param user
      * @param password
-     *
      * @return true se l'acquisto è avvenuto correttamente,
      * altrimenti false
      */
@@ -56,11 +53,10 @@ public class ManagerDB {
      * Scrive i componenti nel DB
      *
      * @param part: tipo di componente
-     * @param d: descrizione componente
-     * @param q: quantità del componente
-     * @param p: prezzo del componente
-     * @param r: rank del componente
-     *
+     * @param d:    descrizione componente
+     * @param q:    quantità del componente
+     * @param p:    prezzo del componente
+     * @param r:    rank del componente
      * @return true se l'inserimento è andato a buon fine,
      * altrimenti false
      */
@@ -73,7 +69,6 @@ public class ManagerDB {
      *
      * @param cod
      * @param quantità
-     *
      * @return true se l'aggiornamento della quantità è andata a buon fine,
      * altrimenti false
      */
@@ -91,11 +86,10 @@ public class ManagerDB {
      * Permette di effettuare l'aggiornamento della quantità
      *
      * @param cod
-     *
      * @return true se l'aggiornamento della quantità è andata a buon fine,
      * altrimenti false
      */
-    public boolean remove(int cod){
+    public boolean remove(int cod) {
         return w.remove(cod);
     }
 
@@ -103,7 +97,6 @@ public class ManagerDB {
      * Permette di effettuare l'aggiornamento della quantità
      *
      * @param comp
-     *
      * @return una lista di AbstractComponent se la lettura è andata a buon fine,
      * altrimenti null
      */

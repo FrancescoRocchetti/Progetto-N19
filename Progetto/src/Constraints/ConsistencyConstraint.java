@@ -1,8 +1,8 @@
 package Constraints;
 
 import Gestione.SelectedComponents;
-import Components.PCParts;
-import Resources.*;
+import Resources.Resource;
+import Resources.SommatoreRes;
 
 /**
  * @author Francesco Rocchetti
@@ -13,7 +13,8 @@ public class ConsistencyConstraint implements AbstractConstraint {
     //questi sono i vincoli richiamati quando si vuole ultimare una configurazione
 
 
-    /** verifica la completezza di una build
+    /**
+     * verifica la completezza di una build
      *
      * @param sc componenti selezionati
      * @return

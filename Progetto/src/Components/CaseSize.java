@@ -1,5 +1,5 @@
 package Components;
 
 public enum CaseSize {
-    EATX,ATX,MICROATX,MINIITX
+    EATX, ATX, MICROATX, MINIITX
 }

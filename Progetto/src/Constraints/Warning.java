@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Warning {
     private static Warning wInstance = null;
-    private ArrayList<String> info ;
+    private ArrayList<String> info;
     private boolean ok;
 
     private Warning() {
@@ -24,7 +24,8 @@ public class Warning {
         return wInstance;
     }
 
-    /** controllo della lista dei componenti selezionati per errori
+    /**
+     * controllo della lista dei componenti selezionati per errori
      * questi errori sono causati da una selezione disordinata dei componenti
      * Per esempio selezionare lo storage prima del case può portare
      * a non avere lo spazio materiale per inserirli tutti
@@ -63,7 +64,7 @@ public class Warning {
         }
 
 
-        if (info.size()==0) {
+        if (info.size() == 0) {
             info.add("NO WARNING");
         }
 

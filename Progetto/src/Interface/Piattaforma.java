@@ -1,8 +1,8 @@
 package Interface;
 
 import Components.AbstractComponent;
-import Gestione.GestoreScelte;
 import Components.PCParts;
+import Gestione.GestoreScelte;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +20,6 @@ import java.util.ArrayList;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 public class Piattaforma extends AbstractInterface {
 
@@ -149,7 +148,7 @@ public class Piattaforma extends AbstractInterface {
         menuBar.add(autoConfig);
 
         String[] names = {"Mother Board", "CPU", "RAM", "Storage", "GPU", "Power Supply", "Cooler CPU", "Operating System", "Case", "Other"};
-        for(int i = 0; i < names.length; i++)
+        for (int i = 0; i < names.length; i++)
             components.addTab(names[i], panels[i]);
 
         components.addChangeListener(e -> {
@@ -159,7 +158,7 @@ public class Piattaforma extends AbstractInterface {
 
         show.addActionListener(e -> {
             AbstractComponent abs = gs.getCompByID(idAdd);
-            new SpecsList(abs, gs,this);
+            new SpecsList(abs, gs, this);
         });
 
         totPanel.add(total);
@@ -204,12 +203,13 @@ public class Piattaforma extends AbstractInterface {
         setVisible(true);
 
     }
+
     /**
      * Permette di partire di nuovo da zero con la configurazione
      */
-    public void newConfiguration(){
-        for(int i = chooseTable.getRowCount() - 1; i >=0; i--)
-            ((DefaultTableModel)chooseTable.getModel()).removeRow(i);
+    public void newConfiguration() {
+        for (int i = chooseTable.getRowCount() - 1; i >= 0; i--)
+            ((DefaultTableModel) chooseTable.getModel()).removeRow(i);
         price.setText("0 €");
         watt.setText("0 W");
         rmv.setEnabled(false);
@@ -241,7 +241,7 @@ public class Piattaforma extends AbstractInterface {
         }
         compTable = createTable(arr);
 
-        if(compTable.getRowCount() > 0){
+        if (compTable.getRowCount() > 0) {
             JScrollPane scroll = new JScrollPane(
                     compTable,
                     JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -258,6 +258,7 @@ public class Piattaforma extends AbstractInterface {
         }
         components.setEnabled(true);
     }
+
     /**
      * Permette di notificare Piattaforma dell'esito di una
      * configurazione automatica
@@ -265,7 +266,7 @@ public class Piattaforma extends AbstractInterface {
      * @param status
      */
     public void setAutoBuild(boolean status) {
-        if(status){
+        if (status) {
             JOptionPane.showMessageDialog(this, "Configurazione trovata", "Informazione", JOptionPane.INFORMATION_MESSAGE);
             updateCartList();
         } else {
@@ -291,7 +292,7 @@ public class Piattaforma extends AbstractInterface {
         gs.obtainParts(CMP[index]);
     }
 
-    private void loading(int index, String str){
+    private void loading(int index, String str) {
         add.setEnabled(false);
         show.setEnabled(false);
         rmv.setEnabled(false);
@@ -312,7 +313,7 @@ public class Piattaforma extends AbstractInterface {
 
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
-            if(gs.canOrder()) {
+            if (gs.canOrder()) {
                 new ConfirmList(this, getCart(), gs);
             } else
                 JOptionPane.showMessageDialog(this, "Non sono stati soddisfatti tutti i requisiti per effettuare l'acquisto.", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -322,7 +323,7 @@ public class Piattaforma extends AbstractInterface {
     private void budgetConfigListener(JMenuItem item) {
         item.addActionListener(e -> {
             JSpinner spinner = initializeSpinner(1);
-            int option = JOptionPane.showOptionDialog(this, spinner, "Inserisci un prezzo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,null, null);
+            int option = JOptionPane.showOptionDialog(this, spinner, "Inserisci un prezzo", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             if (option != JOptionPane.CANCEL_OPTION) {
                 startAutoBuild((int) spinner.getValue());
             }
@@ -333,7 +334,7 @@ public class Piattaforma extends AbstractInterface {
         item.addActionListener(e -> startAutoBuild(-1));
     }
 
-    private void startAutoBuild(int budget){
+    private void startAutoBuild(int budget) {
         confirmConfig.setEnabled(false);
         file.setEnabled(false);
         updateDB.setEnabled(false);
@@ -352,7 +353,7 @@ public class Piattaforma extends AbstractInterface {
         });
     }
 
-    private void updateCartList(){
+    private void updateCartList() {
         Object[][] data = getCart();
         DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
         model.setRowCount(0);
@@ -370,7 +371,7 @@ public class Piattaforma extends AbstractInterface {
             btn.setEnabled(false);
             gs.rmvComp(idRmv);
             DefaultTableModel model = (DefaultTableModel) chooseTable.getModel();
-            for(int z = 0; z < rowRmv.length; z++) {
+            for (int z = 0; z < rowRmv.length; z++) {
                 int i = chooseTable.getSelectedRow();
                 model.removeRow(i);
             }
@@ -454,18 +455,18 @@ public class Piattaforma extends AbstractInterface {
         return table;
     }
 
-    private void addCartTableMouseListener(JTable table){
+    private void addCartTableMouseListener(JTable table) {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 add.setEnabled(false);
                 show.setEnabled(false);
                 rowRmv = ((JTable) e.getSource()).getSelectedRows();
-                if(rowRmv.length != 0) {
+                if (rowRmv.length != 0) {
                     rmv.setEnabled(true);
                     rowRmv = ((JTable) e.getSource()).getSelectedRows();
                     idRmv = new int[rowRmv.length];
-                    for(int i = 0; i < rowRmv.length; i++)
+                    for (int i = 0; i < rowRmv.length; i++)
                         idRmv[i] = (int) ((JTable) e.getSource()).getValueAt(rowRmv[i], 0);
                 } else {
                     rmv.setEnabled(false);
@@ -491,21 +492,21 @@ public class Piattaforma extends AbstractInterface {
         });
     }
 
-    private void addListTableMouseListener(JTable table){
+    private void addListTableMouseListener(JTable table) {
         table.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 rmv.setEnabled(false);
                 try {
                     rowAdd = ((JTable) e.getSource()).getSelectedRow();
-                    if((int) table.getValueAt(rowAdd, 2) > 0) {
+                    if ((int) table.getValueAt(rowAdd, 2) > 0) {
                         checkMessage.setText(gs.getWarningTxt());
                         add.setEnabled(true);
                         show.setEnabled(true);
                         idAdd = (int) ((JTable) e.getSource()).getValueAt(rowAdd, 0);
                     } else {
                         add.setEnabled(false);
-                        checkMessage.setText(gs.getWarningTxt()+"Oggetto selezionato non disponibile");
+                        checkMessage.setText(gs.getWarningTxt() + "Oggetto selezionato non disponibile");
                     }
                 } catch (Exception o) {
                     checkMessage.setText(gs.getWarningTxt());
@@ -541,7 +542,7 @@ public class Piattaforma extends AbstractInterface {
         return super.getObjectFromComps(comp);
     }
 
-    private JSpinner initializeSpinner(int min){
+    private JSpinner initializeSpinner(int min) {
         SpinnerNumberModel model = new SpinnerNumberModel(min, min, null, 1);
         JSpinner s = new JSpinner(model);
         setSpinnerNotWritable(s);

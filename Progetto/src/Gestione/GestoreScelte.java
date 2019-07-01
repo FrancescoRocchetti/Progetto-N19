@@ -1,12 +1,12 @@
 package Gestione;
 
+import Components.AbstractComponent;
+import Components.PCParts;
 import Constraints.AdaptabilityConstraint;
 import Constraints.ConsistencyConstraint;
 import Constraints.Warning;
 import Interface.ConfirmList;
 import Interface.Piattaforma;
-import Components.PCParts;
-import Components.AbstractComponent;
 
 import java.util.ArrayList;
 
@@ -15,10 +15,9 @@ import java.util.ArrayList;
  * l'interfaccia Piattaforma
  *
  * @author Fabio Riganti
- *
  */
 
-public class GestoreScelte implements ObserverGS{
+public class GestoreScelte implements ObserverGS {
     private SelectedComponents scp;
     private ActiveComponents ac;
     private ConfirmList cfl;
@@ -40,7 +39,7 @@ public class GestoreScelte implements ObserverGS{
         m.getInventoryOf(comp);
     }//t
 
-    public void setPiattaforma(Piattaforma p){
+    public void setPiattaforma(Piattaforma p) {
         this.p = p;
     }
 
@@ -60,7 +59,7 @@ public class GestoreScelte implements ObserverGS{
      * @param id
      */
     public void rmvComp(int[] id) {
-        for(int i: id)
+        for (int i : id)
             scp.rmvCList(i);
     }
 
@@ -74,7 +73,7 @@ public class GestoreScelte implements ObserverGS{
     /**
      * Permette di ottenere una configurazione generata automaticamente
      */
-    public void getAutoBuild(int budget){
+    public void getAutoBuild(int budget) {
         m.getAutoBuild(budget);
     }
 
@@ -90,11 +89,11 @@ public class GestoreScelte implements ObserverGS{
         return scp.getAR();
     }
 
-    public int getWatt(){
+    public int getWatt() {
         return scp.getTotWatt();
     }
 
-    public AbstractComponent getCompByID(int index){
+    public AbstractComponent getCompByID(int index) {
         return ac.getCompByID(index);
     }
 
@@ -108,7 +107,7 @@ public class GestoreScelte implements ObserverGS{
 
     @Override
     public void setAutoBuild(SelectedComponents scp) {
-        if(scp != null){
+        if (scp != null) {
             this.scp = scp;
             p.setAutoBuild(true);
         } else
@@ -132,7 +131,7 @@ public class GestoreScelte implements ObserverGS{
      *
      * @return boolean
      */
-    public boolean canOrder(){
+    public boolean canOrder() {
         Warning w = Warning.getwInstance();
         return w.check(scp) && ConsistencyConstraint.checkRes(scp);
     }
@@ -157,15 +156,15 @@ public class GestoreScelte implements ObserverGS{
         cfl.failure();
     }
 
-    public void createLogin(Piattaforma p){
+    public void createLogin(Piattaforma p) {
         m.createLogin(p);
     }
 
-    private String arrayToString(ArrayList<String> list){
+    private String arrayToString(ArrayList<String> list) {
         StringBuilder str = new StringBuilder();
 
-        for(String s : list)
-            str.append(s+"\n");
+        for (String s : list)
+            str.append(s + "\n");
 
         return str.toString();
     }

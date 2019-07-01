@@ -12,7 +12,6 @@ import java.net.URLConnection;
  * @author Francesco Rocchetti
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 
 public class CheckInternet {
@@ -22,8 +21,8 @@ public class CheckInternet {
      * effettuando un test di connessione al sito che ci fornisce
      * il Server SQL
      *
-     * @exception java.io.IOException: Non è stato possibile connettersi
-     * al Server SQL
+     * @throws java.io.IOException: Non è stato possibile connettersi
+     *                              al Server SQL
      */
     public static boolean check() {
         try {

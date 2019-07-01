@@ -9,7 +9,7 @@ import InterfacingDB.CheckInternet;
  * @author Fabio Riganti
  */
 
-public class ThreadLogin extends Thread{
+public class ThreadLogin extends Thread {
     private ManagerDB mdb;
     private ObserverGO go;
     private String user;
@@ -33,7 +33,7 @@ public class ThreadLogin extends Thread{
     @Override
     public void run() {
         try {
-            while(true) {
+            while (true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
@@ -45,17 +45,17 @@ public class ThreadLogin extends Thread{
                 accept = true;
             }
         } catch (InterruptedException e) {
-            System.out.println(this.getName()+" terminato");
+            System.out.println(this.getName() + " terminato");
         }
     }
 
     private synchronized void checkAccept() throws InterruptedException {
-        while(accept){
+        while (accept) {
             wait();
         }
     }
 
-    public void stopThread(){
+    public void stopThread() {
         interrupt();
     }
 }

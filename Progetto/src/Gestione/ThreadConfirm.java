@@ -6,7 +6,6 @@ import InterfacingDB.CheckInternet;
  * Thread usato per confermare l'ordine
  *
  * @author Fabio Riganti
- *
  */
 
 public class ThreadConfirm extends Thread {
@@ -30,26 +29,26 @@ public class ThreadConfirm extends Thread {
 
     @Override
     public void run() {
-        try{
-            while(true) {
+        try {
+            while (true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
                     gs.orderFailure();
                 else {
-                    for(int c: index)
+                    for (int c : index)
                         mdb.buy(c);
                     gs.orderSuccess();
                 }
                 accept = true;
             }
         } catch (InterruptedException e) {
-            System.out.println(this.getName()+" terminato");
+            System.out.println(this.getName() + " terminato");
         }
     }
 
     private synchronized void checkAccept() throws InterruptedException {
-        while(accept){
+        while (accept) {
             wait();
         }
     }

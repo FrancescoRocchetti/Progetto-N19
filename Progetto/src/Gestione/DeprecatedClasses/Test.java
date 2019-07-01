@@ -1,9 +1,7 @@
 package Gestione.DeprecatedClasses;
 
-import Components.*;
+import Components.AbstractComponent;
 import Gestione.Validation;
-
-import java.lang.reflect.Constructor;
 
 public class Test {
     public static void main(String[] args) {

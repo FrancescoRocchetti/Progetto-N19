@@ -2,7 +2,10 @@ package InterfacingDB.DeprecatedClasses;
 
 import Components.PCParts;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /*
  *    E' una versione "primordiale" per leggere l'inventario da un semplice file CSV.

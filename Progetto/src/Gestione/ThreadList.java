@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Fabio Riganti
  */
 
-public class ThreadList extends Thread{
+public class ThreadList extends Thread {
     private ManagerDB mdb;
     private ObserverGO go;
     private PCParts part;
@@ -36,7 +36,7 @@ public class ThreadList extends Thread{
     @Override
     public void run() {
         try {
-            while(true) {
+            while (true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
@@ -48,17 +48,17 @@ public class ThreadList extends Thread{
                 accept = true;
             }
         } catch (InterruptedException e) {
-            System.out.println(this.getName()+" terminato");
+            System.out.println(this.getName() + " terminato");
         }
     }
 
     private synchronized void checkAccept() throws InterruptedException {
-        while(accept){
+        while (accept) {
             wait();
         }
     }
 
-    public void stopThread(){
+    public void stopThread() {
         interrupt();
     }
 }

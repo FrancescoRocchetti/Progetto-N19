@@ -1,7 +1,7 @@
 package Constraints;
 
-import Gestione.SelectedComponents;
 import Components.PCParts;
+import Gestione.SelectedComponents;
 import Resources.Resource;
 
 import java.util.ArrayList;
@@ -24,7 +24,8 @@ public class NumericalConstraint implements AbstractConstraint {
             return true;
     }
 
-    /** controllo il wattaggio del sistema
+    /**
+     * controllo il wattaggio del sistema
      *
      * @param sc
      * @return

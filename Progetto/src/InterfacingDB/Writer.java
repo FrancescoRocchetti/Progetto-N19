@@ -1,16 +1,13 @@
 package InterfacingDB;
 
-import Components.AbstractComponent;
 import Components.PCParts;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 /**
  * Classe che permette di manipolare il DB
  *
  * @author Fabio Riganti
- *
  */
 
 public class Writer {
@@ -29,22 +26,20 @@ public class Writer {
      * Scrive i componenti nel DB
      *
      * @param part: tipo di componente
-     * @param d: descrizione componente
-     * @param q: quantità del componente
-     * @param p: prezzo del componente
-     * @param r: rank del componente
-     *
+     * @param d:    descrizione componente
+     * @param q:    quantità del componente
+     * @param p:    prezzo del componente
+     * @param r:    rank del componente
      * @return true se l'inserimento è andato a buon fine,
      * altrimenti false
-     *
-     * @exception SQLException: inserimento andato a male
+     * @throws SQLException: inserimento andato a male
      */
-    public boolean write(PCParts part, String d, int q, int p, int r){
-        try{
+    public boolean write(PCParts part, String d, int q, int p, int r) {
+        try {
 
             conn = DriverManager.getConnection(url, user, password);
 
-            if (isCompAlreadyIn(d.split("_")[0])){
+            if (isCompAlreadyIn(d.split("_")[0])) {
                 conn.close();
                 return false;
             }
@@ -74,19 +69,17 @@ public class Writer {
      * Rimuove i componenti dal DB
      *
      * @param cod: codice prodotto
-     *
      * @return true se la rimozione è andata a buon fine,
      * altrimenti false
-     *
-     * @exception SQLException: rimozione andata a male
+     * @throws SQLException: rimozione andata a male
      */
-    public boolean remove(int cod){
-        try{
+    public boolean remove(int cod) {
+        try {
             conn = DriverManager.getConnection(url, user, password);
             String query = "DELETE FROM INVENTARIO WHERE CODICE = ?;";
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt(1,cod);
+            preparedStmt.setInt(1, cod);
 
             preparedStmt.execute();
 
@@ -101,16 +94,14 @@ public class Writer {
     /**
      * Aggiorna la quantità dei componenti nel DB
      *
-     * @param cod: codice prodotto
+     * @param cod:     codice prodotto
      * @param quantità
-     *
      * @return true se l'aggiornamento è andato a buon fine,
      * altrimenti false
-     *
-     * @exception SQLException: aggiornamento andato a male
+     * @throws SQLException: aggiornamento andato a male
      */
-    public boolean updateQuantity(int cod, int quantità){
-        try{
+    public boolean updateQuantity(int cod, int quantità) {
+        try {
             conn = DriverManager.getConnection(url, user, password);
             String query = "UPDATE INVENTARIO SET QUANTITA = " + quantità + " WHERE CODICE = ?;";
 
@@ -130,16 +121,14 @@ public class Writer {
     /**
      * Aggiorna il prezzo dei componenti nel DB
      *
-     * @param cod: codice prodotto
+     * @param cod:  codice prodotto
      * @param price
-     *
      * @return true se l'aggiornamento è andato a buon fine,
      * altrimenti false
-     *
-     * @exception SQLException: aggiornamento andato a male
+     * @throws SQLException: aggiornamento andato a male
      */
-    public boolean updatePrice(int cod, int price){
-        try{
+    public boolean updatePrice(int cod, int price) {
+        try {
             conn = DriverManager.getConnection(url, user, password);
             String query = "UPDATE INVENTARIO SET PREZZO = " + price + " WHERE CODICE = ?;";
 
@@ -160,14 +149,12 @@ public class Writer {
      * Aggiorna la quantità dei componenti nel DB
      *
      * @param cod: codice prodotto
-     *
      * @return true se l'acquisto è andato a buon fine,
      * altrimenti false
-     *
-     * @exception SQLException: acquisto andato a male
+     * @throws SQLException: acquisto andato a male
      */
-    public boolean buy(int cod){
-        try{
+    public boolean buy(int cod) {
+        try {
             conn = DriverManager.getConnection(url, user, password);
 
             Statement stmt = conn.createStatement();
@@ -175,7 +162,7 @@ public class Writer {
             rs.next();
             int q = rs.getInt("q");
 
-            String query = "UPDATE INVENTARIO SET QUANTITA = " + (q-1) + " WHERE CODICE = ?;";
+            String query = "UPDATE INVENTARIO SET QUANTITA = " + (q - 1) + " WHERE CODICE = ?;";
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, cod);
@@ -195,7 +182,7 @@ public class Writer {
      * Consente di forzare la chiusura della connessione in caso di errore
      * durante la comunicazione
      *
-     * @exception SQLException: vuol dire che la connessione è già terminata
+     * @throws SQLException: vuol dire che la connessione è già terminata
      */
     public void forceClose() {
         try {
@@ -207,7 +194,7 @@ public class Writer {
 
     private boolean isCompAlreadyIn(String name) throws SQLException {
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM INVENTARIO WHERE DESCRIZIONE LIKE '"+name+"%'");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM INVENTARIO WHERE DESCRIZIONE LIKE '" + name + "%'");
         return rs.next();
     }
 }

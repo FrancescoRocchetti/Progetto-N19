@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * Classe che permette di leggere il DB
  *
  * @author Fabio Riganti
- *
  */
 
 public class Reader {
@@ -33,12 +32,11 @@ public class Reader {
      * componente interessato
      *
      * @param comp: se nullo, restituisce tutti i componenti
-     *
      * @return Lista di AbstractComponent se la lettura è andata a buon fine,
      * altrimenti nullo
      */
-    public ArrayList<AbstractComponent> read(PCParts comp){
-        try{
+    public ArrayList<AbstractComponent> read(PCParts comp) {
+        try {
             connectToDB();
             if (comp == null) rs = stmt.executeQuery("SELECT * from INVENTARIO");
             else rs = stmt.executeQuery("select * from INVENTARIO where TIPO='" + comp.name() + "'");
@@ -62,7 +60,7 @@ public class Reader {
      * Consente di forzare la chiusura della connessione in caso di errore
      * durante la comunicazione
      *
-     * @exception SQLException: vuol dire che la connessione è già terminata
+     * @throws SQLException: vuol dire che la connessione è già terminata
      */
     public void forceClose() {
         try {
@@ -72,11 +70,10 @@ public class Reader {
         }
     }
 
-    private void connectToDB() throws SQLException{
+    private void connectToDB() throws SQLException {
         conn = DriverManager.getConnection(url, user, password);
         stmt = conn.createStatement();
     }
-
 
 
     private AbstractComponent getComponent(String[] str) {

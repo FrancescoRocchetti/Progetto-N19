@@ -13,7 +13,6 @@ import java.awt.event.WindowListener;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 
 public class ConfirmList extends AbstractInterface {
@@ -113,10 +112,10 @@ public class ConfirmList extends AbstractInterface {
      *
      * @return int[]
      */
-    public int[] getCodesOfComps(){
+    public int[] getCodesOfComps() {
         int[] i = new int[data.length];
 
-        for(int c = 0; c< data.length; c++){
+        for (int c = 0; c < data.length; c++) {
             Object[] comp = data[c];
             i[c] = (int) comp[0];
         }
@@ -128,11 +127,11 @@ public class ConfirmList extends AbstractInterface {
      *
      * @return JTable
      */
-    public JTable createTable(){
+    public JTable createTable() {
         String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
         JTable table = new JTable(data, column);
-        int[] arr = {40,55,250,80,70};
-        for(int i = 0; i < 5; i++){
+        int[] arr = {40, 55, 250, 80, 70};
+        for (int i = 0; i < 5; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(arr[i]);
             table.getColumnModel().getColumn(i).setResizable(false);
         }
@@ -148,7 +147,7 @@ public class ConfirmList extends AbstractInterface {
      * Funzione che viene richiamata da GestoreScelte quando
      * l'acquisto è andato a buon fine
      */
-    public void success(){
+    public void success() {
         JOptionPane.showMessageDialog(this, "Acquisto effettuato con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
         p.newConfiguration();
         p.refresh();
@@ -159,7 +158,7 @@ public class ConfirmList extends AbstractInterface {
      * Funzione che viene richiamata da GestoreScelte quando
      * l'acquisto è andato male
      */
-    public void failure(){
+    public void failure() {
         JOptionPane.showMessageDialog(this, "Errore durante l'acquisto dell'ordine. Riprovare più tardi", "Fallimento", JOptionPane.INFORMATION_MESSAGE);
         label.setText("Sicuro di voler effettuare questo ordine?");
         bckg.removeAll();
@@ -171,7 +170,7 @@ public class ConfirmList extends AbstractInterface {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    private void loading(){
+    private void loading() {
         bckg.removeAll();
         super.loading("Sto effettuando l'ordine...");
     }

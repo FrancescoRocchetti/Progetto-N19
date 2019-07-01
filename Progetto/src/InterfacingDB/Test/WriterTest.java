@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WriterTest {
     @Test
-    public void testWriteToDB(){
+    public void testWriteToDB() {
         Writer w = new Writer();
         assertThrows(NullPointerException.class, () -> {
-            w.write(null,"BEPIS",4,3,56);
+            w.write(null, "BEPIS", 4, 3, 56);
         });
     }
 

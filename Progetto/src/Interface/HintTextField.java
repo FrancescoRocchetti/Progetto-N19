@@ -11,7 +11,6 @@ import java.awt.event.FocusListener;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 
 public class HintTextField extends JTextField implements FocusListener {
@@ -29,15 +28,16 @@ public class HintTextField extends JTextField implements FocusListener {
 
     @Override
     public void focusGained(FocusEvent e) {
-        if(this.getText().isEmpty()) {
+        if (this.getText().isEmpty()) {
             this.setText("");
             this.setForeground(Color.BLACK);
             showingHint = false;
         }
     }
+
     @Override
     public void focusLost(FocusEvent e) {
-        if(this.getText().isEmpty()) {
+        if (this.getText().isEmpty()) {
             this.setText(hint);
             this.setForeground(Color.LIGHT_GRAY);
             showingHint = true;

@@ -9,7 +9,7 @@ import InterfacingDB.CheckInternet;
  * @author Fabio Riganti
  */
 
-public class ThreadUpdate extends Thread{
+public class ThreadUpdate extends Thread {
     private static final String QUANTITY = "QUANTITY";
     private static final String PRICE = "PRICE";
 
@@ -46,8 +46,8 @@ public class ThreadUpdate extends Thread{
 
     @Override
     public void run() {
-        try{
-            while(true) {
+        try {
+            while (true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
@@ -57,25 +57,25 @@ public class ThreadUpdate extends Thread{
                 accept = true;
             }
         } catch (InterruptedException e) {
-            System.out.println(this.getName()+" terminato");
+            System.out.println(this.getName() + " terminato");
         }
     }
 
     private synchronized void checkAccept() throws InterruptedException {
-        while(accept){
+        while (accept) {
             wait();
         }
     }
 
-    private void update(){
+    private void update() {
         boolean status = true;
-        if (mode.equals(QUANTITY)){
+        if (mode.equals(QUANTITY)) {
             for (int i = 0; i < id.length && status; i++) {
                 if (!mdb.updateQuantity(id[i], quantity)) {
                     status = false;
                 }
             }
-        } else{
+        } else {
             for (int i = 0; i < id.length && status; i++) {
                 if (!mdb.updatePrice(id[i], price)) {
                     status = false;
@@ -85,7 +85,7 @@ public class ThreadUpdate extends Thread{
         go.update(status);
     }
 
-    public void stopThread(){
+    public void stopThread() {
         interrupt();
     }
 }

@@ -9,7 +9,7 @@ import InterfacingDB.CheckInternet;
  * @author Fabio Riganti
  */
 
-public class ThreadAdd extends Thread{
+public class ThreadAdd extends Thread {
 
     private ManagerDB mdb;
     private ObserverGO go;
@@ -37,27 +37,28 @@ public class ThreadAdd extends Thread{
 
     @Override
     public void run() {
-        try{
-            while(true) {
+        try {
+            while (true) {
                 checkAccept();
                 accept = false;
                 if (!CheckInternet.check())
                     go.addStatus(false);
-                else go.addStatus(mdb.write(PCParts.valueOf(str[0]), str[1], Integer.parseInt(str[2]), Integer.parseInt(str[3]),Integer.parseInt(str[4])));
+                else
+                    go.addStatus(mdb.write(PCParts.valueOf(str[0]), str[1], Integer.parseInt(str[2]), Integer.parseInt(str[3]), Integer.parseInt(str[4])));
                 accept = true;
             }
         } catch (InterruptedException e) {
-            System.out.println(this.getName()+" terminato");
+            System.out.println(this.getName() + " terminato");
         }
     }
 
     private synchronized void checkAccept() throws InterruptedException {
-        while(accept){
+        while (accept) {
             wait();
         }
     }
 
-    public void stopThread(){
+    public void stopThread() {
         interrupt();
     }
 

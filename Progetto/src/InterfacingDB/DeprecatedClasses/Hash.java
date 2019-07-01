@@ -2,7 +2,6 @@ package InterfacingDB.DeprecatedClasses;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Hash {
     public static String getHash(String input) {

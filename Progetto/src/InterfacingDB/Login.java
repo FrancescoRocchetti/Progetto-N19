@@ -9,7 +9,6 @@ import java.sql.*;
  * Admin del programma
  *
  * @author Fabio Riganti
- *
  */
 
 public class Login {
@@ -25,6 +24,24 @@ public class Login {
         password = "dmHj8vdaCo";
     }
 
+    private static String getHash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            String hashtext = no.toString(16);
+
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+    }
+
     /**
      * Funzione che viene richiamata da GestoreOperazioni per
      * effettuare il login alla piattaforma come Admin
@@ -32,8 +49,8 @@ public class Login {
      * @param user
      * @param password
      */
-    public boolean login(String user, String password){
-        try{
+    public boolean login(String user, String password) {
+        try {
             conn = DriverManager.getConnection(url, this.user, this.password);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * from UTENTI");
@@ -54,31 +71,13 @@ public class Login {
      * Consente di forzare la chiusura della connessione in caso di errore
      * durante la comunicazione
      *
-     * @exception SQLException: vuol dire che la connessione è già terminata
+     * @throws SQLException: vuol dire che la connessione è già terminata
      */
     public void forceClose() {
         try {
             conn.close();
         } catch (Exception e) {
             System.err.println("Già chiuso.");
-        }
-    }
-
-    private static String getHash(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] messageDigest = md.digest(input.getBytes());
-            BigInteger no = new BigInteger(1, messageDigest);
-            String hashtext = no.toString(16);
-
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-
-        } catch (Exception e) {
-            System.err.println(e);
-            return null;
         }
     }
 

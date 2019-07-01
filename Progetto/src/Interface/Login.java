@@ -16,7 +16,6 @@ import java.awt.event.WindowListener;
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *
  */
 
 public class Login extends AbstractInterface {
@@ -54,7 +53,7 @@ public class Login extends AbstractInterface {
         loginPanel.add(labelPanel, BorderLayout.WEST);
         loginPanel.add(formPanel, BorderLayout.CENTER);
         bckg.add(loginPanel, BorderLayout.CENTER);
-        bckg.setBorder(new EmptyBorder(5,5,5,5));
+        bckg.setBorder(new EmptyBorder(5, 5, 5, 5));
         c.add(bckg);
 
         ActionListener accesso = e -> {
@@ -123,7 +122,7 @@ public class Login extends AbstractInterface {
      * Funzione richiamata da GestoreOperazioni che indica quando
      * la procedura di login ha avuto successo
      */
-    public void successLogin(){
+    public void successLogin() {
         new InserimentoSpecifiche(p, go, username.getText());
         dispose();
     }
@@ -140,7 +139,7 @@ public class Login extends AbstractInterface {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    private void loading(){
+    private void loading() {
         bckg.remove(loginPanel);
         super.loading("Sto effettuando l'accesso...");
     }

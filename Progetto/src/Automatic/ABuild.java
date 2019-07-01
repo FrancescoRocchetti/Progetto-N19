@@ -3,8 +3,8 @@ package Automatic;
 import Components.AbstractComponent;
 import Components.PCParts;
 import Constraints.AdaptabilityConstraint;
-import Gestione.SelectedComponents;
 import Gestione.ManagerDB;
+import Gestione.SelectedComponents;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,6 @@ import java.util.Collections;
  * senza dover scegliere i componenti manualmente
  *
  * @author Francesco Rocchetti
- *
  */
 
 public class ABuild {
@@ -35,12 +34,12 @@ public class ABuild {
     private int sf = 1;
     /**
      * assegno percentuali di prezzo arbitrarie ad ogni componente
-     *
+     * <p>
      * TODO:sistemare questo casino
      */
-    private PCParts[] lista = {PCParts.MOBO,PCParts.CPU,PCParts.RAM,
-                                 PCParts.PSU,PCParts.STORAGE,PCParts.CASE};
-    private double[] costi = {0.1,0.25,0.1,0.1,0.1,0.1};
+    private PCParts[] lista = {PCParts.MOBO, PCParts.CPU, PCParts.RAM,
+            PCParts.PSU, PCParts.STORAGE, PCParts.CASE};
+    private double[] costi = {0.1, 0.25, 0.1, 0.1, 0.1, 0.1};
 
 
     public ABuild(int maxCost) {
@@ -65,17 +64,18 @@ public class ABuild {
     }
 
 
-    /** Avvio della build automatica
-     *  scelgo le componenti in ordine di importanza
-     *  cooler e gpu sono scelte in un secondo momento in quanto sono "opzionali"
+    /**
+     * Avvio della build automatica
+     * scelgo le componenti in ordine di importanza
+     * cooler e gpu sono scelte in un secondo momento in quanto sono "opzionali"
      */
-    private void start(){
+    private void start() {
         db = new ManagerDB();
         int i = 0;
         for (PCParts p : lista) {
 
-            AbstractComponent temp = find(p,(int)(costi[i]* budget));
-            if(temp != null){
+            AbstractComponent temp = find(p, (int) (costi[i] * budget));
+            if (temp != null) {
                 sc.addCList(temp);
                 //System.err.println(temp);
             } else {
@@ -87,11 +87,11 @@ public class ABuild {
 
         //scelta del Cooler
 
-        if (!sc.getTotRes().isOkCoolerI()  || budget> 800) {
-            AbstractComponent temp = find(PCParts.COOLER,(int)(cCooler* (double)budget));
-            if(temp != null){
+        if (!sc.getTotRes().isOkCoolerI() || budget > 800) {
+            AbstractComponent temp = find(PCParts.COOLER, (int) (cCooler * (double) budget));
+            if (temp != null) {
                 sc.addCList(temp);
-            } else{
+            } else {
                 allOk = false;
                 System.err.println("COOLER");
             }
@@ -99,12 +99,11 @@ public class ABuild {
 
         //scelta della GPU
 
-        if (!sc.getTotRes().isOkGPU() || budget> 500 ) {
-            AbstractComponent temp = find(PCParts.GPU,(int)(cGpu* (double)budget));
-            if(temp != null){
+        if (!sc.getTotRes().isOkGPU() || budget > 500) {
+            AbstractComponent temp = find(PCParts.GPU, (int) (cGpu * (double) budget));
+            if (temp != null) {
                 sc.addCList(temp);
-            } else
-                if (!sc.getTotRes().isOkGPU()){
+            } else if (!sc.getTotRes().isOkGPU()) {
                 allOk = false;
                 System.err.println("GPU");
             }
@@ -113,22 +112,23 @@ public class ABuild {
     }
 
 
-    /**scelgo la componente migliore
-     *
+    /**
+     * scelgo la componente migliore
+     * <p>
      * NB: le prestazioni di un componente sono valutate come Valutazione fratto costo
      *
      * @param p tipo di componente
      * @param c costo
      * @return null
      */
-    private AbstractComponent find(PCParts p, int c){
+    private AbstractComponent find(PCParts p, int c) {
         //System.err.println(c);
-        ArrayList<AbstractComponent> temp = segment(p,c);
+        ArrayList<AbstractComponent> temp = segment(p, c);
         Collections.sort(temp);
         //System.err.println(temp);
 
-        if (temp.size()>0){
-            for(AbstractComponent ac : temp){
+        if (temp.size() > 0) {
+            for (AbstractComponent ac : temp) {
                 if (superCheck(ac))
                     return ac;
             }
@@ -137,19 +137,20 @@ public class ABuild {
     }
 
 
-    /**trovo le componenti (compatibili) nel range di prezzo stabilito in precedenza
+    /**
+     * trovo le componenti (compatibili) nel range di prezzo stabilito in precedenza
      *
      * @param p tipo di componente
      * @param c costo (usato come centro dell'intorno di ricerca)
      * @return seg lista delle componenti corrette
      */
-    private ArrayList<AbstractComponent> segment(PCParts p, int c){
-        ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p),sc);
+    private ArrayList<AbstractComponent> segment(PCParts p, int c) {
+        ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p), sc);
         ArrayList<AbstractComponent> seg = new ArrayList<>();
-        for(AbstractComponent ac : temp){
-            if (ac.getPrice()<(int)(1.2*c) ){
-               seg.add(ac);
-               //System.err.println("x"+ac);
+        for (AbstractComponent ac : temp) {
+            if (ac.getPrice() < (int) (1.2 * c)) {
+                seg.add(ac);
+                //System.err.println("x"+ac);
             }
         }
         return seg;
@@ -162,25 +163,25 @@ public class ABuild {
             return null;
     }
 
-    private boolean superCheck(AbstractComponent c){
-        boolean cc=false;
-        boolean cm=false;
-        boolean cr=false;
+    private boolean superCheck(AbstractComponent c) {
+        boolean cc = false;
+        boolean cm = false;
+        boolean cr = false;
         SelectedComponents t = new SelectedComponents();
         t.addCList(c);
 
-        ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(null),t);
+        ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(null), t);
 
-        for(AbstractComponent ac : temp){
-            if(ac.getType().equalsIgnoreCase("CPU"))
-                cc=true;
-            if(ac.getType().equalsIgnoreCase("MOBO"))
-                cm=true;
-            if(ac.getType().equalsIgnoreCase("RAM"))
-                cr=true;
+        for (AbstractComponent ac : temp) {
+            if (ac.getType().equalsIgnoreCase("CPU"))
+                cc = true;
+            if (ac.getType().equalsIgnoreCase("MOBO"))
+                cm = true;
+            if (ac.getType().equalsIgnoreCase("RAM"))
+                cr = true;
         }
 
-        return cc&&cm&&cr;
+        return cc && cm && cr;
     }
 
     @Override
