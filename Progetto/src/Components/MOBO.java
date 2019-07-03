@@ -20,7 +20,7 @@ public class MOBO extends AbstractComponent {
     }
 
 
-    //TODO: metodi delle risorse
+
 
     /*@Override
         public int compareTo(Object o) {

@@ -2,6 +2,12 @@ package Resources;
 
 import java.util.ArrayList;
 
+/**
+ * Classe che permette d generare una "risorsa unica" a partire
+ * da un insieme di componenti
+ *
+ * @author Francesco Rocchetti
+ */
 public class SommatoreRes {
 
     //somma le risorse di una build in una risorsa unica
@@ -29,7 +35,6 @@ public class SommatoreRes {
                     .withNPci(temp.getnPci() + r.getnPci())
                     .withNPcie(temp.getnPcie() + r.getnPcie())
                     .withModules(temp.getModulesRAM() + r.getModulesRAM())
-                    //TODO: controllare se mancano delle risorse
                     .build();
         }
 

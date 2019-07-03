@@ -16,7 +16,7 @@ import Resources.SommatoreRes;
 public class ConsistencyConstraint {
 
     /**
-     * verifica la completezza di una build
+     * Verifica la completezza di una build
      *
      * @param sc componenti selezionati
      * @return
