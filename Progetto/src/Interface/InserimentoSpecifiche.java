@@ -1,37 +1,42 @@
 package Interface;
 
-import Components.AbstractComponent;
-import InterfacingDB.PCParts;
-import InterfacingDB.Reading;
+import Components.PCParts;
+import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.awt.event.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class InserimentoSpecifiche extends JFrame {
+/**
+ * Interfaccia che ti permette di effettuare modifiche
+ * all'inventario
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ */
+
+public class InserimentoSpecifiche extends AbstractInterface {
     private Container c;
-    private JPanel background;
+    private JPanel compsInterface;
     private JPanel data;
     private JPanel descPanel;
     private Toolkit kit;
     private Dimension dim;
 
-    private JLabel title;
     private JLabel component;
     private JLabel description;
-    private JLabel howToDesc;
     private JLabel quantity;
     private JLabel price;
     private JLabel ranking;
     private JLabel loggedAs;
 
-    private JTextField descrizione;
     private JComboBox componente;
     private JSpinner quantita;
-    private SpinnerNumberModel spinnerModel;
+    private SpinnerNumberModel spinnerQuantityModel;
     private JSpinner prezzo;
     private SpinnerNumberModel spinnerPriceModel;
     private JSpinner valutazione;
@@ -43,53 +48,43 @@ public class InserimentoSpecifiche extends JFrame {
     private JButton update;
     private JButton remove;
     private JButton check;
+    private JPanel panelForConferma;
     private JPanel fourButtons;
-    private JPanel checkButton;
-    private JLabel title1;
+    private JPanel panelDataConferma;
+    private JButton advanced;
 
     private String[] componentsName;
 
-    private final static int QTA = 99;
     private GestoreOperazioni go;
 
-    public InserimentoSpecifiche(GestoreOperazioni go, String user) {
-        super("Aggiunta componente");
+    public InserimentoSpecifiche(Piattaforma p, GestoreOperazioni go, String user) {
+        super("Pagina admin");
         this.go = go;
+        go.setIns(this);
         kit = Toolkit.getDefaultToolkit();
         dim = kit.getScreenSize();
         c = getContentPane();
         componentsName = new String[]{"CASE", "COOLER", "CPU", "GPU", "MOBO", "PSU", "RAM", "STORAGE", "OS", "ALTRO"};
-        background = new JPanel(new BorderLayout());
-        title = new JLabel("Inserisci le informazioni richieste");
-        title.setFont(new Font("Arial", Font.BOLD, 20));
-        loggedAs = new JLabel("Accesso effettuato come: " + user);
-        loggedAs.setFont(new Font("Arial", Font.BOLD, 14));
-        loggedAs.setForeground(Color.GRAY);
-        title1 = new JLabel("Aggiungi nuovo componente");
-        title1.setFont(new Font("Arial", Font.BOLD, 16));
-        northPanel = new JPanel(new GridLayout(3, 1));
-        northPanel.add(title);
+        compsInterface = new JPanel(new BorderLayout());
+        bckg = new JPanel(new BorderLayout());
+        loggedAs = new JLabel("Connesso come: " + user);
+        loggedAs.setFont(new Font("Arial", Font.BOLD, 20));
+        northPanel = new JPanel(new GridLayout());
         northPanel.add(loggedAs);
-        northPanel.add(title1);
+        northPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         data = new JPanel(new GridLayout(5, 2));
         component = new JLabel("Componente");
         componente = new JComboBox();
-        for (int i = 0; i < PCParts.values().length; i++) // length - 1 perchè non considero "ALTRO" per ora
+        for (int i = 0; i < PCParts.values().length; i++)
             componente.addItem(PCParts.valueOf(componentsName[i]));
         componente.setEditable(false);
         description = new JLabel("Descrizione");
-        howToDesc = new JLabel("(La descrizione varia con la componente)");
-        howToDesc.setFont(new Font("Arial", Font.ITALIC, 10));
-        howToDesc.setForeground(Color.RED);
-        descrizione = new JTextField();
-        descrizione.setFont(new Font("Arial", Font.PLAIN, 10));
-        descrizione.setText("Rispettare il formato di inserimento proposto sotto");
-        descPanel = new JPanel(new GridLayout(2, 1));
-        descPanel.add(descrizione);
-        descPanel.add(howToDesc);
+        advanced = new JButton("Inserisci opzioni");
+        descPanel = new JPanel(new GridLayout(1, 1));
+        descPanel.add(advanced);
         quantity = new JLabel("Quantità");
-        spinnerModel = new SpinnerNumberModel(1, 1, QTA, 1);
-        quantita = new JSpinner(spinnerModel);
+        spinnerQuantityModel = new SpinnerNumberModel(0, 0, null, 1);
+        quantita = new JSpinner(spinnerQuantityModel);
         setSpinnerNotWritable(quantita);
         price = new JLabel("Prezzo");
         spinnerPriceModel = new SpinnerNumberModel(1, 1, null, 1);
@@ -100,90 +95,49 @@ public class InserimentoSpecifiche extends JFrame {
         valutazione = new JSpinner(spinnerRankModel);
         setSpinnerNotWritable(valutazione);
         goBack = new JButton("Logout");
-        goBack.setForeground(Color.RED);
         confirm = new JButton("Conferma");
-        confirm.setForeground(Color.GREEN);
-        update = new JButton("Update component...");
-        remove = new JButton("Remove component...");
-        check = new JButton("Show stored components...");
+        confirm.setEnabled(false);
+        update = new JButton("Update components");
+        remove = new JButton("Remove components");
+        check = new JButton("Show inventory");
         btnPanel = new JPanel(new BorderLayout());
-        fourButtons = new JPanel(new GridLayout(3, 2));
-        checkButton = new JPanel(new GridLayout(1, 1));
+        btnPanel.setBorder(new TitledBorder("Altre opzioni"));
+        fourButtons = new JPanel(new GridLayout(4, 1));
+        panelDataConferma = new JPanel(new BorderLayout());
+        panelForConferma = new JPanel(new GridLayout());
+        panelDataConferma.setBorder(new TitledBorder("Aggiungi un componente"));
 
-        componente.addActionListener(e -> {
-            if (componente.getSelectedItem() == PCParts.CPU) {
-                howToDesc.setText("NOME_FREQ_CORE_THREAD_TDP_BIT_GPUINTEGRATA_SOCKET_COOLER");
-                howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
-            } else if (componente.getSelectedItem() == PCParts.COOLER)
-                howToDesc.setText("NOME_LIQUIDO");
-            else if (componente.getSelectedItem() == PCParts.RAM)
-                howToDesc.setText("NOME_WATT_TIPO_GB_FREQUENZA_NMODULI");
-            else if (componente.getSelectedItem() == PCParts.PSU)
-                howToDesc.setText("NOME_WATT_DIMENSIONE_CERTIFICAZIONE");
-            else if (componente.getSelectedItem() == PCParts.GPU)
-                howToDesc.setText("NOME_GB_TDP");
-            else if (componente.getSelectedItem() == PCParts.MOBO) {
-                howToDesc.setText("NOME_CPUSOCKET_NBANCHI_RAMMODEL_NPCIE_NPCI_DIMENSIONE_NSATA_WATT");
-                howToDesc.setFont(new Font("Arial", Font.ITALIC, 6));
-            } else if (componente.getSelectedItem() == PCParts.STORAGE)
-                howToDesc.setText("NOME_DIMENSIONE_GB");
-            else if (componente.getSelectedItem() == PCParts.CASE)
-                howToDesc.setText("NOME_DIMENSIONE_NSLOT525_NSLOT325");
-            else if (componente.getSelectedItem() == PCParts.OS)
-                howToDesc.setText("NOME_BIT");
-            else if (componente.getSelectedItem() == PCParts.ALTRO)
-                howToDesc.setText("NOME_DESCRIZIONE");
-        });
+        remove.addActionListener(e -> new Remove(this, go));
 
-        remove.addActionListener(e -> {
-            try {
-                Remove comp = new Remove(this, go);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        });
+        update.addActionListener(e -> new Update(this, go));
 
-        update.addActionListener(e -> {
-            try {
-                Update update = new Update(this, go);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        });
-
-        goBack.addActionListener(e -> {
-            dispose();
-        });
+        goBack.addActionListener(e -> dispose());
 
         confirm.addActionListener(e -> {
-            // codice per la scrittura su DB
-            if (go.insertComponent(
+            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+            loadTime("Sto aggiungendo il componente al DB...");
+            if (!go.insertComponent(
                     (PCParts) componente.getSelectedItem(),
-                    descrizione.getText().toUpperCase(),
                     (int) quantita.getValue(),
                     (int) prezzo.getValue(),
                     (int) valutazione.getValue())) {
-                Object[] options = {"YES", "NO"};
-                int inserimento = JOptionPane.showOptionDialog(null, "Nuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
-                if (inserimento == 0) {
-                    componente.setSelectedItem(PCParts.CASE);
-                    descrizione.setText("");
-                    quantita.setValue(1);
-                    prezzo.setValue(1);
-                    valutazione.setValue(1);
-                } else {
-                    dispose();
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Errore connessione DB", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Errore inserimento oggetto", "Errore", JOptionPane.ERROR_MESSAGE);
+                setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                go.setDescrizione(null);
+                goBack.setEnabled(true);
+                bckg.remove(loadingPanel);
+                bckg.add(compsInterface, BorderLayout.CENTER);
+                bckg.repaint();
             }
         });
 
-        check.addActionListener(e -> {
-            Reading reading = new Reading();
-            ArrayList<AbstractComponent> components;
-            String s = "";
-            new CompList(this, go);
+        check.addActionListener(e -> new CompList(this, go));
+
+        advanced.addActionListener(e -> new AdvancedSpecs((PCParts) componente.getSelectedItem(), go, this));
+
+        componente.addActionListener(e -> {
+            confirm.setEnabled(false);
+            go.setDescrizione(null);
         });
 
         data.add(component);
@@ -196,24 +150,24 @@ public class InserimentoSpecifiche extends JFrame {
         data.add(prezzo);
         data.add(ranking);
         data.add(valutazione);
+        panelForConferma.add(confirm);
+        panelDataConferma.add(data, BorderLayout.CENTER);
+        panelDataConferma.add(panelForConferma, BorderLayout.SOUTH);
 
-        fourButtons.add(goBack);
-        fourButtons.add(confirm);
-        fourButtons.add(new JLabel("Aggiornamento componenti"));
-        fourButtons.add(new JLabel());
         fourButtons.add(remove);
         fourButtons.add(update);
-
-        checkButton.add(check);
+        fourButtons.add(check);
+        fourButtons.add(goBack);
 
         btnPanel.add(fourButtons, BorderLayout.NORTH);
-        btnPanel.add(checkButton, BorderLayout.SOUTH);
 
-        background.add(northPanel, BorderLayout.NORTH);
-        background.add(data, BorderLayout.CENTER);
-        background.add(btnPanel, BorderLayout.SOUTH);
+        compsInterface.add(northPanel, BorderLayout.NORTH);
+        compsInterface.add(panelDataConferma, BorderLayout.CENTER);
+        compsInterface.add(btnPanel, BorderLayout.SOUTH);
 
-        c.add(background);
+        bckg.add(compsInterface, BorderLayout.CENTER);
+
+        c.add(bckg);
 
         addWindowListener(new WindowListener() {
             @Override
@@ -226,7 +180,12 @@ public class InserimentoSpecifiche extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                go.unlockPlatform();
+                p.setLocationRelativeTo(InserimentoSpecifiche.this);
+                p.setVisible(true);
+                p.toFront();
+                p.requestFocus();
+                if (go.isModified())
+                    p.refresh();
             }
 
             @Override
@@ -247,18 +206,57 @@ public class InserimentoSpecifiche extends JFrame {
         });
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(600, 380);
+        pack();
         setResizable(false);
-        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
+        setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+
+    /**
+     * Attiva tutti i bottoni se la descrizione
+     * della specifica è corretta
+     */
+    public void enableConfirmButton() {
+        Boolean t = go.canAdd();
+        confirm.setEnabled(t);
+    }
+
+    /**
+     * Funzione richiamata da GestoreOperazione quando
+     * c'è stato un tentativo di aggiunta di componenti
+     * al DB
+     *
+     * @param status
+     */
+    public void updateAdd(boolean status) {
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        if (status) {
+            Object[] options = {"YES", "NO"};
+            int inserimento = JOptionPane.showOptionDialog(this, "Inserito oggetto con successo\nNuovo inserimento?", "Inserimento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "YES");
+            if (inserimento != 0)
+                dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Errore inserimento oggetto", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+        componente.setSelectedItem(PCParts.CASE);
+        go.setDescrizione(null);
+        quantita.setValue(0);
+        prezzo.setValue(1);
+        valutazione.setValue(1);
+        confirm.setEnabled(false);
+        bckg.remove(loadingPanel);
+        bckg.add(compsInterface, BorderLayout.CENTER);
+        bckg.repaint();
+    }
+
+    private void loadTime(String str) {
+        bckg.remove(compsInterface);
+        super.loading(str);
     }
 
     private void setSpinnerNotWritable(JSpinner spinner) {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
-
-    /*public static void main(String[] args) {
-        InserimentoSpecifiche ins = new InserimentoSpecifiche(null, "prova");
-    }*/
 }

@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 public class GestioneComponenti extends JFrame {
     private Container c;
@@ -22,7 +20,7 @@ public class GestioneComponenti extends JFrame {
         componentsName = new String[]{"CASE", "Cooler CPU", "CPU", "GPU", "MOBO", "OS", "PSU", "RAM", "STORAGE", "ALTRO"};
         background = new JPanel(new BorderLayout());
         logout = new JButton("Logout");
-        label = new JLabel("Choose the component to update...");
+        label = new JLabel("Choose the component to updateConfirm...");
         c = getContentPane();
         buttonsPanel = new JPanel(new GridLayout(5, 2));
         addButtonsToPanel(buttonsPanel);

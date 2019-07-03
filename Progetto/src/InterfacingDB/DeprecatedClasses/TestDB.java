@@ -1,14 +1,15 @@
-package InterfacingDB;
+package InterfacingDB.DeprecatedClasses;
 
 import Components.AbstractComponent;
+import Components.PCParts;
+import InterfacingDB.Login;
+import InterfacingDB.Reader;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TestDB {
-    public static void main(String[] args) throws IOException, SQLException {
-        Reading r = new Reading();
+    public static void main(String[] args) {
+        Reader r = new Reader();
         //Writing w = new Writing();
         Login l = new Login();
         ArrayList<AbstractComponent> list;
@@ -23,7 +24,7 @@ public class TestDB {
         //System.out.println(r.getNumberOfRows());
         /*r.forceClose();
         w.write(PCParts.CPU,"BEPIS",5,999,5);
-        w.update(24,15);
+        w.updateConfirm(24,15);
         w.remove(24);
         */
     }

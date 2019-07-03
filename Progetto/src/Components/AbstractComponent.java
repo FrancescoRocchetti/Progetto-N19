@@ -56,7 +56,7 @@ public abstract class AbstractComponent implements Comparable {
     @Override
     public int compareTo(Object o) {
         AbstractComponent c = (AbstractComponent) o;
-        return this.performance - c.getPerformance();
+        return (int) (((double) this.performance / Math.pow(this.price, 0.5)) - ((double) c.getPerformance() / Math.pow(c.getPrice(), 0.5)));
     }
 
     public String getType() {
@@ -68,7 +68,7 @@ public abstract class AbstractComponent implements Comparable {
         return name;
     }
 
-    public String getSocket() {
+    /*public String getSocket() {
         return resource.getTypeSocket();
     }
 
@@ -82,6 +82,10 @@ public abstract class AbstractComponent implements Comparable {
 
     public String getCaseDim() {
         return resource.getDimensionCase();
+    }*/
+
+    public String[] getCaratteristiche() {
+        return caratteristiche;
     }
 
     @Override

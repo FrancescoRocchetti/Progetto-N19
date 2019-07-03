@@ -1,14 +1,17 @@
 package Constraints;
 
+import Components.PCParts;
 import Gestione.SelectedComponents;
-import InterfacingDB.PCParts;
 import Resources.Resource;
 
 import java.util.ArrayList;
 
+/**
+ * @author Francesco Rocchetti
+ */
 public class NumericalConstraint implements AbstractConstraint {
 
-    //QUESTA PARTE è DIVENTATA INUTILE DA QUANDO ESISTONO LE RISORSE
+    //vecchio metod
     private static boolean checkPOWER(SelectedComponents sc) {
         if (sc.getType(PCParts.PSU) != null) {
             int w = 0;
@@ -21,6 +24,12 @@ public class NumericalConstraint implements AbstractConstraint {
             return true;
     }
 
+    /**
+     * controllo il wattaggio del sistema
+     *
+     * @param sc
+     * @return
+     */
     public static boolean check2(SelectedComponents sc) {
         //System.out.println(sc.getTotRes().isOkPSU());
         //System.out.println(sc.getTotRes().getPower());

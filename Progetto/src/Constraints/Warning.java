@@ -3,12 +3,18 @@ package Constraints;
 import Gestione.SelectedComponents;
 import Resources.Resource;
 
+import java.util.ArrayList;
+
+/**
+ * @author Francesco Rocchetti
+ */
 public class Warning {
     private static Warning wInstance = null;
-    private String info = null;
+    private ArrayList<String> info;
     private boolean ok;
 
     private Warning() {
+        info = new ArrayList<>();
     }
 
     public static synchronized Warning getwInstance() {
@@ -18,40 +24,54 @@ public class Warning {
         return wInstance;
     }
 
+    /**
+     * controllo della lista dei componenti selezionati per errori
+     * questi errori sono causati da una selezione disordinata dei componenti
+     * Per esempio selezionare lo storage prima del case può portare
+     * a non avere lo spazio materiale per inserirli tutti
+     *
+     * @param sc componenti selezionati
+     * @return
+     */
     public boolean check(SelectedComponents sc) {
-        info = "";
+        info.clear();
         ok = true;
         Resource r = sc.getTotRes();
 
-        if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot325() < 0)) {
-            info = info.concat("too many HDDs ");
+        if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot350() < 0)) {
+            info.add("too many HDDs ");
+            ok = false;
+        }
+
+        if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot250() < 0)) {
+            info.add("too many SSDs ");
             ok = false;
         }
 
         if (r.isOkMOBO() && r.getModulesRAM() < 0) {
-            info = info.concat("too many RAM modules ");
+            info.add("too many RAM modules ");
             ok = false;
         }
 
         if (r.isOkMOBO() && r.getnPci() < 0) {
-            info = info.concat("too many GPUs ");
+            info.add("too many GPUs ");
             ok = false;
         }
 
         if (r.isOkPSU() && r.getPower() < 0) {
-            info = info.concat("not enough power ");
+            info.add("not enough power ");
             ok = false;
         }
 
 
-        if (info.equalsIgnoreCase("")) {
-            info = info.concat("NO WARNING");
+        if (info.size() == 0) {
+            info.add("NO WARNING");
         }
 
         return ok;
     }
 
-    public String getInfo() {
+    public ArrayList<String> getInfo() {
         return info;
     }
 

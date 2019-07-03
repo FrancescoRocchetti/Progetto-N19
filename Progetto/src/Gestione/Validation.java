@@ -1,6 +1,6 @@
 package Gestione;
 
-import Components.*;
+import Components.AbstractComponent;
 
 import java.lang.reflect.Constructor;
 
@@ -17,10 +17,7 @@ public class Validation {
      */
 
     public static boolean check(String[] inp) {
-        if (inp.length != 6) {
-            System.err.println("6");
-            return false;
-        }
+
 
         String nome = "Components.";
         nome = nome.concat(inp[1]);

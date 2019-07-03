@@ -1,8 +1,7 @@
-package Gestione;
+package Gestione.DeprecatedClasses;
 
-import Components.*;
-
-import java.lang.reflect.Constructor;
+import Components.AbstractComponent;
+import Gestione.Validation;
 
 public class Test {
     public static void main(String[] args) {

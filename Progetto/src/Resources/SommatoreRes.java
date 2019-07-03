@@ -19,10 +19,13 @@ public class SommatoreRes {
                     .withokGPU(temp.isOkGPU() || r.isOkGPU())
                     .withokCooler(temp.isOkCooler() || r.isOkCooler())
                     .withokStorage(temp.isOkStorage() || r.isOkStorage())
+                    .withokCoolerI(temp.isOkCoolerI() || r.isOkCoolerI())
+
 
                     .withPower(temp.getPower() + r.getPower())
                     .withNSATA(temp.getnSATA() + r.getnSATA())
-                    .withNSlot(temp.getnSlot325() + r.getnSlot325())
+                    .withNSlot350(temp.getnSlot350() + r.getnSlot350())
+                    .withNSlot250(temp.getnSlot250() + r.getnSlot250())
                     .withNPci(temp.getnPci() + r.getnPci())
                     .withNPcie(temp.getnPcie() + r.getnPcie())
                     .withModules(temp.getModulesRAM() + r.getModulesRAM())

@@ -1,61 +1,40 @@
 package Interface;
 
 import Components.AbstractComponent;
-import InterfacingDB.Reading;
+import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CompList extends JFrame {
+/**
+ * Interfaccia usata per semplicemente visualizzare
+ * l'inventario con una tabella
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ */
+public class CompList extends AbstractInterface {
 
-    private Toolkit kit;
-    private Dimension dim;
+    private GestoreOperazioni go;
+    private JScrollPane pane;
 
     public CompList(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Inventario");
-        kit = Toolkit.getDefaultToolkit();
-        dim = kit.getScreenSize();
-
+        this.go = go;
+        go.setListMode(this);
         Container c = getContentPane();
-        ins.setEnabled(false);
-        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        String data[][] = go.getString(null);
-        if (data == null) {
-            JOptionPane.showMessageDialog(null, "Errore lettura inventario", "Errore", JOptionPane.ERROR_MESSAGE);
-            dispose();
-        }
-        String column[] = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
-        JTable table = new JTable(data, column);
-        table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(0).setPreferredWidth(40);
-        table.getColumnModel().getColumn(1).setPreferredWidth(55);
-        table.getColumnModel().getColumn(2).setPreferredWidth(250);
-        table.getColumnModel().getColumn(3).setPreferredWidth(80);
-        table.getColumnModel().getColumn(4).setPreferredWidth(50);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        JScrollPane sp = new JScrollPane(table);
-        JPanel panel = new JPanel();
+        ins.setVisible(false);
+        bckg = new JPanel(new BorderLayout());
+        obtainParts("Sto scaricando i dati...");
         JButton btn = new JButton("Ok");
-        panel.add(sp);
-        c.setLayout(new BorderLayout());
-        c.add(sp, BorderLayout.CENTER);
-        c.add(btn, BorderLayout.SOUTH);
+        bckg.add(btn, BorderLayout.SOUTH);
+        c.add(bckg);
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        pack();
-        setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
-        setVisible(true);
-
-        btn.addActionListener(e -> {
-            ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            ins.setEnabled(true);
-            CompList.super.dispose();
-        });
+        btn.addActionListener(e -> dispose());
 
         addWindowListener(new WindowListener() {
             @Override
@@ -68,8 +47,11 @@ public class CompList extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                ins.setEnabled(true);
+                ins.setLocationRelativeTo(CompList.this);
+                ins.setVisible(true);
+                ins.toFront();
+                ins.requestFocus();
+
             }
 
             @Override
@@ -88,5 +70,71 @@ public class CompList extends JFrame {
             public void windowDeactivated(WindowEvent e) {
             }
         });
+
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        setSize(600, 400);
+        setLocationRelativeTo(ins);
+        setVisible(true);
+    }
+
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista è avvenuta correttamente
+     *
+     * @param arr
+     */
+    public void successList(ArrayList<AbstractComponent> arr) {
+        Object[][] obj = getObjects(arr);
+        JTable table = createTable(obj);
+        pane = new JScrollPane(table);
+        bckg.remove(loadingPanel);
+        bckg.add(pane, BorderLayout.CENTER);
+        bckg.revalidate();
+    }
+
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista non è avvenuta correttamente
+     */
+    public void failureList() {
+        JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
+        dispose();
+    }
+
+    //Funzione che ottiene i componenti e che fa partire il ThreadList
+    private void obtainParts(String str) {
+        loadTime(str);
+        go.getListComponents();
+    }
+
+    private Object[][] getObjects(ArrayList<AbstractComponent> comp) {
+        return super.getObjectFromComps(comp);
+    }
+
+    private JTable createTable(Object[][] data) {
+        DefaultTableModel dm = new DefaultTableModel();
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+
+        dm.setDataVector(data, column);
+        JTable table = new JTable(dm);
+
+        int[] dim = {40, 55, 250, 80, 70};
+        for (int i = 0; i < dim.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
+        }
+
+        //table.setAutoCreateRowSorter(true);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(20);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+    private void loadTime(String str) {
+        if (pane != null) bckg.remove(pane);
+        super.loading(str);
     }
 }

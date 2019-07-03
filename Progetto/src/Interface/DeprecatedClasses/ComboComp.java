@@ -1,9 +1,8 @@
 package Interface.DeprecatedClasses;
 
-import javax.swing.*;
-
 import Components.AbstractComponent;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class ComboComp extends JComboBox {

@@ -1,11 +1,11 @@
 package Gestione;
 
-import Components.*;
-import Constraints.NumericalConstraint;
+import Components.AbstractComponent;
+import Components.PCParts;
 import Constraints.OtherConstraint;
 import Constraints.Warning;
-import InterfacingDB.PCParts;
-import Resources.*;
+import Resources.Resource;
+import Resources.SommatoreRes;
 
 import java.util.ArrayList;
 
@@ -35,8 +35,6 @@ public class SelectedComponents {
         if (OtherConstraint.check(ac, this)) {
             sc.add(ac);
             w.check(this);
-            System.err.println(NumericalConstraint.check2(this));
-            System.err.println(w.getInfo());
         }
 
     }
@@ -76,13 +74,17 @@ public class SelectedComponents {
     }
 
     // TODO: implementare metodo getWatt()
-    /*public int getTotWatt() {
+    // NON è QUELLO GIUSTO
+    public int getTotWatt() {
         int temp = 0;
-        for(AbstractComponent ac : sc) {
-            temp += ac.getWatt();
+        for (Resource r : getRes()) {
+            if (r.getPower() < 0) {
+                temp += Math.abs(r.getPower());
+            }
         }
         return temp;
-    }*/
+        //
+    }
 
     public Resource getTotRes() {
         return SommatoreRes.sum(this.getRes());
@@ -112,7 +114,7 @@ public class SelectedComponents {
         return s.toString();
     }
 
-    public int getPower(){
+    public int getPower() {
         return getTotRes().getPower();
     }
 

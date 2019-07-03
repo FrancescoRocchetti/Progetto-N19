@@ -1,96 +1,59 @@
 package Interface;
 
 import Components.AbstractComponent;
-import InterfacingDB.PCParts;
+import Gestione.GestoreOperazioni;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Remove extends JFrame {
+/**
+ * Interfaccia usata per rimuovere i componenti
+ * dall'inventario
+ *
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ */
+
+public class Remove extends AbstractInterface {
     private Container c;
-    private JPanel bckg;
-    private JPanel btnPanel;
     private JPanel choosePanel;
-    private JPanel comboBoxPanel;
-    private JButton caseButton;
-    private JButton cooler;
-    private JButton cpu;
-    private JButton gpu;
-    private JButton mobo;
-    private JButton os;
-    private JButton psu;
-    private JButton ram;
-    private JButton storage;
-    private JButton other;
-    private JButton[] btnArray;
-    private JComboBox comp;
-    private JComboBox qta;
     private JButton rmv;
-    private String s = "";
-    private boolean found;
-    private int qtaToRmv = 0;
     private GestoreOperazioni go;
+    private JButton close;
+    private JPanel southPanel;
+    private JScrollPane tablePane;
+
+    private int[] rowRmv;
+    private int[] idRmv;
 
 
-    public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) throws SQLException {
+    public Remove(InserimentoSpecifiche ins, GestoreOperazioni go) {
         super("Remove component");
-        ins.setEnabled(false);
-        ins.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        ins.setVisible(false);
         this.go = go;
-        c = getContentPane();
+        this.go.setRemoveMode(this);
+        JLabel label = new JLabel("Seleziona il/i componente/i da rimuovere");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         bckg = new JPanel(new BorderLayout());
-        btnPanel = new JPanel(new GridLayout(2, 5));
+        obtainParts("Sto scaricando i dati...");
+        c = getContentPane();
         choosePanel = new JPanel(new BorderLayout());
-        comboBoxPanel = new JPanel(new GridLayout(3, 1));
-        caseButton = new JButton("CASE");
-        cooler = new JButton("Cooler");
-        cpu = new JButton("CPU");
-        gpu = new JButton("GPU");
-        mobo = new JButton("MOBO");
-        os = new JButton("OS");
-        psu = new JButton("PSU");
-        ram = new JButton("RAM");
-        storage = new JButton("STORAGE");
-        other = new JButton("Altro");
-        btnArray = new JButton[]{caseButton, cooler, cpu, gpu, mobo, psu, ram, storage, os, other};
-        comp = new JComboBox();
-        comp.addItem("No item selected...");
-        qta = new JComboBox();
         rmv = new JButton("Remove");
+        close = new JButton("Close");
+        southPanel = new JPanel(new GridLayout(1, 2));
         rmv.setEnabled(false);
-
-        addItemToRmv(comp);
-
-        rmv.addActionListener(e -> {
-            String item;
-            String[] cod;
-            int rmCod;
-            int qtaRmv;
-            item = (String) comp.getSelectedItem();
-            cod = item.split(" ");
-            rmCod = Integer.parseInt(String.valueOf(cod[0]));
-            qtaRmv = (int) qta.getSelectedItem();
-            if (!go.updateComponent(rmCod, -qtaRmv)) {
-                JOptionPane.showMessageDialog(null, "Componente inesistente\no errore di accesso al DB", "Errore", JOptionPane.ERROR_MESSAGE);
-            } else
-                JOptionPane.showMessageDialog(null, "Quantità aggiornata", "Aggiunto", JOptionPane.INFORMATION_MESSAGE);
-        });
-
-        comp.addActionListener(e -> {
-            if (comp.getSelectedItem() != null) {
-                qta.removeAllItems();
-                String item = (String) comp.getSelectedItem();
-                String[] id;
-                id = item.split(" ");
-                qtaToRmv = go.getQuantityByID(Integer.parseInt(id[0]));
-                for (int i = 1; i <= qtaToRmv; i++)
-                    qta.addItem(i);
-            }
-        });
+        southPanel.add(rmv);
+        southPanel.add(close);
+        choosePanel.add(southPanel, BorderLayout.SOUTH);
+        bckg.add(label, BorderLayout.NORTH);
+        bckg.add(choosePanel, BorderLayout.SOUTH);
+        c.add(bckg);
 
         addWindowListener(new WindowListener() {
             @Override
@@ -103,8 +66,10 @@ public class Remove extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                ins.setEnabled(true);
-                ins.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                ins.setLocationRelativeTo(Remove.this);
+                ins.setVisible(true);
+                ins.toFront();
+                ins.requestFocus();
             }
 
             @Override
@@ -124,51 +89,138 @@ public class Remove extends JFrame {
             }
         });
 
-        comboBoxPanel.add(comp);
-        comboBoxPanel.add(new JLabel("Pieces to remove:"));
-        comboBoxPanel.add(qta);
+        //ActionListener che fa eliminare un componente e che fa partire ThreadRemove
+        rmv.addActionListener(e -> {
+            loadTime("Sto rimuovendo il/i componente/i selezionato/i...");
+            rmv.setEnabled(false);
+            close.setEnabled(false);
+            go.remove(idRmv);
+        });
 
-        choosePanel.add(comboBoxPanel, BorderLayout.CENTER);
-        choosePanel.add(rmv, BorderLayout.SOUTH);
-
-        bckg.add(btnPanel, BorderLayout.CENTER);
-        bckg.add(choosePanel, BorderLayout.SOUTH);
-        c.add(bckg);
+        close.addActionListener(e -> dispose());
 
         setResizable(false);
-        //setSize(300,300);
-        pack();
-        setLocationRelativeTo(null);
+        setSize(600, 400);
+        setLocationRelativeTo(ins);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
-    /*public static void main(String[] args) throws SQLException {
-        Remove remove = new Remove();
-    }*/
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la rimozione col ThreadRemove è avvenuta correttamente
+     */
+    public void successRemove() {
+        JOptionPane.showMessageDialog(this, "Componente/i rimosso/i", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        reload();
+    }
 
-    public void addItemToRmv(JComboBox c) {
-        for (JButton b : btnArray) {
-            b.setMargin(new Insets(10, 10, 10, 10));
-            btnPanel.add(b);
-            b.addActionListener(e -> {
-                ArrayList<AbstractComponent> str = go.getComponentsFromDB(PCParts.valueOf(b.getText().toUpperCase()));
-                c.removeAllItems();
-                found = false;
-                for (AbstractComponent x : str) {
-                    s = x.getID() + " " + x.getType() + " " + x.getName() + " " + x.getPrice() + " " + x.getQuantity() + "\n";
-                    //if(x.getType().equals(b.getText().toUpperCase())) {
-                    c.addItem(s);
-                    found = true;
-                    //}
-                    //s = "";
-                }
-                rmv.setEnabled(found);
-                if (!found) {
-                    qta.removeAllItems();
-                    JOptionPane.showMessageDialog(null, "No items for " + b.getText().toUpperCase(), "No items found", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la rimozione col ThreadRemove non è avvenuta correttamente
+     */
+    public void failureRemove() {
+        JOptionPane.showMessageDialog(this, "Errore nella rimozione", "Fallito", JOptionPane.ERROR_MESSAGE);
+        reload();
+    }
+
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista col ThreadList è avvenuta correttamente
+     */
+    public void successList(ArrayList<AbstractComponent> arr) {
+        Object[][] obj = getObject(arr);
+        JTable table = createTable(obj);
+        tablePane = new JScrollPane(table);
+        bckg.remove(loadingPanel);
+        bckg.add(tablePane, BorderLayout.CENTER);
+        bckg.revalidate();
+    }
+
+    /**
+     * Funzione che viene richiamata da GestoreOperazioni quando
+     * la generazione della lista col ThreadList non è avvenuta correttamente
+     */
+    public void failureList() {
+        JOptionPane.showMessageDialog(this, "Errore acquisizione dati", "Fallito", JOptionPane.ERROR_MESSAGE);
+        dispose();
+    }
+
+    //Funzione che ottiene i componenti e che fa partire il ThreadList
+    private void obtainParts(String str) {
+        loadTime(str);
+        go.getListComponents();
+    }
+
+    private Object[][] getObject(ArrayList<AbstractComponent> comp) {
+        return super.getObjectFromComps(comp);
+    }
+
+    private JTable createTable(Object[][] data) {
+        DefaultTableModel dm = new DefaultTableModel();
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+
+        dm.setDataVector(data, column);
+        JTable table = new JTable(dm);
+        addListTableMouseListener(table);
+
+        int[] dim = {40, 55, 250, 80, 70};
+        for (int i = 0; i < dim.length; i++) {
+            table.getColumnModel().getColumn(i).setPreferredWidth(dim[i]);
+            table.getColumnModel().getColumn(i).setResizable(false);
         }
+
+        //table.setAutoCreateRowSorter(true);
+        table.getTableHeader().setReorderingAllowed(false);
+        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setRowHeight(20);
+        table.setDefaultEditor(Object.class, null);
+        return table;
+    }
+
+    private void addListTableMouseListener(JTable table) {
+        table.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                rowRmv = ((JTable) e.getSource()).getSelectedRows();
+                if (rowRmv.length != 0) {
+                    rmv.setEnabled(true);
+                    idRmv = new int[rowRmv.length];
+                    for (int i = 0; i < rowRmv.length; i++)
+                        idRmv[i] = (int) ((JTable) e.getSource()).getValueAt(rowRmv[i], 0);
+                } else {
+                    rmv.setEnabled(false);
+                    idRmv = null;
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
+
+    private void loadTime(String str) {
+        if (tablePane != null) bckg.remove(tablePane);
+        super.loading(str);
+    }
+
+    private void reload() {
+        bckg.remove(loadingPanel);
+        close.setEnabled(true);
+        obtainParts("Sto scaricando i dati...");
     }
 }
