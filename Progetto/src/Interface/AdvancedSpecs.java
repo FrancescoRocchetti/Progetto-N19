@@ -259,10 +259,10 @@ public class AdvancedSpecs extends JFrame {
         nome = new JLabel("Name:");
         name = new JTextField();
         JLabel capacity = new JLabel("Capacità GB:");
-        DoubleSpinner cap = new DoubleSpinner(4, 0, 16);
+        DoubleSpinner cap = new DoubleSpinner(4, 0, 512);
         setSpinnerNotWritable(cap);
         watt = new JLabel("TDP:");
-        SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, 350, 5);
+        SpinnerNumberModel spinnerWattModel = new SpinnerNumberModel(50, 0, null, 5);
         power = initializeSpinner(spinnerWattModel);
 
         Component[] cmp = {nome, name, capacity, cap, watt, power};
