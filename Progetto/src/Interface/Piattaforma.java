@@ -403,7 +403,7 @@ public class Piattaforma extends AbstractInterface {
     private JTable createTable(ArrayList<AbstractComponent> arr) {
         DefaultTableModel dm = new DefaultTableModel();
         Object[][] data = new Object[arr.size()][];
-        String[] column = {"ID", "NOME", "QUANTIA", "PREZZO", "RANKING"};
+        String[] column = {"ID", "NOME", "QUANTITÀ", "PREZZO", "RANKING"};
 
         for (int i = 0; i < arr.size(); i++) {
             data[i] = new Object[COLUMNS];
