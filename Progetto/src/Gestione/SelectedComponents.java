@@ -73,7 +73,7 @@ public class SelectedComponents {
         return temp;
     }
 
-    // TODO: implementare metodo getWatt()
+
     // NON è QUELLO GIUSTO
     public int getTotWatt() {
         int temp = 0;
@@ -92,7 +92,7 @@ public class SelectedComponents {
 
     public AbstractComponent getType(PCParts comp) {
 
-        //restituisco solo un componente (dovrebbe essere abbastanza)
+        //restituisco solo un componente
 
         AbstractComponent temp = null;
 

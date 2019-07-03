@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class OtherConstraint {
 
     /**
-     * la sequenza di utilizzo delle classi vincolo è la seguente:
+     * La sequenza di utilizzo delle classi vincolo è la seguente:
      * Adaptibilty è chiamata su vettori di componenti provenienti dal DB per scartare
      * componenti non "utilizzabili".
      * ALTRO impedisce l'aggiunta di componenti in sovrannumero (es. 2 cpu)
@@ -44,7 +44,7 @@ public class OtherConstraint {
     private static boolean difCheck(AbstractComponent ac, SelectedComponents sc) {
         /*in questo metodo controllo se risorse che precedentemente avevano valore
          * strettamente positivo diventano < 0 */
-        /*questa gestione dei vicoli è comunque dipendente dall'ordine di selezione dei
+        /*questa gestione dei vincoli è comunque dipendente dall'ordine di selezione dei
          * componenti per esempio se gli ssd venono scelti prima della MOBO il metodo
          * di vincolo è inefficace nel trovare l'errore; possbile soluzione può essere trasferire
          * il controllo alla fine della build e utilizzare questa classe solo per

@@ -25,7 +25,7 @@ public class NumericalConstraint implements AbstractConstraint {
     }
 
     /**
-     * controllo il wattaggio del sistema
+     * Controllo il wattaggio del sistema
      *
      * @param sc
      * @return

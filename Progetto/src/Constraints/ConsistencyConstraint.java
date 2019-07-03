@@ -14,7 +14,7 @@ public class ConsistencyConstraint implements AbstractConstraint {
 
 
     /**
-     * verifica la completezza di una build
+     * Verifica la completezza di una build
      *
      * @param sc componenti selezionati
      * @return

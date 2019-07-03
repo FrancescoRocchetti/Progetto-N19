@@ -25,8 +25,8 @@ public class Warning {
     }
 
     /**
-     * controllo della lista dei componenti selezionati per errori
-     * questi errori sono causati da una selezione disordinata dei componenti
+     * Controllo della lista dei componenti selezionati per errori.
+     * Questi errori sono causati da una selezione disordinata dei componenti.
      * Per esempio selezionare lo storage prima del case può portare
      * a non avere lo spazio materiale per inserirli tutti
      *
