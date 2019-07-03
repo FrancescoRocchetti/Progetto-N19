@@ -39,7 +39,7 @@ public class ABuild {
      */
     private PCParts[] lista = {PCParts.MOBO, PCParts.CPU, PCParts.RAM,
             PCParts.PSU, PCParts.STORAGE, PCParts.CASE};
-    private double[] costi = {0.1, 0.25, 0.1, 0.1, 0.1, 0.1};
+    private double[] costi = {0.1, 0.3, 0.1, 0.1, 0.1, 0.1};
 
 
     public ABuild(int maxCost) {
@@ -91,7 +91,7 @@ public class ABuild {
             AbstractComponent temp = find(PCParts.COOLER, (int) (cCooler * (double) budget));
             if (temp != null) {
                 sc.addCList(temp);
-            } else {
+            } else if(!sc.getTotRes().isOkCoolerI()){
                 allOk = false;
                 System.err.println("COOLER");
             }
@@ -148,7 +148,7 @@ public class ABuild {
         ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p), sc);
         ArrayList<AbstractComponent> seg = new ArrayList<>();
         for (AbstractComponent ac : temp) {
-            if (ac.getPrice() < (int) (1.15 * c)) {
+            if (ac.getPrice() < (int) (1 * c)) {
                 seg.add(ac);
                 //System.err.println("x"+ac);
             }
