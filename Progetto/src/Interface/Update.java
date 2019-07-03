@@ -76,8 +76,8 @@ public class Update extends AbstractInterface {
         btnPanel.add(close);
         southPanel.add(btnPanel, BorderLayout.SOUTH);
         fieldPanel.add(new JLabel("Quantità"));
-        fieldPanel.add(spinnerQuantity);
         fieldPanel.add(new JLabel("Prezzo"));
+        fieldPanel.add(spinnerQuantity);
         fieldPanel.add(spinnerPrice);
         southPanel.add(fieldPanel, BorderLayout.NORTH);
         choosePanel.add(southPanel, BorderLayout.SOUTH);
