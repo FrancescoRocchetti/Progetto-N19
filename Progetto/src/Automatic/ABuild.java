@@ -128,9 +128,9 @@ public class ABuild {
         //System.err.println(temp);
 
         if (temp.size() > 0) {
-            for (AbstractComponent ac : temp) {
-                if (superCheck(ac))
-                    return ac;
+            for (int i=temp.size()-1;i>=0;i--) {
+                if (superCheck(temp.get(i)))
+                    return temp.get(i);
             }
         }
         return null;
@@ -148,7 +148,7 @@ public class ABuild {
         ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p), sc);
         ArrayList<AbstractComponent> seg = new ArrayList<>();
         for (AbstractComponent ac : temp) {
-            if (ac.getPrice() < (int) (1.2 * c)) {
+            if (ac.getPrice() < (int) (1.15 * c)) {
                 seg.add(ac);
                 //System.err.println("x"+ac);
             }

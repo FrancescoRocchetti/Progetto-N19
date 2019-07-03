@@ -22,6 +22,10 @@ public class AdaptabilityConstraint implements AbstractConstraint {
         //return true;
     }
 
+    private static boolean checkPSU(SelectedComponents sc, PSU p){
+        return (Math.abs(sc.getTotRes().getPower())<p.getResource().getPower());
+    }
+
     private static boolean checkCPUCOOLER(CPU m, COOLER c) {
 
         return m == null || c == null
@@ -104,6 +108,10 @@ public class AdaptabilityConstraint implements AbstractConstraint {
 
             } else if (ac.getResource().getnBit() != 0) {
                 if (checkCPUOS((CPU) sc.getType(PCParts.CPU), (OS) ac)) {
+                    ao.add(ac);
+                }
+            } else if (ac.getResource().isOkPSU()) {
+                if (checkPSU(sc, (PSU) ac)) {
                     ao.add(ac);
                 }
 

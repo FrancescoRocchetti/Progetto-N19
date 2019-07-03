@@ -26,6 +26,7 @@ public class Update extends AbstractInterface {
     private JPanel choosePanel;
     private JPanel panelQuantity;
     private JPanel panelPrice;
+    private JPanel panelRank;
     private JButton updateQuantity;
     private JButton updatePrice;
     private GestoreOperazioni go;
@@ -51,6 +52,8 @@ public class Update extends AbstractInterface {
         panelQuantity.setBorder(new TitledBorder("Quantità"));
         panelPrice = new JPanel(new GridLayout());
         panelPrice.setBorder(new TitledBorder("Prezzo"));
+        panelRank = new JPanel(new GridLayout());
+        panelRank.setBorder(new TitledBorder("Valutazione"));
         JLabel label = new JLabel("Seleziona il/i componente/i da aggiornare");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         bckg = new JPanel(new BorderLayout());
@@ -73,8 +76,8 @@ public class Update extends AbstractInterface {
         btnPanel.add(close);
         southPanel.add(btnPanel, BorderLayout.SOUTH);
         fieldPanel.add(new JLabel("Quantità"));
-        fieldPanel.add(new JLabel("Prezzo"));
         fieldPanel.add(spinnerQuantity);
+        fieldPanel.add(new JLabel("Prezzo"));
         fieldPanel.add(spinnerPrice);
         southPanel.add(fieldPanel, BorderLayout.NORTH);
         choosePanel.add(southPanel, BorderLayout.SOUTH);
