@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"Automatic"},{"l":"Components"},{"l":"Constraints"},{"l":"Gestione"},{"l":"Gestione.Test"},{"l":"Interface"},{"l":"InterfacingDB"},{"l":"InterfacingDB.SHA256Encoding"},{"l":"InterfacingDB.Test"},{"l":"Resources"}]
