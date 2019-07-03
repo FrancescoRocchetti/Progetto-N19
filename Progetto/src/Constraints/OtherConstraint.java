@@ -8,7 +8,12 @@ import Resources.SommatoreRes;
 import java.util.ArrayList;
 
 /**
+ *
+ * check che evita di avere componenti in sovrannumero
+ * (per esempio avere troppi HDD per il numero di porte sata disponibili)
+ *
  * @author Francesco Rocchetti
+ *
  */
 public class OtherConstraint {
 
@@ -46,9 +51,7 @@ public class OtherConstraint {
          * strettamente positivo diventano < 0 */
         /*questa gestione dei vincoli è comunque dipendente dall'ordine di selezione dei
          * componenti per esempio se gli ssd venono scelti prima della MOBO il metodo
-         * di vincolo è inefficace nel trovare l'errore; possbile soluzione può essere trasferire
-         * il controllo alla fine della build e utilizzare questa classe solo per
-         * i warning */
+         * di vincolo è inefficace nel trovare l'errore;
         /*questo metodo inoltre impedisce l'inserimento di cpu(o mobo o psu o case)
          in sovrannumero*/
 

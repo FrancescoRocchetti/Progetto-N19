@@ -5,13 +5,15 @@ import Resources.Resource;
 import Resources.SommatoreRes;
 
 /**
+ * questi sono i vincoli richiamati quando si vuole ultimare una configurazione.
+ * Viene controllato che i pezzi selezionanti possano comporre un PC intero
+ *
  * @author Francesco Rocchetti
+ *
+ *
  */
 
-public class ConsistencyConstraint implements AbstractConstraint {
-
-    //questi sono i vincoli richiamati quando si vuole ultimare una configurazione
-
+public class ConsistencyConstraint {
 
     /**
      * Verifica la completezza di una build

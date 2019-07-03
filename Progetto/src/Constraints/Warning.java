@@ -6,6 +6,7 @@ import Resources.Resource;
 import java.util.ArrayList;
 
 /**
+ * check speculare a OtherConstraint nel caso di ordine di selezione invertito
  * @author Francesco Rocchetti
  */
 public class Warning {

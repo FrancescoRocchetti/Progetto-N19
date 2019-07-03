@@ -9,7 +9,15 @@ import Resources.SommatoreRes;
 
 import java.util.ArrayList;
 
-//classe che gestisce i componenti già scelti
+/**
+ * Classe che contiene i componenti già selezionati
+ *
+ * @author Francesco Rocchetti
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ *
+ */
 public class SelectedComponents {
     private ArrayList<AbstractComponent> sc;
     private Warning w;
@@ -74,7 +82,6 @@ public class SelectedComponents {
     }
 
 
-    // NON è QUELLO GIUSTO
     public int getTotWatt() {
         int temp = 0;
         for (Resource r : getRes()) {
@@ -92,7 +99,7 @@ public class SelectedComponents {
 
     public AbstractComponent getType(PCParts comp) {
 
-        //restituisco solo un componente
+        //restituisco solo un componente (dovrebbe essere abbastanza)
 
         AbstractComponent temp = null;
 
