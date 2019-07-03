@@ -29,13 +29,11 @@ public class Update extends AbstractInterface {
     private JPanel panelRank;
     private JButton updateQuantity;
     private JButton updatePrice;
-    private JButton updateRank;
     private GestoreOperazioni go;
     private JButton close;
     private JPanel southPanel;
     private JSpinner spinnerQuantity;
     private JSpinner spinnerPrice;
-    private JSpinner spinnerRank;
     private JScrollPane tablePane;
     private JPanel btnPanel;
     private JPanel fieldPanel;
@@ -50,7 +48,6 @@ public class Update extends AbstractInterface {
         this.go.setUpdateMode(this);
         spinnerQuantity = initializeSpinner(0);
         spinnerPrice = initializeSpinner(1);
-        spinnerRank = initializeSpinner(1);
         panelQuantity = new JPanel(new GridLayout());
         panelQuantity.setBorder(new TitledBorder("Quantità"));
         panelPrice = new JPanel(new GridLayout());
@@ -65,11 +62,10 @@ public class Update extends AbstractInterface {
         choosePanel = new JPanel(new BorderLayout());
         updateQuantity = new JButton("Update quantity");
         updatePrice = new JButton("Update price");
-        updateRank = new JButton("Update rank");
         close = new JButton("Close");
         southPanel = new JPanel(new BorderLayout());
-        btnPanel = new JPanel(new GridLayout(1, 4));
-        fieldPanel = new JPanel(new GridLayout(3, 3));
+        btnPanel = new JPanel(new GridLayout(1, 3));
+        fieldPanel = new JPanel(new GridLayout(2, 2));
         updateQuantity.setEnabled(false);
         updatePrice.setEnabled(false);
 
@@ -77,15 +73,12 @@ public class Update extends AbstractInterface {
         panelPrice.add(spinnerPrice);
         btnPanel.add(updateQuantity);
         btnPanel.add(updatePrice);
-        btnPanel.add(updateRank);
         btnPanel.add(close);
         southPanel.add(btnPanel, BorderLayout.SOUTH);
         fieldPanel.add(new JLabel("Quantità"));
         fieldPanel.add(spinnerQuantity);
         fieldPanel.add(new JLabel("Prezzo"));
         fieldPanel.add(spinnerPrice);
-        fieldPanel.add(new JLabel("Valutazione"));
-        fieldPanel.add(spinnerRank);
         southPanel.add(fieldPanel, BorderLayout.NORTH);
         choosePanel.add(southPanel, BorderLayout.SOUTH);
         bckg.add(label, BorderLayout.NORTH);
@@ -143,10 +136,6 @@ public class Update extends AbstractInterface {
             updatePrice.setEnabled(false);
             close.setEnabled(false);
             go.updatePrice(idAdd, price);
-        });
-
-        updateRank.addActionListener(e -> {
-
         });
 
         close.addActionListener(e -> dispose());
