@@ -7,9 +7,11 @@ import Resources.Resource;
 import java.util.ArrayList;
 
 /**
+ * check per il controllo della potenza disponibile
  * @author Francesco Rocchetti
+ *
  */
-public class NumericalConstraint implements AbstractConstraint {
+public class NumericalConstraint {
 
     //vecchio metod
     private static boolean checkPOWER(SelectedComponents sc) {
@@ -25,7 +27,7 @@ public class NumericalConstraint implements AbstractConstraint {
     }
 
     /**
-     * controllo il wattaggio del sistema
+     * Controllo il wattaggio del sistema
      *
      * @param sc
      * @return

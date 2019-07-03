@@ -56,7 +56,7 @@ public abstract class AbstractComponent implements Comparable {
     @Override
     public int compareTo(Object o) {
         AbstractComponent c = (AbstractComponent) o;
-        return (int) (((double) this.performance * (double)this.price)*1000 - ((double) c.getPerformance() * (double)c.getPrice())*1000);
+        return (int) (((double) this.performance * (double)this.price) - ((double) c.getPerformance() * (double)c.getPrice()));
     }
 
     public String getType() {

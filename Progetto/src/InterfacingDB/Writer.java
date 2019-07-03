@@ -32,8 +32,7 @@ public class Writer {
      * @param r:    rank del componente
      * @return true se l'inserimento è andato a buon fine,
      * altrimenti false
-     * @throws SQLException: inserimento andato a male
-     */
+     * */
     public boolean write(PCParts part, String d, int q, int p, int r) {
         try {
 
@@ -71,7 +70,6 @@ public class Writer {
      * @param cod: codice prodotto
      * @return true se la rimozione è andata a buon fine,
      * altrimenti false
-     * @throws SQLException: rimozione andata a male
      */
     public boolean remove(int cod) {
         try {
@@ -95,15 +93,14 @@ public class Writer {
      * Aggiorna la quantità dei componenti nel DB
      *
      * @param cod:     codice prodotto
-     * @param quantità
+     * @param quantita
      * @return true se l'aggiornamento è andato a buon fine,
      * altrimenti false
-     * @throws SQLException: aggiornamento andato a male
      */
-    public boolean updateQuantity(int cod, int quantità) {
+    public boolean updateQuantity(int cod, int quantita) {
         try {
             conn = DriverManager.getConnection(url, user, password);
-            String query = "UPDATE INVENTARIO SET QUANTITA = " + quantità + " WHERE CODICE = ?;";
+            String query = "UPDATE INVENTARIO SET QUANTITA = " + quantita + " WHERE CODICE = ?;";
 
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1, cod);
@@ -125,7 +122,6 @@ public class Writer {
      * @param price
      * @return true se l'aggiornamento è andato a buon fine,
      * altrimenti false
-     * @throws SQLException: aggiornamento andato a male
      */
     public boolean updatePrice(int cod, int price) {
         try {
@@ -151,7 +147,6 @@ public class Writer {
      * @param cod: codice prodotto
      * @return true se l'acquisto è andato a buon fine,
      * altrimenti false
-     * @throws SQLException: acquisto andato a male
      */
     public boolean buy(int cod) {
         try {
@@ -181,8 +176,6 @@ public class Writer {
     /**
      * Consente di forzare la chiusura della connessione in caso di errore
      * durante la comunicazione
-     *
-     * @throws SQLException: vuol dire che la connessione è già terminata
      */
     public void forceClose() {
         try {

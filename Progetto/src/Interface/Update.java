@@ -76,8 +76,8 @@ public class Update extends AbstractInterface {
         btnPanel.add(close);
         southPanel.add(btnPanel, BorderLayout.SOUTH);
         fieldPanel.add(new JLabel("Quantità"));
-        fieldPanel.add(spinnerQuantity);
         fieldPanel.add(new JLabel("Prezzo"));
+        fieldPanel.add(spinnerQuantity);
         fieldPanel.add(spinnerPrice);
         southPanel.add(fieldPanel, BorderLayout.NORTH);
         choosePanel.add(southPanel, BorderLayout.SOUTH);
@@ -205,7 +205,7 @@ public class Update extends AbstractInterface {
 
     private JTable createTable(Object[][] data) {
         DefaultTableModel dm = new DefaultTableModel();
-        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITA", "PREZZO"};
 
         dm.setDataVector(data, column);
         JTable table = new JTable(dm);

@@ -38,7 +38,7 @@ public class CPU extends AbstractComponent {
         return thread;
     }
 
-    //TODO: metodi delle risorse
+
 
     /*@Override
     public int compareTo(Object o) {

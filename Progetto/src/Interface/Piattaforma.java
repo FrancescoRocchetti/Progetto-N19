@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Interfaccia principale che ti permette di scegliere i componenti
+ * Interfaccia principale che permette di scegliere i componenti
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
@@ -403,7 +403,7 @@ public class Piattaforma extends AbstractInterface {
     private JTable createTable(ArrayList<AbstractComponent> arr) {
         DefaultTableModel dm = new DefaultTableModel();
         Object[][] data = new Object[arr.size()][];
-        String[] column = {"ID", "NOME", "QUANTITÁ", "PREZZO", "RANKING"};
+        String[] column = {"ID", "NOME", "QUANTIA", "PREZZO", "RANKING"};
 
         for (int i = 0; i < arr.size(); i++) {
             data[i] = new Object[COLUMNS];

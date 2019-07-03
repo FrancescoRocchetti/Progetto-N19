@@ -9,7 +9,15 @@ import Resources.SommatoreRes;
 
 import java.util.ArrayList;
 
-//classe che gestisce i componenti già scelti
+/**
+ * Classe che contiene i componenti già selezionati
+ *
+ * @author Francesco Rocchetti
+ * @author Matteo Lucchini
+ * @author Fabio Riganti
+ *
+ *
+ */
 public class SelectedComponents {
     private ArrayList<AbstractComponent> sc;
     private Warning w;
@@ -73,8 +81,7 @@ public class SelectedComponents {
         return temp;
     }
 
-    // TODO: implementare metodo getWatt()
-    // NON è QUELLO GIUSTO
+
     public int getTotWatt() {
         int temp = 0;
         for (Resource r : getRes()) {

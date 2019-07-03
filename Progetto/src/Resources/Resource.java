@@ -1,6 +1,11 @@
 package Resources;
 
-//LA CLASSE E' ANCORA INCOMPLETA
+/**
+ * Le "risorse" sono le caratteristiche di un componente utilizzate per verificare
+ * la compatibilità tra le diverse componenti
+ *
+ * @author Francesco Rocchetti
+ */
 public class Resource {
     private String typeSocket;
     private String dimensionCase;

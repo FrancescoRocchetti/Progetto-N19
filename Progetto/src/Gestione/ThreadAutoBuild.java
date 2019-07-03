@@ -3,7 +3,11 @@ package Gestione;
 import Automatic.ABuild;
 import InterfacingDB.CheckInternet;
 
-
+/**
+ * Thread usato per effettuare l'autobuild della configurazione
+ *
+ * @author Fabio Riganti
+ */
 public class ThreadAutoBuild extends Thread {
     private ObserverGS gs;
     private boolean accept;

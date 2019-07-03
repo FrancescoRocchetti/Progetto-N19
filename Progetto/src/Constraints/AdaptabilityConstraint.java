@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * questa classe controlla i componenti in arrivo dal DB e scarta i pezzi
+ * non compatibili con quelli già selezionati
+ * (per esempio quelli con socket sbagliato)
+ *
  * @author Francesco Rocchetti
+ *
  */
-
-public class AdaptabilityConstraint implements AbstractConstraint {
+public class AdaptabilityConstraint {
 
     //questi sono i vincoli applicati ai componenti che arrivano dal DB
 

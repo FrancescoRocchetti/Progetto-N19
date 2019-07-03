@@ -33,13 +33,12 @@ public class ABuild {
     private double cStorage = 0.1;
     private int sf = 1;
     /**
-     * assegno percentuali di prezzo arbitrarie ad ogni componente
+     * Assegno percentuali di prezzo arbitrarie ad ogni componente
      * <p>
-     * TODO:sistemare questo casino
      */
     private PCParts[] lista = {PCParts.MOBO, PCParts.CPU, PCParts.RAM,
             PCParts.PSU, PCParts.STORAGE, PCParts.CASE};
-    private double[] costi = {0.1, 0.25, 0.1, 0.1, 0.1, 0.1};
+    private double[] costi = {0.1, 0.3, 0.1, 0.1, 0.1, 0.1};
 
 
     public ABuild(int maxCost) {
@@ -51,7 +50,7 @@ public class ABuild {
     }
 
     /**
-     * tecnicamente per la build senza budget serve solo un secondo costruttore
+     * Tecnicamente per la build senza budget serve solo un secondo costruttore
      */
 
     public ABuild() {
@@ -91,7 +90,7 @@ public class ABuild {
             AbstractComponent temp = find(PCParts.COOLER, (int) (cCooler * (double) budget));
             if (temp != null) {
                 sc.addCList(temp);
-            } else {
+            } else if(!sc.getTotRes().isOkCoolerI()){
                 allOk = false;
                 System.err.println("COOLER");
             }
@@ -113,7 +112,7 @@ public class ABuild {
 
 
     /**
-     * scelgo la componente migliore
+     * Scelgo la componente migliore
      * <p>
      * NB: le prestazioni di un componente sono valutate come Valutazione fratto costo
      *
@@ -138,7 +137,7 @@ public class ABuild {
 
 
     /**
-     * trovo le componenti (compatibili) nel range di prezzo stabilito in precedenza
+     * Trovo le componenti (compatibili) nel range di prezzo stabilito in precedenza
      *
      * @param p tipo di componente
      * @param c costo (usato come centro dell'intorno di ricerca)
@@ -148,7 +147,7 @@ public class ABuild {
         ArrayList<AbstractComponent> temp = AdaptabilityConstraint.check(db.read(p), sc);
         ArrayList<AbstractComponent> seg = new ArrayList<>();
         for (AbstractComponent ac : temp) {
-            if (ac.getPrice() < (int) (1.15 * c)) {
+            if (ac.getPrice() < (int) (1 * c)) {
                 seg.add(ac);
                 //System.err.println("x"+ac);
             }

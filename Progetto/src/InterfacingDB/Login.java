@@ -70,8 +70,6 @@ public class Login {
     /**
      * Consente di forzare la chiusura della connessione in caso di errore
      * durante la comunicazione
-     *
-     * @throws SQLException: vuol dire che la connessione è già terminata
      */
     public void forceClose() {
         try {

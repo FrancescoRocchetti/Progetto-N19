@@ -87,7 +87,6 @@ public class Manager {
      * @param quantita
      * @param prezzo
      * @param valutazione
-     * @return true se si può inserire il componente nel DB, altrimenti falso
      */
     public void addComp(PCParts componente, String descrizione, int quantita, int prezzo, int valutazione) {
         ta.addComp(componente, descrizione, quantita, prezzo, valutazione);
