@@ -154,7 +154,9 @@ public class ABuild {
         }
         return seg;
     }
-
+    /**
+     * Controllo se esistono componenti compatibili
+     */
     public SelectedComponents getSc() {
         if (allOk)
             return sc;

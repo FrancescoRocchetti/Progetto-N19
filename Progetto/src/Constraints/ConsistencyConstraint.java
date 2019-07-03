@@ -5,7 +5,7 @@ import Resources.Resource;
 import Resources.SommatoreRes;
 
 /**
- * questi sono i vincoli richiamati quando si vuole ultimare una configurazione.
+ * Questi sono i vincoli richiamati quando si vuole ultimare una configurazione.
  * Viene controllato che i pezzi selezionanti possano comporre un PC intero
  *
  * @author Francesco Rocchetti

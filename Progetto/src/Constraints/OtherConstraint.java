@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * check che evita di avere componenti in sovrannumero
+ * Check che evita di avere componenti in sovrannumero
  * (per esempio avere troppi HDD per il numero di porte sata disponibili)
  *
  * @author Francesco Rocchetti
@@ -21,12 +21,11 @@ public class OtherConstraint {
      * La sequenza di utilizzo delle classi vincolo è la seguente:
      * Adaptibilty è chiamata su vettori di componenti provenienti dal DB per scartare
      * componenti non "utilizzabili".
-     * ALTRO impedisce l'aggiunta di componenti in sovrannumero (es. 2 cpu)
-     * Numerical esegue i conti sul Wattaggio dopo l'aggiunta di ogni componente
-     * Consistency probisce ultimazione di una build se non possiede i componenti essenziali
-     * <p>
-     * In quanto ALTRO e Numerical vengono richiamate praticamente nello stesso momento
-     * si potrebbe valutare la possibilità di inglobare una classe nell'altra, ma
+     * ALTRO impedisce l'aggiunta di componenti in sovrannumero (es. 2 cpu).
+     * Numerical esegue i conti sul Wattaggio dopo l'aggiunta di ogni componente.
+     * Consistency probisce ultimazione di una build se non possiede i componenti essenziali.
+       ALTRO e Numerical vengono richiamate praticamente nello stesso momento.
+     * Si potrebbe valutare la possibilità di inglobare una classe nell'altra, ma
      * tenendole separate si ha la possibilità di definire una classe solo per i
      * warning e una per bloccare comportamenti errati
      */

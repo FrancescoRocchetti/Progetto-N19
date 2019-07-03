@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * questa classe controlla i componenti in arrivo dal DB e scarta i pezzi
+ * Questa classe controlla i componenti in arrivo dal DB e scarta i pezzi
  * non compatibili con quelli già selezionati
  * (per esempio quelli con socket sbagliato)
  *
@@ -67,7 +67,7 @@ public class AdaptabilityConstraint {
 
 
     /**
-     * rimuove dall'arraylist in arrivo dal DB i componenti non compatibili
+     * Rimuove dall'arraylist in arrivo dal DB i componenti non compatibili
      *
      * @param al componenti in arrivo dal db
      * @param sc componeneti già selezionati

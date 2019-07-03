@@ -7,7 +7,7 @@ import Resources.Resource;
 import java.util.ArrayList;
 
 /**
- * check per il controllo della potenza disponibile
+ * Check per il controllo della potenza disponibile
  * @author Francesco Rocchetti
  *
  */
