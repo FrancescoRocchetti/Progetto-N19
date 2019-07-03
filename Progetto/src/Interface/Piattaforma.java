@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Interfaccia principale che ti permette di scegliere i componenti
+ * Interfaccia principale che permette di scegliere i componenti
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
