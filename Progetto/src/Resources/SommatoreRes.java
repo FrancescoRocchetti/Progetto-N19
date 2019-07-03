@@ -35,7 +35,6 @@ public class SommatoreRes {
                     .withNPci(temp.getnPci() + r.getnPci())
                     .withNPcie(temp.getnPcie() + r.getnPcie())
                     .withModules(temp.getModulesRAM() + r.getModulesRAM())
-                    //TODO: controllare se mancano delle risorse
                     .build();
         }
 

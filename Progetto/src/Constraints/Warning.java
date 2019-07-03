@@ -26,13 +26,13 @@ public class Warning {
     }
 
     /**
-     * controllo della lista dei componenti selezionati per errori
-     * questi errori sono causati da una selezione disordinata dei componenti
+     * Controllo della lista dei componenti selezionati per errori.
+     * Questi errori sono causati da una selezione disordinata dei componenti.
      * Per esempio selezionare lo storage prima del case può portare
      * a non avere lo spazio materiale per inserirli tutti
      *
      * @param sc componenti selezionati
-     * @return
+     * @return true se nessun errore, altrimenti false
      */
     public boolean check(SelectedComponents sc) {
         info.clear();
@@ -40,33 +40,33 @@ public class Warning {
         Resource r = sc.getTotRes();
 
         if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot350() < 0)) {
-            info.add("too many HDDs ");
+            info.add("Too many 3.5 drives");
             ok = false;
         }
 
         if ((r.isOkMOBO() && r.getnSATA() < 0) || (r.isOkCase() && r.getnSlot250() < 0)) {
-            info.add("too many SSDs ");
+            info.add("Too many 2.5 drives");
             ok = false;
         }
 
         if (r.isOkMOBO() && r.getModulesRAM() < 0) {
-            info.add("too many RAM modules ");
+            info.add("Too many RAM modules");
             ok = false;
         }
 
         if (r.isOkMOBO() && r.getnPci() < 0) {
-            info.add("too many GPUs ");
+            info.add("Too many GPUs");
             ok = false;
         }
 
         if (r.isOkPSU() && r.getPower() < 0) {
-            info.add("not enough power ");
+            info.add("Not enough power");
             ok = false;
         }
 
 
         if (info.size() == 0) {
-            info.add("NO WARNING");
+            info.add("No warning at the moment...");
         }
 
         return ok;

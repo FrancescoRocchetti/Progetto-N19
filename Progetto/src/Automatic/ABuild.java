@@ -33,9 +33,8 @@ public class ABuild {
     private double cStorage = 0.1;
     private int sf = 1;
     /**
-     * assegno percentuali di prezzo arbitrarie ad ogni componente
+     * Assegno percentuali di prezzo arbitrarie ad ogni componente
      * <p>
-     * TODO:sistemare questo casino
      */
     private PCParts[] lista = {PCParts.MOBO, PCParts.CPU, PCParts.RAM,
             PCParts.PSU, PCParts.STORAGE, PCParts.CASE};
@@ -51,7 +50,7 @@ public class ABuild {
     }
 
     /**
-     * tecnicamente per la build senza budget serve solo un secondo costruttore
+     * Tecnicamente per la build senza budget serve solo un secondo costruttore
      */
 
     public ABuild() {
@@ -113,7 +112,7 @@ public class ABuild {
 
 
     /**
-     * scelgo la componente migliore
+     * Scelgo la componente migliore
      * <p>
      * NB: le prestazioni di un componente sono valutate come Valutazione fratto costo
      *
@@ -138,7 +137,7 @@ public class ABuild {
 
 
     /**
-     * trovo le componenti (compatibili) nel range di prezzo stabilito in precedenza
+     * Trovo le componenti (compatibili) nel range di prezzo stabilito in precedenza
      *
      * @param p tipo di componente
      * @param c costo (usato come centro dell'intorno di ricerca)
