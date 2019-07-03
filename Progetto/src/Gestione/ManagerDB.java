@@ -68,12 +68,12 @@ public class ManagerDB {
      * Permette di effettuare l'aggiornamento della quantità
      *
      * @param cod
-     * @param quantità
+     * @param quantita
      * @return true se l'aggiornamento della quantità è andata a buon fine,
      * altrimenti false
      */
-    public boolean updateQuantity(int cod, int quantità) {
-        return w.updateQuantity(cod, quantità);
+    public boolean updateQuantity(int cod, int quantita) {
+        return w.updateQuantity(cod, quantita);
 
     }
 

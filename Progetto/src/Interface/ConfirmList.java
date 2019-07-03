@@ -128,7 +128,7 @@ public class ConfirmList extends AbstractInterface {
      * @return JTable
      */
     public JTable createTable() {
-        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITA", "PREZZO"};
         JTable table = new JTable(data, column);
         int[] arr = {40, 55, 250, 80, 70};
         for (int i = 0; i < 5; i++) {

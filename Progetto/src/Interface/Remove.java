@@ -158,7 +158,7 @@ public class Remove extends AbstractInterface {
 
     private JTable createTable(Object[][] data) {
         DefaultTableModel dm = new DefaultTableModel();
-        String[] column = {"ID", "TIPO", "NOME", "QUANTITÁ", "PREZZO"};
+        String[] column = {"ID", "TIPO", "NOME", "QUANTITA", "PREZZO"};
 
         dm.setDataVector(data, column);
         JTable table = new JTable(dm);
