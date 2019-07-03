@@ -1,4 +1,4 @@
-package InterfacingDB.DeprecatedClasses;
+package InterfacingDB.SHA256Encoding;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

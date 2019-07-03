@@ -1,5 +1,7 @@
-package InterfacingDB.DeprecatedClasses;
+package InterfacingDB.SHA256Encoding;
 
+
+import InterfacingDB.SHA256Encoding.Hash;
 
 public class TestSha {
     public static void main(String[] args) {
