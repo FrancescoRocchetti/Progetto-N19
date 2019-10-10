@@ -1,0 +1,6 @@
+ID;TIPO;NOME;VAL
+1;RisorsaLetterale;socket;1151
+1;RisorsaNumerica;nsocket;-1
+2;RisorsaLetterale;socket;1151
+2;RisorsaNumerica;nsocket;+1
+12;RisorsaLetterale;socket;1150
