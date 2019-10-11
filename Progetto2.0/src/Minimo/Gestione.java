@@ -41,6 +41,14 @@ public class Gestione {
         return s.printVincoli();
     }
 
+    public int printCost(){
+        return s.getTotCost();
+    }
+
+    public int printPower(){
+        return s.getPower();
+    }
+
     @Override
     public String toString() {
         String temp = "";

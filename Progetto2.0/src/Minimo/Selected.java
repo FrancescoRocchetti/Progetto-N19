@@ -1,6 +1,7 @@
 package Minimo;
 
 import java.util.ArrayList;
+import static java.lang.Math.abs;
 
 /**
  * classe della lista di componenti selezionati
@@ -25,7 +26,6 @@ public class Selected {
         return Check.c(temp);
     }
 
-
     public String printVincoli(){
         String temp = "";
         for(Componente c: alc){
@@ -35,6 +35,32 @@ public class Selected {
             temp = temp + "\n";
         }
         return temp;
+    }
+
+    public int getTotCost(){
+        int temp=0;
+
+        for(Componente c: alc){
+            temp+=c.getPrice();
+        }
+
+        return temp;
+    }
+
+    public int getPower(){
+        int temp=0;
+
+        for(Componente c: alc){
+            for(Risorsa r: c.getRisorse()){
+                if(r.getName().equalsIgnoreCase("power")){
+                    if(((RisorsaNumerica)r).getValue()<0){
+                        temp+=((RisorsaNumerica)r).getValue();
+                    }
+                }
+            }
+        }
+
+        return abs(temp);
     }
 
     public String toString() {

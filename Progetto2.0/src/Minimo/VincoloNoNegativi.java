@@ -17,6 +17,24 @@ public class VincoloNoNegativi extends Vincolo{
         ArrayList<Risorsa> rComp = findByType(alComponente, "RisorsaNumerica");
         ArrayList<ArrayList<Risorsa>> rResto = new ArrayList<>();
 
+        //questo check probabilmente è inutile
+
+        /*ArrayList<Risorsa> checkdoppi = new ArrayList<>();
+        for(Risorsa r: rComp){
+            ArrayList<Risorsa> temp = findRisorsa(rComp,r.getName());
+            if(temp.size()==1){
+                checkdoppi.add(r);
+            }
+            else{
+                int valtemp=0;
+                for(Risorsa r1: temp){
+                    valtemp+=((RisorsaNumerica) r1).getValue();
+                }
+                checkdoppi.add(new RisorsaNumerica(r.getName(),valtemp));
+            }
+        }
+        rComp = checkdoppi;*/
+
         for(Risorsa r: rComp){
             rResto.add(findByName(alResto,r.getName()));
         }

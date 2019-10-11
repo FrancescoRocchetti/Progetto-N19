@@ -17,9 +17,14 @@ public class Main {
 
         g.add(0);
         g.leggi("ram");
-        g.add(0);
+        g.add(1);
+        g.add(1);
+        g.add(1);   //questa ram non viene aggiunta perchè non ci sono abbastanza slot
+
 
         System.out.println(g.printSelected());
+        System.out.println(g.printCost()+" $");
+        System.out.println(g.printPower()+" W");
 
     }
 }

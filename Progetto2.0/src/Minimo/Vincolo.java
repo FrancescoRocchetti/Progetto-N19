@@ -16,6 +16,7 @@ public abstract class Vincolo {
         this.nomeComponente=nomeComponente;
     }
 
+    //trova le risorse con un certo nome a partire da un arraylist di componenti
     protected ArrayList<Risorsa> findByName(ArrayList<Componente> alc, String name){
         ArrayList<Risorsa> temp = new ArrayList<>();
         for(Componente c: alc){
@@ -29,6 +30,19 @@ public abstract class Vincolo {
         return temp;
     }
 
+    //trova le risorsecon un certo nome in un arraylistdi risorse
+    //TODO: rimuovere codice riciclato
+    protected ArrayList<Risorsa> findRisorsa(ArrayList<Risorsa> alr,String name){
+        ArrayList<Risorsa> temp = new ArrayList<>();
+        for(Risorsa r: alr){
+            if(r.getName().equalsIgnoreCase(name)){
+                temp.add(r);
+            }
+        }
+        return temp;
+    }
+
+    //trova le risorse di un certo tipo in un arraylist di componenti
     protected ArrayList<Risorsa> findByType(ArrayList<Componente> alc, String type){
         ArrayList<Risorsa> temp = new ArrayList<>();
         for(Componente c: alc){
