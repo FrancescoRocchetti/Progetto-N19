@@ -49,6 +49,21 @@ public class Facade {
         return true;
     }
 
+    //aggiunge un componente al DB
+    public boolean addComp(){
+        return true;
+    }
+
+    //aggiunge una caratteristica dal DB
+    public boolean addDetail(){
+        return true;
+    }
+
+    //toglie una caratteristica dal DB
+    public boolean dropDetail(){
+        return true;
+    }
+
     //rimuove componente dal DB
     public boolean dropComp(){
         return true;
@@ -59,6 +74,24 @@ public class Facade {
         return true;
     }
 
-    ////
+    //mostra i warning
+    public String getMessage(){
+        return null;
+    }
+
+    //resetta la lista dei componenti selezionati
+    public void resetSelected(){
+
+    }
+
+    //resetta la connessione al DB
+    public void resetConnection(){
+
+    }
+
+    //build automatica
+    public void automatic(){
+
+    }
 
 }

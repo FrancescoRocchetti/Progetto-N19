@@ -1,7 +1,10 @@
 package Minimo;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * questa è la classe che fa partire la verifica dei vincoli
@@ -45,4 +48,37 @@ public class Check {
         }
         return true;
     }
+
+    /**
+     * check finale per verificare se tutti i pezzi necessari sono presenti
+     */
+    public static boolean checkFinale(ArrayList<Componente> alc){
+        ArrayList<String> temp = new ArrayList<>();
+
+        for(Componente c: alc){
+            for(Risorsa r: c.getRisorse()){
+                if(r.getName().matches("ok_[A-z]*")) {
+                    temp.add(r.getName());
+                }
+            }
+        }
+
+        String[] necessari ={"ok_cpu",
+                            "ok_mobo",
+                            "ok_ram",
+                            "ok_cooler",
+                            "ok_psu",
+                            "ok_case",
+                            "ok_storage",
+                            "ok_gpu"};
+
+        ArrayList<String> temp2 = new ArrayList<>(Arrays.asList(necessari));
+
+        Collections.sort(temp);
+        Collections.sort(temp2);
+
+        return temp.equals(temp2);
+
+    }
+
 }

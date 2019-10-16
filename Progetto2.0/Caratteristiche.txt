@@ -9,3 +9,4 @@ ID;TIPO;NOME;VAL
 2;RisorsaNumerica;banchiram;+4
 3;RisorsaNumerica;banchiram;-2
 11;RisorsaNumerica;banchiram;-2
+1;RisorsaLetterale;ok_cpu;ok

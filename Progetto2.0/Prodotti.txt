@@ -9,5 +9,5 @@ ID;NOME;$;N;RATING;VINCOLO;TIPO
 8;hdd test;100;5;5;NoVincolo;storage
 9;cooler test;100;5;5;NoVincolo;cooler
 10;hdd test;100;5;5;VincoloNumerico;storage
-11;ram test;100;5;5;NoVincolo,VincoloNoNegativi;ram
+11;ram test;100;5;5;NoVincolo,VincoloNoNegativi,VincoloRamPrime;ram
 12;motherboard test non compatibile;100;5;5;NoVincolo;mobo

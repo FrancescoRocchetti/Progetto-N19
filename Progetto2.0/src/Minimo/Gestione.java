@@ -49,6 +49,10 @@ public class Gestione {
         return s.getPower();
     }
 
+    public boolean checkFinale(){
+        return s.checkFinale();
+    }
+
     @Override
     public String toString() {
         String temp = "";

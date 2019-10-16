@@ -26,6 +26,10 @@ public class Selected {
         return Check.c(temp);
     }
 
+    public boolean checkFinale(){
+        return Check.checkFinale(alc);
+    }
+
     public String printVincoli(){
         String temp = "";
         for(Componente c: alc){

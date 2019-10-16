@@ -5,12 +5,12 @@ package Minimo;
  */
 
 public enum ComponentiNecessari {
-    ok_cpu,
+    ok_cpu/*,
     ok_mobo,
     ok_ram,
     ok_cooler,
     ok_psu,
     ok_case,
     ok_storage,
-    ok_gpu
+    ok_gpu*/
 }
