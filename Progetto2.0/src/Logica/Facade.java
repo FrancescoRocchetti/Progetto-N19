@@ -4,24 +4,36 @@ import java.util.ArrayList;
 
 public class Facade {
 
+    private Gestione g;
+
+    public Facade(){
+        g = new Gestione();
+    }
+
     //mostra la lista delle componenti
-    public ArrayList<String> getListbyType(){
+    public ArrayList<String> getListbyType(String type){
+        g.leggi(type);
+        return g.getMostrati();
+    }
+
+    //mostra tutto
+    public ArrayList<String> getAll(){
         return null;
     }
 
     //mostra i componenti selezionati
     public ArrayList<String> getSelectedList(){
-        return null;
+        return g.getSelected();
     }
 
     //aggiunge un componente alla lista dei selezionati
-    public boolean selectComponent(){
-        return true;
+    public void selectComponent(int id){
+        g.aggiungi(id);
     }
 
     //rimuove un componente dalla lista dei selezionati
-    public boolean removeComponent(){
-        return true;
+    public void removeComponent(int id){
+        g.rimuovi(id);
     }
 
     //login admin
@@ -30,18 +42,18 @@ public class Facade {
     }
 
     //mostra i dettagli
-    public ArrayList<String> getDetail(){
-        return null;
+    public ArrayList<String> getDetail(int id){
+        return g.dettagli(id);
     }
 
     //mostra il prezzo totale
     public int getTotPrice(){
-        return 0;
+        return g.printCost();
     }
 
     //mostra la potenza totale
     public int getTotPower(){
-        return 0;
+        return g.printPower();
     }
 
     //fine selezione
@@ -81,7 +93,7 @@ public class Facade {
 
     //resetta la lista dei componenti selezionati
     public void resetSelected(){
-
+        g.resetS();
     }
 
     //resetta la connessione al DB

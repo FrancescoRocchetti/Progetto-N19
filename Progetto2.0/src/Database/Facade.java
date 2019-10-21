@@ -34,13 +34,18 @@ public class Facade {
         return true;
     }
 
+    //legge tutti le componenti dal DB
+    public ArrayList<String[]> readComp(){
+        return null;
+    }
+
     //legge le componenti dal DB
-    public ArrayList<String> readComp(){
+    public ArrayList<String[]> readComp(String type){
         return null;
     }
 
     //legge le caratteristiche dal DB
-    public ArrayList<String> readCaratteristiche(){
+    public ArrayList<String[]> readCaratteristiche(int i){
         return null;
     }
 

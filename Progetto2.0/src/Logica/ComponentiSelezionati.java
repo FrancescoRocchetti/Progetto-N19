@@ -23,6 +23,15 @@ public class ComponentiSelezionati {
             alc.add(c);
     }
 
+    public void remove(int i){
+        for(Componente c: alc){
+            if(c.getId() == i){
+                alc.remove(c);
+                return;
+            }
+        }
+    }
+
     private boolean check(Componente c){
         ArrayList<Componente> temp = new ArrayList<>(alc);
         temp.add(c);
@@ -70,6 +79,14 @@ public class ComponentiSelezionati {
         }
 
         return abs(temp);
+    }
+
+    public ArrayList<String> getLista(){
+        ArrayList<String> als = new ArrayList<>();
+        for(Componente c: alc){
+            als.add(c.toString());
+        }
+        return als;
     }
 
     public String toString() {

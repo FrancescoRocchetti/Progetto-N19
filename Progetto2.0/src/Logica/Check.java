@@ -52,6 +52,8 @@ public class Check {
 
     /**
      * check finale per verificare se tutti i pezzi necessari sono presenti
+     *
+     * manca ancora il controllo della potenza
      */
     public static boolean checkFinale(ArrayList<Componente> alc){
         ArrayList<String> temp = new ArrayList<>();
