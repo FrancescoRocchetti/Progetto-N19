@@ -1,8 +1,8 @@
 ID;NOME;$;N;RATING;VINCOLO;TIPO
-1;cpu test;100;5;5;VincoloNoNegativi,VincoloIdentici;cpu
-2;motherboard test;100;5;5;NoVincolo,VincoloIdentici,VincoloNoNegativi;mobo
-3;ram test;100;5;5;NoVincolo;ram
-4;case test;100;5;5;NoVincolo;case
+
+
+
+
 5;psu test;100;5;5;NoVincolo;psu
 6;os test;100;5;5;NoVincolo;os
 7;gpu test;100;5;5;NoVincolo;gpu
