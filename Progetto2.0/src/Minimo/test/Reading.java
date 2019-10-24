@@ -11,16 +11,20 @@ public class Reading {
     private Statement stmt;
     private ResultSet rs;
     private String url;
+    private String user;
+    private String password;
 
     public Reading() {
-        url = "jdbc:mysql://192.168.1.105:3306/q?useSSL=false&allowPublicKeyRetrieval=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Rome";
+        url = "jdbc:mysql://remotemysql.com:3306/D08vqOei7k";
+        user = "D08vqOei7k";
+        password = "eVWtADjm12";
     }
 
     public ArrayList<String> read(String type){
         try {
             connectToDB();
-            if (type == null) rs = stmt.executeQuery("SELECT * from PRODOTTI");
-            else rs = stmt.executeQuery("select * from PRODOTTI where TIPO='" + type + "'");
+            if (type == null) rs = stmt.executeQuery("SELECT * from Prodotti");
+            else rs = stmt.executeQuery("select * from Prodotti where TIPO='" + type + "'");
             ArrayList<String> list = new ArrayList<>();
             String[] str;
             while (rs.next()) {
@@ -43,7 +47,7 @@ public class Reading {
 
     private void connectToDB() throws SQLException {
         try {
-            conn = DriverManager.getConnection(url,"finley","password");
+            conn = DriverManager.getConnection(url,user,password);
             stmt = conn.createStatement();
         }
         catch(Exception e){

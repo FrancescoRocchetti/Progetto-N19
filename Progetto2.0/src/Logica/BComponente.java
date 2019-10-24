@@ -17,10 +17,10 @@ public class BComponente {
 
     public ArrayList<Componente> compByType(String type){
         ArrayList<Componente> tempC = new ArrayList<>();
-        ArrayList<String[]> tempS = fdb.readComp(type);
+        ArrayList<ArrayList<String>> tempS = fdb.readComp(type);
 
-        for(String[] s: tempS){
-            tempC.add(build(s));
+        for(ArrayList<String> s: tempS){
+            tempC.add(build((String[]) s.toArray()));
         }
 
         return tempC;
@@ -34,12 +34,12 @@ public class BComponente {
     }
 
     private void addRisorsa(Componente c){
-        ArrayList<String[]> list = fdb.readCaratteristiche(c.getId());
+        ArrayList<ArrayList<String>> list = fdb.readCaratteristiche(c.getId());
 
-        for(String[] s : list){
+        for(ArrayList<String> s : list){
 
             String nome = "Logica.Risorse.";
-            nome = nome.concat(s[1]);
+            nome = nome.concat(((String[]) s.toArray())[1]); //s[1]
             Risorsa rs;
 
             try {
@@ -49,7 +49,8 @@ public class BComponente {
 
                 Class cl = Class.forName(nome);
                 Constructor con = cl.getDeclaredConstructor(cArg);
-                rs = (Risorsa) con.newInstance(s[2],s[3]);
+                rs = (Risorsa) con.newInstance(((String[]) s.toArray())[2],
+                        ((String[]) s.toArray())[3]);  //s[2],s[3]
 
                 c.addRisorsa(rs);
             } catch (Exception e) {
