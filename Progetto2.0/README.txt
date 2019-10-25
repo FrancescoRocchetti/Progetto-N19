@@ -8,7 +8,7 @@ abilitati.
 
 
 COSA MANCA:
--(ovviamente un DB e una grafica)
+-(ovviamente un DB e una grafica) (DB iniziato, manca solo l'alterazione di record esistenti)
 -la parte della logica per finalizzare un acquisto (iniziato)
 -vincoli e risorse per gestire cose come la dimensione della mobo
 -un test più approfondito

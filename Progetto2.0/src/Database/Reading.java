@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 public class Reading extends AbConnection{
 
-    private int NumeroProdotti=7;
-
     public Reading(){
         super();
     }
@@ -34,4 +32,51 @@ public class Reading extends AbConnection{
             return null;
         }
     }
+
+    public ArrayList<ArrayList<String>> readCaratteristicaByID(int id){
+        try {
+            connectToDB();
+            rs = stmt.executeQuery("select * from Caratteristiche where ID='" + id + "'");
+
+            ArrayList<ArrayList<String>> list = new ArrayList<>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<>();
+                for(int i=1; i<=NumeroCaratteristiche; i++){
+                    temp.add(rs.getString(i));
+                }
+                list.add(temp);
+            }
+
+            conn.close();
+            return list;
+        } catch (SQLException e) {
+            System.err.println(e);
+            forceClose();
+            return null;
+        }
+    }
+
+    public ArrayList<ArrayList<String>> readAllCaratteristiche(){
+        try {
+            connectToDB();
+            rs = stmt.executeQuery("select * from Caratteristiche");
+
+            ArrayList<ArrayList<String>> list = new ArrayList<>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<>();
+                for(int i=1; i<=NumeroCaratteristiche; i++){
+                    temp.add(rs.getString(i));
+                }
+                list.add(temp);
+            }
+
+            conn.close();
+            return list;
+        } catch (SQLException e) {
+            System.err.println(e);
+            forceClose();
+            return null;
+        }
+    }
+
 }

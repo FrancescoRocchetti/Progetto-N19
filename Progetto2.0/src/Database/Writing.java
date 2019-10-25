@@ -17,4 +17,16 @@ public class Writing extends AbConnection {
             return false;
         }
     }
+
+    public boolean writeCaratteristica(int id, String tipo, String nome, String val){
+        try{
+            connectToDB();
+            String temp="insert into Caratteristiche values("+id+",'"+tipo+"','"+nome+"','" +val+"')";
+            stmt.executeUpdate(temp);
+            return true;
+        } catch (Exception e){
+            System.err.println(e);
+            return false;
+        }
+    }
 }

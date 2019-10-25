@@ -10,6 +10,8 @@ public abstract class AbConnection {
     protected String url;
     protected String user;
     protected String password;
+    protected final int NumeroProdotti=7;
+    protected final int NumeroCaratteristiche=4;
 
     public AbConnection() {
         url = "jdbc:mysql://remotemysql.com:3306/D08vqOei7k";
