@@ -5,9 +5,14 @@ import java.util.ArrayList;
 public class Facade {
 
     private Gestione g;
+    private static Facade ourInstance = new Facade();
 
-    public Facade(){
+    private Facade(){
         g = new Gestione();
+    }
+
+    public static Facade getInstance() {
+        return ourInstance;
     }
 
     //mostra la lista delle componenti

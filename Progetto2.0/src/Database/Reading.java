@@ -79,4 +79,23 @@ public class Reading extends AbConnection{
         }
     }
 
+    public ArrayList<String> readAllTypeFromCaratteristiche(){
+        try {
+            connectToDB();
+            rs = stmt.executeQuery("select distinct NOME from Caratteristiche");
+
+            ArrayList<String> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+
+            conn.close();
+            return list;
+        } catch (SQLException e) {
+            System.err.println(e);
+            forceClose();
+            return null;
+        }
+    }
+
 }

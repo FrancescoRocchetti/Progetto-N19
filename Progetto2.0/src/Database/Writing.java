@@ -11,6 +11,7 @@ public class Writing extends AbConnection {
             connectToDB();
             String temp="insert into Prodotti values(default,'"+nome+"','"+prezzo+"','"+n+"','" +rating+"','"+vincolo+"','"+tipo+"')";
             stmt.executeUpdate(temp);
+            conn.close();
             return true;
         } catch (Exception e){
             System.err.println(e);
@@ -23,6 +24,7 @@ public class Writing extends AbConnection {
             connectToDB();
             String temp="insert into Caratteristiche values("+id+",'"+tipo+"','"+nome+"','" +val+"')";
             stmt.executeUpdate(temp);
+            conn.close();
             return true;
         } catch (Exception e){
             System.err.println(e);

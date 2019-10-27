@@ -12,7 +12,7 @@ public class BComponente {
     private Facade fdb;
 
     public BComponente(){
-        fdb = new Facade();
+        fdb =  Facade.getInstance();
     }
 
     public ArrayList<Componente> compByType(String type){
