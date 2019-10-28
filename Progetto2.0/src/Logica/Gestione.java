@@ -1,5 +1,7 @@
 package Logica;
 
+import Database.Facade;
+
 import java.util.ArrayList;
 
 public class Gestione {
@@ -7,9 +9,11 @@ public class Gestione {
     private ComponentiMostrati cm;
     private ComponentiSelezionati cs;
     private BComponente bc;
+    private Facade fdb;
 
     public Gestione(){
         bc = new BComponente();
+        fdb = Facade.getInstance();
         resetC();
         resetS();
     }
@@ -50,6 +54,13 @@ public class Gestione {
         return cs.checkFinale();
     }
 
+    public boolean buy(){
+        if(checkFinale()){
+            fdb.buy(cs.getIds());
+        }
+        return false;
+    }
+
     public void resetS(){
         cm = new ComponentiMostrati();
     }
@@ -57,5 +68,11 @@ public class Gestione {
     public void resetC(){
         cs = new ComponentiSelezionati();
     }
+
+    /**
+     * manca ancora il sistemi per i messaggi di warning
+     *
+     * si potrebbe per esempio avvisare l'utente se ci sono risorse spaiate
+     */
 
 }

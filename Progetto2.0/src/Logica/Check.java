@@ -53,7 +53,9 @@ public class Check {
     /**
      * check finale per verificare se tutti i pezzi necessari sono presenti
      *
-     * manca ancora il controllo della potenza
+     * manca ancora il controllo della potenza (Fatto)
+     *
+     * DA RIVEDERE
      */
     public static boolean checkFinale(ArrayList<Componente> alc){
         ArrayList<String> temp = new ArrayList<>();
@@ -80,8 +82,22 @@ public class Check {
         Collections.sort(temp);
         Collections.sort(temp2);
 
-        return temp.equals(temp2);
+        return (temp.equals(temp2) && checkPower(alc));
 
+    }
+
+    private static boolean checkPower(ArrayList<Componente> alc){
+        int temp = 0;
+
+        for(Componente c: alc){
+            for(Risorsa r: c.getRisorse()){
+                if(r.getName().equalsIgnoreCase("power")){
+                    temp+=((Integer) r.getValue());
+                }
+            }
+        }
+
+        return (temp>=0);
     }
 
 }

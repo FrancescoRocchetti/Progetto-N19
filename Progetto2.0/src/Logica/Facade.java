@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class Facade {
 
     private Gestione g;
+    private Scrittura s;
+    private Database.Facade fdb;
     private static Facade ourInstance = new Facade();
 
     private Facade(){
         g = new Gestione();
+        s = new Scrittura();
+        fdb = Database.Facade.getInstance();
     }
 
     public static Facade getInstance() {
@@ -21,7 +25,7 @@ public class Facade {
         return g.getMostrati();
     }
 
-    //mostra tutto
+    //mostra tutte componenti
     public ArrayList<String> getAll(){
         return null;
     }
@@ -46,6 +50,21 @@ public class Facade {
         return true;
     }
 
+    //mostra tutti i tipi di componenti
+    public ArrayList<String> getAllTypes(){
+        return null;
+    }
+
+    //mostra tutti i vincoli applicabili
+    public ArrayList<String> getAllVincoli(){
+        return null;
+    }
+
+    //mostra tutti i tipi(nomi) di risorse già presenti
+    public ArrayList<String> getAllTipiDiRisorse(){
+        return null;
+    }
+
     //mostra i dettagli
     public ArrayList<String> getDetail(int id){
         return g.dettagli(id);
@@ -63,12 +82,17 @@ public class Facade {
 
     //fine selezione
     public boolean confirm(){
-        return true;
+        return g.buy();
+    }
+
+    //i componenti selezionati costituiscono un pc "accettabile"
+    public boolean allOk(){
+        return g.checkFinale();
     }
 
     //aggiunge un componente al DB
-    public boolean addComp(){
-        return true;
+    public boolean addComp(String nome, int prezzo, int n, int rating, String vincolo, String tipo){
+        return fdb.addComponent(nome,prezzo,n,rating,vincolo,tipo);
     }
 
     //aggiunge una caratteristica dal DB

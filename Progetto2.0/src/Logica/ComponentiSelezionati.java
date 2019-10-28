@@ -89,6 +89,14 @@ public class ComponentiSelezionati {
         return als;
     }
 
+    public ArrayList<Integer> getIds(){
+        ArrayList<Integer> temp = new ArrayList<>();
+        for(Componente c: alc){
+            temp.add(c.getId());
+        }
+        return temp;
+    }
+
     public String toString() {
         String temp = "";
         for(Componente c: alc){

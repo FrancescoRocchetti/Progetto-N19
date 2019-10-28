@@ -1,5 +1,10 @@
 package Logica;
 
+/**
+ * questa è la classe che gestisce l'inserimento di nuovi componenti nel DB
+ *
+ */
+
 public class Scrittura {
 
     private Facade fdb;
@@ -8,8 +13,6 @@ public class Scrittura {
         fdb = Facade.getInstance();
     }
 
-    /**
-     * questa è la classe che gestisce l'inserimento di nuovi componenti nel DB
-     */
+    //public boolean addComp
 
 }
