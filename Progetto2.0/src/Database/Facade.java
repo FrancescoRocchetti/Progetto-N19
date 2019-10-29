@@ -52,6 +52,10 @@ public class Facade {
         return d.deleteProdotto(id);
     }
 
+    public boolean removeRisorsa(int id, String nome){
+        return d.deleteCaratteristica(id, nome);
+    }
+
     //legge tutti le componenti dal DB
     public ArrayList<ArrayList<String>> readComp(){
         return r.readProdotti(null);

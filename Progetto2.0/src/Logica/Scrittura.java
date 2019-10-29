@@ -7,10 +7,10 @@ package Logica;
 
 public class Scrittura {
 
-    private Facade fdb;
+    private Database.Facade fdb;
 
     public Scrittura() {
-        fdb = Facade.getInstance();
+        fdb = Database.Facade.getInstance();
     }
 
     //public boolean addComp

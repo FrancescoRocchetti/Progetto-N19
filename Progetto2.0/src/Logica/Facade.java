@@ -26,8 +26,8 @@ public class Facade {
     }
 
     //mostra tutte componenti
-    public ArrayList<String> getAll(){
-        return null;
+    public ArrayList<ArrayList<String>> getAll(){
+        return fdb.readComp();
     }
 
     //mostra i componenti selezionati
@@ -47,7 +47,7 @@ public class Facade {
 
     //login admin
     public boolean login(){
-        return true;
+        return fdb.login();
     }
 
     //mostra tutti i tipi di componenti
@@ -62,7 +62,11 @@ public class Facade {
 
     //mostra tutti i tipi(nomi) di risorse già presenti
     public ArrayList<String> getAllTipiDiRisorse(){
-        return null;
+        return fdb.readAllTypeFromCaratteristiche();
+    }
+
+    public ArrayList<ArrayList<String>> getAllCaratteristiche(){
+        return fdb.readAllCaratteristiche();
     }
 
     //mostra i dettagli
@@ -96,23 +100,35 @@ public class Facade {
     }
 
     //aggiunge una caratteristica dal DB
-    public boolean addDetail(){
-        return true;
+    public boolean addDetail(int id, String tipo, String nome, String val){
+        return fdb.addCaratteristica(id,tipo,nome,val);
     }
 
     //toglie una caratteristica dal DB
-    public boolean dropDetail(){
-        return true;
+    public boolean dropDetail(int id, String nome){
+        return fdb.removeRisorsa(id, nome);
     }
 
     //rimuove componente dal DB
-    public boolean dropComp(){
-        return true;
+    public boolean dropComp(int id){
+        return fdb.removeComponent(id);
     }
 
     //aggiorna componente dal DB
     public boolean updateComp(){
         return true;
+    }
+
+    public boolean updateN(int id, int n){
+        return fdb.updateN(id,n);
+    }
+
+    public boolean updatePrice(int id, int price){
+        return fdb.updatePrice(id,price);
+    }
+
+    public boolean updateRating(int id, int rating){
+        return fdb.updateRating(id,rating);
     }
 
     //mostra i warning
