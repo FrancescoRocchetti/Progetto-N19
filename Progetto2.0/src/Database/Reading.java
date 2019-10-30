@@ -33,6 +33,29 @@ public class Reading extends AbConnection{
         }
     }
 
+    public ArrayList<ArrayList<String>> readProdottoSpecifico(String nome){
+        try {
+            connectToDB();
+            rs = stmt.executeQuery("select * from Prodotti where NOME='" + nome + "'");
+
+            ArrayList<ArrayList<String>> list = new ArrayList<>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<>();
+                for(int i=1; i<=NumeroProdotti; i++){
+                    temp.add(rs.getString(i));
+                }
+                list.add(temp);
+            }
+
+            conn.close();
+            return list;
+        } catch (SQLException e) {
+            System.err.println(e);
+            forceClose();
+            return null;
+        }
+    }
+
     public ArrayList<ArrayList<String>> readCaratteristicaByID(int id){
         try {
             connectToDB();

@@ -11,7 +11,7 @@ public class Facade {
 
     private Facade(){
         g = new Gestione();
-        s = new Scrittura();
+        s = Scrittura.getInstance();
         fdb = Database.Facade.getInstance();
     }
 
@@ -52,16 +52,21 @@ public class Facade {
 
     //mostra tutti i tipi di componenti
     public ArrayList<String> getAllTypes(){
-        return null;
+        return s.getType();
     }
 
     //mostra tutti i vincoli applicabili
     public ArrayList<String> getAllVincoli(){
-        return null;
+        return s.getVincoli();
     }
 
-    //mostra tutti i tipi(nomi) di risorse già presenti
-    public ArrayList<String> getAllTipiDiRisorse(){
+    //mostra tutti i vincoli applicabili
+    public ArrayList<String> getAllTipiDiRisorsa(){
+        return s.getRisorse();
+    }
+
+    //mostra tutti i tipi(nomi) di risorse già presenti (es. nsocket)
+    public ArrayList<String> getAllNomiDiRisorse(){
         return fdb.readAllTypeFromCaratteristiche();
     }
 
@@ -96,7 +101,7 @@ public class Facade {
 
     //aggiunge un componente al DB
     public boolean addComp(String nome, int prezzo, int n, int rating, String vincolo, String tipo){
-        return fdb.addComponent(nome,prezzo,n,rating,vincolo,tipo);
+        return s.addComp(nome,prezzo,n,rating,vincolo,tipo);
     }
 
     //aggiunge una caratteristica dal DB

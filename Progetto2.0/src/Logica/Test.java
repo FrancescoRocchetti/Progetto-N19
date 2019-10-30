@@ -1,26 +1,30 @@
 package Logica;
 
+import Logica.Vincoli.Vincolo;
+import Minimo.TipiComponenti;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Set;
+
+/**
+ * main tempotaneo per svolgere alcuni test
+ */
 
 public class Test {
     public static void main(String[] args) {
 
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setScanners(new SubTypesScanner(false /* don't exclude Object.class */), new ResourcesScanner())
-                .setUrls(ClasspathHelper.forPackage("")));
+        Scrittura s = Scrittura.getInstance();
 
+        ArrayList<String> ar = s.getType();
 
-        Set<Class<? extends Object>> allClasses =
-                reflections.getSubTypesOf(Object.class);
-
-        for(Object o: allClasses){
-            System.out.println(o);
+        for(String st: ar){
+            System.out.println(st);
         }
     }
 }

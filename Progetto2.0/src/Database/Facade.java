@@ -66,6 +66,11 @@ public class Facade {
         return r.readProdotti(type);
     }
 
+    //legge componenti per nome
+    public ArrayList<ArrayList<String>> readCompSpecifico(String nome) {
+        return r.readProdottoSpecifico(nome);
+    }
+
     //legge le caratteristiche dal DB
     public ArrayList<ArrayList<String>> readCaratteristiche(int id){
         return r.readCaratteristicaByID(id);
