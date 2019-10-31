@@ -31,4 +31,17 @@ public class Writing extends AbConnection {
             return false;
         }
     }
+
+    public boolean writeTipo(String nome){
+        try{
+            connectToDB();
+            String temp="insert into Tipi values('"+nome+"')";
+            stmt.executeUpdate(temp);
+            conn.close();
+            return true;
+        } catch (Exception e){
+            System.err.println(e);
+            return false;
+        }
+    }
 }

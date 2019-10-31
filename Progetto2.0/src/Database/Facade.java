@@ -96,4 +96,16 @@ public class Facade {
         return u.updateRating(id,rating);
     }
 
+    public ArrayList<String> readTipi(){
+        return r.readTypes();
+    }
+
+    public boolean scriviTipo(String nome){
+        return w.writeTipo(nome);
+    }
+
+    public boolean rimuoviTipo(String nome){
+        return d.deleteTipo(nome);
+    }
+
 }

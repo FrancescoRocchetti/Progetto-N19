@@ -56,7 +56,7 @@ public class Gestione {
 
     public boolean buy(){
         if(checkFinale()){
-            fdb.buy(cs.getIds());
+            return fdb.buy(cs.getIds());
         }
         return false;
     }

@@ -66,22 +66,6 @@ public class Scrittura {
         return temp;
     }
 
-    /**
-     * @return tutti i tipi di componente
-     */
-    public ArrayList<String> getType(){
-        ArrayList<String> temp = new ArrayList<>();
-
-        TipiComponenti[] Enums = TipiComponenti.class.getEnumConstants();
-        ArrayList<TipiComponenti> t = new ArrayList(Arrays.asList(Enums));
-
-        for(TipiComponenti c: t){
-            temp.add(c.toString());
-        }
-
-        return temp;
-    }
-
     public boolean addComp(String nome, int prezzo, int n, int rating, String vincolo, String tipo){
         fdb.addComponent(nome,prezzo,n,rating,vincolo,tipo);
         ArrayList<ArrayList<String>> temp= fdb.readCompSpecifico(nome);

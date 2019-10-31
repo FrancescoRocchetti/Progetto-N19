@@ -1,5 +1,6 @@
 package Logica;
 
+import Database.Facade;
 import Logica.Vincoli.Vincolo;
 import Minimo.TipiComponenti;
 import org.reflections.Reflections;
@@ -19,12 +20,12 @@ import java.util.Set;
 public class Test {
     public static void main(String[] args) {
 
-        Scrittura s = Scrittura.getInstance();
+        Facade f = Facade.getInstance();
+        ArrayList<String> t = f.readTipi();
 
-        ArrayList<String> ar = s.getType();
-
-        for(String st: ar){
-            System.out.println(st);
+        for(String s: t){
+            System.out.println(s);
         }
+
     }
 }

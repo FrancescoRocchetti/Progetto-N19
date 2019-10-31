@@ -52,7 +52,17 @@ public class Facade {
 
     //mostra tutti i tipi di componenti
     public ArrayList<String> getAllTypes(){
-        return s.getType();
+        return fdb.readTipi();
+    }
+
+    //aggiunge un tipo di componenti
+    public boolean aggiungiTipo(String nome){
+        return fdb.scriviTipo(nome);
+    }
+
+    //elimina un tipo di componenti
+    public boolean rimuoviTipo(String nome){
+        return fdb.rimuoviTipo(nome);
     }
 
     //mostra tutti i vincoli applicabili
@@ -117,11 +127,6 @@ public class Facade {
     //rimuove componente dal DB
     public boolean dropComp(int id){
         return fdb.removeComponent(id);
-    }
-
-    //aggiorna componente dal DB
-    public boolean updateComp(){
-        return true;
     }
 
     public boolean updateN(int id, int n){
