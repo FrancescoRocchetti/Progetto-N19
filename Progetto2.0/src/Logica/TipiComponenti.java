@@ -9,5 +9,6 @@ public enum TipiComponenti {
     OS,
     GPU,
     STORAGE,
-    COOLER
+    COOLER,
+    ALTRO
 }
