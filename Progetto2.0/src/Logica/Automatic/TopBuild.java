@@ -1,14 +1,21 @@
 package Logica.Automatic;
 
-import Database.Facade;
 import Logica.Componente;
+import Logica.ComponentiSelezionati;
 
-import java.util.ArrayList;
-
-public class TopBuild implements StrategiaSelezione{
+public class TopBuild extends StrategiaSelezione{
 
     @Override
-    public ArrayList<Componente> selziona(int prezzo, Facade fdb) {
+    public ComponentiSelezionati selziona(int prezzo) {
+        cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
         return null;
+    }
+
+    @Override
+    public int compare(Componente o1, Componente o2) {
+        int t1 = o1.getPrice();
+        int t2 = o2.getPrice();
+
+        return t2-t1;
     }
 }

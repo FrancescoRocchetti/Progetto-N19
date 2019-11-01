@@ -157,8 +157,8 @@ public class Facade {
     }
 
     //build automatica
-    public void automatic(){
-
+    public void automatic(int budget){
+        g.automatic(budget);
     }
 
 }

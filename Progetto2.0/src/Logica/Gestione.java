@@ -1,6 +1,7 @@
 package Logica;
 
 import Database.Facade;
+import Logica.Automatic.SelezioneAutomatica;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,11 @@ public class Gestione {
             return fdb.buy(cs.getIds());
         }
         return false;
+    }
+
+    public void automatic(int budget){
+        SelezioneAutomatica s = new SelezioneAutomatica(budget);
+        cs = s.getBuild();
     }
 
     public void resetS(){

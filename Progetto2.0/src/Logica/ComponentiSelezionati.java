@@ -18,9 +18,12 @@ public class ComponentiSelezionati {
         alc = new ArrayList<>();
     }
 
-    public void put(Componente c){
-        if(check(c))
+    public boolean put(Componente c){
+        if(check(c)) {
             alc.add(c);
+            return true;
+        }
+        return false;
     }
 
     public void remove(int i){
