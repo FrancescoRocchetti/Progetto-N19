@@ -22,7 +22,7 @@ public abstract class StrategiaSelezione implements Comparator<Componente> {
         for(String s: cosaServe){
             ArrayList<Componente> temp = bc.compByType(s);
 
-            ArrayList<Componente> temp2 = bc.compByType(s);
+            ArrayList<Componente> temp2 = bc.compByType(s); //sbagliato
 
             for(Componente c: temp){
                 if(c.getPrice()>min && c.getPrice()<max)
