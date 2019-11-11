@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Test;
 
 import Database.Facade;
 import Logica.Vincoli.Vincolo;

@@ -46,8 +46,8 @@ public class Facade {
     }
 
     //login admin
-    public boolean login(){
-        return fdb.login();
+    public boolean login(String user, String password){
+        return fdb.login(user, password);
     }
 
     //mostra tutti i tipi di componenti

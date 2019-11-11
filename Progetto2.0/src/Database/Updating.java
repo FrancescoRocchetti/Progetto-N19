@@ -9,12 +9,19 @@ public class Updating extends AbConnection {
         super();
     }
 
-    public boolean buy(ArrayList<Integer> ids){
+    /**
+     * aggiorna la quantità dei componenti acquistati
+     * @param ids
+     * @return ArrayList dei componenti che non sono disponibili al momento
+     */
+    public ArrayList<Integer> buy(ArrayList<Integer> ids){
+        ArrayList<Integer> temp = new ArrayList<>();
+
         for(Integer id:ids){
             if(!buySingle(id))
-                return false;
+                temp.add(id);
         }
-        return true;
+        return temp;
     }
 
     private boolean buySingle(int id){
@@ -23,6 +30,9 @@ public class Updating extends AbConnection {
             rs = stmt.executeQuery("select * from Prodotti where ID=" + id );
 
             int n = Integer.parseInt(rs.getString(4)) - 1;
+            if(n<=0){
+                return false;
+            }
 
             stmt.executeUpdate("UPDATE 'Prodotti' SET 'NUMERO' = "+n+" WHERE 'ID' ="+id);
             conn.close();

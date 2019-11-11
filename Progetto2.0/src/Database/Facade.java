@@ -22,13 +22,19 @@ public class Facade {
     }
 
     //scala le quantità dei componenti acquistati
-    public boolean buy(ArrayList<Integer> ids){
+
+    /**
+     *
+     * @param ids lista di id da componenti che si vogliono comprare
+     * @return lista dei componenti che non si è riusciti a comprare
+     */
+    public ArrayList<Integer> buy(ArrayList<Integer> ids){
         return u.buy(ids);
     }
 
     //login admin
-    public boolean login(){
-        return true;
+    public boolean login(String user, String password){
+        return r.login(user,password);
     }
 
     //aggiunge un componente al DB

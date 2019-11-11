@@ -140,4 +140,25 @@ public class Reading extends AbConnection{
         }
     }
 
+    public boolean login(String user, String password) {
+
+        try {
+            connectToDB();
+            String temp = "select count(*) from login where UserName ='" + user + "' and PsWord ='" + password+"'";
+
+            rs = stmt.executeQuery(temp);
+            rs.next();
+            int ck = rs.getInt(1);
+            conn.close();
+
+            if (ck > 0)
+                return true;
+            return false;
+
+        } catch (SQLException e) {
+            System.err.println(e);
+            forceClose();
+            return false;
+        }
+    }
 }
