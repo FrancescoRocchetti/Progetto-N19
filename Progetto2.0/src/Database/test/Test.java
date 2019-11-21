@@ -16,8 +16,8 @@ public class Test {
         la parte commentata (se no finiamo con 300 prodotti uguali)
         w.writeProdotti("SSD test da java",100,5,5,"NoVincolo","storage");*/
 
-        /*stessa cosa per le caratteristiche
-        w.writeCaratteristica(3,"RisorsaLetterale","tipo","DDR4");*/
+        //stessa cosa per le caratteristiche//
+        //w.writeCaratteristica(2,"RisorsaLetterale","tipo","DDR4");//
 
         /*d.deleteProdotto(7);*/
 

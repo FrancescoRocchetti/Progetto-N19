@@ -7,16 +7,11 @@ public class Facade {
     private Gestione g;
     private Scrittura s;
     private Database.Facade fdb;
-    private static Facade ourInstance = new Facade();
 
-    private Facade(){
+    public Facade(){
         g = new Gestione();
         s = Scrittura.getInstance();
         fdb = Database.Facade.getInstance();
-    }
-
-    public static Facade getInstance() {
-        return ourInstance;
     }
 
     //mostra la lista delle componenti

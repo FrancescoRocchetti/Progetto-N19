@@ -1,4 +1,4 @@
-package Interface;
+package Interface.StandardInterface;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
