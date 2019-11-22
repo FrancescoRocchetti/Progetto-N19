@@ -1,8 +1,17 @@
 package Interface.WebInterface;
 
-import java.io.Serializable;
+import Logica.Facade;
 
-public class TestSito implements Serializable {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Page1Bean implements Serializable {
+
+    private Facade f;
+
+    public Page1Bean(){
+        f = new Facade();
+    }
 
     private String[] esempioListaComponenti={"Cpu","Mobo","RAM","Storage","Case","PSU"};
     private String cAttivo="";
@@ -17,5 +26,13 @@ public class TestSito implements Serializable {
 
     public String[] getComponenti(){
         return esempioListaComponenti;
+    }
+
+    public ArrayList<String> tipiComponenti(){
+        return f.getAllTypes();
+    }
+
+    public ArrayList<String> getByType(String type){
+        return f.getListbyType(type);
     }
 }

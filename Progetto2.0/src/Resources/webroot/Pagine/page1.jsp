@@ -1,7 +1,8 @@
 <html>
 <%@ page language="java"%>
 <%@ page session="true"%>
-<jsp:useBean id='test' scope='session' class='Interface.WebInterface.TestSito' type="Interface.WebInterface.TestSito" />
+<%@ page import="java.util.ArrayList" %>
+<jsp:useBean id='test' scope='session' class='Interface.WebInterface.Page1Bean' type="Interface.WebInterface.Page1Bean" />
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -36,9 +37,9 @@
     </p>
         <form method="post">
 
-        <% String[] list = test.getComponenti(); for(int i = 0; i<list.length;i++){ %>
+        <% ArrayList<String> list = test.tipiComponenti(); for(int i = 0; i<list.size();i++){ %>
 
-            <button type="submit" name=buttonA class="btn btn-secondary" value= <%= list[i]%> > <%= list[i]%> </button>
+            <button type="submit" name=buttonA class="btn btn-secondary" value= <%= list.get(i)%> > <%= list.get(i)%> </button>
 
          <%}%>
         </form>
@@ -47,11 +48,44 @@
 
     </div>
 </div>
+
+
+<div class="container-fluid">
 <center>
+<div class="row">
+  <div class="col-sm-1">Margine SX</div>
+  <div class="col-sm-4 bg-primary">
 
-<h1> <%=test.getcAttivo()%> </h1>
+      <h1> <%=test.getcAttivo()%> </h1> <br>
 
+      <p style="font-size:1vw;">
+      <%if(!test.getcAttivo().equals("")){%>
+
+          <% ArrayList<String> list2 = test.getByType(test.getcAttivo()); for(int i = 0; i<list2.size();i++){ %>
+
+              <h3> <%= list2.get(i)%> </h3> <br>
+
+          <%}%>
+
+      <%}%>
+      </p>
+  </div>
+  <div class="col-sm-2">Centro</div>
+  <div class="col-sm-4 bg-primary">
+    <h1>Selezionati</h1>
+    <p style="font-size:1vw;">
+
+    </p>
+  </div>
+  <div class="col-sm-1">Margine DX</div>
+</div>
 </center>
+</div>
+
+
+
+
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

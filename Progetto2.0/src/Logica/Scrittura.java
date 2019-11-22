@@ -15,6 +15,7 @@ import java.util.Set;
 /**
  * questa è la classe che gestisce(aiuta) l'inserimento di nuovi componenti nel DB
  *
+ * TODO: magari è necessario un sistema di cache per certe informazioni
  */
 
 public class Scrittura {

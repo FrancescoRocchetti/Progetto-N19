@@ -50,7 +50,7 @@ import java.util.logging.Logger;
  * custom taglib, even if you don't have a full-fledged webapp.
  * 
  */
-public class Main
+public class MainWeb
 {
     // Resource path pointing to where the WEBROOT is
     private static final String WEBROOT_INDEX = "../../Resources/webroot/";
@@ -97,17 +97,17 @@ public class Main
         int port = 8080;
         LoggingUtil.config();
 
-        Main main = new Main(port);
+        MainWeb main = new MainWeb(port);
         main.start();
         main.waitForInterrupt();
     }
 
-    private static final Logger LOG = Logger.getLogger(Main.class.getName());
+    private static final Logger LOG = Logger.getLogger(MainWeb.class.getName());
 
     private int port;
     private Server server;
 
-    public Main(int port)
+    public MainWeb(int port)
     {
         this.port = port;
     }
