@@ -14,19 +14,33 @@ public class Facade {
         fdb = Database.Facade.getInstance();
     }
 
-    //mostra la lista delle componenti
-    public ArrayList<String> getListbyType(String type){
+    /**mostra la lista delle componenti
+     * il primo elemento di ogni Arraylist<String> è l'id del componente
+     * il secondo sono le informazioni vere e proprie
+     *
+     * @param type
+     * @return
+     */
+    public ArrayList<ArrayList<String>> getListbyType(String type){
         g.leggi(type);
         return g.getMostrati();
     }
 
-    //mostra tutte componenti
+    /**mostra tutte componenti
+     * in questo caso Arraylist<String> ha una lunghezza di 7
+     *
+     * @return
+     */
     public ArrayList<ArrayList<String>> getAll(){
         return fdb.readComp();
     }
 
-    //mostra i componenti selezionati
-    public ArrayList<String> getSelectedList(){
+    /**mostra i componenti selezionati
+     * rimangono valide le stesse considerazioni di getListbyType
+     *
+     * @return
+     */
+    public ArrayList<ArrayList<String>> getSelectedList(){
         return g.getSelected();
     }
 
@@ -96,7 +110,9 @@ public class Facade {
 
     //fine selezione
     public boolean confirm(){
-        return g.buy();
+        //return g.buy();
+        resetSelected();
+        return true; //per adesso disattivato per evitare casini
     }
 
     //i componenti selezionati costituiscono un pc "accettabile"

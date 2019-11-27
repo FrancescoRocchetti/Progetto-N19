@@ -35,11 +35,11 @@ public class Gestione {
         return cm.getDetails(id);
     }
 
-    public ArrayList<String> getSelected(){
+    public ArrayList<ArrayList<String>> getSelected(){
         return cs.getLista();
     }
 
-    public ArrayList<String> getMostrati(){
+    public ArrayList<ArrayList<String>> getMostrati(){
         return cm.getLista();
     }
 

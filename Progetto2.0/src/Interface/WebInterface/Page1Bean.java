@@ -13,7 +13,6 @@ public class Page1Bean implements Serializable {
         f = new Facade();
     }
 
-    private String[] esempioListaComponenti={"Cpu","Mobo","RAM","Storage","Case","PSU"};
     private String cAttivo="";
 
     public String getcAttivo() {
@@ -24,15 +23,39 @@ public class Page1Bean implements Serializable {
         this.cAttivo = cAttivo;
     }
 
-    public String[] getComponenti(){
-        return esempioListaComponenti;
-    }
-
     public ArrayList<String> tipiComponenti(){
         return f.getAllTypes();
     }
 
-    public ArrayList<String> getByType(String type){
+    public ArrayList<ArrayList<String>> getByType(String type){
         return f.getListbyType(type);
+    }
+
+    public ArrayList<ArrayList<String>> getSelected(){
+        return f.getSelectedList();
+    }
+
+    public void select(String id){
+        f.selectComponent(Integer.parseInt(id));
+    }
+
+    public void remove(String id){
+        f.removeComponent(Integer.parseInt(id));
+    }
+
+    public void reset(){
+        f.resetSelected();
+    }
+
+    public void confirm(){
+        f.confirm();
+    }
+
+    public String getPrice(){
+        return String.valueOf(f.getTotPrice());
+    }
+
+    public String getPower(){
+        return String.valueOf(f.getTotPower());
     }
 }

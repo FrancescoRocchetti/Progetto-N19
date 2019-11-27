@@ -43,10 +43,10 @@ public class ComponentiMostrati {
         return tempS;
     }
 
-    public ArrayList<String> getLista(){
-        ArrayList<String> als = new ArrayList<>();
+    public ArrayList<ArrayList<String>> getLista(){
+        ArrayList<ArrayList<String>> als = new ArrayList<>();
         for(Componente c: alc){
-            als.add(c.toString());
+            als.add(c.getString());
         }
         return als;
     }

@@ -54,35 +54,66 @@
 <center>
 <div class="row">
   <div class="col-sm-1">Margine SX</div>
-  <div class="col-sm-4 bg-primary">
+  <div class="col-sm-4 bg-primary text-break">
 
-      <h1> <%=test.getcAttivo()%> </h1> <br>
+      <h1> <%=test.getcAttivo()%> </h1>
 
-      <p style="font-size:1vw;">
+
       <%if(!test.getcAttivo().equals("")){%>
 
-          <% ArrayList<String> list2 = test.getByType(test.getcAttivo()); for(int i = 0; i<list2.size();i++){ %>
+        <form method="post">
+          <% ArrayList<ArrayList<String>> list2 = test.getByType(test.getcAttivo()); for(ArrayList<String> ars: list2){ %>
 
-              <h3> <%= list2.get(i)%> </h3> <br>
+              <button type="submit" name=buttonB class="btn btn-success" value= <%= ars.get(0)%> > Add </button>
+              <h3><%= ars.get(1)%></h3> <br>
 
           <%}%>
-
+        </form>
       <%}%>
-      </p>
+
+
+      <% if(request.getParameter("buttonB") != null){ %> <% test.select(request.getParameter("buttonB")); %><% } %>
+
   </div>
   <div class="col-sm-2">Centro</div>
-  <div class="col-sm-4 bg-primary">
+  <div class="col-sm-4 bg-primary text-break">
     <h1>Selezionati</h1>
-    <p style="font-size:1vw;">
 
-    </p>
+
+        <form method="post">
+          <% ArrayList<ArrayList<String>> list3 = test.getSelected(); for(ArrayList<String> ars: list3){ %>
+
+
+            <button type="submit" name=buttonC class="btn btn-danger" value= <%= ars.get(0)%> > Remove </button>
+              <h3> <%= ars.get(1)%></h3> <br>
+
+          <%}%>
+        </form>
+
+
+
   </div>
   <div class="col-sm-1">Margine DX</div>
 </div>
 </center>
 </div>
 
+<br>
 
+<div class="container">
+<div class="jumbotron text-center" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
+
+        <h2><%=test.getPrice()%>$  <%=test.getPower()%>W</h2><br>
+
+        <form method="post">
+
+            <button type="submit" name=buttonD class="btn btn-danger" value= "r" > Reset </button>
+            <button type="submit" name=buttonD class="btn btn-success" value= "b" > Buy </button>
+
+        </form>
+
+    </div>
+</div>
 
 
 

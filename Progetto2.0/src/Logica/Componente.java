@@ -45,24 +45,30 @@ public class Componente implements Comparable{
         alv.add(v);
     }
 
-    @Override
-    public String toString() {
-        String temp="";
+    public ArrayList<String> getString() {
+
+        ArrayList<String> temp = new ArrayList<>();
+
+        String temp1="";
         for(Risorsa r : risorse){
-            temp = temp.concat(r.toString()) + " ";
+            temp1 = temp1.concat(r.toString()) + " ";
         }
-        temp = temp +";";
+        temp1 = temp1 +";";
         for(Vincolo v : alv){
-            temp = temp.concat(v.getClass().getSimpleName()) + " ";
+            temp1 = temp1.concat(v.getClass().getSimpleName()) + " ";
         }
-        return "Componente{" +
-                "id=" + id +
-               ", name='" + name + '\'' +
+
+        temp.add(String.valueOf(id));
+
+        temp.add( "Componente{" +
+               "name='" + name + '\'' +
                ", type='" + type + '\'' +
                ", price=" + price +
                ", ranking=" + ranking +
-               ", risorse=" + temp +
-               '}';
+               ", risorse=" + temp1 +
+               '}');
+
+        return temp;
     }
 
     @Override

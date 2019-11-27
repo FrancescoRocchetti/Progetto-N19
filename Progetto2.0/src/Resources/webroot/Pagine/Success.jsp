@@ -1,4 +1,8 @@
 <html>
+<%@ page language="java"%>
+<%@ page session="true"%>
+<%@ page import="java.util.ArrayList" %>
+<jsp:useBean id='test' scope='application' class='Interface.WebInterface.Page2Bean' type="Interface.WebInterface.Page2Bean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->
@@ -22,22 +26,15 @@
     </ul>
 </nav>
 
+<br>
+
 <div class="container h-100 d-flex">
-    <div class="col-sm-12 my-auto">
 
     <div class="container">
-    <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-          <h1>Embedded Jetty: JSP Examples</h1>
-          <p>
-            Examples of JSP within Embedded Jetty.
-          </p>
-          <ul>
-            <li><a href="page1/">Build your PC</a></li>
-            <li><a href="Pagine/page2.jsp">Lista completa</a></li>
-            <li><a href="Pagine/pageTest.html">Pagina di test</a></li>
-          </ul>
+    <div class="jumbotron text-center my-auto">
 
-    </div>
+        <img src="https://media.giphy.com/media/26gsobowozGM9umBi/giphy.gif">
+
     </div>
     </div>
 </div>
