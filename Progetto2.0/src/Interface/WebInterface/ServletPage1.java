@@ -31,6 +31,7 @@ public class ServletPage1 extends HttpServlet {
             String temp = req.getParameter("buttonD");
             if(temp.equalsIgnoreCase("r")){
                 bean.reset();
+                bean.setcAttivo("");
             }
             if(temp.equalsIgnoreCase("b")){
                 bean.confirm();

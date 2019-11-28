@@ -15,8 +15,8 @@ public class Gestione {
     public Gestione(){
         bc = new BComponente();
         fdb = Facade.getInstance();
-        resetC();
-        resetS();
+        resetMostrati();
+        resetSelected();
     }
 
     public void leggi(String type){
@@ -69,11 +69,11 @@ public class Gestione {
         cs = s.getBuild();
     }
 
-    public void resetS(){
+    public void resetMostrati(){
         cm = new ComponentiMostrati();
     }
 
-    public void resetC(){
+    public void resetSelected(){
         cs = new ComponentiSelezionati();
     }
 

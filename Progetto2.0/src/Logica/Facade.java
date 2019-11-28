@@ -159,7 +159,7 @@ public class Facade {
 
     //resetta la lista dei componenti selezionati
     public void resetSelected(){
-        g.resetS();
+        g.resetSelected();
     }
 
     //resetta la connessione al DB
