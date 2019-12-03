@@ -125,7 +125,8 @@ public class Facade {
     }
 
     //aggiunge un componente al DB
-    public boolean addComp(String nome, int prezzo, int n, int rating, String vincolo, String tipo){
+    //
+    public boolean addComp(String nome, int prezzo, int n, int rating, ArrayList<String> vincolo, String tipo){
         return s.addComp(nome,prezzo,n,rating,vincolo,tipo);
     }
 

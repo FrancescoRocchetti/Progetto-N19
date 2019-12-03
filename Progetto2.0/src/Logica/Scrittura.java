@@ -70,8 +70,19 @@ public class Scrittura {
         return temp;
     }
 
-    public boolean addComp(String nome, int prezzo, int n, int rating, String vincolo, String tipo){
-        fdb.addComponent(nome,prezzo,n,rating,vincolo,tipo);
+    public boolean addComp(String nome, int prezzo, int n, int rating, ArrayList<String> vincolo, String tipo){
+
+        String temps ="";
+
+
+        for(String s: vincolo){
+            temps = temps+s+",";
+
+        }
+
+        temps=temps.substring(0,temps.length()-1);
+
+        fdb.addComponent(nome,prezzo,n,rating,temps,tipo);
         ArrayList<ArrayList<String>> temp= fdb.readCompSpecifico(nome);
         int id = Integer.parseInt(temp.get(temp.size()-1).get(temp.get(0).size()-1)); //TODO scrivere sta cosa in modo leggibile
         fdb.addCaratteristica(id, "RisorsaSenzaControlli", "ok_"+tipo.toLowerCase(), "ok");
