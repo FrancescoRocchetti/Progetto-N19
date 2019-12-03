@@ -1,5 +1,6 @@
 package Database.test;
 
+import Database.Cache;
 import Database.Deleting;
 import Database.Reading;
 import Database.Writing;
@@ -11,6 +12,35 @@ public class Test {
         Reading r = new Reading();
         Writing w = new Writing();
         Deleting d = new Deleting();
+        Cache c = new Cache();
+
+        c.start();
+
+        ArrayList<ArrayList<String>> als = c.readProdotti("altro");
+        for(ArrayList<String> as : als){
+            for (String s: as){
+                System.out.print(s+" ");
+            }
+            System.out.println();
+        }
+
+        try {
+            Thread.sleep(30000);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        als = c.readProdotti("altro");
+        for(ArrayList<String> as : als){
+            for (String s: as){
+                System.out.print(s+" ");
+            }
+            System.out.println();
+        }
+
+        try{
+        c.stop();
+        } catch (Exception e){}
 
         /* Per favore cambiate il prodotto prima di eseguire
         la parte commentata (se no finiamo con 300 prodotti uguali)

@@ -55,9 +55,19 @@ public class Gestione {
         return cs.checkFinale();
     }
 
-    public boolean buy(){
+    public boolean confirm(String info){
+        return buy(info);
+    }
+
+    public boolean confirm(){
+        String temp = Scrittura.getIP();
+        temp = temp+ "/" +System.getProperty("user.name");
+        return buy(temp);
+    }
+
+    private boolean buy(String info){
         if(checkFinale()){
-            if(fdb.buy(cs.getIds()).size() == 0){
+            if(fdb.buy(cs.getIds(), info).size() == 0){
                 return true;
             }
         }
