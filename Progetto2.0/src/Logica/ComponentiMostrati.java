@@ -46,7 +46,9 @@ public class ComponentiMostrati {
     public ArrayList<ArrayList<String>> getLista(){
         ArrayList<ArrayList<String>> als = new ArrayList<>();
         for(Componente c: alc){
-            als.add(c.getString());
+            if(c.getN()>0){
+                als.add(c.getString());
+            }
         }
         return als;
     }

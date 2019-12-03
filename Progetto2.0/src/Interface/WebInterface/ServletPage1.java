@@ -34,7 +34,7 @@ public class ServletPage1 extends HttpServlet {
                 bean.setcAttivo("");
             }
             if(temp.equalsIgnoreCase("b")){
-                bean.confirm();
+                bean.confirm(findIP(req));
                 ck=1;
             }
         }
@@ -45,5 +45,28 @@ public class ServletPage1 extends HttpServlet {
         else {
             req.getRequestDispatcher("/Pagine/Success.jsp").forward(req, resp);
         }
+    }
+
+    private static final String[] HEADERS_TO_TRY = {
+            "X-Forwarded-For",
+            "Proxy-Client-IP",
+            "WL-Proxy-Client-IP",
+            "HTTP_X_FORWARDED_FOR",
+            "HTTP_X_FORWARDED",
+            "HTTP_X_CLUSTER_CLIENT_IP",
+            "HTTP_CLIENT_IP",
+            "HTTP_FORWARDED_FOR",
+            "HTTP_FORWARDED",
+            "HTTP_VIA",
+            "REMOTE_ADDR"};
+
+    private String findIP(HttpServletRequest req) {
+        for (String header : HEADERS_TO_TRY) {
+            String ip = req.getHeader(header);
+            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+                return ip;
+            }
+        }
+        return req.getRemoteAddr();
     }
 }

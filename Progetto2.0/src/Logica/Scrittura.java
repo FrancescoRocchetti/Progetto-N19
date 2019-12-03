@@ -8,8 +8,11 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.Set;
 
 /**
@@ -75,6 +78,23 @@ public class Scrittura {
         return true;
     }
 
-    //public boolean addComp
+
+    public static String getIP(){
+
+        try {
+            Enumeration e = NetworkInterface.getNetworkInterfaces();
+            while (e.hasMoreElements()) {
+                NetworkInterface n = (NetworkInterface) e.nextElement();
+                Enumeration ee = n.getInetAddresses();
+                while (ee.hasMoreElements()) {
+                    InetAddress i = (InetAddress) ee.nextElement();
+                    if(!i.toString().equalsIgnoreCase("127.0.0.1") && !i.toString().contains("192.168."))
+                        return i.toString();
+                }
+            }
+        } catch (Exception e) { }
+
+        return "";
+    }
 
 }

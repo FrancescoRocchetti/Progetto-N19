@@ -79,7 +79,7 @@ public class Facade {
         return s.getVincoli();
     }
 
-    //mostra tutti i vincoli applicabili
+    //mostra tutti le risorse applicabili
     public ArrayList<String> getAllTipiDiRisorsa(){
         return s.getRisorse();
     }
@@ -110,9 +110,13 @@ public class Facade {
 
     //fine selezione
     public boolean confirm(){
-        //return g.buy();
+        //return g.confirm();
         resetSelected();
         return true; //per adesso disattivato per evitare casini
+    }
+
+    public void confirm(String info){
+        g.confirm(info);
     }
 
     //i componenti selezionati costituiscono un pc "accettabile"

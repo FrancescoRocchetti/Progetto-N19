@@ -8,6 +8,7 @@ public class Facade {
     private Reading r;
     private Updating u;
     private Writing w;
+    private Cache c;
     private static Facade ourInstance = new Facade();
 
     private Facade(){
@@ -15,21 +16,23 @@ public class Facade {
         r = new Reading();
         u = new Updating();
         w = new Writing();
+        c = new Cache();
+        c.start();
     }
 
     public static Facade getInstance() {
         return ourInstance;
     }
 
-    //scala le quantità dei componenti acquistati
-
-    /**
+    /**scala le quantità dei componenti acquistati
      *
      * @param ids lista di id da componenti che si vogliono comprare
      * @return lista dei componenti che non si è riusciti a comprare
      */
-    public ArrayList<Integer> buy(ArrayList<Integer> ids){
-        return u.buy(ids);
+    public ArrayList<Integer> buy(ArrayList<Integer> ids, String info){
+        ArrayList temp = u.buy(ids);
+        w.writeSale(ids,temp,info);
+        return temp;
     }
 
     //login admin
@@ -64,12 +67,14 @@ public class Facade {
 
     //legge tutti le componenti dal DB
     public ArrayList<ArrayList<String>> readComp(){
-        return r.readProdotti(null);
+        return c.readProdotti(null);
+        //return r.readProdotti(null);
     }
 
     //legge le componenti dal DB
     public ArrayList<ArrayList<String>> readComp(String type){
-        return r.readProdotti(type);
+        return c.readProdotti(type);
+        //return r.readProdotti(type);
     }
 
     //legge componenti per nome
@@ -79,11 +84,13 @@ public class Facade {
 
     //legge le caratteristiche dal DB
     public ArrayList<ArrayList<String>> readCaratteristiche(int id){
-        return r.readCaratteristicaByID(id);
+        return c.readCaratteristiche(id);
+        //return r.readCaratteristicaByID(id);
     }
 
     public ArrayList<ArrayList<String>> readAllCaratteristiche(){
-        return r.readAllCaratteristiche();
+        return c.readCaratteristiche();
+        //return r.readAllCaratteristiche();
     }
 
     public ArrayList<String> readAllTypeFromCaratteristiche(){
@@ -103,7 +110,8 @@ public class Facade {
     }
 
     public ArrayList<String> readTipi(){
-        return r.readTypes();
+        return c.readTypes();
+        //return r.readTypes();
     }
 
     public boolean scriviTipo(String nome){

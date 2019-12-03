@@ -47,8 +47,8 @@ public class Page1Bean implements Serializable {
         f.resetSelected();
     }
 
-    public void confirm(){
-        f.confirm();
+    public void confirm(String info){
+        f.confirm(info);
     }
 
     public String getPrice(){
