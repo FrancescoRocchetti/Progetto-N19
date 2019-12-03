@@ -71,16 +71,17 @@ public class Scrittura {
     }
 
     public boolean addComp(String nome, int prezzo, int n, int rating, ArrayList<String> vincolo, String tipo){
-
         String temps ="";
-
 
         for(String s: vincolo){
             temps = temps+s+",";
 
         }
-
         temps=temps.substring(0,temps.length()-1);
+
+        if(vincolo.size()==0){
+            temps="NoVincolo";
+        }
 
         fdb.addComponent(nome,prezzo,n,rating,temps,tipo);
         ArrayList<ArrayList<String>> temp= fdb.readCompSpecifico(nome);

@@ -93,7 +93,7 @@ public class Facade {
         return fdb.readAllCaratteristiche();
     }
 
-    //mostra i dettagli
+    //mostra i dettagli di un componente (cioè le sue risorse)
     public ArrayList<String> getDetail(int id){
         return g.dettagli(id);
     }
@@ -108,13 +108,20 @@ public class Facade {
         return g.printPower();
     }
 
-    //fine selezione
+    /**
+     * fine selezione per interfaccia standard
+     * @return
+     */
     public boolean confirm(){
         //return g.confirm();
         resetSelected();
         return true; //per adesso disattivato per evitare casini
     }
 
+    /**
+     * fine selezione per interfaccia web
+     * @param info  ip dell'utente
+     */
     public void confirm(String info){
         g.confirm(info);
     }
@@ -124,13 +131,28 @@ public class Facade {
         return g.checkFinale();
     }
 
-    //aggiunge un componente al DB
-    //
+    /**aggiunge un componente al DB
+     *
+     * @param nome
+     * @param prezzo
+     * @param n quantità
+     * @param rating    da 0 a 5
+     * @param vincolo   Arraylist<String> dei vincoli da applicare(utilizzare quelli passati da questa facade)
+     * @param tipo
+     * @return
+     */
     public boolean addComp(String nome, int prezzo, int n, int rating, ArrayList<String> vincolo, String tipo){
         return s.addComp(nome,prezzo,n,rating,vincolo,tipo);
     }
 
-    //aggiunge una caratteristica dal DB
+    /**aggiunge una caratteristica al db
+     *
+     * @param id del componente a cui è riferita la caratteristica
+     * @param tipo (utilizzare i tipi di caratteristica passati da questa facade)
+     * @param nome nome della caratteristica (es. Tecnologia Ram)
+     * @param val valore
+     * @return
+     */
     public boolean addDetail(int id, String tipo, String nome, String val){
         return fdb.addCaratteristica(id,tipo,nome,val);
     }
@@ -157,7 +179,10 @@ public class Facade {
         return fdb.updateRating(id,rating);
     }
 
-    //mostra i warning
+    /**mostra i warning
+     * NON ANCORA IMPLEMENTATA
+     * @return
+     */
     public String getMessage(){
         return null;
     }
@@ -167,7 +192,10 @@ public class Facade {
         g.resetSelected();
     }
 
-    //resetta la connessione al DB
+    /**resetta la connessione al DB
+     *
+     * forse non è necessaria
+     */
     public void resetConnection(){
 
     }
