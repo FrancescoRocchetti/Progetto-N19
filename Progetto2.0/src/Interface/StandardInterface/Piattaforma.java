@@ -1,10 +1,6 @@
 /*
 package Interface;
 
-import Components.AbstractComponent;
-import Components.PCParts;
-import Gestione.GestoreScelte;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +19,7 @@ import java.util.ArrayList;
  * @author Matteo Lucchini
  * @author Fabio Riganti
  *//*
+
 
 public class Piattaforma extends AbstractInterface {
 
@@ -206,11 +203,11 @@ public class Piattaforma extends AbstractInterface {
         setVisible(true);
 
     }
-
-    */
+*/
 /**
      * Permette di partire di nuovo da zero con la configurazione
      *//*
+
 
     public void newConfiguration() {
         for (int i = chooseTable.getRowCount() - 1; i >= 0; i--)
@@ -224,22 +221,23 @@ public class Piattaforma extends AbstractInterface {
         obtainParts(0);
     }
 
-    */
+*/
 /**
      * Aggiorna la tabella dei componenti attuale
      *//*
 
+
     public void refresh() {
         obtainParts(components.getSelectedIndex());
     }
-
-    */
+*/
 /**
      * Permette di notificare Piattaforma di un tentato aggiornamento
      * della tabella
      *
      * @param arr
      *//*
+
 
     public void updateListTable(ArrayList<AbstractComponent> arr) {
         if (arr == null) {
@@ -268,13 +266,15 @@ public class Piattaforma extends AbstractInterface {
         components.setEnabled(true);
     }
 
-    */
+
+*/
 /**
      * Permette di notificare Piattaforma dell'esito di una
      * configurazione automatica
      *
      * @param status
      *//*
+
 
     public void setAutoBuild(boolean status) {
         if (status) {
@@ -564,4 +564,5 @@ public class Piattaforma extends AbstractInterface {
         JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
-}*/
+}
+*/

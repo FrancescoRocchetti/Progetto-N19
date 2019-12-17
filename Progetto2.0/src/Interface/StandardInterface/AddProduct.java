@@ -1,8 +1,11 @@
 package Interface.StandardInterface;
 
+import Logica.Facade;
+
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Interfaccia che permette di inserire nuovi componenti nel database
@@ -16,6 +19,7 @@ public class AddProduct extends JFrame {
     private JPanel title;
     private JPanel body;
     private JPanel btns;
+    private JPanel checkBoxPanel;
     private JLabel titleLabel;
     private JLabel nameLabel;
     private JLabel priceLabel;
@@ -31,9 +35,12 @@ public class AddProduct extends JFrame {
     private JSpinner quantity;
     private JSpinner rank;
     private JComboBox type;
-    private JComboBox constraint;
+    private JList<Object> constraint;
     private JButton back;
     private JButton confirm;
+    private JButton checkBoxButton;
+
+    private Facade f;
 
     public AddProduct() {
         c = getContentPane();
@@ -41,6 +48,7 @@ public class AddProduct extends JFrame {
         title = new JPanel(new GridLayout(1,1));
         body = new JPanel(new GridLayout(6,2));
         btns = new JPanel(new GridLayout(1,2));
+        f = new Facade();
 
         titleLabel = new JLabel("Inserimento prodotto");
         nameLabel = new JLabel("Nome");
@@ -61,9 +69,20 @@ public class AddProduct extends JFrame {
         rank = new JSpinner(spinnerRankModel);
         setSpinnerNotWritable(rank);
         type = new JComboBox(); // Qui ci vanno i tipi già presenti nel DB
-        constraint = new JComboBox(); // Vincoli già presenti nel DB
+        for(int i = 0; i < f.getAllTypes().size(); i++)
+            type.addItem(f.getAllTypes().get(i));
+        ArrayList<String> vincoli = new ArrayList<>();
+        for(int i = 0; i < f.getAllVincoli().size(); i++)
+            vincoli.add(f.getAllVincoli().get(i));
+        Object[] obj = vincoli.toArray();
+        constraint = new JList<>(obj); // Vincoli già presenti nel DB
+        constraint.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        constraint.setLayoutOrientation(JList.VERTICAL);
+        JScrollPane scp = new JScrollPane(constraint);
+
         back = new JButton("Annulla");
         confirm = new JButton("Aggiungi");
+        checkBoxButton = new JButton("Scegli");
 
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
@@ -80,7 +99,7 @@ public class AddProduct extends JFrame {
         body.add(typeLabel);
         body.add(type);
         body.add(constraintLabel);
-        body.add(constraint);
+        body.add(scp);
 
         btns.add(back);
         btns.add(confirm);
@@ -93,7 +112,8 @@ public class AddProduct extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400,250);
+        setSize(500,350);
+        setResizable(false);
         setLocationRelativeTo(c);
     }
 
