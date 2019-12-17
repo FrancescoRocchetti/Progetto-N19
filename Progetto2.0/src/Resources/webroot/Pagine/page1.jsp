@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
     <ul class="navbar-nav">
         <li class="nav-item active">
           <a class="nav-link" href="../index.jsp">Home</a>

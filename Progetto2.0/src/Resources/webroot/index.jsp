@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark sticky-top">
     <ul class="navbar-nav">
         <li class="nav-item active">
             <a class="nav-link" href="../index.jsp">Home</a>
@@ -27,15 +27,16 @@
 
     <div class="container">
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-          <h1>Embedded Jetty: JSP Examples</h1>
+          <h1>Build your PC</h1>
           <p>
-            Examples of JSP within Embedded Jetty.
+            Progetto N19 IDS
           </p>
-          <ul>
-            <li><a href="page1/">Build your PC</a></li>
-            <li><a href="Pagine/page2.jsp">Lista completa</a></li>
-            <li><a href="Pagine/pageTest.html">Pagina di test</a></li>
-          </ul>
+
+          <h3>
+            <a href="page1/">Build your PC</a>
+            <a href="Pagine/page2.jsp">Lista completa</a>
+            <a href="Pagine/pageTest.html">Pagina di test</a>
+          </h3>
 
     </div>
     </div>

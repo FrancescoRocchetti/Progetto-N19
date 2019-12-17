@@ -54,6 +54,12 @@ public class Facade {
         g.rimuovi(id);
     }
 
+    public void removeComponent(int id[]){
+        for(int i: id){
+            g.rimuovi(i);
+        }
+    }
+
     //login admin
     public boolean login(String user, String password){
         return fdb.login(user, password);
