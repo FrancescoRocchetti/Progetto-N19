@@ -1,5 +1,6 @@
-/*
 package Interface;
+
+import Logica.Facade;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,20 +13,20 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.ArrayList;
 
-*/
+
 /**
  * Interfaccia principale che permette di scegliere i componenti
  *
  * @author Matteo Lucchini
  * @author Fabio Riganti
- *//*
+ */
 
 
-public class Piattaforma extends AbstractInterface {
+public class Piattaforma extends JFrame {
 
     private static final int CATEGORIES = 10;
     private static final int COLUMNS = 5;
-    private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE, PCParts.ALTRO};
+    //private static final PCParts[] CMP = new PCParts[]{PCParts.MOBO, PCParts.CPU, PCParts.RAM, PCParts.STORAGE, PCParts.GPU, PCParts.PSU, PCParts.COOLER, PCParts.OS, PCParts.CASE, PCParts.ALTRO};
 
     private Container c;
     private JTabbedPane components;
@@ -63,7 +64,7 @@ public class Piattaforma extends AbstractInterface {
     private JTable compTable;
     private JPanel wattPanel;
 
-    private GestoreScelte gs;
+    private Facade f;
 
     private int index;
     private int rowAdd;
@@ -71,10 +72,10 @@ public class Piattaforma extends AbstractInterface {
     private int idAdd;
     private int[] idRmv;
 
-    public Piattaforma(GestoreScelte gs) {
+    public Piattaforma(Facade f) {
         super("Configuratore di PC");
-        this.gs = gs;
-        gs.setPiattaforma(this);
+        this.f = f;
+        //gs.setPiattaforma(this);
 
         // Inizializzazione
         c = getContentPane();
@@ -119,7 +120,7 @@ public class Piattaforma extends AbstractInterface {
         checkMessage = new JTextArea();
         checkMessage.setEditable(false);
         checkMessage.setForeground(Color.RED);
-        checkMessage.setText(gs.getWarningTxt());
+        checkMessage.setText("PER ORA NON USIAMO WARNING!");
         checkPane.setPreferredSize(new Dimension(300, getHeight() / 2));
         checkPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         checkPane.setBackground(Color.LIGHT_GRAY);
@@ -156,8 +157,9 @@ public class Piattaforma extends AbstractInterface {
             obtainParts(components.getSelectedIndex());
         });
 
+        //show components
         show.addActionListener(e -> {
-            AbstractComponent abs = gs.getCompByID(idAdd);
+            ArrayList<ArrayList<String>> s = f.getSelectedList();
             new SpecsList(abs, gs, this);
         });
 
@@ -203,10 +205,10 @@ public class Piattaforma extends AbstractInterface {
         setVisible(true);
 
     }
-*/
+
 /**
      * Permette di partire di nuovo da zero con la configurazione
-     *//*
+     */
 
 
     public void newConfiguration() {
@@ -215,28 +217,28 @@ public class Piattaforma extends AbstractInterface {
         price.setText("0 €");
         watt.setText("0 W");
         rmv.setEnabled(false);
-        gs.newScp();
-        confirmConfig.setEnabled(gs.canOrder());
+        f.resetSelected();
+        //gs.newScp();
+        confirmConfig.setEnabled(f.allOk());
         components.setSelectedIndex(0);
         obtainParts(0);
     }
 
-*/
 /**
      * Aggiorna la tabella dei componenti attuale
-     *//*
+     */
 
 
     public void refresh() {
         obtainParts(components.getSelectedIndex());
     }
-*/
+
 /**
      * Permette di notificare Piattaforma di un tentato aggiornamento
      * della tabella
      *
      * @param arr
-     *//*
+     */
 
 
     public void updateListTable(ArrayList<AbstractComponent> arr) {
@@ -267,13 +269,13 @@ public class Piattaforma extends AbstractInterface {
     }
 
 
-*/
+
 /**
      * Permette di notificare Piattaforma dell'esito di una
      * configurazione automatica
      *
      * @param status
-     *//*
+     */
 
 
     public void setAutoBuild(boolean status) {
@@ -282,7 +284,7 @@ public class Piattaforma extends AbstractInterface {
             updateCartList();
         } else {
             JOptionPane.showMessageDialog(this, "Configurazione non trovata", "Informazione", JOptionPane.INFORMATION_MESSAGE);
-            confirmConfig.setEnabled(gs.canOrder());
+            confirmConfig.setEnabled(f.allOk());
         }
         confirmConfig.setEnabled(true);
         file.setEnabled(true);
@@ -294,7 +296,7 @@ public class Piattaforma extends AbstractInterface {
     }
 
     private void addComp(int id) {
-        gs.addComp(id);
+        f.selectComponent(id);
     }
 
     private void obtainParts(int i) {
@@ -324,7 +326,7 @@ public class Piattaforma extends AbstractInterface {
 
     private void confirmConfigListener(JButton btn) {
         btn.addActionListener(e -> {
-            if (gs.canOrder()) {
+            if (f.allOk()) {
                 new ConfirmList(this, getCart(), gs);
             } else
                 JOptionPane.showMessageDialog(this, "Non sono stati soddisfatti tutti i requisiti per effettuare l'acquisto.", "Errore", JOptionPane.ERROR_MESSAGE);
@@ -353,7 +355,8 @@ public class Piattaforma extends AbstractInterface {
         chooseTable.setEnabled(false);
         chooseTable.clearSelection();
         loading(components.getSelectedIndex(), "Sto calcolando la tua configurazione...");
-        gs.getAutoBuild(budget);
+        //gs.getAutoBuild(budget);
+        f.automatic(budget);
     }
 
     private void addButtonListener(JButton btn) {
@@ -371,10 +374,10 @@ public class Piattaforma extends AbstractInterface {
         for (Object[] str : data) {
             model.addRow(str);
         }
-        price.setText(gs.getPrice() + " €");
-        watt.setText(gs.getWatt() + " W");
-        checkMessage.setText(gs.getWarningTxt());
-        confirmConfig.setEnabled(gs.canOrder());
+        price.setText(f.getTotPrice() + " €");
+        watt.setText(f.getTotPower() + " W");
+        //checkMessage.setText(gs.getWarningTxt());
+        confirmConfig.setEnabled(f.allOk());
     }
 
     private void rmvButtonListener(JButton btn) {
@@ -565,4 +568,3 @@ public class Piattaforma extends AbstractInterface {
         ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
     }
 }
-*/
