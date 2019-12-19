@@ -36,7 +36,7 @@ public class Deleting extends AbConnection {
     public boolean deleteTipo(String nome){
         try{
             connectToDB();
-            String temp="DELETE FROM Tipi where Nome="+nome;
+            String temp="DELETE FROM Tipi where Nome='"+nome+"'";
             stmt.executeUpdate(temp);
             conn.close();
             return true;

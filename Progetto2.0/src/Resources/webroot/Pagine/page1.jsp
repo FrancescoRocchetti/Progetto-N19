@@ -2,7 +2,8 @@
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='test' scope='session' class='Interface.WebInterface.Page1Bean' type="Interface.WebInterface.Page1Bean" />
+<jsp:useBean id='shop' scope='session' class='Interface.WebInterface.Page1Bean' type="Interface.WebInterface.Page1Bean" />
+<jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -27,6 +28,16 @@
           <a class="nav-link disabled" href="#">Build your PC</a>
         </li>
       </ul>
+
+      <%if(login.isLogged()){%>
+      <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+        <li class="nav-link disabled" href="#" >Logged as <%=login.getUser()%>.</li>
+        <li class="nav-item active">
+                  <a class="nav-link" href="../reset/">Log off.</a>
+        </li>
+      </ul>
+      <%}%>
+
 </nav>
 
 <br>
@@ -37,14 +48,14 @@
     </p>
         <form method="post">
 
-        <% ArrayList<String> list = test.tipiComponenti(); for(int i = 0; i<list.size();i++){ %>
+        <% ArrayList<String> list = shop.tipiComponenti(); for(int i = 0; i<list.size();i++){ %>
 
             <button type="submit" name=buttonA class="btn btn-secondary" value= <%= list.get(i)%> > <%= list.get(i)%> </button>
 
          <%}%>
         </form>
 
-        <% if(request.getParameter("buttonA") != null){ %> <% test.setcAttivo(request.getParameter("buttonA")); %><% } %>
+        <% if(request.getParameter("buttonA") != null){ %> <% shop.setcAttivo(request.getParameter("buttonA")); %><% } %>
 
     </div>
 </div>
@@ -56,13 +67,13 @@
   <div class="col-sm-1">Margine SX</div>
   <div class="col-sm-4 bg-primary text-break">
 
-      <h1> <%=test.getcAttivo()%> </h1>
+      <h1> <%=shop.getcAttivo()%> </h1>
 
 
-      <%if(!test.getcAttivo().equals("")){%>
+      <%if(!shop.getcAttivo().equals("")){%>
 
         <form method="post">
-          <% ArrayList<ArrayList<String>> list2 = test.getByType(test.getcAttivo()); for(ArrayList<String> ars: list2){ %>
+          <% ArrayList<ArrayList<String>> list2 = shop.getByType(shop.getcAttivo()); for(ArrayList<String> ars: list2){ %>
 
               <button type="submit" name=buttonB class="btn btn-success" value= <%= ars.get(0)%> > Add </button>
               <h3><%= ars.get(1)%></h3> <br>
@@ -72,7 +83,7 @@
       <%}%>
 
 
-      <% if(request.getParameter("buttonB") != null){ %> <% test.select(request.getParameter("buttonB")); %><% } %>
+      <% if(request.getParameter("buttonB") != null){ %> <% shop.select(request.getParameter("buttonB")); %><% } %>
 
   </div>
   <div class="col-sm-2">Centro</div>
@@ -81,7 +92,7 @@
 
 
         <form method="post">
-          <% ArrayList<ArrayList<String>> list3 = test.getSelected(); for(ArrayList<String> ars: list3){ %>
+          <% ArrayList<ArrayList<String>> list3 = shop.getSelected(); for(ArrayList<String> ars: list3){ %>
 
 
             <button type="submit" name=buttonC class="btn btn-danger" value= <%= ars.get(0)%> > Remove </button>
@@ -103,7 +114,7 @@
 <div class="container">
 <div class="jumbotron text-center" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
 
-        <h2><%=test.getPrice()%>$  <%=test.getPower()%>W</h2><br>
+        <h2><%=shop.getPrice()%>$  <%=shop.getPower()%>W</h2><br>
 
         <form method="post">
 

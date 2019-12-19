@@ -1,10 +1,9 @@
 <html>
-<meta http-equiv="refresh" content="30">
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='inv' scope='application' class='Interface.WebInterface.Page2Bean' type="Interface.WebInterface.Page2Bean" />
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
+<jsp:useBean id='add' scope='application' class='Interface.WebInterface.AddBean' type="Interface.WebInterface.AddBean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->
@@ -23,6 +22,9 @@
             <a class="nav-link" href="../index.jsp">Home</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="../Pagine/page2.jsp">Back to list</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link disabled" href="#">Build your PC</a>
         </li>
     </ul>
@@ -38,46 +40,42 @@
 
 <br>
 
+<%if(request.getParameter("buttonAC") != null){  type.addType(request.getParameter("inType")); } %>
+
+
 <div class="container h-100 d-flex">
 
     <div class="container">
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <p class="bg-primary text-white">
-
-        <h3>ID-Name-Price-Quantity-Rating-Constrain-Type</h3><br>
-        <% ArrayList<ArrayList<String>> ar = inv.getAll(); for(ArrayList<String> ars: ar){%>
-            <% for(String s: ars){ %>
-
-                <%=s%>
-            <%}%>
-            <%if(login.isLogged()){%>
-            <div class="btn-group dropright">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Modifica
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/change/<%=ars.get(0)%>,<%=ars.get(2)%>,<%=ars.get(3)%>,<%=ars.get(4)%>">Change Price/Quantity/Rating</a>
-                    <a class="dropdown-item" href="#">See Resources</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/remove/<%=ars.get(0)%>">Remove</a>
-                  </div>
-            </div>
-            <%}%>
-            <br><br>
-        <%}%>
-
         <%if(login.isLogged()){%>
-        <h3><a href="#">Add Component</a></h3>
-        <h3><a href="../Pagine/type.jsp">Add Type</a></h3>
-        <%}%>
+            <h3>Add component</h3><br>
+                TODO
+            <form method="post">
+
+          <div class="form-row align-items-center">
+          <div class="col-4">
+
+          </div>
+            <div class="col-3">
+              <label class="sr-only" for="inlineFormInput">Type</label>
+              <input type="text" class="form-control mb-2" id="inType" name="inType" placeholder="Type">
+            </div>
+            <div class="col-1">
+              <button type="submit" name=buttonAT class="btn btn-primary mb-2" value=1>Save</button>
+            </div>
+            <div class="col-4">
+
+            </div>
+          </div>
+        </form>
 
         </p>
-        <p id="here">
-            <h6><a href="/reload/page2.jsp#here">The server recive the updated list every 30 seconds, click here to refresh this page. (this page also autorefreshes every 30 seconds)</a></h6>
-        </p>
+        <%}%>
     </div>
     </div>
 </div>
+<br>
 
 
 <!-- Optional JavaScript -->

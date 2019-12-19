@@ -1,10 +1,9 @@
 <html>
-<meta http-equiv="refresh" content="30">
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='inv' scope='application' class='Interface.WebInterface.Page2Bean' type="Interface.WebInterface.Page2Bean" />
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
+<jsp:useBean id='change' scope='session' class='Interface.WebInterface.ChangeBean' type="Interface.WebInterface.ChangeBean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->
@@ -23,6 +22,9 @@
             <a class="nav-link" href="../index.jsp">Home</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="../Pagine/page2.jsp">Back to list</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link disabled" href="#">Build your PC</a>
         </li>
     </ul>
@@ -38,46 +40,71 @@
 
 <br>
 
+<%
+
+    change.setId( request.getParameter("id") );
+
+if(request.getParameter("buttonCG") != null){
+    if(!request.getParameter("inPrice").equals("")){
+        change.changePrice(request.getParameter("inPrice"));}
+    if(!request.getParameter("inRt").equals("")){
+        change.changeRating(request.getParameter("inRt"));}
+    if(!request.getParameter("inQt").equals("")){
+        change.changeQt(request.getParameter("inQt"));}
+}
+
+if(change.isCk()){
+    change.setCk(false);
+    response.sendRedirect("/Pagine/page2.jsp");
+}
+
+
+%>
+
 <div class="container h-100 d-flex">
 
     <div class="container">
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-        <p class="bg-primary text-white">
-
-        <h3>ID-Name-Price-Quantity-Rating-Constrain-Type</h3><br>
-        <% ArrayList<ArrayList<String>> ar = inv.getAll(); for(ArrayList<String> ars: ar){%>
-            <% for(String s: ars){ %>
-
-                <%=s%>
-            <%}%>
-            <%if(login.isLogged()){%>
-            <div class="btn-group dropright">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Modifica
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/change/<%=ars.get(0)%>,<%=ars.get(2)%>,<%=ars.get(3)%>,<%=ars.get(4)%>">Change Price/Quantity/Rating</a>
-                    <a class="dropdown-item" href="#">See Resources</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/remove/<%=ars.get(0)%>">Remove</a>
-                  </div>
-            </div>
-            <%}%>
-            <br><br>
-        <%}%>
-
         <%if(login.isLogged()){%>
-        <h3><a href="#">Add Component</a></h3>
-        <h3><a href="../Pagine/type.jsp">Add Type</a></h3>
+        <p class="bg-primary text-white">
+            <h3>Update Price/Quantity/Rating</h3><br>
+                <h4>id= ${id} Price= ${price} Qt= ${qt} Rt= ${rt}</h4>
+            <form method="post">
+
+            <div class="form-row align-items-center">
+                <div class="col-1">
+
+                </div>
+                <div class="col-3">
+                      <label class="sr-only" for="inlineFormInput">Price</label>
+                      <input type="number" min="0" class="form-control mb-2" id="inPrice" name="inPrice" placeholder="Price">
+                </div>
+                <div class="col-3">
+                      <label class="sr-only" for="inlineFormInput">Quantity</label>
+                      <input type="number" min="0" class="form-control mb-2" id="inQt" name="inQt" placeholder="Quantity">
+                </div>
+                <div class="col-3">
+                      <label class="sr-only" for="inlineFormInput">Rating</label>
+                      <input type="number" min="1" max="5" class="form-control mb-2" id="inRt" name="inRt" placeholder="Rating">
+                </div>
+
+                <div class="col-1">
+                      <button type="submit" name=buttonCG class="btn btn-primary mb-2" value=1>Change</button>
+                </div>
+                <div class="col-1">
+
+                </div>
+            </div>
+
+            </form>
         <%}%>
 
-        </p>
-        <p id="here">
-            <h6><a href="/reload/page2.jsp#here">The server recive the updated list every 30 seconds, click here to refresh this page. (this page also autorefreshes every 30 seconds)</a></h6>
-        </p>
+
+
     </div>
     </div>
 </div>
+<br>
 
 
 <!-- Optional JavaScript -->

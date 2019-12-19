@@ -34,7 +34,7 @@ public class Updating extends AbConnection {
                 return false;
             }
 
-            stmt.executeUpdate("UPDATE 'Prodotti' SET 'NUMERO' = "+n+" WHERE 'ID' ="+id);
+            stmt.executeUpdate("UPDATE Prodotti SET NUMERO = "+n+" WHERE ID ="+id);
             conn.close();
             return true;
         } catch (SQLException e) {
@@ -47,7 +47,7 @@ public class Updating extends AbConnection {
     public boolean updateN(int id, int n){
         try {
             connectToDB();
-            stmt.executeUpdate("UPDATE 'Prodotti' SET 'NUMERO' = "+n+" WHERE 'ID' ="+id);
+            stmt.executeUpdate("UPDATE Prodotti SET NUMERO = "+n+" WHERE ID ="+id);
             conn.close();
             return true;
         } catch (SQLException e) {
@@ -60,7 +60,7 @@ public class Updating extends AbConnection {
     public boolean updatePrice(int id, int price){
         try {
             connectToDB();
-            stmt.executeUpdate("UPDATE 'Prodotti' SET 'PREZZO' = "+price+" WHERE 'ID' ="+id);
+            stmt.executeUpdate("UPDATE Prodotti SET PREZZO = "+price+" WHERE ID ="+id);
             conn.close();
             return true;
         } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class Updating extends AbConnection {
     public boolean updateRating(int id, int rating){
         try {
             connectToDB();
-            stmt.executeUpdate("UPDATE 'Prodotti' SET 'RATING' = "+rating+" WHERE 'ID' ="+id);
+            stmt.executeUpdate("UPDATE Prodotti SET RATING = "+rating+" WHERE ID ="+id);
             conn.close();
             return true;
         } catch (SQLException e) {
