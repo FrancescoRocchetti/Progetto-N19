@@ -165,7 +165,10 @@ public class MainWeb
          * servlet per modificare componenti
          */
         servletContextHandler.addServlet(ChangeServlet.class, "/change/*");
-
+        /**
+         * servlet per le risorse
+         */
+        servletContextHandler.addServlet(ResServlet.class, "/res/*");
 
         // Default Servlet (always last, always named "default")
         ServletHolder holderDefault = new ServletHolder("default", DefaultServlet.class);

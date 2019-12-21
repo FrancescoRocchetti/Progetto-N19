@@ -85,7 +85,10 @@ public class Scrittura {
 
         fdb.addComponent(nome,prezzo,n,rating,temps,tipo);
         ArrayList<ArrayList<String>> temp= fdb.readCompSpecifico(nome);
-        int id = Integer.parseInt(temp.get(temp.size()-1).get(temp.get(0).size()-1)); //TODO scrivere sta cosa in modo leggibile
+
+        ArrayList<String> nuovoComp = temp.get(temp.size()-1);
+
+        int id = Integer.parseInt(nuovoComp.get(0));
         fdb.addCaratteristica(id, "RisorsaSenzaControlli", "ok_"+tipo.toLowerCase(), "ok");
         return true;
     }

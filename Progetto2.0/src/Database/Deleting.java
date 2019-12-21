@@ -23,7 +23,7 @@ public class Deleting extends AbConnection {
     public boolean deleteCaratteristica(int id, String nome){
         try{
             connectToDB();
-            String temp="DELETE FROM Caratteristica where ID="+id+" and NOME like '"+nome+"'";
+            String temp="DELETE FROM Caratteristiche where ID="+id+" and NOME like '"+nome+"'";
             stmt.executeUpdate(temp);
             conn.close();
             return true;

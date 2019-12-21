@@ -40,6 +40,10 @@
 
 <br>
 
+<%if(request.getParameter("buttonAC") != null){
+    add.req(request);
+}
+%>
 
 
 <div class="container h-100 d-flex">
@@ -63,8 +67,8 @@
                 <%ArrayList<String> types = add.getType();%>
 
                 <div class="col-2">
-                    <label for="inputType">Type</label>
-                    <select id="inputType" class="form-control">
+                    <label for="inType">Type</label>
+                    <select id="inType" name="inType" class="form-control">
                         <option selected> <%=types.get(0)%> </option>
                         <%for(int i=1;i<types.size();i++){%>
                         <option><%=types.get(i)%></option>
@@ -100,7 +104,7 @@
             <%for(String s: vincoli){%>
             <div class="form-group">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id=<%=s%>>
+                    <input class="form-check-input" type="checkbox" id=<%=s%> name=<%=s%>>
                     <label  for=<%=s%>>
                     <%=s%>
                     </label>
@@ -112,7 +116,7 @@
                 <div class="col-5">
                 </div>
                 <div class="col-2">
-                    <button type="submit" name=buttonCG class="btn btn-primary mb-2" value=1>Change</button>
+                    <button type="submit" name=buttonAC class="btn btn-primary mb-2" value=1>Add</button>
                 </div>
                 <div class="col-5">
                 </div>
