@@ -67,7 +67,7 @@
         <%}%>
 
         <%if(login.isLogged()){%>
-        <h3><a href="#">Add Component</a></h3>
+        <h3><a href="../Pagine/add.jsp">Add Component</a></h3>
         <h3><a href="../Pagine/type.jsp">Add Type</a></h3>
         <%}%>
 

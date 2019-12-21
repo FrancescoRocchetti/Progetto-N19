@@ -141,7 +141,31 @@ public class MainWeb
         enableEmbeddedJspSupport(servletContextHandler);
     
         // Add Application Servlets
+        /**
+         * servlet per la pagina dello shop
+         */
         servletContextHandler.addServlet(ServletPage1.class, "/page1/");
+        /**
+         * servlet per il log off
+         */
+        servletContextHandler.addServlet(ResetServlet.class, "/reset/");
+        /**
+         * servlet per la gestione dell'inventario
+         */
+        servletContextHandler.addServlet(EditorServlet.class, "/edit/*");
+        /**
+         * servlet per il refresh delle pagine
+         */
+        servletContextHandler.addServlet(ReloadServlet.class, "/reload/*");
+        /**
+         * servlet per rimuovere componenti
+         */
+        servletContextHandler.addServlet(RemoveServlet.class, "/remove/*");
+        /**
+         * servlet per modificare componenti
+         */
+        servletContextHandler.addServlet(ChangeServlet.class, "/change/*");
+
 
         // Default Servlet (always last, always named "default")
         ServletHolder holderDefault = new ServletHolder("default", DefaultServlet.class);

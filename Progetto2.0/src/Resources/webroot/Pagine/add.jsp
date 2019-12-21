@@ -40,7 +40,6 @@
 
 <br>
 
-<%if(request.getParameter("buttonAC") != null){  type.addType(request.getParameter("inType")); } %>
 
 
 <div class="container h-100 d-flex">
@@ -50,25 +49,77 @@
         <p class="bg-primary text-white">
         <%if(login.isLogged()){%>
             <h3>Add component</h3><br>
-                TODO
+
             <form method="post">
 
-          <div class="form-row align-items-center">
-          <div class="col-4">
+            <div class="form-row align-items-center">
+                <div class="col-3">
+                </div>
+                <div class="col-4">
+                      <label for="inName">Name</label>
+                      <input type="text" min="0" class="form-control mb-2" id="inName" name="inName" placeholder="Name">
+                </div>
 
-          </div>
-            <div class="col-3">
-              <label class="sr-only" for="inlineFormInput">Type</label>
-              <input type="text" class="form-control mb-2" id="inType" name="inType" placeholder="Type">
-            </div>
-            <div class="col-1">
-              <button type="submit" name=buttonAT class="btn btn-primary mb-2" value=1>Save</button>
-            </div>
-            <div class="col-4">
+                <%ArrayList<String> types = add.getType();%>
 
+                <div class="col-2">
+                    <label for="inputType">Type</label>
+                    <select id="inputType" class="form-control">
+                        <option selected> <%=types.get(0)%> </option>
+                        <%for(int i=1;i<types.size();i++){%>
+                        <option><%=types.get(i)%></option>
+                        <%}%>
+                    </select>
+                </div>
+
+                <div class="col-3">
+                </div>
             </div>
-          </div>
-        </form>
+
+            <div class="form-row align-items-center">
+                <div class="col-3">
+                </div>
+                <div class="col-2">
+                      <label for="inPrice">Price</label>
+                      <input type="number" min="0" class="form-control mb-2" id="inPrice" name="inPrice" placeholder="Price">
+                </div>
+                <div class="col-2">
+                      <label for="inQt">Quantity</label>
+                      <input type="number" min="0" class="form-control mb-2" id="inQt" name="inQt" placeholder="Quantity">
+                </div>
+                <div class="col-2">
+                      <label for="inRt">Rating</label>
+                      <input type="number" min="1" max="5" class="form-control mb-2" id="inRt" name="inRt" placeholder="Rating">
+                </div>
+                <div class="col-3">
+                </div>
+            </div>
+
+            <%ArrayList<String> vincoli = add.getVincoli();%>
+
+            <%for(String s: vincoli){%>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id=<%=s%>>
+                    <label  for=<%=s%>>
+                    <%=s%>
+                    </label>
+                </div>
+            </div>
+            <%}%>
+
+            <div class="form-row align-items-center">
+                <div class="col-5">
+                </div>
+                <div class="col-2">
+                    <button type="submit" name=buttonCG class="btn btn-primary mb-2" value=1>Change</button>
+                </div>
+                <div class="col-5">
+                </div>
+            </div>
+
+
+            </form>
 
         </p>
         <%}%>

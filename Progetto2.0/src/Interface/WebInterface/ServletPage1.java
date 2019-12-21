@@ -20,7 +20,7 @@ public class ServletPage1 extends HttpServlet {
 
         int ck=0;   //  0==page1, 1==success
 
-        Page1Bean bean = (Page1Bean) req.getSession().getAttribute("test");
+        Page1Bean bean = (Page1Bean) req.getSession().getAttribute("shop");
 
         if(req.getParameter("buttonC") != null){
             String temp = req.getParameter("buttonC");

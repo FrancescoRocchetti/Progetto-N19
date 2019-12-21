@@ -79,7 +79,7 @@ public class Scrittura {
         }
         temps=temps.substring(0,temps.length()-1);
 
-        if(vincolo.size()==0){
+        if(temps.equals("")){
             temps="NoVincolo";
         }
 
