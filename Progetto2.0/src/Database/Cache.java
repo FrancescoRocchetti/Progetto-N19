@@ -2,6 +2,9 @@ package Database;
 
 import java.util.ArrayList;
 
+/**
+ * thread per velocizzare la lettura dal db
+ */
 public class Cache extends Thread{
 
     private Reading r;

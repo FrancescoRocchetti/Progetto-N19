@@ -3,6 +3,9 @@ package Database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * classe con tutti i metodi per leggere dal db
+ */
 public class Reading extends AbConnection{
 
     public Reading(){

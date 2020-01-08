@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * bean per la pagina web per l'inserimento di nuove componenti
+ */
 public class AddBean implements Serializable {
 
     private Facade f;

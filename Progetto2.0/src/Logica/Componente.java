@@ -6,6 +6,8 @@ import Logica.Vincoli.Vincolo;
 import java.util.ArrayList;
 
 /**
+ * classe per la componente
+ *
  * come nel vecchio progetto
  * ma le risorse sono un array
  * e contiene anche i vincoli associati ad ogni singolo componente

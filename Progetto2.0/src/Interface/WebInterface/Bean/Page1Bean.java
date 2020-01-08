@@ -5,6 +5,9 @@ import Logica.Facade;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * bean per la pagina principale dello shop
+ */
 public class Page1Bean implements Serializable {
 
     private Facade f;

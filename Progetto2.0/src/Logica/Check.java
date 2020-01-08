@@ -85,7 +85,7 @@ public class Check {
         Collections.sort(temp);
         Collections.sort(temp2);
 
-        return (temp.equals(temp2) && checkPower(alc));
+        return (temp.containsAll(temp2) && checkPower(alc));
 
     }
 

@@ -5,6 +5,9 @@ import Logica.Facade;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * bean per la visualizzazione delle vendite
+ */
 public class SalesBean implements Serializable {
 
     private Facade f;

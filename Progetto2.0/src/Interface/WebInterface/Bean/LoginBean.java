@@ -4,6 +4,9 @@ import Logica.Facade;
 
 import java.io.Serializable;
 
+/**
+ * bean per gestire il login degli admin
+ */
 public class LoginBean implements Serializable {
 
     private boolean logged = false;

@@ -3,6 +3,9 @@ package Database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * classe con tutti i metodi di update
+ */
 public class Updating extends AbConnection {
 
     public Updating() {

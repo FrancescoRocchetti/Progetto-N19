@@ -7,6 +7,9 @@ import Logica.Vincoli.Vincolo;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
+/**
+ * classe che costruisce una componente date le informazioni in ingresso dal db
+ */
 public class BComponente {
 
     private Facade fdb;

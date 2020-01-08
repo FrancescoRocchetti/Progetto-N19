@@ -4,6 +4,9 @@ import Logica.Facade;
 
 import java.io.Serializable;
 
+/**
+ * bean per la pagina web per l'aggiornamento di una componente
+ */
 public class ChangeBean implements Serializable {
 
     private Facade f;

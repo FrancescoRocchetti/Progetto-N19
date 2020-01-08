@@ -4,6 +4,9 @@ import Logica.Risorse.Risorsa;
 
 import java.util.ArrayList;
 
+/**
+ * classe per le componenti attualmente mostrate all'utente
+ */
 public class ComponentiMostrati {
 
     private ArrayList<Componente> alc;

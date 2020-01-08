@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * servlet per la rimozione di un componente
+ */
 public class RemoveServlet extends HttpServlet {
 
     @Override

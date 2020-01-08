@@ -1,5 +1,8 @@
 package Database;
 
+/**
+ * classe con tutti i metodi per eliminare qualcosa dal db
+ */
 public class Deleting extends AbConnection {
 
     public Deleting() {

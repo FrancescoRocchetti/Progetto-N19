@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * servlet per lo shop
+ */
 public class ServletPage1 extends HttpServlet {
 
     @Override

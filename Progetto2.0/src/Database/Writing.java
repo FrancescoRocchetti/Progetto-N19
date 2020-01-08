@@ -2,6 +2,9 @@ package Database;
 
 import java.util.ArrayList;
 
+/**
+ * classe con tutti metodi di update
+ */
 public class Writing extends AbConnection {
 
     public Writing(){

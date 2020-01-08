@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * servlet per l'hard refresh di una pagina
+ */
 public class ReloadServlet extends HttpServlet {
 
     @Override

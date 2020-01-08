@@ -2,6 +2,9 @@ package Logica.Automatic;
 
 import Logica.ComponentiSelezionati;
 
+/**
+ * build automatica
+ */
 public class SelezioneAutomatica {
 
     private ComponentiSelezionati build;

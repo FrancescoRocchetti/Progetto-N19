@@ -5,6 +5,9 @@ import Logica.Facade;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * bean per la pagina web che permette la gestione dei tipi di componenti
+ */
 public class TypeBean implements Serializable {
 
     Facade f;

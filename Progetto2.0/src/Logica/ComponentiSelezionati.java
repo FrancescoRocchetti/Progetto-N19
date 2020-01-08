@@ -9,7 +9,6 @@ import static java.lang.Math.abs;
 /**
  * classe della lista di componenti selezionati
  */
-
 public class ComponentiSelezionati {
 
     private ArrayList<Componente> alc;
