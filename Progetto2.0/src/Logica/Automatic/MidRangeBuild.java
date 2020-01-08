@@ -7,6 +7,10 @@ public class MidRangeBuild extends StrategiaSelezione {
 
     protected String[] cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
 
+    public MidRangeBuild(int budget) {
+        super(budget);
+    }
+
     @Override
     public int compare(Componente o1, Componente o2) {
         double t1 = ((((double)o1.getRanking())/((double)o1.getPrice()))*100);

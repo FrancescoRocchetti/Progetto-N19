@@ -2,7 +2,8 @@
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='test' scope='application' class='Interface.WebInterface.Bean.Page2Bean' type="Interface.WebInterface.Bean.Page2Bean" />
+<jsp:useBean id='shop' scope='session' class='Interface.WebInterface.Bean.Page1Bean' type="Interface.WebInterface.Bean.Page1Bean" />
+<jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->
@@ -24,6 +25,14 @@
             <a class="nav-link disabled" href="#">Build your PC</a>
         </li>
     </ul>
+    <%if(login.isLogged()){%>
+    <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+        <li class="nav-link disabled" href="#" >Logged as <%=login.getUser()%>.</li>
+        <li class="nav-item active">
+              <a class="nav-link" href="../reset/">Log off.</a>
+        </li>
+    </ul>
+    <%}%>
 </nav>
 
 <br>
@@ -32,8 +41,16 @@
 
     <div class="container">
     <div class="jumbotron text-center my-auto">
+        <h2>Acquisto Riuscito</h2>
+        <%for(ArrayList<String> s: shop.getSelected()){%>
+            <h6><%=s.get(1)%></h6>
+        <%}%>
 
-        <img src="https://media.giphy.com/media/26gsobowozGM9umBi/giphy.gif">
+        <%shop.reset();%>
+        <%shop.setcAttivo("");%>
+        <a href="../index.jsp"><h2>Torna alla pagina iniziale</h2></a>
+
+        <!--img src="https://media.giphy.com/media/26gsobowozGM9umBi/giphy.gif"-->
 
     </div>
     </div>

@@ -7,6 +7,10 @@ public class TopBuild extends StrategiaSelezione{
 
     protected String[] cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
 
+    public TopBuild(int budget) {
+        super(budget);
+    }
+
     @Override
     public int compare(Componente o1, Componente o2) {
         int t1 = o1.getPrice();

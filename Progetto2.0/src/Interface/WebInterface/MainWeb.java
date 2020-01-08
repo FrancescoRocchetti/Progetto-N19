@@ -93,9 +93,9 @@ public class MainWeb
         }
     }
 
-    public static void main(String[] args) throws Exception
+    public static void main(int p) throws Exception
     {
-        int port = 8080;
+        int port = p;
         LoggingUtil.config();
 
         MainWeb main = new MainWeb(port);

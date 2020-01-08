@@ -4,22 +4,28 @@ import Logica.ComponentiSelezionati;
 
 public class SelezioneAutomatica {
 
-    private StrategiaSelezione ss;
     private ComponentiSelezionati build;
 
     public SelezioneAutomatica(int budget) {
-        if(budget<=750)
-            ss = new CheapBuild();
-        else if(budget<=2500)
-            ss = new MidRangeBuild();
-        else
-            ss = new TopBuild();
-
-        //ss.cerca(budget,ss.cosaServe);
+        if(budget<=750){
+            CheapBuild ss = new CheapBuild(budget);
+            ss.cerca();
+            build = ss.getCs();
+        }
+        else if(budget<=2500){
+            MidRangeBuild ss = new MidRangeBuild(budget);
+            ss.cerca();
+            build = ss.getCs();
+        }
+        else{
+            TopBuild ss = new TopBuild(budget);
+            ss.cerca();
+            build = ss.getCs();
+        }
     }
 
     public ComponentiSelezionati getBuild(){
-        return ss.getCs();
+        return build;
     }
 
 }

@@ -7,9 +7,8 @@ public class CheapBuild extends StrategiaSelezione {
 
     protected String[] cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE"};
 
-
-    protected void cerca(int budget) {
-        super.cerca(budget, cosaServe);
+    public CheapBuild(int budget) {
+        super(budget);
     }
 
     @Override

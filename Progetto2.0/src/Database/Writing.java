@@ -50,12 +50,14 @@ public class Writing extends AbConnection {
     public void writeSale(ArrayList<Integer> arTot,ArrayList<Integer> arMiss, String info){
         String list = "tot:";
         for(Integer i :arTot){
-            list = list + "," + i ;
+            list = list + i + "," ;
         }
+        list = list.substring(0,list.length()-1);
         list = list + " miss:";
         for(Integer i :arMiss){
-            list = list + "," + i ;
+            list = list + i + ",";
         }
+        list = list.substring(0,list.length()-1);
         try{
             connectToDB();
             String temp="insert into Vendite values(default,now(),'"+list+"','"+ info +"')";
