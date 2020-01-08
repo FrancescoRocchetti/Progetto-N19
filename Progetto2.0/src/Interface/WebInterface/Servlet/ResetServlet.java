@@ -1,4 +1,6 @@
-package Interface.WebInterface;
+package Interface.WebInterface.Servlet;
+
+import Interface.WebInterface.Bean.LoginBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

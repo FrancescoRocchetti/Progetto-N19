@@ -1,4 +1,4 @@
-package Interface.WebInterface;
+package Interface.WebInterface.Bean;
 
 import Logica.Facade;
 
@@ -9,8 +9,11 @@ public class Page1Bean implements Serializable {
 
     private Facade f;
 
+    private boolean okOperation;
+
     public Page1Bean(){
         f = new Facade();
+        okOperation = true;
     }
 
     private String cAttivo="";
@@ -36,7 +39,7 @@ public class Page1Bean implements Serializable {
     }
 
     public void select(String id){
-        f.selectComponent(Integer.parseInt(id));
+        okOperation = f.selectComponent(Integer.parseInt(id));
     }
 
     public void remove(String id){
@@ -51,11 +54,27 @@ public class Page1Bean implements Serializable {
         f.confirm(info);
     }
 
+    public boolean check(){
+        return f.allOk();
+    }
+
     public String getPrice(){
         return String.valueOf(f.getTotPrice());
     }
 
     public String getPower(){
         return String.valueOf(f.getTotPower());
+    }
+
+    public void automatic(int price){
+        f.automatic(price);
+    }
+
+    public void resetOk(){
+        okOperation = true;
+    }
+
+    public boolean isOkOperation() {
+        return okOperation;
     }
 }

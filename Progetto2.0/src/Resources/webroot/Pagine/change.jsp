@@ -2,8 +2,8 @@
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
-<jsp:useBean id='change' scope='session' class='Interface.WebInterface.ChangeBean' type="Interface.WebInterface.ChangeBean" />
+<jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
+<jsp:useBean id='change' scope='session' class='Interface.WebInterface.Bean.ChangeBean' type="Interface.WebInterface.Bean.ChangeBean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->

@@ -2,7 +2,7 @@
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='test' scope='application' class='Interface.WebInterface.Page2Bean' type="Interface.WebInterface.Page2Bean" />
+<jsp:useBean id='test' scope='application' class='Interface.WebInterface.Bean.Page2Bean' type="Interface.WebInterface.Bean.Page2Bean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->

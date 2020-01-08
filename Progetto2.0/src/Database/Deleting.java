@@ -11,7 +11,7 @@ public class Deleting extends AbConnection {
             connectToDB();
             String temp="DELETE FROM Prodotti where ID="+id;
             stmt.executeUpdate(temp);
-            stmt.executeUpdate("DELETE FROM Caratteristica where ID="+id);
+            stmt.executeUpdate("DELETE FROM Caratteristiche where ID="+id);
             conn.close();
             return true;
         } catch (Exception e){

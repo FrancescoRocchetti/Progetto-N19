@@ -1,4 +1,4 @@
-package Interface.WebInterface;
+package Interface.WebInterface.Servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

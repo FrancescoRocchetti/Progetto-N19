@@ -3,9 +3,7 @@ package Logica;
 import Logica.Risorse.Risorsa;
 import Logica.Vincoli.Vincolo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * questa è la classe che fa partire la verifica dei vincoli
@@ -67,6 +65,11 @@ public class Check {
                 }
             }
         }
+
+        //rimozione dei duplicati
+        Set<String> set = new HashSet<>(temp);
+        temp.clear();
+        temp.addAll(set);
 
         String[] necessari ={"ok_cpu",
                             "ok_mobo",

@@ -5,11 +5,7 @@ import Logica.ComponentiSelezionati;
 
 public class TopBuild extends StrategiaSelezione{
 
-    @Override
-    public ComponentiSelezionati selziona(int prezzo) {
-        cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
-        return null;
-    }
+    protected String[] cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
 
     @Override
     public int compare(Componente o1, Componente o2) {

@@ -29,6 +29,7 @@ public class Updating extends AbConnection {
             connectToDB();
             rs = stmt.executeQuery("select * from Prodotti where ID=" + id );
 
+            rs.next();
             int n = Integer.parseInt(rs.getString(4)) - 1;
             if(n<=0){
                 return false;
@@ -38,7 +39,7 @@ public class Updating extends AbConnection {
             conn.close();
             return true;
         } catch (SQLException e) {
-            System.err.println(e);
+            e.printStackTrace();
             forceClose();
             return false;
         }

@@ -1,4 +1,4 @@
-package Interface.WebInterface;
+package Interface.WebInterface.Bean;
 
 import java.io.Serializable;
 

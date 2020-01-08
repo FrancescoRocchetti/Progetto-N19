@@ -122,4 +122,8 @@ public class Facade {
         return d.deleteTipo(nome);
     }
 
+    public ArrayList<ArrayList<String>> getSales(){
+        return r.readSales();
+    }
+
 }

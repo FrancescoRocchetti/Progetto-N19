@@ -2,8 +2,8 @@
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
-<jsp:useBean id='add' scope='application' class='Interface.WebInterface.AddBean' type="Interface.WebInterface.AddBean" />
+<jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
+<jsp:useBean id='add' scope='application' class='Interface.WebInterface.Bean.AddBean' type="Interface.WebInterface.Bean.AddBean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->
@@ -68,7 +68,7 @@
 
                 <div class="col-2">
                     <label for="inType">Type</label>
-                    <select id="inType" name="inType" class="form-control">
+                    <select id="inType" name="inType" class="form-control mb-2">
                         <option selected> <%=types.get(0)%> </option>
                         <%for(int i=1;i<types.size();i++){%>
                         <option><%=types.get(i)%></option>

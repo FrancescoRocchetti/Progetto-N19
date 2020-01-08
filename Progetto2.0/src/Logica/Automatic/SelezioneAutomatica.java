@@ -15,11 +15,11 @@ public class SelezioneAutomatica {
         else
             ss = new TopBuild();
 
-        build = ss.selziona(budget);
+        //ss.cerca(budget,ss.cosaServe);
     }
 
     public ComponentiSelezionati getBuild(){
-        return build;
+        return ss.getCs();
     }
 
 }

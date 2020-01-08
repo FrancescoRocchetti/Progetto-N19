@@ -23,8 +23,8 @@ public class Gestione {
         cm.change(bc.compByType(type));
     }
 
-    public void aggiungi(int i){
-        cs.put(cm.getCompbyId(i));
+    public boolean aggiungi(int i){
+        return cs.put(cm.getCompbyId(i));
     }
 
     public void rimuovi(int i){
@@ -77,6 +77,7 @@ public class Gestione {
     public void automatic(int budget){
         SelezioneAutomatica s = new SelezioneAutomatica(budget);
         cs = s.getBuild();
+        System.err.println(s.getBuild().getIds());
     }
 
     public void resetMostrati(){

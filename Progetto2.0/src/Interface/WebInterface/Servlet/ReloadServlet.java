@@ -1,6 +1,4 @@
-package Interface.WebInterface;
-
-import Logica.Facade;
+package Interface.WebInterface.Servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,14 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RemoveServlet extends HttpServlet {
+public class ReloadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String rId = req.getRequestURL().substring(req.getRequestURL().lastIndexOf("/") +1);
-
-        Facade f = new Facade();
-        f.dropComp(Integer.parseInt(rId));
-        resp.sendRedirect("/Pagine/page2.jsp");
+        String path = req.getRequestURL().substring(req.getRequestURL().lastIndexOf("/"));
+        System.err.println(path);
+        resp.sendRedirect("/Pagine"+path);
     }
 }

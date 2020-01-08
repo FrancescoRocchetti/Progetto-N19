@@ -11,12 +11,10 @@ import java.util.Comparator;
 public abstract class StrategiaSelezione implements Comparator<Componente> {
 
     protected ComponentiSelezionati cs;
-    protected String[] cosaServe;
 
-    protected abstract ComponentiSelezionati selziona(int prezzo);
-
-    protected void cerca(int budget){
+    protected void cerca(int budget, String[] cosaServe){
         BComponente bc = new BComponente();
+        System.err.println(budget);
         int min = (int)((budget/cosaServe.length)*1.2);
         int max = (int)((budget/cosaServe.length)*0.5);
         for(String s: cosaServe){
@@ -42,6 +40,10 @@ public abstract class StrategiaSelezione implements Comparator<Componente> {
                 return; //bisognerebbe aggiungere un messaggio d'errore
             }
         }
+    }
+
+    public ComponentiSelezionati getCs() {
+        return cs;
     }
 
     @Override

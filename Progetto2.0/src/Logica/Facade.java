@@ -45,8 +45,8 @@ public class Facade {
     }
 
     //aggiunge un componente alla lista dei selezionati
-    public void selectComponent(int id){
-        g.aggiungi(id);
+    public boolean selectComponent(int id){
+        return g.aggiungi(id);
     }
 
     //rimuove un componente dalla lista dei selezionati
@@ -99,6 +99,11 @@ public class Facade {
         return fdb.readAllCaratteristiche();
     }
 
+    //mostra tutte le caratteristiche di un componente (per Admin)
+    public ArrayList<ArrayList<String>> getCaratteristichebyId(int id){
+        return fdb.readCaratteristiche(id);
+    }
+
     //mostra i dettagli di un componente (cioè le sue risorse)
     public ArrayList<String> getDetail(int id){
         return g.dettagli(id);
@@ -119,9 +124,7 @@ public class Facade {
      * @return
      */
     public boolean confirm(){
-        //return g.confirm();
-        resetSelected();
-        return true; //per adesso disattivato per evitare casini
+        return g.confirm();
     }
 
     /**
@@ -209,6 +212,10 @@ public class Facade {
     //build automatica
     public void automatic(int budget){
         g.automatic(budget);
+    }
+
+    public ArrayList<ArrayList<String>> getSales(){
+        return fdb.getSales();
     }
 
 }

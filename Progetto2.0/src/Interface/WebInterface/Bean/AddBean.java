@@ -1,4 +1,4 @@
-package Interface.WebInterface;
+package Interface.WebInterface.Bean;
 
 import Logica.Facade;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class AddBean implements Serializable {
 
-    Facade f;
+    private Facade f;
 
     public AddBean() {
         this.f = new Facade();

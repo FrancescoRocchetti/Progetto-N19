@@ -1,4 +1,6 @@
-package Interface.WebInterface;
+package Interface.WebInterface.Servlet;
+
+import Interface.WebInterface.Bean.Page1Bean;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +27,15 @@ public class ServletPage1 extends HttpServlet {
         if(req.getParameter("buttonC") != null){
             String temp = req.getParameter("buttonC");
              bean.remove(temp);
+        }
+
+        if(req.getParameter("buttonAuto") != null){
+            try{
+                bean.automatic(Integer.parseInt(req.getParameter("inMoney")));
+            } catch (Exception e){
+                System.err.println("errore in richiesta di build automatica");
+                e.printStackTrace();
+            }
         }
 
         if(req.getParameter("buttonD") != null){

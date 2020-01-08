@@ -5,17 +5,13 @@ import Logica.ComponentiSelezionati;
 
 public class MidRangeBuild extends StrategiaSelezione {
 
-    @Override
-    public ComponentiSelezionati selziona(int prezzo) {
-        cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
-        return null;
-    }
+    protected String[] cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
 
     @Override
     public int compare(Componente o1, Componente o2) {
-        int t1 = (int)((((double)o1.getRanking())/((double)o1.getPrice()))*100);
-        int t2 = (int)((((double)o2.getRanking())/((double)o2.getPrice()))*100);
+        double t1 = ((((double)o1.getRanking())/((double)o1.getPrice()))*100);
+        double t2 = ((((double)o2.getRanking())/((double)o2.getPrice()))*100);
 
-        return t2-t1;
+        return (int)(t2-t1);
     }
 }

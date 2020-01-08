@@ -161,4 +161,27 @@ public class Reading extends AbConnection{
             return false;
         }
     }
+
+    public ArrayList<ArrayList<String>> readSales(){
+        try {
+            connectToDB();
+            rs = stmt.executeQuery("select * from Vendite");
+
+            ArrayList<ArrayList<String>> list = new ArrayList<>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<>();
+                for(int i=1; i<=4; i++){
+                    temp.add(rs.getString(i));
+                }
+                list.add(temp);
+            }
+
+            conn.close();
+            return list;
+        } catch (SQLException e) {
+            System.err.println(e);
+            forceClose();
+            return null;
+        }
+    }
 }

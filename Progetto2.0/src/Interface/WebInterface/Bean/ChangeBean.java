@@ -1,4 +1,4 @@
-package Interface.WebInterface;
+package Interface.WebInterface.Bean;
 
 import Logica.Facade;
 
@@ -37,7 +37,6 @@ public class ChangeBean implements Serializable {
         String id = (String) ido;
         if(id!=null && !id.equalsIgnoreCase("0"))
             this.id = Integer.parseInt(id);
-        System.err.println(id);
     }
 
     public boolean isCk() {

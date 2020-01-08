@@ -2,8 +2,8 @@
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='shop' scope='session' class='Interface.WebInterface.Page1Bean' type="Interface.WebInterface.Page1Bean" />
-<jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
+<jsp:useBean id='shop' scope='session' class='Interface.WebInterface.Bean.Page1Bean' type="Interface.WebInterface.Bean.Page1Bean" />
+<jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -113,15 +113,31 @@
 
 <div class="container">
 <div class="jumbotron text-center" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-
+        <%if(!shop.isOkOperation()){shop.resetOk();%><h6>Warning</h6><%}%>
         <h2><%=shop.getPrice()%>$  <%=shop.getPower()%>W</h2><br>
 
         <form method="post">
 
             <button type="submit" name=buttonD class="btn btn-danger" value= "r" > Reset </button>
-            <button type="submit" name=buttonD class="btn btn-success" value= "b" > Buy </button>
+            <button type="submit" name=buttonD class="btn btn-success" value= "b" <%if(!shop.check()){%>disabled<%}%>> Buy </button>
 
         </form>
+        <br>
+        <form method="post">
+                <div class="form-row align-items-center">
+                    <div class="col-4"></div>
+                    <div class="col-2">
+                        <input type="number" min="0" class="form-control mb-2" id="inMoney" name="inMoney" placeholder="Money" autocomplete="off">
+                    </div>
+
+                    <div class="col-2">
+                        <button type="submit" name=buttonAuto class="btn btn-primary mb-2" value=1>Autobuild</button>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+        </form>
+
+        <h6>Autobuild function may not work</h6>
 
     </div>
 </div>

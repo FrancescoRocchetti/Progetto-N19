@@ -1,6 +1,6 @@
 <html>
 <head>
-<jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
+<jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
   <title>Progetto N19</title>
           <!-- Required meta tags -->
           <meta charset="utf-8">
@@ -62,6 +62,7 @@
             <a href="page1/">Build your PC</a><br>
             <a href="Pagine/page2.jsp">Lista completa</a><br>
             <a href="Pagine/pageTest.html">Lorem ipsum</a><br>
+            <%if(login.isLogged()){%><a href="Pagine/Sales.jsp">Vendite</a><br><%}%>
           </h3>
 
     </div>

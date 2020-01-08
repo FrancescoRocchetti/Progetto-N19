@@ -3,8 +3,8 @@
 <%@ page language="java"%>
 <%@ page session="true"%>
 <%@ page import="java.util.ArrayList" %>
-<jsp:useBean id='login' scope='session' class='Interface.WebInterface.LoginBean' type="Interface.WebInterface.LoginBean" />
-<jsp:useBean id='type' scope='session' class='Interface.WebInterface.TypeBean' type="Interface.WebInterface.TypeBean" />
+<jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
+<jsp:useBean id='type' scope='session' class='Interface.WebInterface.Bean.TypeBean' type="Interface.WebInterface.Bean.TypeBean" />
 <head>
   <title>Progetto N19</title>
           <!-- Required meta tags -->
