@@ -22,6 +22,10 @@ public abstract class AbConnection {
         password = "eVWtADjm12";
     }
 
+    /**
+     * apre la connessione al db
+     * @throws SQLException
+     */
     protected void connectToDB() throws SQLException {
         try {
             conn = DriverManager.getConnection(url,user,password);
@@ -32,6 +36,9 @@ public abstract class AbConnection {
         }
     }
 
+    /**
+     * forza la chiusura della connessione in caso di errore
+     */
     protected void forceClose() {
         try {
             conn.close();

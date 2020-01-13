@@ -48,7 +48,7 @@ public class Componente implements Comparable{
     }
 
     public ArrayList<String> getString() {
-
+        /*
         ArrayList<String> temp = new ArrayList<>();
 
         String temp1="";
@@ -70,6 +70,12 @@ public class Componente implements Comparable{
                ", risorse=" + temp1 +
                '}');
 
+        return temp;
+        */
+        ArrayList<String> temp = new ArrayList<>();
+
+        temp.add(String.valueOf(id));
+        temp.add(name+" "+price+"$");
         return temp;
     }
 

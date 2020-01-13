@@ -9,6 +9,11 @@ public class Deleting extends AbConnection {
         super();
     }
 
+    /**
+     * cancella un prodotto e eventuali sue caratteristiche dal db
+     * @param id
+     * @return
+     */
     public boolean deleteProdotto(int id){
         try{
             connectToDB();
@@ -23,6 +28,13 @@ public class Deleting extends AbConnection {
         }
     }
 
+    /**
+     * elimina una singola caratteristica dal db
+     * (cancella tutte le caratteristiche con lo stesso nome di un particolare id)
+     * @param id del prodotto
+     * @param nome della caratteristica
+     * @return
+     */
     public boolean deleteCaratteristica(int id, String nome){
         try{
             connectToDB();
@@ -36,6 +48,12 @@ public class Deleting extends AbConnection {
         }
     }
 
+    /**
+     * cancella un tipo di prodotto
+     * (cancella solo nella tabella dei tipi i prodotti rimangono)
+     * @param nome
+     * @return
+     */
     public boolean deleteTipo(String nome){
         try{
             connectToDB();

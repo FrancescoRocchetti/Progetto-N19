@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 /**
  * thread per velocizzare la lettura dal db
+ *
+ * la lettura avviene in modo ciclico e il resto del programma interroga questo thread
+ * invece che il database
  */
 public class Cache extends Thread{
 

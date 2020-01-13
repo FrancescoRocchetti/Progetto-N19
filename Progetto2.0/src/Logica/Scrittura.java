@@ -18,7 +18,6 @@ import java.util.Set;
 /**
  * questa è la classe che gestisce(aiuta) l'inserimento di nuovi componenti nel DB
  *
- *
  */
 public class Scrittura {
 

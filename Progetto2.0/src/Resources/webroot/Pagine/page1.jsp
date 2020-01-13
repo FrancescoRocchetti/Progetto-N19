@@ -64,7 +64,7 @@
 <div class="container-fluid">
 <center>
 <div class="row">
-  <div class="col-sm-1">Margine SX</div>
+  <div class="col-sm-1"> </div>
   <div class="col-sm-4 bg-primary text-break">
 
       <h1> <%=shop.getcAttivo()%> </h1>
@@ -86,7 +86,7 @@
       <% if(request.getParameter("buttonB") != null){ %> <% shop.select(request.getParameter("buttonB")); %><% } %>
 
   </div>
-  <div class="col-sm-2">Centro</div>
+  <div class="col-sm-2"> </div>
   <div class="col-sm-4 bg-primary text-break">
     <h1>Selezionati</h1>
 
@@ -104,7 +104,7 @@
 
 
   </div>
-  <div class="col-sm-1">Margine DX</div>
+  <div class="col-sm-1"> </div>
 </div>
 </center>
 </div>

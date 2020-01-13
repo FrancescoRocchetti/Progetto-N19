@@ -12,6 +12,11 @@ public class Reading extends AbConnection{
         super();
     }
 
+    /**
+     * legge i prodotti dal db
+     * @param type tipo che si vuole leggere (se null legge tutto)
+     * @return
+     */
     public ArrayList<ArrayList<String>> readProdotti(String type){
         try {
             connectToDB();

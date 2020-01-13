@@ -18,6 +18,11 @@ public class BComponente {
         fdb =  Facade.getInstance();
     }
 
+    /**
+     * restituisce un Arraylist di componenti con risorse e vincoli
+     * @param type
+     * @return
+     */
     public ArrayList<Componente> compByType(String type){
         ArrayList<Componente> tempC = new ArrayList<>();
         ArrayList<ArrayList<String>> tempS = fdb.readComp(type);
@@ -29,6 +34,11 @@ public class BComponente {
         return tempC;
     }
 
+    /**
+     * crea un singolo componente
+     * @param testo
+     * @return
+     */
     private Componente build(String[] testo){
         Componente temp = new Componente(Integer.parseInt(testo[0]),testo[1],Integer.parseInt(testo[2]),Integer.parseInt(testo[3]),Integer.parseInt(testo[4]),testo[5],testo[6]);
         addVincolo(temp);
@@ -36,6 +46,10 @@ public class BComponente {
         return temp;
     }
 
+    /**
+     * aggiunge le risorse ad un singolo componente
+     * @param c
+     */
     private void addRisorsa(Componente c){
         ArrayList<ArrayList<String>> list = fdb.readCaratteristiche(c.getId());
 
@@ -63,6 +77,10 @@ public class BComponente {
         }
     }
 
+    /**
+     * aggiunge i vincoli ad un singolo componente
+     * @param c
+     */
     private void addVincolo(Componente c){
         for(String s : c.getVincoli().split(",")){
 
