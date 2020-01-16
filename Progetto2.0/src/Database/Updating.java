@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * classe con tutti i metodi di update
+ * @author Francesco Rocchetti
  */
 public class Updating extends AbConnection {
 

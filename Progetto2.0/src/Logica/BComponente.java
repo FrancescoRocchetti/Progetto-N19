@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * classe che costruisce una componente date le informazioni in ingresso dal db
+ * @author Francesco Rocchetti
  */
 public class BComponente {
 

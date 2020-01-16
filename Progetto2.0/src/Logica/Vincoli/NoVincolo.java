@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 /**
  * è solamente una classe di test
+ * @author Francesco Rocchetti
  */
-
 public class NoVincolo extends Vincolo {
 
     public NoVincolo(String nomeComponente){

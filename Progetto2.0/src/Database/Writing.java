@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * classe con tutti metodi di update
+ * @author Francesco Rocchetti
  */
 public class Writing extends AbConnection {
 

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 /**
  *  vincolo per le risorse multiple
- *  ANCORA DA TESTARE
+ *  NB: le risorse multiple non sono interscambiabili con quelle letterarie
+ *  @author Francesco Rocchetti
  */
-
 public class VincoloMultiplo extends Vincolo{
 
     public VincoloMultiplo(String nomeComponente) {
@@ -35,13 +35,15 @@ public class VincoloMultiplo extends Vincolo{
             ArrayList<Risorsa> temp = rResto.get(i);
 
             int ck =0;
+            int ck2=0;
             for(Risorsa r2: temp){
                 String pt = (String) r2.getValue();
                 if(pt.equalsIgnoreCase(st)){
                     ck++;
                 }
+                ck2++;
             }
-            if(ck==0) {
+            if(ck==0 && ck2!=0) {
                 System.err.println("check multiplo fallito");
                 return false;
             }

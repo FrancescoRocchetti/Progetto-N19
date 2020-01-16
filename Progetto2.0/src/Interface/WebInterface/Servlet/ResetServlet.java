@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * servlet per il logout degli admin
+ * @author Francesco Rocchetti
  */
 public class ResetServlet extends HttpServlet {
 

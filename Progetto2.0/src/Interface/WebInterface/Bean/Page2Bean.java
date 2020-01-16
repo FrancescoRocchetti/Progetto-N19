@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * bean per la pagina web che lista tutte le componenti
+ * @author Francesco Rocchetti
  */
 public class Page2Bean implements Serializable {
 

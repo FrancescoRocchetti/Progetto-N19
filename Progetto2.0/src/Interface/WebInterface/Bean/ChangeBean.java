@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * bean per la pagina web per l'aggiornamento di una componente
+ * @author Francesco Rocchetti
  */
 public class ChangeBean implements Serializable {
 

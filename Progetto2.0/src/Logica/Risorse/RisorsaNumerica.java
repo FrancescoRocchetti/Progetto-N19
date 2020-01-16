@@ -2,8 +2,8 @@ package Logica.Risorse;
 
 /**
  * per risorse del tipo: banchi di ram, potenza consumata, ecc...
+ * @author Francesco Rocchetti
  */
-
 public class RisorsaNumerica extends Risorsa {
 
 

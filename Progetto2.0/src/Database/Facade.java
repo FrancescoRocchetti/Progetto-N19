@@ -2,6 +2,9 @@ package Database;
 
 import java.util.ArrayList;
 
+/**
+ * @author Francesco Rocchetti
+ */
 public class Facade {
 
     private Deleting d;

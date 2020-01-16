@@ -2,8 +2,8 @@ package Logica.Risorse;
 
 /**
  * classe astratta delle risorsa
+ * @author Francesco Rocchetti
  */
-
 public abstract class Risorsa {
 
     protected String name;

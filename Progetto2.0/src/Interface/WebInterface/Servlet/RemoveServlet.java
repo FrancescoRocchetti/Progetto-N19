@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * servlet per la rimozione di un componente
+ * @author Francesco Rocchetti
  */
 public class RemoveServlet extends HttpServlet {
 

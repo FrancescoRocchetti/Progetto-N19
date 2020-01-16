@@ -4,8 +4,8 @@ package Logica.Risorse;
  *tentativo per una risorsa del tipo "mobo che accetta sia ddr3 e ddr4"
  * anche se è solamente una coppia di RisorsaLetterale estende direttamente Risorsa
  * per evitare problemi dovuti al polimorfismo
+ * @author Francesco Rocchetti
  */
-
 public class RisorsaMultipla extends Risorsa {
 
     private String value;

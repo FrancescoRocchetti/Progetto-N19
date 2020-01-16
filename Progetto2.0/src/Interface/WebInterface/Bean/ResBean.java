@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * bean per la gestione delle Caratteristiche
+ * @author Francesco Rocchetti
  */
 public class ResBean implements Serializable {
 

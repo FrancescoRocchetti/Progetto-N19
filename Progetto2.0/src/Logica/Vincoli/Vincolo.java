@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * classe astratta dei vincoli
  * contiene anche i due metodi find utilizatti
  * dai vincoli per cercare le risorse su cui operare
+ * @author Francesco Rocchetti
  */
-
 public abstract class Vincolo {
 
     protected String nomeComponente;

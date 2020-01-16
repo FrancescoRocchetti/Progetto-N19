@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * bean per la pagina principale dello shop
+ * @author Francesco Rocchetti
  */
 public class Page1Bean implements Serializable {
 

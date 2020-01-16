@@ -2,8 +2,8 @@ package Logica.Risorse;
 
 /**
  * per le risorse del tipo: nome socket, tecnologia memoria, ecc...
+ * @author Francesco Rocchetti
  */
-
 public class RisorsaLetterale extends Risorsa {
 
     private String value;

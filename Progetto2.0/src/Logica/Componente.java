@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * come nel vecchio progetto
  * ma le risorse sono un array
  * e contiene anche i vincoli associati ad ogni singolo componente
+ * @author Francesco Rocchetti
  */
-
 public class Componente implements Comparable{
 
     private int id;

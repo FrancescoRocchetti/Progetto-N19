@@ -3,8 +3,8 @@ package Logica.Risorse;
 /**
  * Permette di aggiungere dei commenti ad un componente senza dover essere
  * sottoposto a check
+ * @author Francesco Rocchetti
  */
-
 public class RisorsaSenzaControlli extends Risorsa{
 
     private String val;

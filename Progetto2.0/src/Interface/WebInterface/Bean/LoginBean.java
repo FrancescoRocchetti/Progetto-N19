@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * bean per gestire il login degli admin
+ * @author Francesco Rocchetti
  */
 public class LoginBean implements Serializable {
 

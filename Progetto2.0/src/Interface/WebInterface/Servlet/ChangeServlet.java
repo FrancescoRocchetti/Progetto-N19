@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * servlet per la pagina che gestisce l'aggiornamento dei componenti
+ * @author Francesco Rocchetti
  */
 public class ChangeServlet extends HttpServlet {
     @Override

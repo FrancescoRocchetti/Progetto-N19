@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * servlet per lo shop
+ * @author Francesco Rocchetti
  */
 public class ServletPage1 extends HttpServlet {
 

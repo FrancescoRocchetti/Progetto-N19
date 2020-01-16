@@ -2,6 +2,9 @@ package Logica;
 
 import java.util.ArrayList;
 
+/**
+ * @author Francesco Rocchetti
+ */
 public class Facade {
 
     private Gestione g;

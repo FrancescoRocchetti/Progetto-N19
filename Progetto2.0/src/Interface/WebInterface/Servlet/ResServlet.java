@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * servlet per le pagine di gestione delle risorse
+ * @author Francesco Rocchetti
  */
 public class ResServlet extends HttpServlet {
     @Override

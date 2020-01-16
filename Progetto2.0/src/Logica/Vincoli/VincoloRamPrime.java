@@ -8,6 +8,10 @@ import java.util.Arrays;
 
 import static java.lang.StrictMath.abs;
 
+/**
+ * vicolo particolare di test
+ * @author Francesco Rocchetti
+ */
 public class VincoloRamPrime extends Vincolo {
 
     private Integer[] prime ={1,2,3,5,7,11,13,17};

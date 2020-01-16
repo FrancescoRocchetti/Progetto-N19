@@ -4,6 +4,7 @@ import java.sql.*;
 
 /**
  * classe astratta che definisce i metodi standard per la comunicazione con il db
+ * @author Francesco Rocchetti
  */
 public abstract class AbConnection {
 

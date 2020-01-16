@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 /**
  * per le risorse letterali
+ * @author Francesco Rocchetti
  */
-
 public class VincoloIdentici extends Vincolo {
 
     public VincoloIdentici(String nomeComponente){

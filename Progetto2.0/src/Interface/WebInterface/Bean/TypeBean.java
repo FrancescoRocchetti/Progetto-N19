@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * bean per la pagina web che permette la gestione dei tipi di componenti
+ * @author Francesco Rocchetti
  */
 public class TypeBean implements Serializable {
 

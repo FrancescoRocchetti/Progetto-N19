@@ -9,8 +9,8 @@ import java.util.*;
  * questa è la classe che fa partire la verifica dei vincoli
  * tecnicamente è solamente un metodo static e potrebbe essere spostato in un'altra classe
  * è qui solo per comodità
+ * @author Francesco Rocchetti
  */
-
 public class Check {
 
     public static boolean c(ArrayList<Componente> alc){

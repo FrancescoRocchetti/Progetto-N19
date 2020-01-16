@@ -4,6 +4,7 @@ import Logica.ComponentiSelezionati;
 
 /**
  * build automatica
+ * @author Francesco Rocchetti
  */
 public class SelezioneAutomatica {
 

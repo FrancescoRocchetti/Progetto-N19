@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 /**
  * per le risorse numeriche
+ * @author Francesco Rocchetti
  */
-
 public class VincoloNoNegativi extends Vincolo {
 
     public VincoloNoNegativi(String nomeComponente){

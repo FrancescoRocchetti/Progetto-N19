@@ -5,6 +5,10 @@ import Logica.Automatic.SelezioneAutomatica;
 
 import java.util.ArrayList;
 
+/**
+ * classe di gestione degli acquisti
+ * @author Francesco Rocchetti
+ */
 public class Gestione {
 
     private ComponentiMostrati cm;

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * classe per le componenti attualmente mostrate all'utente
+ * @author Francesco Rocchetti
  */
 public class ComponentiMostrati {
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * classe con tutti i metodi per leggere dal db
+ * @author Francesco Rocchetti
  */
 public class Reading extends AbConnection{
 

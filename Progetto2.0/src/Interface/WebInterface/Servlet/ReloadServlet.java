@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * servlet per l'hard refresh di una pagina
+ * @author Francesco Rocchetti
  */
 public class ReloadServlet extends HttpServlet {
 

@@ -8,6 +8,7 @@ import static java.lang.Math.abs;
 
 /**
  * classe della lista di componenti selezionati
+ * @author Francesco Rocchetti
  */
 public class ComponentiSelezionati {
 

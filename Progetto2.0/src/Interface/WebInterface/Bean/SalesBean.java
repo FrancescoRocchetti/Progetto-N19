@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * bean per la visualizzazione delle vendite
+ * @author Francesco Rocchetti
  */
 public class SalesBean implements Serializable {
 

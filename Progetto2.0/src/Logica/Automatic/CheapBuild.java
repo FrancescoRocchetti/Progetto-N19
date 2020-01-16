@@ -3,12 +3,15 @@ package Logica.Automatic;
 import Logica.Componente;
 import Logica.ComponentiSelezionati;
 
+/**
+ * classe per le selezioni meno costose (valuta il rank delle componenti e non sceglie certi tipi di pezzi)
+ * @author Francesco Rocchetti
+ */
 public class CheapBuild extends StrategiaSelezione {
-
-    protected String[] cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE"};
 
     public CheapBuild(int budget) {
         super(budget);
+        this.cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE"};
     }
 
     @Override

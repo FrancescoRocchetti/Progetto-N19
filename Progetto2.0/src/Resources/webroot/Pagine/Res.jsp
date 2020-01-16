@@ -38,6 +38,12 @@ templist= templist.substring(0,templist.length()-1);
       } );
 </script>
 
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+
 
 </head>
 <body>
@@ -100,7 +106,9 @@ templist= templist.substring(0,templist.length()-1);
 
         <form method="post">
         <div class="form-row align-items-center">
-            <div class="col-2"></div>
+            <div class="col-2">
+                <a href="#" data-toggle="popover" data-content="per le risorse numeriche utilizzare il - per indicare che utilizza e il + per indicare che produce">help</a>
+            </div>
 
             <%ArrayList<String> types = res.getTypes();%>
             <div class="col-3">

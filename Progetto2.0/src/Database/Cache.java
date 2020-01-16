@@ -7,6 +7,7 @@ import java.util.ArrayList;
  *
  * la lettura avviene in modo ciclico e il resto del programma interroga questo thread
  * invece che il database
+ * @author Francesco Rocchetti
  */
 public class Cache extends Thread{
 

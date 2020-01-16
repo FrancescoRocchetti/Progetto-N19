@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * bean per la pagina web per l'inserimento di nuove componenti
+ * @author Francesco Rocchetti
  */
 public class AddBean implements Serializable {
 

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * classe astratta che contiene i metodi per la selezione dei componenti
+ * @author Francesco Rocchetti
+ */
 public abstract class StrategiaSelezione implements Comparator<Componente> {
 
     private ComponentiSelezionati cs;
@@ -21,8 +25,14 @@ public abstract class StrategiaSelezione implements Comparator<Componente> {
 
     protected void cerca(){
         BComponente bc = new BComponente();
-        int min = (int)((budget/cosaServe.length)*1.2);
-        int max = (int)((budget/cosaServe.length)*0.5);
+        int min=0;
+        int max=200;
+        try {
+            min = (int) ((budget / cosaServe.length) * 1.2);
+            max = (int) ((budget / cosaServe.length) * 0.5);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         for(String s: cosaServe){
             ArrayList<Componente> temp = bc.compByType(s);
 
@@ -43,7 +53,7 @@ public abstract class StrategiaSelezione implements Comparator<Componente> {
                 }
             } catch (Exception e){
                 cs = new ComponentiSelezionati();
-                return; //bisognerebbe aggiungere un messaggio d'errore
+                return;
             }
         }
     }

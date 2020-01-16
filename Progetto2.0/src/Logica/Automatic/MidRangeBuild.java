@@ -3,12 +3,15 @@ package Logica.Automatic;
 import Logica.Componente;
 import Logica.ComponentiSelezionati;
 
+/**
+ * classe per la selezione dei componenti (valuta il rank per fare la scelta)
+ * @author Francesco Rocchetti
+ */
 public class MidRangeBuild extends StrategiaSelezione {
-
-    protected String[] cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
 
     public MidRangeBuild(int budget) {
         super(budget);
+        this.cosaServe = new String[]{"CPU", "MOBO", "RAM", "PSU", "CASE", "STORAGE", "GPU", "COOLER"};
     }
 
     @Override
