@@ -145,9 +145,8 @@
         <form method="post">
 
             <button type="submit" name=buttonD class="btn btn-danger" value= "r" > Reset </button>
-            <span class="tool-tip" data-toggle="tooltip" title="La build non è completa">
             <button type="submit" name=buttonD class="btn btn-success" value= "b" style="pointers-events: none;" <%if(!shop.check()){%>disabled<%}%>> Buy </button>
-            </span>
+
 
         </form>
         <br>

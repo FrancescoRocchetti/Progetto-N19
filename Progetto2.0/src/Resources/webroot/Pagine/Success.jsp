@@ -40,7 +40,7 @@
 <div class="container h-100 d-flex">
 
     <div class="container">
-    <div class="jumbotron text-center my-auto">
+    <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <h2>Acquisto Riuscito</h2>
         <%for(ArrayList<String> s: shop.getSelected()){%>
             <h6><%=s.get(1)%></h6>
