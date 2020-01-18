@@ -5,7 +5,7 @@
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <jsp:useBean id='change' scope='session' class='Interface.WebInterface.Bean.ChangeBean' type="Interface.WebInterface.Bean.ChangeBean" />
 <head>
-  <title>Progetto N19</title>
+  <title>Modifica prodotto</title>
           <!-- Required meta tags -->
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +32,7 @@
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
         <li class="nav-link disabled" href="#" >Logged as <%=login.getUser()%>.</li>
         <li class="nav-item active">
-             <a class="nav-link" href="../reset/">Log off.</a>
+             <a class="nav-link" href="../reset/">Logout</a>
         </li>
     </ul>
     <%}%>
@@ -67,7 +67,7 @@ if(change.isCk()){
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <%if(login.isLogged()){%>
         <p class="bg-primary text-white">
-            <h3>Update Price/Quantity/Rating</h3><br>
+            <h3>Aggiorna prezzo, quantita'' e valutazione del prodotto</h3><br>
                 <h4>id= ${id} Price= ${price} Qt= ${qt} Rt= ${rt}</h4>
             <form method="post">
 

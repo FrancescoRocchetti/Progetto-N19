@@ -5,7 +5,7 @@
 <jsp:useBean id='shop' scope='session' class='Interface.WebInterface.Bean.Page1Bean' type="Interface.WebInterface.Bean.Page1Bean" />
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <head>
-  <title>Progetto N19</title>
+  <title>Acquisto Completato</title>
           <!-- Required meta tags -->
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,7 +41,7 @@
 
     <div class="container">
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-        <h2>Acquisto Riuscito</h2>
+        <h2>Il tuo ordine e'' stato processato correttamente.</h2>
         <%for(ArrayList<String> s: shop.getSelected()){%>
             <h6><%=s.get(1)%></h6>
         <%}%>
@@ -50,7 +50,7 @@
         <%shop.setcAttivo("");%>
         <a href="../index.jsp"><h2>Torna alla pagina iniziale</h2></a>
 
-        <!--img src="https://media.giphy.com/media/26gsobowozGM9umBi/giphy.gif"-->
+        <!--img src="https://corsidieuroprogettazione.it/wp-content/uploads/2018/05/2-300x300.png"-->
 
     </div>
     </div>

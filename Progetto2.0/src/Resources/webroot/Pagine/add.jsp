@@ -5,7 +5,7 @@
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <jsp:useBean id='add' scope='application' class='Interface.WebInterface.Bean.AddBean' type="Interface.WebInterface.Bean.AddBean" />
 <head>
-  <title>Progetto N19</title>
+  <title>Aggiungi prodotto</title>
           <!-- Required meta tags -->
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +32,7 @@
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
         <li class="nav-link disabled" href="#" >Logged as <%=login.getUser()%>.</li>
         <li class="nav-item active">
-             <a class="nav-link" href="../reset/">Log off.</a>
+             <a class="nav-link" href="../reset/">Logout</a>
         </li>
     </ul>
     <%}%>
@@ -52,7 +52,7 @@
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <p class="bg-primary text-white">
         <%if(login.isLogged()){%>
-            <h3>Add component</h3><br>
+            <h3>Aggiungi prodotto</h3><br>
 
             <form method="post">
 

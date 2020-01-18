@@ -5,7 +5,7 @@
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <jsp:useBean id='res' scope='session' class='Interface.WebInterface.Bean.ResBean' type="Interface.WebInterface.Bean.ResBean" />
 <head>
-  <title>Progetto N19</title>
+  <title>Risorse componente</title>
 
           <!-- Required meta tags -->
           <meta charset="utf-8">
@@ -64,7 +64,7 @@ templist= templist.substring(0,templist.length()-1);
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
         <li class="nav-link disabled" href="#" >Logged as <%=login.getUser()%>.</li>
         <li class="nav-item active">
-             <a class="nav-link" href="../reset/">Log off.</a>
+             <a class="nav-link" href="../reset/">Logout</a>
         </li>
     </ul>
     <%}%>
@@ -90,7 +90,7 @@ templist= templist.substring(0,templist.length()-1);
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <p class="bg-primary text-white">
         <%if(login.isLogged()){%>
-            <h3>Resources</h3><br>
+            <h3>Modifica risorse</h3><br>
             <h4><%=res.getId()%></h4><br>
             <form method="post">
             <% int i=0; ArrayList<ArrayList<String>> ar = res.getRes(); for(ArrayList<String> ars: ar){%>
@@ -107,12 +107,12 @@ templist= templist.substring(0,templist.length()-1);
         <form method="post">
         <div class="form-row align-items-center">
             <div class="col-2">
-                <a href="#" data-toggle="popover" data-content="per le risorse numeriche utilizzare il - per indicare che utilizza e il + per indicare che produce">help</a>
+                <a href="#" data-toggle="popover" data-content="Per le risorse numeriche utilizzare il - per indicare che utilizza e il + per indicare che offre "> HELP </a>
             </div>
 
             <%ArrayList<String> types = res.getTypes();%>
             <div class="col-3">
-                <label for="inlineFormInput">Type</label>
+                <label for="inlineFormInput">Tipo Vincolo</label>
                 <select class="form-control mb-2" id="inType" name="inType">
                     <option selected> <%=types.get(0)%> </option>
                     <%for(int i=1;i<types.size();i++){%>
@@ -122,12 +122,12 @@ templist= templist.substring(0,templist.length()-1);
             </div>
 
             <div class="col-2">
-                <label for="inlineFormInput">Name</label>
+                <label for="inlineFormInput">Nome Vincolo</label>
                 <input class="ui-autocomplete-input form-control mb-2" id="inName" name="inName" placeholder="Name">
 
             </div>
             <div class="col-2">
-                <label for="inlineFormInput">Value</label>
+                <label for="inlineFormInput">Valore</label>
                 <input type="text" class="form-control mb-2" id="inValue" name="inValue" placeholder="Value" autocomplete="off">
             </div>
 

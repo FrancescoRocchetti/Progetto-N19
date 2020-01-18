@@ -6,7 +6,7 @@
 <jsp:useBean id='inv' scope='application' class='Interface.WebInterface.Bean.Page2Bean' type="Interface.WebInterface.Bean.Page2Bean" />
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <head>
-  <title>Progetto N19</title>
+  <title>Lista componenti</title>
           <!-- Required meta tags -->
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,7 +45,7 @@
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <p class="bg-primary text-white">
 
-        <h3>ID - Nome Prodotto - Prezzo - Quantita'' - Valutazione - Vincoli - Tipo</h3><br>
+        <h3>ID - Nome Prodotto - Prezzo - Quantita - Valutazione - Vincoli - Tipo</h3><br>
         <% ArrayList<ArrayList<String>> ar = inv.getAll(); for(ArrayList<String> ars: ar){%>
             <% for(String s: ars){ %>
 

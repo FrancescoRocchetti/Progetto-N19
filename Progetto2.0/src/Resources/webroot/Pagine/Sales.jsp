@@ -5,7 +5,7 @@
 <jsp:useBean id='login' scope='session' class='Interface.WebInterface.Bean.LoginBean' type="Interface.WebInterface.Bean.LoginBean" />
 <jsp:useBean id='sale' scope='application' class='Interface.WebInterface.Bean.SalesBean' type="Interface.WebInterface.Bean.SalesBean" />
 <head>
-  <title>Progetto N19</title>
+  <title>Vendite</title>
 
           <!-- Required meta tags -->
           <meta charset="utf-8">
@@ -52,8 +52,10 @@
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <p class="bg-primary text-white">
         <%if(login.isLogged()){%>
-            <h3>Sales</h3><br>
+            <h3>Vendite effettuate</h3><br>
             <br>
+            <h3>Numero - Data (YYYY-MM-DD) - Ora -      - IP</h3><br>
+                        <br>
             <%ArrayList<ArrayList<String>> als = sale.getSales();for(ArrayList<String> t: als){%>
 
             <%for(String s : t){%> <%=s%> <%}%>
@@ -64,7 +66,7 @@
 
         </p>
         <p id="here">
-            <h6><a href="/reload/Sales.jsp#here">click here to refresh this page.</a></h6>
+            <h6><a href="/reload/Sales.jsp#here">Click here to refresh.</a></h6>
         </p>
 
     </div>
