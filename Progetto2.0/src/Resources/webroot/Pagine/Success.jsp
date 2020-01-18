@@ -41,7 +41,7 @@
 
     <div class="container">
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-        <h2>Il tuo ordine e'' stato processato correttamente.</h2>
+        <h2>Il tuo ordine e' stato processato correttamente.</h2>
         <%for(ArrayList<String> s: shop.getSelected()){%>
             <h6><%=s.get(1)%></h6>
         <%}%>
