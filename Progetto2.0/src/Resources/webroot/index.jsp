@@ -26,7 +26,7 @@
             <a class="nav-link" href="../index.jsp">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link disabled" href="#">Build your PC</a>
+            <a class="nav-link disabled" href="#">Build you PC</a>
         </li>
     </ul>
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
@@ -48,7 +48,7 @@
                                </form>
                                     <% login.setLogged(request.getParameter("u"),request.getParameter("p"));%>
                                     Logged: <%=login.isLogged()%><br>
-                                    <a href="reset/">Log off</a>
+                                    <a href="reset/">Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -61,16 +61,16 @@
 
     <div class="container">
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-          <h1>Build your PC</h1>
+          <h1>PC CONFIGURATOR</h1>
           <p>
-            Progetto N19 IDS
+            Progetto N19 Ingegneria del Software UniPV
           </p>
 
           <h3>
-            <a href="page1/">Build your PC</a><br>
-            <a href="Pagine/page2.jsp">Lista completa</a><br>
-            <a href="Pagine/pageTest.html">Lorem ipsum</a><br>
-            <%if(login.isLogged()){%><a href="Pagine/Sales.jsp">Vendite</a><br><%}%>
+            <a href="page1/">Inizia a assemblare il tuo PC</a><br>
+            <a href="Pagine/page2.jsp">Lista componenti</a><br>
+            <%if(login.isLogged()){%><a href="Pagine/Sales.jsp">Lista Vendite Effettuate</a><br><%}%>
+            <a href="Pagine/pageTest.html">HELP</a><br>
           </h3>
 
     </div>
