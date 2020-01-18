@@ -50,7 +50,7 @@
         <%shop.setcAttivo("");%>
         <a href="../index.jsp"><h2>Torna alla pagina iniziale</h2></a>
 
-        <!--img src="https://ibb.co/wQgm18c"-->
+        <!--img src="https://i.ibb.co/C98GF4P/2-300x300.png"-->
 
     </div>
     </div>
