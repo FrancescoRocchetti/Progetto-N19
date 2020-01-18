@@ -57,7 +57,7 @@
       <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
         <li class="nav-link disabled" href="#" >Logged as <%=login.getUser()%>.</li>
         <li class="nav-item active">
-                  <a class="nav-link" href="../reset/">Log off.</a>
+                  <a class="nav-link" href="../reset/">Logout</a>
         </li>
       </ul>
       <%}%>
