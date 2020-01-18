@@ -50,7 +50,7 @@
         <%shop.setcAttivo("");%>
         <a href="../index.jsp"><h2>Torna alla pagina iniziale</h2></a>
 
-        <!--img src="https://corsidieuroprogettazione.it/wp-content/uploads/2018/05/2-300x300.png"-->
+        <!--img src="https://ibb.co/wQgm18c"-->
 
     </div>
     </div>
