@@ -26,7 +26,7 @@
             <a class="nav-link" href="../index.jsp">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link disabled" href="#">Build you PC</a>
+            <a class="nav-link disabled" href="#">Build your PC</a>
         </li>
     </ul>
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
@@ -69,7 +69,7 @@
           <h3>
             <a href="page1/">Inizia a assemblare il tuo PC</a><br>
             <a href="Pagine/page2.jsp">Lista componenti</a><br>
-            <%if(login.isLogged()){%><a href="Pagine/Sales.jsp">Lista Vendite Effettuate</a><br><%}%>
+            <%if(login.isLogged()){%><a href="Pagine/Sales.jsp">Lista vendite effettuate</a><br><%}%>
             <a href="Pagine/pageTest.html">HELP</a><br>
           </h3>
 

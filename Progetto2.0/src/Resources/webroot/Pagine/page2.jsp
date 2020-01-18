@@ -30,7 +30,7 @@
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
         <li class="nav-link disabled" href="#" >Logged as <%=login.getUser()%>.</li>
         <li class="nav-item active">
-             <a class="nav-link" href="../reset/">Log off.</a>
+             <a class="nav-link" href="../reset/">Logout</a>
         </li>
     </ul>
     <%}%>
@@ -45,7 +45,7 @@
     <div class="jumbotron text-center my-auto" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <p class="bg-primary text-white">
 
-        <h3>ID-Name-Price-Quantity-Rating-Constrain-Type</h3><br>
+        <h3>ID - Nome Prodotto - Prezzo - Quantita'' - Valutazione - Vincoli - Tipo</h3><br>
         <% ArrayList<ArrayList<String>> ar = inv.getAll(); for(ArrayList<String> ars: ar){%>
             <% for(String s: ars){ %>
 
@@ -68,8 +68,8 @@
         <%}%>
 
         <%if(login.isLogged()){%>
-        <h3><a href="../Pagine/add.jsp">Add Component</a></h3>
-        <h3><a href="../Pagine/type.jsp">Add Type</a></h3>
+        <h3><a href="../Pagine/add.jsp">Aggiungi nuovo componente</a></h3>
+        <h3><a href="../Pagine/type.jsp">Aggiungi nuovo tipo di componente</a></h3>
         <%}%>
 
         </p>

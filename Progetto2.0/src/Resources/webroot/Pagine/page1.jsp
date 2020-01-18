@@ -47,9 +47,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="../index.jsp">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://pcpartpicker.com/">PCPartPicker</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link disabled" href="#">Build your PC</a>
         </li>
@@ -70,7 +68,8 @@
 
 <div class="container">
 <div class="jumbotron text-center" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
-    <p class="bg-primary text-white"><h1>BUILD YOUR PC</h1>
+    <p class="bg-primary text-white"><h1>Inizia a costruire il tuo PC</h1>
+    <p class="bg-primary text-white"><h1>selezionando i prodotti tra le seguenti categorie</h1>
     </p>
         <form method="post">
 
@@ -114,7 +113,7 @@
   </div>
   <div class="col-sm-2"> </div>
   <div class="col-sm-4 bg-primary text-break">
-    <h1>Selezionati</h1>
+    <h1>Compontenti selezionati</h1>
 
 
         <form method="post">
@@ -144,8 +143,8 @@
 
         <form method="post">
 
-            <button type="submit" name=buttonD class="btn btn-danger" value= "r" > Reset </button>
-            <button type="submit" name=buttonD class="btn btn-success" value= "b" style="pointers-events: none;" <%if(!shop.check()){%>disabled<%}%>> Buy </button>
+            <button type="submit" name=buttonD class="btn btn-danger" value= "r" > Reset configurazione </button>
+            <button type="submit" name=buttonD class="btn btn-success" value= "b" style="pointers-events: none;" <%if(!shop.check()){%>disabled<%}%>> Acquista </button>
 
 
         </form>
