@@ -30,7 +30,7 @@ public class WebTest {
 
     @Test
     public void test1() throws Exception {
-        assertThat(resourceWithUrl("http://localhost:8080/Pagine/pageTest.html"), containsString("ipsum"));
+        assertThat(resourceWithUrl("http://localhost:8080/Pagine/pageTest.html"), containsString("Francesco Rocchetti"));
     }
 
     public String resourceWithUrl(String uri) throws Exception {
