@@ -107,7 +107,7 @@ templist= templist.substring(0,templist.length()-1);
         <form method="post">
         <div class="form-row align-items-center">
             <div class="col-2">
-                <a href="#" data-toggle="popover" data-content="Per le risorse numeriche utilizzare il - per indicare che utilizza e il + per indicare che offre "> HELP </a>
+                <a href="#" data-toggle="popover" data-content="Per le risorse numeriche utilizzare il - per indicare che utilizza e il + per indicare che offre; Le risorse multiple vengon controllate solo con altre risorse multiple; Le risorse del tipo ok_componente devono essere RisorseSenzaVincolo e servono solamente per il check finale (o come commento)"> HELP </a>
             </div>
 
             <%ArrayList<String> types = res.getTypes();%>

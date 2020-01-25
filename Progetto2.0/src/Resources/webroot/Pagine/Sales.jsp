@@ -54,7 +54,7 @@
         <%if(login.isLogged()){%>
             <h3>Vendite effettuate</h3><br>
             <br>
-            <h3>Numero - Data (YYYY-MM-DD) - Ora -      - IP</h3><br>
+            <h3>Numero - Data (YYYY-MM-DD) - Ora - Componenti Acquistati/Mancanti - IP</h3><br>
                         <br>
             <%ArrayList<ArrayList<String>> als = sale.getSales();for(ArrayList<String> t: als){%>
 
