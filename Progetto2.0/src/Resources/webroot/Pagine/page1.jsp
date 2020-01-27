@@ -140,7 +140,7 @@
 <div class="container">
 <div class="jumbotron text-center" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <%if(!shop.isOkOperation()){shop.resetOk();%><h6>Warning</h6><%}%>
-        <%if(!shop.isFail()){%><h6>Autobuild fallita</h6><%}%>
+        <%if(shop.isFail()){%><h6>Autobuild fallita</h6><%}%>
 
         <h2><%=shop.getPrice()%>$  <%=shop.getPower()%>W</h2><br>
 
