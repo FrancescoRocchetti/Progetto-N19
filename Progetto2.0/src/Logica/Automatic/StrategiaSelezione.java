@@ -28,7 +28,7 @@ public abstract class StrategiaSelezione implements Comparator<Componente> {
         int min=0;
         int max=200;
         try {
-            max = (int) ((budget / cosaServe.length) * 1.2);
+            max = (int) ((budget / cosaServe.length) * 2);
             min = (int) ((budget / cosaServe.length) * 0.5);
         }catch (Exception e){
             e.printStackTrace();
@@ -46,6 +46,8 @@ public abstract class StrategiaSelezione implements Comparator<Componente> {
             temp = temp2;
 
             Collections.sort(temp,this);
+
+            System.err.println(temp);
             int i = 0;
             try {
                 while(!cs.put(temp.get(i))){
