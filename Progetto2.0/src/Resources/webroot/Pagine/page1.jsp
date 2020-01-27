@@ -92,6 +92,7 @@
   <div class="col-sm-1"> </div>
   <div class="col-sm-4 bg-primary text-break">
 
+      <h1>Lista componenti</h1>
       <h1> <%=shop.getcAttivo()%> </h1>
 
 
@@ -139,6 +140,8 @@
 <div class="container">
 <div class="jumbotron text-center" style= "background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg)">
         <%if(!shop.isOkOperation()){shop.resetOk();%><h6>Warning</h6><%}%>
+        <%if(!shop.isFail()){%><h6>Autobuild fallita</h6><%}%>
+
         <h2><%=shop.getPrice()%>$  <%=shop.getPower()%>W</h2><br>
 
         <form method="post">

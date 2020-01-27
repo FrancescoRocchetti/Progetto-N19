@@ -22,6 +22,8 @@ public class Page1Bean implements Serializable {
 
     private String cAttivo="";
 
+    private boolean autobuild=false;
+
     public String getcAttivo() {
         return cAttivo;
     }
@@ -72,6 +74,7 @@ public class Page1Bean implements Serializable {
 
     public void automatic(int price){
         f.automatic(price);
+        autobuild=true;
     }
 
     public void resetOk(){
@@ -80,5 +83,14 @@ public class Page1Bean implements Serializable {
 
     public boolean isOkOperation() {
         return okOperation;
+    }
+
+    public boolean isFail(){
+        if(autobuild && getSelected().isEmpty()){
+            autobuild =false;
+            return true;
+        }
+        else
+            return false;
     }
 }
