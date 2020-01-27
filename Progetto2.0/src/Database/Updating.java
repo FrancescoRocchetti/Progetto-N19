@@ -35,7 +35,7 @@ public class Updating extends AbConnection {
 
             rs.next();
             int n = Integer.parseInt(rs.getString(4)) - 1;
-            if(n<=0){
+            if(n<0){
                 return false;
             }
 
